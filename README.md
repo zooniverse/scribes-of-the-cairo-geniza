@@ -2,7 +2,7 @@
 
 # Zooniverse Reduxify
 
-A minimal React JS application starter kit, based on [Zooniverse React Starterify](https://github.com/zooniverse/zoo-react-starterify).
+A minimal Redux application starter kit, based on [Zooniverse React Starterify](https://github.com/zooniverse/zoo-react-starterify).
 
 ## Usage
 
