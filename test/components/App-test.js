@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import { expect } from 'chai';
 import App from '../../src/components/App';
 import * as packageJSON from '../../package.json';

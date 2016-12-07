@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import { expect } from 'chai';
 import About from '../../src/components/About';
 

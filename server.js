@@ -1,10 +1,11 @@
 /* eslint no-console: 0 */
+/* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
 import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from './webpack.config.js';
+import config from './webpack.config';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const port = isProduction ? process.env.PORT : 3000;
@@ -28,18 +29,18 @@ if (!isProduction) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.get('*', function response(req, res) {
+  app.get('*', (req, res) => {
     res.write(middleware.fileSystem.readFileSync(indexHtml));
     res.end();
   });
 } else {
-  app.use(express.static(__dirname + '/dist'));
-  app.get('*', function response(req, res) {
+  app.use(express.static(path.join(__dirname, '/dist')));
+  app.get('*', (req, res) => {
     res.sendFile(indexHtml);
   });
 }
 
-app.listen(port, '0.0.0.0', function onStart(err) {
+app.listen(port, '0.0.0.0', (err) => {
   if (err) {
     console.log(err);
   }

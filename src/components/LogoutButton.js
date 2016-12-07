@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react';
+import { React, Component, PropTypes } from 'react';
 
 
 export default class LogoutButton extends Component {
@@ -17,5 +17,5 @@ export default class LogoutButton extends Component {
 
 LogoutButton.propTypes = {
   logout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.shape({ login: PropTypes.string }).isRequired,
 };

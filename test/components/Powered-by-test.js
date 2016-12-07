@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import { expect } from 'chai';
 import Poweredby from '../../src/components/Powered-by';
 import * as packageJSON from '../../package.json';

@@ -5,7 +5,7 @@ import packageJSON from '../../package.json';
 import HeaderAuth from './HeaderAuth';
 
 export default class App extends React.Component {
-  returnSomething(something) {
+  returnSomething(something) { // eslint-disable-line class-methods-use-this
     // this is only for testing purposes. Check /test/components/App-test.js
     return something;
   }
@@ -28,5 +28,5 @@ export default class App extends React.Component {
   }
 }
 App.propTypes = {
-  children: React.PropTypes.object,
+  children: React.PropTypes.node,
 };

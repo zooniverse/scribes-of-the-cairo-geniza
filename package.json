@@ -35,6 +35,7 @@
   "homepage": "https://github.com/zooniverse/zoo-reduxify",
   "dependencies": {
     "history": "^4.4.1",
+    "panoptes-client": "^2.5.2",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",
@@ -71,7 +72,6 @@
     "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "nib": "^1.1.2",
-    "panoptes-client": "^2.5.2",
     "rimraf": "^2.5.4",
     "stats-webpack-plugin": "^0.4.2",
     "style-loader": "^0.13.1",

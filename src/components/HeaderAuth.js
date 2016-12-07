@@ -1,9 +1,9 @@
-//A smart component that handles state for the LoginButton and LoggedInUser
-//components. Stores state in Redux.
+// A smart component that handles state for the LoginButton and LoggedInUser
+// components. Stores state in Redux.
 
-import { Component, PropTypes } from 'react';
+import { React, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { checkLoginUser, setLoginUser, loginToPanoptes, logoutFromPanoptes } from '../actions/login';
+import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../actions/login';
 
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
@@ -32,23 +32,26 @@ class HeaderAuth extends Component {
 
   render() {
     return (this.props.user)
-    ? <LogoutButton user={this.props.user} logout={this.logout} />
-    : <LoginButton login={this.login} />;
+      ? <LogoutButton user={this.props.user} logout={this.logout} />
+      : <LoginButton login={this.login} />;
   }
 }
 
 HeaderAuth.propTypes = {
-  user: PropTypes.object,
-  initialised: PropTypes.bool
+  user: PropTypes.shape({ login: PropTypes.string }),
+  initialised: PropTypes.bool,
+  dispatch: PropTypes.func,
 };
+
 HeaderAuth.defaultProps = {
   user: null,
-  initialised: false
+  initialised: false,
 };
-function mapStateToProps(state, ownProps) {  //Listens for changes in the Redux Store
+
+function mapStateToProps(state) {  // Listens for changes in the Redux Store
   return {
     user: state.login.user,
-    initialised: state.login.initialised
+    initialised: state.login.initialised,
   };
 }
-export default connect(mapStateToProps)(HeaderAuth);  //Connects the Component to the Redux Store
+export default connect(mapStateToProps)(HeaderAuth);  // Connects the Component to the Redux Store
