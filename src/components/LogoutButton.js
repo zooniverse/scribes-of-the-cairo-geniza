@@ -1,7 +1,8 @@
-import { React, Component, PropTypes } from 'react';
+import React from 'react';
 
+const PropTypes = React.PropTypes;
 
-export default class LogoutButton extends Component {
+export default class LogoutButton extends React.Component {
 
   render() {
     const logout = this.props.logout;

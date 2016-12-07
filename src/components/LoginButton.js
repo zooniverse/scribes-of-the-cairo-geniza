@@ -1,7 +1,7 @@
-import { React, Component, PropTypes } from 'react';
+import React from 'react';
 
 
-export default class LoginButton extends Component {
+export default class LoginButton extends React.Component {
 
   render() {
     const login = this.props.login;
@@ -13,5 +13,5 @@ export default class LoginButton extends Component {
 }
 
 LoginButton.propTypes = {
-  login: PropTypes.func.isRequired
+  login: React.PropTypes.func.isRequired
 };
