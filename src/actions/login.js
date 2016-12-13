@@ -1,6 +1,5 @@
 import oauth from 'panoptes-client/lib/oauth';
 import * as types from '../constants/actionTypes';
-// import config from '../constants/config';
 
 export function setLoginUser(user) {
   return (dispatch) => {
@@ -20,8 +19,13 @@ export function checkLoginUser() {  // First thing on app load - check if the us
   };
 }
 
+function computeRedirectURL(window) {
+  return window.location.origin ||
+    `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+}
+
 export function loginToPanoptes() {  // Returns a login page URL for the user to navigate to.
-  return (() => oauth.signIn(window.location.href.split('#')[0]));
+  return (() => oauth.signIn(computeRedirectURL(window)));
 }
 
 export function logoutFromPanoptes() {

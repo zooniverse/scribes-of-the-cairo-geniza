@@ -13,5 +13,5 @@ export default class LoginButton extends React.Component {
 }
 
 LoginButton.propTypes = {
-  login: React.PropTypes.func.isRequired
+  login: React.PropTypes.func.isRequired,
 };
