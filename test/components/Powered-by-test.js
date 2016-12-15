@@ -1,10 +1,10 @@
 import React from 'react';
 import { expect } from 'chai';
+import TestUtils from 'react-addons-test-utils';
 import Poweredby from '../../src/components/Powered-by';
 import * as packageJSON from '../../package.json';
 
 describe('Powered by', () => {
-  const { TestUtils } = React.addons;
   const shallowRenderer = TestUtils.createRenderer();
   shallowRenderer.render(<Poweredby />);
   const poweredBy = shallowRenderer.getRenderOutput();
@@ -15,7 +15,7 @@ describe('Powered by', () => {
 
   it('should render the deps list and "react" should be present', () => {
     const ul = poweredBy.props.children.filter(c => c.type === 'ul');
-    const li = ul[0].props.children[1].props.children;
+    const li = ul[0].props.children[2].props.children;
 
     expect(li).to.equal('react');
   });
