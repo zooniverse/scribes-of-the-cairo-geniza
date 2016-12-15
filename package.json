@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "start": "babel-node server.js",
-    "test": "",
+    "test": "mocha",
     "eslint": "eslint .",
     "build": "webpack --config webpack.production.config.js -p"
   },
@@ -43,8 +43,7 @@
     "redux": "^3.6.0",
     "redux-devtools-extension": "^1.0.0",
     "redux-logger": "^2.7.4",
-    "redux-thunk": "^2.1.0",
-    "stylus": "^0.54.5"
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",
@@ -73,9 +72,11 @@
     "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "nib": "^1.1.2",
+    "react-addons-test-utils": "^15.4.1",
     "rimraf": "^2.5.4",
     "stats-webpack-plugin": "^0.4.2",
     "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.8.4",
