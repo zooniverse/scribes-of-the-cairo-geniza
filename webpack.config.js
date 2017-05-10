@@ -27,17 +27,16 @@ module.exports = {
       filename: 'index.html',
       gtm: '',
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('staging'),
     }),
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.styl'],
-    modulesDirectories: ['.', 'node_modules'],
+    extensions: ['.js', '.jsx', '.styl'],
+    modules: ['.', 'node_modules'],
   },
 
   module: {
@@ -48,28 +47,26 @@ module.exports = {
     //     loader: 'eslint-loader',
     //   },
     // ],
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: 'json',
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules)/,
-        loader: 'babel',
-      },
-      {
-        test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
-        loader: 'file-loader',
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style-loader!css-loader!stylus-loader',
-      },
-    ],
+    rules: [{
+      test: /\.jsx?$/,
+      exclude: /(node_modules)/,
+      use: 'babel-loader',
+    }, {
+      test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
+      use: 'file-loader',
+    }, {
+      test: /\.styl$/,
+      use: [{
+        loader: 'style-loader',
+      }, {
+        loader: 'css-loader',
+      }, {
+        loader: 'stylus-loader',
+        options: {
+          use: [nib()],
+        },
+      }],
+    }],
   },
 
-  stylus: {
-    use: [nib()],
-  },
 };
