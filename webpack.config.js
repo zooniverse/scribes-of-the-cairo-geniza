@@ -1,8 +1,8 @@
 /* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import nib from 'nib';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nib = require('nib');
 
 module.exports = {
 
