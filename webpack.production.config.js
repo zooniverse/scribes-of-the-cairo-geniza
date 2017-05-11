@@ -80,7 +80,7 @@ module.exports = {
       use: [{
         loader: 'file-loader',
       }, {
-        loader: 'image-webpack',
+        loader: 'image-webpack-loader',
       }],
     }],
   },
