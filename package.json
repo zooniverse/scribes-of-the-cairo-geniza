@@ -7,7 +7,7 @@
     "url": "https://github.com/zooniverse/zoo-reduxify"
   },
   "scripts": {
-    "start": "babel-node server.js",
+    "start": "webpack-dashboard -- babel-node server.js",
     "test": "mocha",
     "eslint": "eslint .",
     "build": "webpack --config webpack.production.config.js -p"
@@ -64,6 +64,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
     "webpack": "^2.3.3",
+    "webpack-dashboard": "^0.4.0",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.18.0"
   }
