@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import packageJSON from '../../package.json';
 
 import HeaderAuth from './HeaderAuth';
 
-export default class App extends React.Component {
+class App extends React.Component {
   returnSomething(something) { // eslint-disable-line class-methods-use-this
     // this is only for testing purposes. Check /test/components/App-test.js
     return something;
@@ -27,6 +28,9 @@ export default class App extends React.Component {
     );
   }
 }
+
 App.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
+
+export default App;

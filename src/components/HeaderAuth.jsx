@@ -2,13 +2,13 @@
 // components. Stores state in Redux.
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../actions/login';
+import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../ducks/login';
 
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 
-const PropTypes = React.PropTypes;
 
 class HeaderAuth extends React.Component {
 
@@ -50,10 +50,9 @@ HeaderAuth.defaultProps = {
   initialised: false,
 };
 
-function mapStateToProps(state) {  // Listens for changes in the Redux Store
-  return {
-    user: state.login.user,
-    initialised: state.login.initialised,
-  };
-}
+const mapStateToProps = (state) => ({
+  user: state.login.user,
+  initialised: state.login.initialised,
+});
+
 export default connect(mapStateToProps)(HeaderAuth);  // Connects the Component to the Redux Store

@@ -1,8 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const PropTypes = React.PropTypes;
-
-export default class LogoutButton extends React.Component {
+class LogoutButton extends React.Component {
 
   render() {
     const logout = this.props.logout;
@@ -20,3 +19,5 @@ LogoutButton.propTypes = {
   logout: PropTypes.func.isRequired,
   user: PropTypes.shape({ login: PropTypes.string }).isRequired,
 };
+
+export default LogoutButton;
