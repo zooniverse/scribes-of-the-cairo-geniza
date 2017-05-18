@@ -7,7 +7,7 @@ import oauth from 'panoptes-client/lib/oauth';
 import App from './components/App';
 import PoweredBy from './components/Powered-by';
 import About from './components/About';
-import { config } from './constants/config';
+import config from './config';
 import configureStore from './store';
 
 // Todo: let's find a better way to include Styles,
