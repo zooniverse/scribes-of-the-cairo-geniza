@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import oauth from 'panoptes-client/lib/oauth';
 
 import App from './components/App';
-import PoweredBy from './components/Powered-by';
 import About from './components/About';
 import config from './config';
 import configureStore from './store';
@@ -16,8 +15,6 @@ import Styles from './styles/main.styl'; // eslint-disable-line no-unused-vars
 
 const store = configureStore();
 
-window.React = React;
-
 oauth.init(config.panoptesAppId)
   .then(() => {
     ReactDOM.render((
@@ -25,7 +22,6 @@ oauth.init(config.panoptesAppId)
         <Router history={browserHistory}>
           <Route path="/" component={App}>
             <Route path="/about" component={About} />
-            <Route path="/poweredby" component={PoweredBy} />
           </Route>
         </Router>
       </Provider>),

@@ -1,18 +1,27 @@
+// Passing arrow functions (lambdas) to Mocha is discouraged
+// https://mochajs.org/#arrow-functions
+// eslint prefer-arrow-callback: 0, func-names: 0, 'react/jsx-boolean-value': ['error', 'always']
+// global describe, it, beforeEach, before
+
 import React from 'react';
-import { expect } from 'chai';
-import TestUtils from 'react-addons-test-utils';
-import About from '../../src/components/About';
+import assert from 'assert'
+import { shallow } from 'enzyme';
+import About from './About';
 
 describe('About', () => {
-  const shallowRenderer = TestUtils.createRenderer();
-  shallowRenderer.render(<About />);
-  const about = shallowRenderer.getRenderOutput();
 
-  it('should have a div as container', () => {
-    expect(about.type).to.equal('div');
+  it('should render without crashing', function() {
+    shallow(<About />);
   });
 
-  it('should have an h2 tag containing the text "About"', () => {
-    expect(about.props.children).to.contain(<h2>About</h2>);
+  it('should have a div as container', function() {
+    const wrapper = shallow(<About />);
+    assert.strictEqual(wrapper.type(), 'div');
+  });
+
+  it('should have an h2 tag containing the text "About"', function() {
+    const wrapper = shallow(<About />);
+    const title = wrapper.find('h2');
+    assert.strictEqual(title.contains(<h2>About</h2>), true);
   });
 });

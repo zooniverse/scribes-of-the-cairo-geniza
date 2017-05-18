@@ -9,18 +9,13 @@ import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../ducks/lo
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 
-
 class HeaderAuth extends React.Component {
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-  }
-
-  componentDidMount() {
-    if (!this.props.initialised) {
-      this.props.dispatch(checkLoginUser());
+    if (!props.initialised) {
+      props.dispatch(checkLoginUser());
     }
   }
 
