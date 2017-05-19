@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../ducks/login';
 
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
+import LoginButton from '../components/LoginButton';
+import LogoutButton from '../components/LogoutButton';
 
 class AuthContainer extends React.Component {
   constructor(props) {
