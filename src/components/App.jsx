@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import AuthContainer from './AuthContainer';
+import AuthContainer from '../containers/AuthContainer';
 
 class App extends React.Component {
   render() {
