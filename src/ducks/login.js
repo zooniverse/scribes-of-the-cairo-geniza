@@ -57,7 +57,7 @@ const setLoginUser = (user) => {
 
 // Helper functions
 const computeRedirectURL = (window) => {
-  const { location } = window.
+  const { location } = window;
   return location.origin ||
     `${location.protocol}//${location.hostname}:${location.port}`;
 };
