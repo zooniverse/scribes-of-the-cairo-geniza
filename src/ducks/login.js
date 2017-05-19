@@ -1,12 +1,14 @@
 import oauth from 'panoptes-client/lib/oauth';
 
 // Action Types
-const REQUEST_USER = 'project/user/REQUEST_USER';
-const RECEIVE_USER = 'project/user/RECEIVE_USER';
 const SET_LOGIN_USER = 'project/user/SET_LOGIN_USER';
 
 // Reducer
-const initialState = { user: null, initialised: false };
+const initialState = {
+  user: null,
+  initialised: false
+};
+
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_USER:
@@ -16,8 +18,8 @@ const loginReducer = (state = initialState, action) => {
       };
     default:
       return state;
-  }
-}
+  };
+};
 
 // Action Creators
 const checkLoginUser = () => {
@@ -55,8 +57,9 @@ const setLoginUser = (user) => {
 
 // Helper functions
 const computeRedirectURL = (window) => {
-  return window.location.origin ||
-    `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+  const { location } = window.
+  return location.origin ||
+    `${location.protocol}//${location.hostname}:${location.port}`;
 };
 
 // Exports

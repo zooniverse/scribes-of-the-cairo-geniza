@@ -4,7 +4,7 @@
 // global describe, it, beforeEach, before
 
 import React from 'react';
-import assert from 'assert'
+import assert from 'assert';
 import { shallow } from 'enzyme';
 import About from './About';
 

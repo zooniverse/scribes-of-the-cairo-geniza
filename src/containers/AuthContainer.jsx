@@ -9,7 +9,7 @@ import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../ducks/lo
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 
-class HeaderAuth extends React.Component {
+class AuthContainer extends React.Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
@@ -34,13 +34,13 @@ class HeaderAuth extends React.Component {
   }
 }
 
-HeaderAuth.propTypes = {
+AuthContainer.propTypes = {
   user: PropTypes.shape({ login: PropTypes.string }),
   initialised: PropTypes.bool,
   dispatch: PropTypes.func,
 };
 
-HeaderAuth.defaultProps = {
+AuthContainer.defaultProps = {
   user: null,
   initialised: false,
 };
@@ -50,4 +50,4 @@ const mapStateToProps = (state) => ({
   initialised: state.login.initialised,
 });
 
-export default connect(mapStateToProps)(HeaderAuth);  // Connects the Component to the Redux Store
+export default connect(mapStateToProps)(AuthContainer);  // Connects the Component to the Redux Store

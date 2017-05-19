@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import HeaderAuth from './HeaderAuth';
+import AuthContainer from './AuthContainer';
 
 class App extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class App extends React.Component {
         <header className="site-header">
           <h1 className="title">Zooniverse Starter Project</h1>
           <Link to="/about" className="link">About</Link>
-          <HeaderAuth />
+          <AuthContainer />
         </header>
         <section className="content-section">
           {this.props.children || 'Welcome to Zooniverse Starter Project'}
