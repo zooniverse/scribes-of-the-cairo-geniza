@@ -19,9 +19,4 @@ describe('About', () => {
     assert.strictEqual(wrapper.type(), 'div');
   });
 
-  it('should have an h2 tag containing the text "About"', function() {
-    const wrapper = shallow(<About />);
-    const title = wrapper.find('h2');
-    assert.strictEqual(title.contains(<h2>About</h2>), true);
-  });
 });
