@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const LogoutButton = ({ logout, user }) => {
   return (
     <div className="logout-button">
-      <span>{user.login}</span>
+      <span>{user.display_name}</span>
       <button type="submit" onClick={logout}>Logout</button>
     </div>
   );
@@ -13,7 +13,7 @@ const LogoutButton = ({ logout, user }) => {
 LogoutButton.propTypes = {
   logout: PropTypes.func.isRequired,
   user: PropTypes.shape({
-    login: PropTypes.string
+    display_name: PropTypes.string,
   }).isRequired,
 };
 
