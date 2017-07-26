@@ -8,7 +8,6 @@ const nib = require('nib');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-
   entry: [
     path.join(__dirname, 'src/index.jsx'),
   ],
@@ -84,5 +83,7 @@ module.exports = {
       }],
     }],
   },
-
+  node: {
+    fs: 'empty' // workaround for the webpack shimming not working with certain dependencies
+  }
 };
