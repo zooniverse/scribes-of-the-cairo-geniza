@@ -44,7 +44,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('staging')
     }),
-    new DashboardPlugin({ port: 3001 })
+    new DashboardPlugin({ port: 3001 }) // Change this here and in the package.json start script if needed
   ],
 
   resolve: {
