@@ -4,10 +4,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Anchor from 'grommet/components/Anchor';
+import { LoginButton, LogoutButton, UserMenu, UserNavigation } from 'zooniverse-react-components';
 import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../ducks/login';
-
-import LoginButton from '../components/LoginButton';
-import LogoutButton from '../components/LogoutButton';
 
 class AuthContainer extends React.Component {
   constructor(props) {
@@ -28,26 +27,45 @@ class AuthContainer extends React.Component {
   }
 
   render() {
+    let menuItems;
+
+    if (this.props.user && this.props.initialised) {
+      const login = this.props.user.login;
+      menuItems = [
+        <Anchor href={`https://www.zooniverse.org/users/${login}`}>Profile</Anchor>,
+        <Anchor href="https://www.zooniverse.org/settings">Settings</Anchor>,
+        <Anchor href={`https://www.zooniverse.org/collections/${login}`}>Collections</Anchor>,
+        <Anchor href={`https://www.zooniverse.org/favorites/${login}`}>Favorites</Anchor>,
+        <LogoutButton logout={this.logout} />
+      ];
+    }
+
     return (this.props.user)
-      ? <LogoutButton user={this.props.user} logout={this.logout} />
-      : <LoginButton login={this.login} />;
+      ? <div>
+          <UserNavigation />
+          <UserMenu user={this.props.user} userMenuNavList={menuItems} />
+        </div>
+      : <div>
+          <LoginButton toggleModal={this.login} />
+        </div>;
   }
 }
 
 AuthContainer.propTypes = {
   user: PropTypes.shape({ login: PropTypes.string }),
   initialised: PropTypes.bool,
-  dispatch: PropTypes.func,
+  dispatch: PropTypes.func
 };
 
 AuthContainer.defaultProps = {
-  user: null,
+  dispatch: PropTypes.func,
   initialised: false,
+  user: null
 };
 
 const mapStateToProps = (state) => ({
   user: state.login.user,
-  initialised: state.login.initialised,
+  initialised: state.login.initialised
 });
 
 export default connect(mapStateToProps)(AuthContainer);  // Connects the Component to the Redux Store

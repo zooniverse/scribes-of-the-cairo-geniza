@@ -1,10 +1,10 @@
 {
-  "name": "zoo-reduxify",
-  "version": "1.1.0",
-  "description": "React/Redux JS application skeleton using Wepback and other awesome tools",
+  "name": "scribes-of-the-cairo-geniza",
+  "version": "1.0.0",
+  "description": "The University of Pennsylvania Libraries, in partnership with the Princeton Geniza Lab, the Library of the Jewish Theological Seminary, and the Genizah Research Unit at Cambridge University Library share Cairo Geniza fragments with the Zooniverse community for the first time!",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zooniverse/zoo-reduxify"
+    "url": "https://github.com/zooniverse/scribes-of-the-cairo-geniza"
   },
   "scripts": {
     "start": "BABEL_ENV=development check-engines && check-dependencies && webpack-dashboard -p 3001 -- webpack-dev-server --config ./webpack.config.js",
@@ -19,12 +19,12 @@
   "author": "Zooniverse",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/zooniverse/zoo-reduxify"
+    "url": "https://github.com/zooniverse/scribes-of-the-cairo-geniza"
   },
-  "homepage": "https://github.com/zooniverse/zoo-reduxify",
+  "homepage": "https://github.com/zooniverse/scribes-of-the-cairo-geniza",
   "dependencies": {
     "history": "~4.6.3",
-    "panoptes-client": "~2.7.2",
+    "panoptes-client": "~2.8.0",
     "prop-types": "~15.5.10",
     "react": "~15.6.1",
     "react-dom": "~15.6.1",
@@ -35,7 +35,8 @@
     "redux-devtools-extension": "~2.13.2",
     "redux-logger": "~3.0.6",
     "redux-thunk": "~2.2.0",
-    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.3.0"
+    "zoo-grommet": "^0.2.1",
+    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.7.0"
   },
   "devDependencies": {
     "babel-cli": "~6.24.1",
