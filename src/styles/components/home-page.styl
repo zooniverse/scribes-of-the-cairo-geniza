@@ -1,0 +1,150 @@
+@import "font-styles.styl"
+
+.home-page
+
+  span
+    @extend .body-font
+
+  a
+    @extend .text-link
+
+  &__introduction
+    padding-top: 15rem
+
+    div
+      margin: 0 4rem
+      max-width: 50%
+
+    h1
+      @extend .h1-font
+
+    hr
+      border: 4px solid $plum
+      margin: 2rem
+      width: 8rem
+
+    a
+      color: red
+      display: block
+      margin: 1rem 0
+
+  &__get-started
+    background-color: $bisque
+    display: flex
+    padding: 4rem 6rem
+
+    hr
+      border: 3px solid $plum
+      width: 4rem
+
+    > div
+      flex: 1
+      flex-wrap: wrap
+      margin: 0 2rem
+
+      > div
+        margin: 0 1rem
+
+    h2:not(.h2-font)
+      @extend .secondary-label
+      align-content: align-items
+      font-weight: 400
+      justify-content: center
+      letter-spacing: 0.075em
+      text-transform: uppercase
+      transform: rotate(-90deg)
+      transform-origin: 3em
+      white-space: nowrap
+      width: 4em
+
+  &__buttons
+    display: flex
+    justify-content: space-between
+    margin: 1.5rem 0
+
+    button
+      margin-right: 1rem
+
+  &__partners
+    background-color: $bisque
+    padding: 2rem 4rem
+
+    h2
+      @extend .secondary-label
+      font-weight: 400
+      letter-spacing: 0.075em
+      text-transform: uppercase
+      margin-left: 50%
+
+    div
+      align-items: center
+      display: flex
+      justify-content: space-around
+      margin: 2.5rem 0 8rem 0
+
+  &__about
+    background-color: $sand
+    padding: 22rem 8rem 2rem 8rem
+
+    hr
+      border: 3px solid $plum
+      width: 5rem
+
+    div:first-child
+      height: 6rem
+      width: 8rem
+
+      img
+        height: 100%
+        width: 100%
+
+    a
+      display: block
+      margin: 2rem 0
+
+  &__stats
+    background-color: $bisque
+    padding: 4rem 8rem
+
+    > div:nth-child(2)
+      margin: 4rem
+      text-align: center
+
+      a
+        margin: 1rem
+
+  &__numbers
+    border-bottom: 3px solid $plum
+    display: flex
+    padding-bottom: 3rem
+
+    div:first-child
+      flex: 1
+      margin-right: 6rem
+
+      hr
+        border: 3px solid $plum
+        width: 4rem
+
+    div:nth-child(2)
+      display: flex
+      flex: 2
+      flex-direction: column
+
+      div
+        display: flex
+        flex-direction: row
+
+.offset-image
+  left: 0
+  margin-top: -4em
+  margin-left: -1em
+  position: absolute
+
+  span
+    transform: rotate(-90deg)
+    display: inline-flex
+    transform-origin: left
+
+  img
+    height: 24rem
