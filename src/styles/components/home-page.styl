@@ -1,59 +1,85 @@
 @import "font-styles.styl"
 
 .home-page
+  background-color: $bisque
+  padding: 0 !important
 
   span
     @extend .body-font
+    line-height: 1.5rem
 
   a
     @extend .text-link
 
+    &:hover, &:focus
+      color: $thistle
+
+  hr
+    border: 3px solid $plum
+
   &__introduction
-    padding-top: 15rem
+    padding: 16rem 4rem 4rem 4rem
+
+    img:first-child
+      height: 35rem
+      position: absolute
+      right: 0
+      top: 0
+
+      @media(max-width: 850px)
+        height: 20rem
+
+    img:nth-child(2)
+      height: 30rem
+      position: absolute
+      left: 0
+      top: 0
 
     div
       margin: 0 4rem
       max-width: 50%
 
+    div:first-of-type
+      max-width: 40%
+
     h1
-      @extend .h1-font
+      @extend .h2-font
+      font-size: 3rem
+      line-height: 3rem
 
     hr
-      border: 4px solid $plum
       margin: 2rem
       width: 8rem
 
     a
-      color: red
       display: block
       margin: 1rem 0
 
   &__get-started
-    background-color: $bisque
     display: flex
+    flex-wrap: wrap
     padding: 4rem 6rem
 
     hr
-      border: 3px solid $plum
       width: 4rem
 
     > div
       flex: 1
       flex-wrap: wrap
-      margin: 0 2rem
+      margin: 0 2rem 4rem 2rem
+      min-width: 15rem
 
       > div
         margin: 0 1rem
 
     h2:not(.h2-font)
-      @extend .secondary-label
-      align-content: align-items
-      font-weight: 400
-      justify-content: center
-      letter-spacing: 0.075em
+      align-self: center
+      font-family: $belleza
+      letter-spacing: 0.25em
+      color: $thistle
       text-transform: uppercase
       transform: rotate(-90deg)
-      transform-origin: 3em
+      transform-origin: bottom
       white-space: nowrap
       width: 4em
 
@@ -65,75 +91,78 @@
     button
       margin-right: 1rem
 
+      &:hover, &:focus
+        background-color: $plum
+        color: white
+
   &__partners
-    background-color: $bisque
     padding: 2rem 4rem
 
     h2
-      @extend .secondary-label
-      font-weight: 400
-      letter-spacing: 0.075em
-      text-transform: uppercase
+      color: $thistle
+      font-family: $belleza
+      letter-spacing: 0.25em
       margin-left: 50%
+      text-transform: uppercase
 
     div
       align-items: center
       display: flex
       justify-content: space-around
       margin: 2.5rem 0 8rem 0
+      flex-wrap: wrap
+
+      img, svg
+        margin: 1rem
 
   &__about
     background-color: $sand
     padding: 22rem 8rem 2rem 8rem
 
+    @media(max-width: 850px)
+      padding-top: 12rem
+
     hr
-      border: 3px solid $plum
-      width: 5rem
+      width: 4rem
 
-    div:first-child
-      height: 6rem
-      width: 8rem
+    h2
+      margin-left: 2rem
 
-      img
-        height: 100%
-        width: 100%
-
-    a
-      display: block
-      margin: 2rem 0
-
-  &__stats
-    background-color: $bisque
-    padding: 4rem 8rem
-
-    > div:nth-child(2)
-      margin: 4rem
-      text-align: center
+    div
+      margin-left: 4rem
 
       a
-        margin: 1rem
+        display: block
+        margin: 2rem 0
 
-  &__numbers
-    border-bottom: 3px solid $plum
-    display: flex
-    padding-bottom: 3rem
+  &__zooniverse
+    background-color: rgba(175, 221, 223, 0.35)
+    padding: 4rem 6rem
+    text-align: center
 
-    div:first-child
-      flex: 1
-      margin-right: 6rem
+    h2
+      color: $plum
 
-      hr
-        border: 3px solid $plum
-        width: 4rem
+    svg
+      color: $zooniverse-teal
+      margin-bottom: 2rem
 
-    div:nth-child(2)
-      display: flex
-      flex: 2
-      flex-direction: column
+    span
+      display: block
+      margin: 0 10% 2rem 10%
 
-      div
-        display: flex
-        flex-direction: row
+    a
+      background-color: $zooniverse-teal
+      border-color: $zooniverse-teal
+      color: white
+      display: block
+      margin: auto
+      margin-bottom: 4rem
+
+      &:hover, &:focus
+        background-color: $light-teal
+        border-color: $light-teal
+        color: $zooniverse-teal
 
 .offset-image
   left: 0
@@ -142,9 +171,19 @@
   position: absolute
 
   span
-    transform: rotate(-90deg)
+    @extend .primary-label
     display: inline-flex
-    transform-origin: left
+    transform: rotate(-90deg)
+    transform-origin: -0.25rem -0.5rem
+
+    @media(max-width: 600px)
+      font-size: 0.5rem
 
   img
     height: 24rem
+
+    @media(max-width: 850px)
+      height: 15rem
+
+    @media(max-width: 600px)
+      height: 10rem

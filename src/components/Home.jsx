@@ -1,17 +1,22 @@
 import React from 'react';
-import { ZooniverseLogotype } from 'zooniverse-react-components';
+import { ZooniverseLogo, ZooniverseLogotype } from 'zooniverse-react-components';
 import Penn from '../images/penn.png';
 import JTSLogo from '../images/jts_logo.png';
 import Princeton from '../images/princeton_geniza.png';
 import Genizah from '../images/genizah_research.png';
 import Library from '../images/schechter-geniza.png';
+import Scroll from '../images/hebrew-fragment.png';
+import Arabic from '../images/arabic-big.png';
+import HomeStatistics from './HomeStatistics';
 
 export default function Home() {
   return (
     <section className="home-page">
       <div className="home-page__introduction">
+        <img alt="Hebrew Scroll" src={Scroll} />
+        <img alt="Arabic Text" src={Arabic} />
         <div>
-          <ZooniverseLogotype />
+          <ZooniverseLogotype width="100px" />
           <h1>Scribes of the Cairo Geniza</h1>
         </div>
         <hr />
@@ -22,7 +27,7 @@ export default function Home() {
             and the Genizah Research Unit at Cambridge University Library share
             Cairo Geniza fragments with the Zooniverse community for the first time!
           </span>
-          <a href="#">Scroll down to start transcribing</a>
+          <a href="/">Scroll down to start transcribing</a>
         </div>
       </div>
       <div className="home-page__get-started">
@@ -75,57 +80,30 @@ export default function Home() {
       <div className="home-page__about">
         <hr />
         <h2 className="h2-font">About Scribes of the Cairo Geniza</h2>
-        <span>
-          The results from Scribes of the Cairo Geniza have the potential to
-          rewrite the history of the premodern Middle East, Mediterranean and
-          Indian Ocean trade, and the Jewish diaspora. Until now, most of the
-          information has remained locked away in undeciphered manuscript
-          fragments; less than one&#8208;third of the 350,000 items have been
-          catalogued in the 120 years that the cache has been known to exist.
-          Virtually all scholars who have studied these texts have come away with
-          a transformed sense of the history of the region and the long ties of
-          intimacy among its people. Students and the general public will have the
-          opportunity to benefit from encountering these fragments online and from
-          learning how to sort and eventually transcribe them as members of this
-          citizen scientist community. We see this project as a way for people
-          with shared interests and different skill levels from around the world
-          to meet in a common endeavor and unlock this storage chamber of ancient
-          fragments.
-        </span>
-        <a href="#">Learn More</a>
-      </div>
-      <div className="home-page__stats">
-        <div className="home-page__numbers">
-          <div>
-            <svg viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="100" />
-            </svg>
-            <span>Percent Complete</span>
-            <hr />
-          </div>
-          <div>
-            <h2>Statistics from phase two of Scribes of the Cairo Geniza</h2>
-            <div>
-              <span>Volunteers</span>
-              <span>Classifications</span>
-              <span>Completed Subjects</span>
-            </div>
-            <a href="#" className="text-links">More statistics</a>
-            <a href="#" className="text-links">Phase One statistics</a>
-          </div>
-        </div>
         <div>
-          <h2>Connect with the Geniza team for more content</h2>
-          <div className="home-page__buttons">
-            <a className="button">Twitter</a>
-            <a className="button">Facebook</a>
-            <a className="button">Instagram</a>
-            <a className="button">Medium</a>
-          </div>
+          <span>
+            The results from Scribes of the Cairo Geniza have the potential to
+            rewrite the history of the premodern Middle East, Mediterranean and
+            Indian Ocean trade, and the Jewish diaspora. Until now, most of the
+            information has remained locked away in undeciphered manuscript
+            fragments; less than one&#8208;third of the 350,000 items have been
+            catalogued in the 120 years that the cache has been known to exist.
+            Virtually all scholars who have studied these texts have come away with
+            a transformed sense of the history of the region and the long ties of
+            intimacy among its people. Students and the general public will have the
+            opportunity to benefit from encountering these fragments online and from
+            learning how to sort and eventually transcribe them as members of this
+            citizen scientist community. We see this project as a way for people
+            with shared interests and different skill levels from around the world
+            to meet in a common endeavor and unlock this storage chamber of ancient
+            fragments.
+          </span>
+          <a href="/">Learn More</a>
         </div>
       </div>
+      <HomeStatistics />
       <div className="home-page__zooniverse">
-        <img alt="Zooniverse Logo" src="images/zooniverse-icon-web-white-small.png" />
+        <ZooniverseLogo height="4em" width="4em" />
         <h2>What is the Zooniverse?</h2>
         <span>
           The Zooniverse is the world&apos;s largest and most popular platform for
@@ -136,7 +114,7 @@ export default function Home() {
           research results in new discoeries, datasets useful to the wider research
           community,and many publications.
         </span>
-        <a href="https://www.zooniverse.org">Zooniverse.org</a>
+        <a className="button" href="https://www.zooniverse.org" rel="noopener noreferrer" target="_blank">Zooniverse.org</a>
       </div>
     </section>
   );
