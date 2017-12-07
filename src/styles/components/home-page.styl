@@ -1,0 +1,189 @@
+@import "font-styles.styl"
+
+.home-page
+  background-color: $bisque
+  padding: 0 !important
+
+  span
+    @extend .body-font
+    line-height: 1.5rem
+
+  a
+    @extend .text-link
+
+    &:hover, &:focus
+      color: $thistle
+
+  hr
+    border: 3px solid $plum
+
+  &__introduction
+    padding: 16rem 4rem 4rem 4rem
+
+    img:first-child
+      height: 35rem
+      position: absolute
+      right: 0
+      top: 0
+
+      @media(max-width: 850px)
+        height: 20rem
+
+    img:nth-child(2)
+      height: 30rem
+      position: absolute
+      left: 0
+      top: 0
+
+    div
+      margin: 0 4rem
+      max-width: 50%
+
+    div:first-of-type
+      max-width: 40%
+
+    h1
+      @extend .h2-font
+      font-size: 3rem
+      line-height: 3rem
+
+    hr
+      margin: 2rem
+      width: 8rem
+
+    a
+      display: block
+      margin: 1rem 0
+
+  &__get-started
+    display: flex
+    flex-wrap: wrap
+    padding: 4rem 6rem
+
+    hr
+      width: 4rem
+
+    > div
+      flex: 1
+      flex-wrap: wrap
+      margin: 0 2rem 4rem 2rem
+      min-width: 15rem
+
+      > div
+        margin: 0 1rem
+
+    h2:not(.h2-font)
+      align-self: center
+      font-family: $belleza
+      letter-spacing: 0.25em
+      color: $thistle
+      text-transform: uppercase
+      transform: rotate(-90deg)
+      transform-origin: bottom
+      white-space: nowrap
+      width: 4em
+
+  &__buttons
+    display: flex
+    justify-content: space-between
+    margin: 1.5rem 0
+
+    button
+      margin-right: 1rem
+
+      &:hover, &:focus
+        background-color: $plum
+        color: white
+
+  &__partners
+    padding: 2rem 4rem
+
+    h2
+      color: $thistle
+      font-family: $belleza
+      letter-spacing: 0.25em
+      margin-left: 50%
+      text-transform: uppercase
+
+    div
+      align-items: center
+      display: flex
+      justify-content: space-around
+      margin: 2.5rem 0 8rem 0
+      flex-wrap: wrap
+
+      img, svg
+        margin: 1rem
+
+  &__about
+    background-color: $sand
+    padding: 22rem 8rem 2rem 8rem
+
+    @media(max-width: 850px)
+      padding-top: 12rem
+
+    hr
+      width: 4rem
+
+    h2
+      margin-left: 2rem
+
+    div
+      margin-left: 4rem
+
+      a
+        display: block
+        margin: 2rem 0
+
+  &__zooniverse
+    background-color: rgba(175, 221, 223, 0.35)
+    padding: 4rem 6rem
+    text-align: center
+
+    h2
+      color: $plum
+
+    svg
+      color: $zooniverse-teal
+      margin-bottom: 2rem
+
+    span
+      display: block
+      margin: 0 10% 2rem 10%
+
+    a
+      background-color: $zooniverse-teal
+      border-color: $zooniverse-teal
+      color: white
+      display: block
+      margin: auto
+      margin-bottom: 4rem
+
+      &:hover, &:focus
+        background-color: $light-teal
+        border-color: $light-teal
+        color: $zooniverse-teal
+
+.offset-image
+  left: 0
+  margin-top: -4em
+  margin-left: -1em
+  position: absolute
+
+  span
+    @extend .primary-label
+    display: inline-flex
+    transform: rotate(-90deg)
+    transform-origin: -0.25rem -0.5rem
+
+    @media(max-width: 600px)
+      font-size: 0.5rem
+
+  img
+    height: 24rem
+
+    @media(max-width: 850px)
+      height: 15rem
+
+    @media(max-width: 600px)
+      height: 10rem

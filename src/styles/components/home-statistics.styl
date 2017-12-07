@@ -1,0 +1,75 @@
+@import "font-styles.styl"
+
+.statistics
+  padding: 4rem 8rem
+
+  &__stat-content
+    border-bottom: 4px solid $plum
+    display: flex
+    flex-wrap: wrap
+    padding-bottom: 8rem
+
+    hr
+      width: 4rem
+
+    h2
+      color: $plum
+      max-width: 25rem
+
+    span
+      @extend .primary-label
+      display: block
+      margin: 0.25rem 0
+
+    a
+      margin: 0.25rem 0
+
+  &__statistics
+    display: flex
+    flex: 2
+    flex-direction: column
+
+    div
+      display: flex
+      flex-direction: row
+
+  &__pie-chart
+    flex: 1
+    margin: 0 10% 0 5%
+
+    svg
+      margin: 2rem
+      max-width: 15em
+      min-width: 5em
+      overflow: visible
+
+  &__stat
+    flex-wrap: wrap
+    justify-content: space-between
+    margin-bottom: 4rem
+
+    div
+      display: flex
+      flex-direction: column
+      margin: 0.5rem 0
+
+    span:first-child
+      font-size: 2.25rem
+
+  &__connect
+    margin: 4rem
+    text-align: center
+
+    .button
+      display: inline-block
+      margin: 0.5rem
+
+      &:hover, &:focus
+        background-color: $plum
+        color: white
+
+    div
+      flex-wrap: wrap
+
+    i
+      margin-right: 0.25rem
