@@ -1,0 +1,143 @@
+.about-page
+  background: url('../images/schechter-geniza.png') no-repeat center center
+  background-size: contain
+  background-position: top
+  width: 100%
+  overflow: auto
+
+  hr
+    border: 3px solid $plum
+
+  section
+    background-color: $bisque
+    margin-top: 38vw !important
+
+  &__intro
+    overflow: auto
+    padding: 0 6rem
+
+    hr
+      width: 8rem
+
+    h2
+      @extend .h2-font
+      background-color: $bisque
+      font-size: 2.75rem
+      margin-top: -2rem
+      padding: 2rem 3rem
+      position: absolute
+
+    div
+      display: block
+      margin: 4rem 1rem
+
+    span
+      @extend .body-font
+      column-count: 2
+      display: block
+      margin: 0 2rem
+
+      @media(max-width: 600px)
+        column-count: 1
+
+    a
+      @extend .text-link
+      display: block
+      margin: 0.5rem 0 0 51%
+
+      &:hover, &:focus
+        color: $dust
+
+  &__logos
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+  &__partners
+    display: flex
+    flex-wrap: wrap
+    margin: 4rem 0
+    padding: 0 6rem
+
+    h2
+      align-self: flex-end
+      font-family: $belleza
+      letter-spacing: 0.25em
+      color: $thistle
+      text-transform: uppercase
+      transform: rotate(-90deg)
+      transform-origin: 3rem 0
+      white-space: nowrap
+      width: 4em
+
+      @media(max-width: 600px)
+        align-self: flex-start
+        font-size: 1rem
+        transform: none
+        width: inherit
+
+    div
+      flex: 1
+      margin: 1rem
+      min-width: 12rem
+
+    img
+      width: 8rem
+
+    span
+      @extend .body-font
+      display: block
+      font-size: 0.7rem
+      margin: 1rem 0 0 2rem
+      max-width: 12rem
+
+  &__team
+    background-color: $sand
+    padding: 4rem 8rem
+
+    h2
+      @extend .h2-font
+
+    hr
+      margin: 2rem auto
+      width: 66%
+
+  &__members
+    display: flex
+    flex-wrap: wrap
+    margin: 4rem 0
+
+    hr
+      margin: 1rem 0
+      width: 4rem
+
+    h3
+      @extend .primary-label
+      margin: 0 0 0.5rem 1rem
+
+    span
+      @extend .body-font
+      display: block
+      font-size: 0.75rem
+      margin: 0 2rem 2rem 1rem
+
+    div
+      max-width: 33%
+      margin: 0 auto
+
+      @media(max-width: 750px)
+        max-width: 50%
+
+      @media(max-width: 550px)
+        max-width: 100%
+
+  &__thanks
+    padding: 1.5rem 2rem
+    text-align: center
+
+    h3
+      color: $plum
+      font-size: 1.5rem
+
+    span
+      @extend .body-font
