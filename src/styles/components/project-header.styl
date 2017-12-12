@@ -1,6 +1,15 @@
 .project-header
   padding-bottom: 0 !important
 
+  &__link
+    text-decoration: none
+
+    &:hover, &:focus
+      color: $dust
+
+  .test
+    color: red
+
   div:first-child
     border: 20px solid white
     margin: 2em
@@ -18,6 +27,7 @@
     list-style: none
     float: right
     padding: 1.5em
+    pointer-events: all
 
     li
       margin: 0 1em

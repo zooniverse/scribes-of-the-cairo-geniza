@@ -1,12 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ProjectHeader() {
   return (
     <section className="project-header">
       <div>
         <ul className="tertiary-label">
-          <li>Home</li>
-          <li>About</li>
+          <li>
+            <Link
+              activeClassName="test"
+              className="project-header__link"
+              onlyActiveOnIndex
+              to="/"
+            >
+                Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              activeClassName="test"
+              className="project-header__link"
+              to="/"
+            >
+                About
+            </Link>
+          </li>
           <li>Classify</li>
           <li>Talk</li>
           <li>Collect</li>
