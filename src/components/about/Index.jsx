@@ -6,6 +6,22 @@ import Princeton from '../../images/princeton_geniza.png';
 import Genizah from '../../images/genizah_research.png';
 import TheTeam from '../../lib/team';
 
+const members = {
+  Laurie: require('../../images/team/LaurieAllen.jpg'),
+  Jean: require('../../images/team/JeanBauer.png'),
+  Samantha: require('../../images/team/SamanthaBlickhan.jpg'),
+  Laura: require('../../images/team/LauraNewmanEckstein.jpg'),
+  Doug: require('../../images/team/DougEmery.jpg'),
+  Mitch: require('../../images/team/MitchFraas.jpg'),
+  Jessica: require('../../images/team/JessicaGoldberg.jpg'),
+  Arthur: require('../../images/team/ArthurKiron.jpg'),
+  Moshe: require('../../images/team/MosheLavee.png'),
+  Eve: require('../../images/team/EveKrakowski.jpg'),
+  William: require('../../images/team/WilliamNoel.jpg'),
+  Becky: require('../../images/team/BeckyRother.jpg'),
+  Marina: require('../../images/team/MarinaRustow.jpg')
+};
+
 export default function AboutLayout({ match }) {
   return (
     <div className="about-page">
@@ -67,6 +83,7 @@ export default function AboutLayout({ match }) {
             {TheTeam.map((member) => {
               return (
                 <div>
+                  <img alt={member.name} src={members[member.photo]} />
                   <hr />
                   <h3>{member.name}</h3>
                   <span>{member.description}</span>

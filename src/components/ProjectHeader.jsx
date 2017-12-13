@@ -8,9 +8,7 @@ export default function ProjectHeader() {
         <ul className="tertiary-label">
           <li>
             <Link
-              activeClassName="test"
               className="project-header__link"
-              onlyActiveOnIndex
               to="/"
             >
                 Home
@@ -18,9 +16,8 @@ export default function ProjectHeader() {
           </li>
           <li>
             <Link
-              activeClassName="test"
               className="project-header__link"
-              to="/"
+              to="/about"
             >
                 About
             </Link>
