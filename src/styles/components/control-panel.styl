@@ -1,0 +1,80 @@
+.control-panel
+  background-color: $bisque
+  box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
+  -webkit-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
+  -moz-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
+  color: $plum
+  height: 33rem
+  position: fixed
+  right: 0
+  top: 12rem
+  width: 14rem
+  padding-bottom: 0 !important
+
+  hr
+    border: 3px solid $plum
+    margin: 0
+    width: 4rem
+
+  button
+    box-shadow: none
+    margin: 0.25rem 0
+
+  div
+    margin: 1rem
+
+  a
+    display: inline-block
+    margin: 0.5rem 0
+
+  &__buttons
+    flex-direction: column
+
+    div
+      margin: 0.5rem 0
+
+    span:first-child
+      margin-right: 0.5rem
+
+    div:first-child
+      display: flex
+
+      span:nth-child(2)
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        width: 10rem
+
+    div:nth-child(2)
+      span
+        display: block
+
+      span:nth-child(2)
+        overflow: hidden
+        position: relative
+        line-height: 1.2rem
+        max-height: 2.4rem
+
+        &:before
+          content: '...'
+          position: absolute
+          right: 0
+          bottom: 0
+
+        &:after
+          content: ''
+          position: absolute
+          right: 0
+          width: 0.75rem
+          height: 0.75rem
+          margin-top: 0.2rem
+          background: $bisque
+
+  &__header
+    display: flex
+
+    span
+      margin-left: auto
+
+    h4
+      margin-bottom: 0
