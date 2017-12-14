@@ -1,6 +1,12 @@
 .project-header
   padding-bottom: 0 !important
 
+  &__link
+    text-decoration: none
+
+    &:hover, &:focus
+      background-color: $sand
+
   div:first-child
     border: 20px solid white
     margin: 2em
@@ -12,20 +18,43 @@
     left: 0
     z-index: 5
 
-  ul
+  nav
     background-color: white
+    box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
+    -webkit-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
+    -moz-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
     display: flex
     list-style: none
     float: right
-    padding: 1.5em
+    padding-right: 0.5rem
+    pointer-events: all
 
-    li
-      margin: 0 1em
+    a
+      display: block
+      padding: 1rem
 
     i
       margin-left: 0.5rem
 
+  &__active
+    background: $sand
+
   &__classify
+    nav
+      background-color: $bisque
+
     div:first-child
       border: none
       margin-top: 0
+
+  button
+    background-color: transparent
+    border: 1px solid transparent
+    border-radius: 50%
+    cursor: pointer
+    height: 1.5rem
+    margin: auto
+    width: 1.5rem
+
+    &:hover, &:focus
+      background-color: $sand

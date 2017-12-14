@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class ProjectHeader extends React.Component {
@@ -12,14 +13,45 @@ class ProjectHeader extends React.Component {
     return (
       <section className={`project-header ${className}`}>
         <div>
-          <ul className="tertiary-label">
-            <li>Home</li>
-            <li>About</li>
-            <li>Classify</li>
-            <li>Talk</li>
-            <li>Collect</li>
-            <li>Language<i className="fa fa-chevron-down" /></li>
-          </ul>
+          <nav className="tertiary-label">
+            <NavLink
+              activeClassName="project-header__active"
+              className="project-header__link"
+              exact
+              to="/"
+            >
+              Scribes of the Cairo Geniza
+            </NavLink>
+            <NavLink
+              activeClassName="project-header__active"
+              className="project-header__link"
+              to="/about"
+            >
+              About
+            </NavLink>
+            <NavLink
+              activeClassName="project-header__active"
+              className="project-header__link"
+              to="/classify"
+            >
+              Transcribe
+            </NavLink>
+            <a
+              className="project-header__link"
+              href="/"
+            >
+              Talk
+            </a>
+            <a
+              className="project-header__link"
+              href="/"
+            >
+              Collect
+            </a>
+            <button>ع</button>
+            <button>E</button>
+            <button>ע</button>
+          </nav>
         </div>
       </section>
     );
