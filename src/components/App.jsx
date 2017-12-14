@@ -34,7 +34,7 @@ class App extends React.Component {
 
 App.propTypes = {
   location: PropTypes.shape({
-    pathname: PropTypes.string,
+    pathname: PropTypes.string
   })
 };
 
