@@ -1,33 +1,71 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function ProjectHeader() {
-  return (
-    <section className="project-header">
-      <div>
-        <ul className="tertiary-label">
-          <li>
-            <Link
+class ProjectHeader extends React.Component {
+  render() {
+    let className = '';
+
+    if (this.props.location.pathname === '/classify') {
+      className = 'project-header__classify';
+    }
+
+    return (
+      <section className={`project-header ${className}`}>
+        <div>
+          <nav className="tertiary-label">
+            <NavLink
+              activeClassName="project-header__active"
               className="project-header__link"
+              exact
               to="/"
             >
-                Home
-            </Link>
-          </li>
-          <li>
-            <Link
+              Scribes of the Cairo Geniza
+            </NavLink>
+            <NavLink
+              activeClassName="project-header__active"
               className="project-header__link"
               to="/about"
             >
-                About
-            </Link>
-          </li>
-          <li>Classify</li>
-          <li>Talk</li>
-          <li>Collect</li>
-          <li>Language<i className="fa fa-chevron-down" /></li>
-        </ul>
-      </div>
-    </section>
-  );
+              About
+            </NavLink>
+            <NavLink
+              activeClassName="project-header__active"
+              className="project-header__link"
+              to="/classify"
+            >
+              Transcribe
+            </NavLink>
+            <a
+              className="project-header__link"
+              href="/"
+            >
+              Talk
+            </a>
+            <a
+              className="project-header__link"
+              href="/"
+            >
+              Collect
+            </a>
+            <button>ع</button>
+            <button>E</button>
+            <button>ע</button>
+          </nav>
+        </div>
+      </section>
+    );
+  }
 }
+
+ProjectHeader.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string
+  })
+};
+
+ProjectHeader.defaultProps = {
+  location: {}
+};
+
+export default ProjectHeader;
