@@ -80,9 +80,9 @@ export default function AboutLayout({ match }) {
         <div className="about-page__team">
           <h2>The team</h2>
           <div className="about-page__members">
-            {TheTeam.map((member) => {
+            {TheTeam.map((member, i) => {
               return (
-                <div>
+                <div key={`team-member-${i}`}>
                   <img alt={member.name} src={members[member.photo]} />
                   <hr />
                   <h3>{member.name}</h3>
