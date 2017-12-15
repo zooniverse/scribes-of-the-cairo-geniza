@@ -8,6 +8,7 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/src/'),
+    historyApiFallback: true,
     hot: true,
     inline: true,
     stats: {

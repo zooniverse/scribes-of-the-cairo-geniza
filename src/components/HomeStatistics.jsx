@@ -1,4 +1,5 @@
 import React from 'react';
+import Connect from './Connect';
 
 export default function HomeStatistics() {
   return (
@@ -35,15 +36,7 @@ export default function HomeStatistics() {
           <a href="/" className="text-links">Phase One statistics</a>
         </div>
       </div>
-      <div className="statistics__connect">
-        <h2>Connect with the Geniza team for more content</h2>
-        <div className="statistics__buttons">
-          <a className="button"><i className="fa fa-twitter" />Twitter</a>
-          <a className="button"><i className="fa fa-facebook" />Facebook</a>
-          <a className="button"><i className="fa fa-instagram" />Instagram</a>
-          <a className="button"><i className="fa fa-medium" />Medium</a>
-        </div>
-      </div>
+      <Connect />
     </div>
   );
 }
