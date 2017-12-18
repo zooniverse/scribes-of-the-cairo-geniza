@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ZooHeader, ZooFooter } from 'zooniverse-react-components';
+
+import { fetchProject } from '../ducks/project';
 
 import AuthContainer from '../containers/AuthContainer';
 import ProjectHeader from './ProjectHeader';
@@ -10,6 +13,10 @@ import ClassifierContainer from '../containers/ClassifierContainer';
 import Home from './Home';
 
 class App extends React.Component {
+  componentWillMount() {
+    this.props.dispatch(fetchProject());
+  }
+
   render() {
     return (
       <div>
@@ -42,4 +49,4 @@ App.defaultProps = {
   location: {}
 };
 
-export default App;
+export default connect()(App);

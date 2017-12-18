@@ -23,14 +23,16 @@ const baseConfig = {
   development: {
     panoptesAppId: '974cc8da2448bac692703f0b364a6b41a7662d91a5a3a1acb064eb703a01e6df', // Anti-Slavery Manuscripts on Staging
     host: '',
-    projectId: '',
+    projectId: '1814',
     projectSlug: '',
+    workflowId: '3142'
   },
   production: {
     panoptesAppId: '',
     host: '',
-    projectId: '',
+    projectId: '5042',
     projectSlug: '',
+    workflowId: ''
   }
 };
 
