@@ -1,21 +1,21 @@
 const MIN_SCALING = 0.1;
 const MAX_SCALING = 10;
 
-const initialState = {
+const SV_INITIALSTATE = {
   frame: 0,
   imageSize: { width: 0, height: 0 },
   rotation: 0,
   scaling: 1,
   translationX: 0,
   translationY: 0,
-  viewerSize: { width: 0, height: 0 },
+  viewerSize: { width: 0, height: 0 }
 };
 
 const RESET_VIEW = 'RESET_VIEW';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
 const UPDATE_VIEWER_SIZE = 'UPDATE_VIEWER_SIZE';
 
-const subjectViewerReducer = (state = initialState, action) => {
+const subjectViewerReducer = (state = SV_INITIALSTATE, action) => {
   switch (action.type) {
     case RESET_VIEW:
       let bestFitScale = 1;
@@ -31,23 +31,33 @@ const subjectViewerReducer = (state = initialState, action) => {
         rotation: 0,
         scaling: bestFitScale,
         translationX: 0,
-        translationY: 0,
+        translationY: 0
       });
 
     case UPDATE_IMAGE_SIZE:
       return Object.assign({}, state, {
         imageSize: {
           width: action.width,
-          height: action.height,
-        },
+          height: action.height
+        }
       });
 
     case UPDATE_VIEWER_SIZE:
+      let bestFitScaled = 1;
+      if (action.width && action.height &&
+          action.imageSize.width && action.imageSize.height) {
+        bestFitScaled = Math.min(
+          action.width / action.imageSize.width,
+          action.height / action.imageSize.height
+        );
+      }
+
       return Object.assign({}, state, {
+        scaling: bestFitScaled,
         viewerSize: {
           width: action.width,
-          height: action.height,
-        },
+          height: action.height
+        }
       });
 
     default:
@@ -58,9 +68,9 @@ const subjectViewerReducer = (state = initialState, action) => {
 const resetView = () => {
   return (dispatch) => {
     dispatch({
-      type: RESET_VIEW,
+      type: RESET_VIEW
     });
-  }
+  };
 };
 
 const updateImageSize = (width, height) => {
@@ -69,22 +79,25 @@ const updateImageSize = (width, height) => {
       type: UPDATE_IMAGE_SIZE,
       width, height,
     });
-  }
+  };
 };
 
 const updateViewerSize = (width, height) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const imageSize = getState().subjectViewer.imageSize;
+
     dispatch({
       type: UPDATE_VIEWER_SIZE,
-      width, height,
+      width, height, imageSize
     });
-  }
+  };
 };
 
 export default subjectViewerReducer;
 
 export {
   resetView,
+  SV_INITIALSTATE,
   updateImageSize,
   updateViewerSize
 };

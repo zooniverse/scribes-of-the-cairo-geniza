@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { getSubjectLocation } from '../lib/get-subject-location';
 
 import {
-  resetView, updateImageSize, updateViewerSize
+  resetView, SV_INITIALSTATE,
+  updateImageSize, updateViewerSize
 } from '../ducks/subject-viewer';
 
 import SVGImage from '../components/SVGImage';
@@ -41,7 +42,7 @@ class SubjectViewer extends React.Component {
 
     const ARBITRARY_OFFSET = 2;
     const w = this.section.offsetWidth - ARBITRARY_OFFSET;
-    const h = this.section.offsetHeight - ARBITRARY_OFFSET;
+    const h = window.innerHeight - document.getElementsByClassName('app-header')[0].offsetHeight;
 
     this.svg.setAttribute('viewBox', `${-w/2} ${(-h/2)} ${w} ${h}`);
     this.svg.style.width = w + 'px';
@@ -72,18 +73,18 @@ class SubjectViewer extends React.Component {
 
   render() {
     const transform = `scale(${this.props.scaling}) translate(${this.props.translationX}, ${this.props.translationY}) rotate(${this.props.rotation}) `;
-    let subjectLocation = undefined;
+    let subjectLocation;
 
     if (this.props.currentSubject) {
       subjectLocation = getSubjectLocation(this.props.currentSubject, this.props.frame);
       subjectLocation = (subjectLocation && subjectLocation.src) ? subjectLocation.src : undefined;
-    };
+    }
 
     return (
-      <section ref={(c)=>{this.section=c}}>
+      <section className="subject-viewer" ref={(c) => { this.section = c; }}>
 
         <svg
-          ref={(c)=>{this.svg=c}}
+          ref={(c) => { this.svg = c; }}
           viewBox="0 0 100 100"
         >
           <g transform={transform}>
@@ -103,7 +104,7 @@ class SubjectViewer extends React.Component {
 
 SubjectViewer.propTypes = {
   currentSubject: PropTypes.shape({
-    src: PropTypes.string,
+    src: PropTypes.string
   }),
   frame: PropTypes.number,
   rotation: PropTypes.number,
@@ -115,8 +116,8 @@ SubjectViewer.propTypes = {
   }),
   viewerSize: PropTypes.shape({
     width: PropTypes.number,
-    height: PropTypes.number,
-  }),
+    height: PropTypes.number
+  })
 };
 
 SubjectViewer.defaultProps = {
@@ -129,14 +130,16 @@ SubjectViewer.defaultProps = {
   user: null,
   viewerSize: {
     width: 0,
-    height: 0,
-  },
+    height: 0
+  }
 };
 
 const mapStateToProps = (state, ownProps) => {
   const sv = state.subjectViewer;
   return {
     currentSubject: state.subject.currentSubject,
+    frame: sv.frame,
+    imageSize: sv.imageSize,
     scaling: sv.scaling,
     translationX: sv.translationX,
     translationY: sv.translationY,
