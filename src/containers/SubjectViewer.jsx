@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { getSubjectLocation } from '../lib/get-subject-location';
 
 import {
-  resetView, SV_INITIALSTATE,
-  updateImageSize, updateViewerSize
+  resetView, updateImageSize, updateViewerSize
 } from '../ducks/subject-viewer';
 
 import SVGImage from '../components/SVGImage';
@@ -139,7 +138,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
-    imageSize: sv.imageSize,
     scaling: sv.scaling,
     translationX: sv.translationX,
     translationY: sv.translationY,

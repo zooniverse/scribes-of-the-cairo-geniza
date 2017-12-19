@@ -1,7 +1,7 @@
 const MIN_SCALING = 0.1;
 const MAX_SCALING = 10;
 
-const SV_INITIALSTATE = {
+const initialState = {
   frame: 0,
   imageSize: { width: 0, height: 0 },
   rotation: 0,
@@ -15,7 +15,7 @@ const RESET_VIEW = 'RESET_VIEW';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
 const UPDATE_VIEWER_SIZE = 'UPDATE_VIEWER_SIZE';
 
-const subjectViewerReducer = (state = SV_INITIALSTATE, action) => {
+const subjectViewerReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_VIEW:
       let bestFitScale = 1;
@@ -97,7 +97,6 @@ export default subjectViewerReducer;
 
 export {
   resetView,
-  SV_INITIALSTATE,
   updateImageSize,
   updateViewerSize
 };
