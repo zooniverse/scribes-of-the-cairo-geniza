@@ -11,37 +11,37 @@ const SUBJECT_STATUS = {
   IDLE: 'subject_status_idle',
   FETCHING: 'subject_status_fetching',
   READY: 'subject_status_ready',
-  ERROR: 'subject_status_error',
+  ERROR: 'subject_status_error'
 };
 
 const initialState = {
   currentSubject: null,
   queue: [],
-  status: SUBJECT_STATUS.IDLE,
+  status: SUBJECT_STATUS.IDLE
 };
 
 const subjectReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_SUBJECT:
       return Object.assign({}, state, {
-        status: SUBJECT_STATUS.FETCHING,
+        status: SUBJECT_STATUS.FETCHING
       });
 
     case FETCH_SUBJECT_SUCCESS:
       return {
         queue: action.queue,
         currentSubject: action.currentSubject,
-        status: SUBJECT_STATUS.READY,
+        status: SUBJECT_STATUS.READY
       };
 
     case FETCH_SUBJECT_ERROR:
       return Object.assign({}, state, {
-        status: SUBJECT_STATUS.ERROR,
+        status: SUBJECT_STATUS.ERROR
       });
 
     default:
       return state;
-  };
+  }
 };
 
 const fetchQueue = (id = config.workflowId) => {
@@ -50,7 +50,7 @@ const fetchQueue = (id = config.workflowId) => {
       type: FETCH_SUBJECT
     });
 
-    apiClient.type('subjects/queued').get({ workflow_id: id})
+    apiClient.type('subjects/queued').get({ workflow_id: id })
       .then((queue) => {
         const currentSubject = queue.shift();
         dispatch({
@@ -61,12 +61,20 @@ const fetchQueue = (id = config.workflowId) => {
       })
       .catch((err) => {
         dispatch({ type: FETCH_SUBJECT_ERROR });
-      })
+      });
+  };
+};
+
+const subjectError = () => {
+  return (dispatch) => {
+    dispatch({ type: FETCH_SUBJECT_ERROR });
   };
 };
 
 export default subjectReducer;
 
 export {
-  fetchQueue
+  fetchQueue,
+  subjectError,
+  SUBJECT_STATUS
 };

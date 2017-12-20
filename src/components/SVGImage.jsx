@@ -1,25 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SubjectLoading from './SubjectLoading';
 
 export default class SVGImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loaded: false,
-      error: false,
+      error: false
     };
-
+    this.props.onError();
     this.image = new Image();
     this.image.onload = () => {
       if (this.props.onLoad) this.props.onLoad(this.image);
       this.setState({
-        loaded: true,
+        loaded: true
       });
     };
-    this.image.onerror = (err) => {
-      if (this.props.onError) this.props.onError(err);
+    this.image.onerror = () => {
+      if (this.props.onError) this.props.onError();
       this.setState({
-        error: true,
+        error: true
       });
     };
 
@@ -55,22 +56,19 @@ export default class SVGImage extends React.Component {
           <path d="M -60 -80 L 0 -20 L 60 -80 L 80 -60 L 20 0 L 80 60 L 60 80 L 0 20 L -60 80 L -80 60 L -20 0 L -80 -60 Z" />
         </g>
       );
-    } else {
-      return (
-        <circle className="svg-image-loading" cx={0} cy={0} r={100} />
-      );
     }
+    return <SubjectLoading loaded={this.state.loaded} />;
   }
 }
 
 SVGImage.propTypes = {
   src: PropTypes.string,
   onLoad: PropTypes.func,
-  onError: PropTypes.func,
+  onError: PropTypes.func
 };
 
 SVGImage.defaultProps = {
   src: null,
   onLoad: null,
-  onError: null,
+  onError: null
 };
