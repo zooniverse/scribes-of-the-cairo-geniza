@@ -39,8 +39,7 @@ class SubjectViewer extends React.Component {
   updateSize() {
     if (!this.section || !this.svg) return;
 
-    const ARBITRARY_OFFSET = 2;
-    const w = this.section.offsetWidth - ARBITRARY_OFFSET;
+    const w = this.section.offsetWidth;
     const h = window.innerHeight - document.getElementsByClassName('app-header')[0].offsetHeight;
 
     this.svg.setAttribute('viewBox', `${-w/2} ${(-h/2)} ${w} ${h}`);
