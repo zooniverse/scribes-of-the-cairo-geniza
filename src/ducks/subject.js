@@ -59,7 +59,7 @@ const fetchQueue = (id = config.workflowId) => {
           queue
         });
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch({ type: FETCH_SUBJECT_ERROR });
       });
   };

@@ -80,16 +80,16 @@ class SubjectViewer extends React.Component {
     const transform = `scale(${this.props.scaling}) translate(${this.props.translationX}, ${this.props.translationY}) rotate(${this.props.rotation}) `;
     let subjectLocation;
     let renderedItem;
-    const subjectError = this.props.subjectStatus === SUBJECT_STATUS.ERROR;
+    const subjectLoadError = this.props.subjectStatus === SUBJECT_STATUS.ERROR;
 
     if (this.props.currentSubject) {
       subjectLocation = getSubjectLocation(this.props.currentSubject, this.props.frame);
       subjectLocation = (subjectLocation && subjectLocation.src) ? subjectLocation.src : undefined;
     }
 
-    const errorStyle = subjectError ? 'subject-viewer__error' : '';
+    const errorStyle = subjectLoadError ? 'subject-viewer__error' : '';
 
-    if (subjectError) {
+    if (subjectLoadError) {
       renderedItem = <SubjectError />;
     } else {
       renderedItem = (
@@ -154,7 +154,7 @@ SubjectViewer.defaultProps = {
   }
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
     currentSubject: state.subject.currentSubject,

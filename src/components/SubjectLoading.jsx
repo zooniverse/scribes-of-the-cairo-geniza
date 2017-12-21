@@ -27,13 +27,15 @@ const SubjectLoading = ({ loaded }) => {
         </g>
       </g>
       <text
-        x="0" y="20" fill="#4a4a4a"
+        x="0"
+        y="20"
+        fill="#4a4a4a"
         fontFamily="Merriweather"
         fontSize="20"
         fontWeight="700"
         textAnchor="middle"
       >
-          Loading
+        Loading
       </text>
     </g>
   );
