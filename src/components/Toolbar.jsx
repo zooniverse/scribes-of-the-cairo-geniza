@@ -1,24 +1,64 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { toggleFavorite } from '../ducks/subject';
+import FavoritesButton from '../components/FavoritesButton';
 
-export default function Home() {
-  return (
-    <section className="toolbar">
-      <button>&#x02A01;</button>
-      <button><i className="fa fa-arrows" /></button>
+class Toolbar extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <hr />
+    this.toggleFavorite = this.toggleFavorite.bind(this);
+  }
 
-      <button><i className="fa fa-plus" /></button>
-      <button><i className="fa fa-minus" /></button>
-      <button><i className="fa fa-repeat" /></button>
-      <button><i className="fa fa-adjust" /></button>
-      <button><i className="fa fa-eye" /></button>
-      <button><i className="fa fa-refresh" /></button>
+  toggleFavorite() {
+    this.props.dispatch(toggleFavorite());
+  }
 
-      <hr />
+  render() {
+    return (
+      <section className="toolbar">
+        <button>&#x02A01;</button>
+        <button><i className="fa fa-arrows" /></button>
 
-      <button><i className="fa fa-heart-o" /></button>
-      <button><i className="fa fa-list" /></button>
-    </section>
-  );
+        <hr />
+
+        <button><i className="fa fa-plus" /></button>
+        <button><i className="fa fa-minus" /></button>
+        <button><i className="fa fa-repeat" /></button>
+        <button><i className="fa fa-adjust" /></button>
+        <button><i className="fa fa-eye" /></button>
+        <button><i className="fa fa-refresh" /></button>
+
+        <hr />
+
+        {this.props.user && (
+          <FavoritesButton favorite={this.props.favoriteSubject} toggleFavorite={this.toggleFavorite} />
+        )}
+
+        <button><i className="fa fa-list" /></button>
+      </section>
+    );
+  }
 }
+
+Toolbar.propTypes = {
+  dispatch: PropTypes.func,
+  favoriteSubject: PropTypes.bool,
+  user: PropTypes.shape({
+    id: PropTypes.string
+  })
+};
+
+Toolbar.defaultProps = {
+  dispatch: () => {},
+  favoriteSubject: false,
+  user: null
+};
+
+const mapStateToProps = (state) => ({
+  favoriteSubject: state.subject.favorite,
+  user: state.login.user
+});
+
+export default connect(mapStateToProps)(Toolbar);
