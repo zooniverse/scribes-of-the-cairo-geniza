@@ -1,6 +1,12 @@
 const MIN_SCALING = 0.1;
 const MAX_SCALING = 10;
 
+const SUBJECTVIEWER_STATE = {
+  IDLE: 'idle',
+  NAVIGATING: 'navigating',
+  ANNOTATING: 'annotating'
+};
+
 const initialState = {
   contrast: false,
   frame: 0,
@@ -9,12 +15,14 @@ const initialState = {
   scaling: 1,
   translationX: 0,
   translationY: 0,
-  viewerSize: { width: 0, height: 0 }
+  viewerSize: { width: 0, height: 0 },
+  viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
 const RESET_VIEW = 'RESET_VIEW';
 const SET_ROTATION = 'SET_ROTATION';
 const SET_SCALING = 'SET_SCALING';
+const SET_TRANSLATION = 'SET_TRANSLATION';
 const TOGGLE_CONTRAST = 'TOGGLE_CONTRAST';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
 const UPDATE_VIEWER_SIZE = 'UPDATE_VIEWER_SIZE';
@@ -64,6 +72,12 @@ const subjectViewerReducer = (state = initialState, action) => {
         scaling: newScale
       });
     }
+
+    case SET_TRANSLATION:
+      return Object.assign({}, state, {
+        translationX: action.x,
+        translationY: action.y
+      });
 
     case UPDATE_IMAGE_SIZE: {
       return Object.assign({}, state, {
@@ -153,6 +167,14 @@ const toggleContrast = () => {
   };
 };
 
+const setTranslation = (x, y) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_TRANSLATION,
+      x, y
+    });
+  };
+};
 
 export default subjectViewerReducer;
 
@@ -160,7 +182,9 @@ export {
   resetView,
   setRotation,
   setScaling,
+  setTranslation,
   toggleContrast,
   updateImageSize,
-  updateViewerSize
+  updateViewerSize,
+  SUBJECTVIEWER_STATE
 };
