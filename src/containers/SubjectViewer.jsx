@@ -100,6 +100,7 @@ class SubjectViewer extends React.Component {
           <g transform={transform}>
             {subjectLocation && (
               <SVGImage
+                contrast={this.props.contrast}
                 ref={(c) => { this.svgImage = c; }}
                 src={subjectLocation}
                 onLoad={this.onImageLoad}
@@ -107,6 +108,15 @@ class SubjectViewer extends React.Component {
               />
             )}
           </g>
+          <defs>
+            <filter id="svg-invert-filter">
+              <feComponentTransfer>
+                <feFuncR type="table" tableValues="1 0" />
+                <feFuncG type="table" tableValues="1 0" />
+                <feFuncB type="table" tableValues="1 0" />
+              </feComponentTransfer>
+            </filter>
+          </defs>
         </svg>
       );
     }
@@ -120,6 +130,7 @@ class SubjectViewer extends React.Component {
 }
 
 SubjectViewer.propTypes = {
+  contrast: PropTypes.bool,
   currentSubject: PropTypes.shape({
     src: PropTypes.string
   }),
@@ -140,6 +151,7 @@ SubjectViewer.propTypes = {
 };
 
 SubjectViewer.defaultProps = {
+  contrast: false,
   currentSubject: null,
   frame: 0,
   rotation: 0,
@@ -157,8 +169,10 @@ SubjectViewer.defaultProps = {
 const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
+    contrast: sv.contrast,
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
+    rotation: sv.rotation,
     scaling: sv.scaling,
     subjectStatus: state.subject.status,
     translationX: sv.translationX,
