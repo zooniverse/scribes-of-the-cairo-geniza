@@ -1,4 +1,5 @@
 import oauth from 'panoptes-client/lib/oauth';
+import { fetchPreferences } from './project';
 
 // Action Types
 const SET_LOGIN_USER = 'project/user/SET_LOGIN_USER';
@@ -18,7 +19,7 @@ const loginReducer = (state = initialState, action) => {
       };
     default:
       return state;
-  };
+  }
 };
 
 // Action Creators
@@ -50,8 +51,9 @@ const setLoginUser = (user) => {
   return (dispatch) => {
     dispatch({
       type: SET_LOGIN_USER,
-      user,
+      user
     });
+    dispatch(fetchPreferences(user));
   };
 };
 
