@@ -1,24 +1,23 @@
 .field-guide
+  color: $plum
   display: flex
   flex-wrap: wrap
   height: 100%
-  margin-top: 3em
+  margin-top: 4em
   width: 100%
 
   div
-    height: 8em
+    height: 10.5rem
     padding: 0.25em
-    width: 20%
+    width: 25%
 
     button
-      background: $dark-grey
+      background-color: transparent
       display: flex
       flex-direction: column
-      margin: auto
-      padding: 0
 
     span
-      color: white
+      @extend .primary-label
       font-size: 0.6em
       height: 4em
       max-width: 10.75em
@@ -27,36 +26,33 @@
       text-align: left
 
   img
-    height: 4.5em
-    width: 6.5em
+    border-radius: 50%
+    height: 7rem
     object-fit: cover
+    width: 7rem
 
 .active-card
+  margin: 4rem 0.5rem
+
+  i
+    margin: 0 0.5rem
+
   button
+    @extend .text-link
     background-color: transparent
-    font-size: 0.6em
-    margin: 0.5em
-    padding: 0.25em
+    font-size: 0.75rem
+    margin: 0.5rem 0
 
   &__content
     display: flex
     padding: 0 1em
 
-    div:first-child
-      flex: 5
-
+    div
       h2
-        font-family: $playfair-display
-        font-weight: 300
-        margin-bottom: 0.75em
+        @extend .h1-font
+        font-size: 1rem
+        margin: 0.5rem 0
 
       p
-        font-family: $playfair-display
+        @extend .body-font
         font-size: 0.75em
-
-    div:nth-child(2)
-      flex: 2
-
-    img
-      max-height: 100%
-      max-width: 100%

@@ -17,11 +17,17 @@ class ControlPanel extends React.Component {
   }
 
   toggleFieldGuide() {
-    this.props.dispatch(toggleDialog(
+    if (this.props.dialog) {
+      return this.props.dispatch(toggleDialog(null));
+    }
+
+    return this.props.dispatch(toggleDialog(
       <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide'));
   }
 
   render() {
+    const fieldGuideText = this.props.dialog ? 'Hide Field Guide' : 'Show Field Guide';
+
     return (
       <section className="control-panel">
         <div className="control-panel__header">
@@ -41,7 +47,7 @@ class ControlPanel extends React.Component {
           <a href="/" className="text-link">Collection Page</a>
           <button className="button">Show Crib Sheet</button>
           <button className="button">Show Page Reverse</button>
-          <button className="button" onClick={this.toggleFieldGuide}>Show Field Guide</button>
+          <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
           <button className="button">Show Tutorial</button>
 
           <div>
@@ -55,18 +61,23 @@ class ControlPanel extends React.Component {
 }
 
 ControlPanel.propTypes = {
+  dialog: PropTypes.node,
   dispatch: PropTypes.func,
-  guide: PropTypes.object,
+  guide: PropTypes.shape({
+    id: PropTypes.string
+  }),
   icons: PropTypes.object
 };
 
 ControlPanel.defaultProps = {
+  dialog: null,
   dispatch: () => {},
   guide: null,
   icons: null
 };
 
 const mapStateToProps = (state) => ({
+  dialog: state.dialog.data,
   guide: state.fieldGuide.guide,
   icons: state.fieldGuide.icons
 });

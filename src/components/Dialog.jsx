@@ -51,6 +51,7 @@ class Dialog extends React.Component {
 
               <button className="close-button" onClick={this.close}>X</button>
 
+              <hr />
             </div>
             {this.props.children}
           </div>
@@ -62,7 +63,6 @@ class Dialog extends React.Component {
 
 Dialog.defaultProps = {
   dispatch: () => {},
-  enableResize: true,
   size: { height: 200, width: 200 },
   title: ''
 };
@@ -70,7 +70,6 @@ Dialog.defaultProps = {
 Dialog.propTypes = {
   children: PropTypes.node,
   dispatch: PropTypes.func,
-  enableResize: PropTypes.bool,
   size: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number
@@ -79,7 +78,6 @@ Dialog.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  enableResize: state.dialog.enableResize,
   size: state.dialog.size,
   title: state.dialog.title
 });

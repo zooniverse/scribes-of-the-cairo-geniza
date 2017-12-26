@@ -1,8 +1,7 @@
-const DEFAULT_SIZE = { height: 400, width: 600 };
+const DEFAULT_SIZE = { height: 450, width: 600 };
 
 const initialState = {
   data: null,
-  enableResize: true,
   size: DEFAULT_SIZE,
   isPrompt: false
 };
@@ -14,7 +13,6 @@ const dialogReducer = (state = initialState, action) => {
     case SET_POPUP:
       return {
         data: action.dialog,
-        enableResize: action.resize,
         size: action.size,
         title: action.title
       };
@@ -24,12 +22,11 @@ const dialogReducer = (state = initialState, action) => {
   }
 };
 
-const toggleDialog = (dialog, title = '', resize = true, size = DEFAULT_SIZE) => {
+const toggleDialog = (dialog, title = '', size = DEFAULT_SIZE) => {
   return (dispatch) => {
     dispatch({
       type: SET_POPUP,
       dialog,
-      resize,
       size,
       title
     });

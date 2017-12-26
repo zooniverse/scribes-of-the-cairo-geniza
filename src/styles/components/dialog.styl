@@ -8,6 +8,7 @@
   padding: 0.75rem
 
 .dialog
+  align-items: stretch
   background-color: $bisque
   border-top: 8px solid $sand
   box-shadow: 5px 5px 20px #888888
@@ -16,7 +17,11 @@
   justify-content: center
   height: 100%
   overflow: hidden
-  align-items: stretch
+
+  hr
+    border: 2px solid $plum
+    margin: 0
+    width: 3rem
 
   button
     border: none
@@ -28,20 +33,21 @@
     overflow: auto
 
     > div:first-child
+      background-color: $bisque
       position: fixed
       width: 100%
       z-index: 1
 
-    h2
-      @extend .primary-label
-      display: inline-block
-      margin: 1em
+      h2
+        @extend .primary-label
+        display: inline-block
+        margin: 1em
 
-.popup-content::-webkit-scrollbar
+.dialog-content::-webkit-scrollbar
   background-color: $bisque
 
-.popup-content::-webkit-scrollbar-thumb
-  background: $dark-grey
+.dialog-content::-webkit-scrollbar-thumb
+  background: $plum
 
 .step-through-controls
   text-align: center

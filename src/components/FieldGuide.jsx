@@ -26,7 +26,7 @@ class FieldGuide extends React.Component {
     const groupedItems = [];
 
     if (this.props.guide && this.props.guide.items) {
-      const size = 10;
+      const size = 8;
       const items = this.props.guide.items.slice();
 
       while (items.length > 0)
@@ -79,7 +79,7 @@ class FieldGuide extends React.Component {
     return (
       <div className="active-card">
         <button onClick={this.deactivateCard}>
-          <i className="fa fa-arrow-left" /> Back
+          <i className="fa fa-arrow-left" />Back
         </button>
 
         <div className="active-card__content">
@@ -91,13 +91,13 @@ class FieldGuide extends React.Component {
             {card.content && (
               <Markdown content={card.content} />
             )}
+            {card.content && (
+              <Markdown content={card.content} />
+            )}
+            {card.content && (
+              <Markdown content={card.content} />
+            )}
           </div>
-
-          {src && (
-            <div>
-              <img alt="" src={src} />
-            </div>
-          )}
         </div>
       </div>
     );
