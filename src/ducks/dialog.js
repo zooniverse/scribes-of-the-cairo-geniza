@@ -6,11 +6,11 @@ const initialState = {
   isPrompt: false
 };
 
-const SET_POPUP = 'SET_POPUP';
+const SET_DIALOG = 'SET_DIALOG';
 
 const dialogReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_POPUP:
+    case SET_DIALOG:
       return {
         data: action.dialog,
         size: action.size,
@@ -25,7 +25,7 @@ const dialogReducer = (state = initialState, action) => {
 const toggleDialog = (dialog, title = '', size = DEFAULT_SIZE) => {
   return (dispatch) => {
     dispatch({
-      type: SET_POPUP,
+      type: SET_DIALOG,
       dialog,
       size,
       title

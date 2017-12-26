@@ -91,12 +91,6 @@ class FieldGuide extends React.Component {
             {card.content && (
               <Markdown content={card.content} />
             )}
-            {card.content && (
-              <Markdown content={card.content} />
-            )}
-            {card.content && (
-              <Markdown content={card.content} />
-            )}
           </div>
         </div>
       </div>
@@ -126,7 +120,9 @@ FieldGuide.defaultProps = {
 };
 
 FieldGuide.propTypes = {
-  guide: PropTypes.object,
+  guide: PropTypes.shape({
+    id: PropTypes.string
+  }),
   icons: PropTypes.object
 };
 
