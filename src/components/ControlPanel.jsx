@@ -12,6 +12,7 @@ class ControlPanel extends React.Component {
     super(props);
 
     this.toggleFieldGuide = this.toggleFieldGuide.bind(this);
+    this.fetchTutorial = this.fetchTutorial.bind(this);
     this.showTutorial = this.showTutorial.bind(this);
   }
 
@@ -19,10 +20,12 @@ class ControlPanel extends React.Component {
     this.props.dispatch(fetchGuide());
   }
 
+  componentDidMount() {
+    this.fetchTutorial(this.props);
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.workflow && nextProps.preferences && nextProps.tutorialStatus === TUTORIAL_STATUS.IDLE) {
-      this.props.dispatch(fetchTutorial(nextProps.workflow));
-    }
+    this.fetchTutorial(nextProps);
 
     if (nextProps.tutorial !== this.props.tutorial) {
       Tutorial.startIfNecessary(Tutorial, nextProps.tutorial, nextProps.user, nextProps.preferences);
@@ -36,6 +39,12 @@ class ControlPanel extends React.Component {
 
     return this.props.dispatch(toggleDialog(
       <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide'));
+  }
+
+  fetchTutorial(props) {
+    if (props.workflow && props.preferences && props.tutorialStatus === TUTORIAL_STATUS.IDLE) {
+      this.props.dispatch(fetchTutorial(props.workflow));
+    }
   }
 
   showTutorial() {
