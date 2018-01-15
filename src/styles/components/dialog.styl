@@ -1,0 +1,53 @@
+.react-draggable
+  z-index: 100
+
+.close-button
+  @extend .primary-label
+  background: $bisque
+  float: right
+  padding: 0.75rem
+
+.dialog
+  align-items: stretch
+  background-color: $bisque
+  border-top: 8px solid $sand
+  box-shadow: 5px 5px 20px #888888
+  display: flex
+  flex-direction: column
+  justify-content: center
+  height: 100%
+  overflow: hidden
+
+  hr
+    border: 2px solid $plum
+    margin: 0
+    width: 3rem
+
+  button
+    border: none
+    cursor: pointer
+
+  .dialog-content
+    min-height: 100%
+    flex: 0 1 auto
+    overflow: auto
+
+    > div:first-child
+      background-color: $bisque
+      position: fixed
+      width: 100%
+      z-index: 1
+
+      h2
+        @extend .primary-label
+        display: inline-block
+        margin: 1em
+
+.dialog-content::-webkit-scrollbar
+  background-color: $bisque
+
+.dialog-content::-webkit-scrollbar-thumb
+  background: $plum
+
+.step-through-controls
+  text-align: center

@@ -24,11 +24,13 @@
   "homepage": "https://github.com/zooniverse/scribes-of-the-cairo-geniza",
   "dependencies": {
     "history": "~4.6.3",
+    "markdownz": "~7.3.1",
     "panoptes-client": "~2.8.0",
     "prop-types": "~15.5.10",
     "react": "~15.6.1",
     "react-dom": "~15.6.1",
     "react-redux": "~5.0.5",
+    "react-rnd": "^5.1.0",
     "react-router": "~4.1.2",
     "react-router-dom": "~4.1.2",
     "redux": "~3.7.2",

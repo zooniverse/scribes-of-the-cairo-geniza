@@ -1,0 +1,58 @@
+.field-guide
+  color: $plum
+  display: flex
+  flex-wrap: wrap
+  height: 100%
+  margin-top: 4em
+  width: 100%
+
+  div
+    height: 10.5rem
+    padding: 0.25em
+    width: 25%
+
+    button
+      background-color: transparent
+      display: flex
+      flex-direction: column
+
+    span
+      @extend .primary-label
+      font-size: 0.6em
+      height: 4em
+      max-width: 10.75em
+      overflow: hidden
+      padding: 0.5em
+      text-align: left
+
+  img
+    border-radius: 50%
+    height: 7rem
+    object-fit: cover
+    width: 7rem
+
+.active-card
+  margin: 4rem 0.5rem
+
+  i
+    margin: 0 0.5rem
+
+  button
+    @extend .text-link
+    background-color: transparent
+    font-size: 0.75rem
+    margin: 0.5rem 0
+
+  &__content
+    display: flex
+    padding: 0 1em
+
+    div
+      h2
+        @extend .h1-font
+        font-size: 1rem
+        margin: 0.5rem 0
+
+      p
+        @extend .body-font
+        font-size: 0.75em
