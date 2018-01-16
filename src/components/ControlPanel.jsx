@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
 

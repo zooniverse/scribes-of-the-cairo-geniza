@@ -48,7 +48,7 @@ const fetchGuide = () => {
       type: FETCH_GUIDE
     });
 
-    apiClient.type('field_guides').get({ project_id: `${config.projectId}` }).then(([guide]) => {
+    return apiClient.type('field_guides').get({ project_id: `${config.projectId}` }).then(([guide]) => {
       const icons = {};
 
       if (guide) {

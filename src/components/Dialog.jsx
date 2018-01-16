@@ -8,7 +8,6 @@ import { Utility } from '../lib/Utility';
 class Dialog extends React.Component {
   constructor(props) {
     super(props);
-    this.popupBody = null;
     this.close = this.close.bind(this);
   }
 
@@ -39,9 +38,7 @@ class Dialog extends React.Component {
         <div
           className="popup dialog"
           tabIndex="0"
-          ref={(c) => { this.popupBody = c; }}
           role="button"
-          onClick={(e) => { return e.target === this.popupBody && this.close(e); }}
         >
           <div className="dialog-content">
             <div>
