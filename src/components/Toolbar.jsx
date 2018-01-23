@@ -1,12 +1,12 @@
- import React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { setScaling, resetView,
   setRotation, toggleContrast,
-  // setTranslation,
-  // setViewerState, updateViewerSize, updateImageSize,
-  // SUBJECTVIEWER_STATE,
+  setViewerState,
+  // setTranslation, updateViewerSize, updateImageSize,
+  SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
 
 const ROTATION_STEP = 90;
@@ -21,6 +21,8 @@ class Toolbar extends React.Component {
     this.rotateSubject = this.rotateSubject.bind(this);
     this.resetView = this.resetView.bind(this);
     this.invertColors = this.invertColors.bind(this);
+    this.useAnnotationTool = this.useAnnotationTool.bind(this);
+    this.useNavigationTool = this.useNavigationTool.bind(this);
   }
 
   useZoomIn() {
@@ -43,11 +45,19 @@ class Toolbar extends React.Component {
     this.props.dispatch(toggleContrast());
   }
 
+  useAnnotationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
+  }
+
+  useNavigationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
+  }
+
   render() {
     return (
       <section className="toolbar">
-        <button>&#x02A01;</button>
-        <button><i className="fa fa-arrows" /></button>
+        <button onClick={this.useAnnotationTool}>&#x02A01;</button>
+        <button onClick={this.useNavigationTool}><i className="fa fa-arrows" /></button>
 
         <hr />
 

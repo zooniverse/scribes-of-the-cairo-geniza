@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import { Utility } from '../lib/Utility';
 import { getSubjectLocation } from '../lib/get-subject-location';
 import { subjectError, SUBJECT_STATUS } from '../ducks/subject';
 import SubjectError from '../components/SubjectError';
-import { Utility } from '../lib/Utility';
 
 import {
-  resetView, setTranslation,
-  updateImageSize,
+  resetView, setTranslation, updateImageSize,
   updateViewerSize, SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
 
+import { addAnnotationPoint, completeAnnotation } from '../ducks/annotations';
+import { toggleDialog } from '../ducks/dialog';
+
+import AnnotationsPane from '../components/AnnotationsPane';
+import SelectedAnnotation from '../components/SelectedAnnotation';
 import SVGImage from '../components/SVGImage';
 
 const INPUT_STATE = {
@@ -36,9 +41,14 @@ class SubjectViewer extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
     this.getPointerXY = this.getPointerXY.bind(this);
     this.getPointerXYOnImage = this.getPointerXYOnImage.bind(this);
+
+    this.pointer = {
+      start: { x: 0, y: 0 },
+      now: { x: 0, y: 0 },
+      state: INPUT_STATE.IDLE
+    };
 
     //Misc
     this.tmpTransform = null;
@@ -96,70 +106,6 @@ class SubjectViewer extends React.Component {
     return boundingBox;
   }
 
-  onMouseDown(e) {
-    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
-      const pointerXY = this.getPointerXY(e);
-      this.pointer.state = INPUT_STATE.ACTIVE;
-      this.pointer.start = { x: pointerXY.x, y: pointerXY.y };
-      this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
-      this.tmpTransform = {
-        scale: this.props.scaling,
-        translateX: this.props.translationX,
-        translateY: this.props.translationY
-      };
-      return Utility.stopEvent(e);
-    } else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
-      return Utility.stopEvent(e);
-    }
-  }
-
-  onMouseUp(e) {
-    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
-      const pointerXY = this.getPointerXY(e);
-      this.pointer.state = INPUT_STATE.IDLE;
-      this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
-      this.tmpTransform = false;
-      return Utility.stopEvent(e);
-    }
-    // TODO: Add annotation functionality
-    // else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
-    //   const pointerXYOnImage = this.getPointerXYOnImage(e);
-    //   if (this.props.annotationInProgress && this.props.annotationInProgress.points.length >= 2) {
-    //     const i = this.props.annotationInProgress.points.length - 1;
-    //     const points = this.props.annotationInProgress.points;
-    //
-    //     const straight = this.angleDegree(pointerXYOnImage, points[i], points[i - 1]);
-    //     if (!straight) return Utility.stopEvent(e);
-    //   }
-    //   this.props.dispatch(addAnnotationPoint(pointerXYOnImage.x, pointerXYOnImage.y, this.props.frame));
-    // }
-  }
-
-  onMouseMove(e) {
-    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
-      const pointerXY = this.getPointerXY(e);
-      this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
-      if (this.pointer.state === INPUT_STATE.ACTIVE && this.tmpTransform) {
-        const pointerDelta = {
-          x: this.pointer.now.x - this.pointer.start.x,
-          y: this.pointer.now.y - this.pointer.start.y
-        };
-        this.props.dispatch(setTranslation(
-          this.tmpTransform.translateX + (pointerDelta.x / this.tmpTransform.scale),
-          this.tmpTransform.translateY + (pointerDelta.y / this.tmpTransform.scale),
-        ));
-      }
-      return Utility.stopEvent(e);
-    }
-  }
-
-  onMouseLeave(e) {
-    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
-      this.pointer.state = INPUT_STATE.IDLE;
-      return Utility.stopEvent(e);
-    }
-  }
-
   getPointerXY(e) {
     const boundingBox = this.getBoundingBox();
     let clientX = 0;
@@ -173,6 +119,7 @@ class SubjectViewer extends React.Component {
       clientY = e.touches[0].clientY;
     }
 
+    // SVG scaling: usually not an issue.
     const sizeRatioX = 1;
     const sizeRatioY = 1;
 
@@ -183,12 +130,10 @@ class SubjectViewer extends React.Component {
   }
 
   getPointerXYOnImage(e) {
-    // Get the coordinates of the pointer on the Subject Viewer first.
     const pointerXY = this.getPointerXY(e);
     let inputX = pointerXY.x;
     let inputY = pointerXY.y;
 
-    //  Safety checks
     if (this.props.scaling === 0) {
       alert('ERROR: unexpected issue with Subject image scaling.');
       console.error('ERROR: Invalid value - SubjectViewer.props.scaling is 0.');
@@ -219,6 +164,58 @@ class SubjectViewer extends React.Component {
     return { x: inputX, y: inputY };
   }
 
+  onMouseDown(e) {
+    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
+      const pointerXY = this.getPointerXY(e);
+      this.pointer.state = INPUT_STATE.ACTIVE;
+      this.pointer.start = { x: pointerXY.x, y: pointerXY.y };
+      this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
+      this.tmpTransform = {
+        scale: this.props.scaling,
+        translateX: this.props.translationX,
+        translateY: this.props.translationY
+      };
+    }
+    return Utility.stopEvent(e);
+  }
+
+  onMouseUp(e) {
+    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
+      const pointerXY = this.getPointerXY(e);
+      this.pointer.state = INPUT_STATE.IDLE;
+      this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
+      this.tmpTransform = false;
+    } else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
+      const pointerXYOnImage = this.getPointerXYOnImage(e);
+      this.props.dispatch(addAnnotationPoint(pointerXYOnImage.x, pointerXYOnImage.y, this.props.frame));
+
+      if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
+          this.props.annotationInProgress.points.length > 1) {
+        this.props.dispatch(toggleDialog(<SelectedAnnotation />));
+        this.props.dispatch(completeAnnotation());
+      }
+    }
+    return Utility.stopEvent(e);
+  }
+
+  onMouseMove(e) {
+    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
+      const pointerXY = this.getPointerXY(e);
+      this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
+      if (this.pointer.state === INPUT_STATE.ACTIVE && this.tmpTransform) {
+        const pointerDelta = {
+          x: this.pointer.now.x - this.pointer.start.x,
+          y: this.pointer.now.y - this.pointer.start.y
+        };
+        this.props.dispatch(setTranslation(
+          this.tmpTransform.translateX + pointerDelta.x / this.tmpTransform.scale,
+          this.tmpTransform.translateY + pointerDelta.y / this.tmpTransform.scale,
+        ));
+      }
+    }
+    return Utility.stopEvent(e);
+  }
+
   render() {
     const transform = `scale(${this.props.scaling}) translate(${this.props.translationX}, ${this.props.translationY}) rotate(${this.props.rotation}) `;
     const cursor = this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING ? 'cursor-move' : 'cursor-crosshairs';
@@ -243,7 +240,6 @@ class SubjectViewer extends React.Component {
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onMouseMove={this.onMouseMove}
-          onMouseLeave={this.onMouseLeave}
         >
           <g transform={transform}>
             {subjectLocation && (
@@ -253,9 +249,19 @@ class SubjectViewer extends React.Component {
                 src={subjectLocation}
                 onLoad={this.onImageLoad}
                 onError={this.onImageError}
+                contrast={this.props.contrast}
               />
             )}
+            <AnnotationsPane
+              imageSize={this.props.imageSize}
+              annotationInProgress={this.props.annotationInProgress}
+              annotations={this.props.annotations}
+              frame={this.props.frame}
+              getPointerXY={this.getPointerXYOnImage}
+              onSelectAnnotation={this.onSelectAnnotation}
+            />
           </g>
+
           <defs>
             <filter id="svg-invert-filter">
               <feComponentTransfer>
@@ -278,6 +284,14 @@ class SubjectViewer extends React.Component {
 }
 
 SubjectViewer.propTypes = {
+  annotationInProgress: PropTypes.shape({
+    text: PropTypes.string,
+    points: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }))
+  }),
+  annotations: PropTypes.arrayOf(PropTypes.object),
   contrast: PropTypes.bool,
   currentSubject: PropTypes.shape({
     src: PropTypes.string
@@ -304,6 +318,8 @@ SubjectViewer.propTypes = {
 };
 
 SubjectViewer.defaultProps = {
+  annotationInProgress: null,
+  annotations: [],
   contrast: false,
   currentSubject: null,
   dispatch: () => {},
@@ -322,6 +338,8 @@ SubjectViewer.defaultProps = {
 const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
+    annotationInProgress: state.annotations.annotationInProgress,
+    annotations: state.annotations.annotations,
     contrast: sv.contrast,
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
