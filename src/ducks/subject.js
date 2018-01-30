@@ -1,5 +1,6 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
+import { createClassification } from './classification';
 
 // Action Types
 const FETCH_SUBJECT = 'FETCH_SUBJECT';
@@ -44,6 +45,10 @@ const subjectReducer = (state = initialState, action) => {
   }
 };
 
+const prepareForNewSubject = (dispatch, subject) => {
+  dispatch(createClassification(subject));
+};
+
 const fetchQueue = (id = config.workflowId) => {
   return (dispatch) => {
     dispatch({
@@ -58,6 +63,7 @@ const fetchQueue = (id = config.workflowId) => {
           type: FETCH_SUBJECT_SUCCESS,
           queue
         });
+        prepareForNewSubject(dispatch, currentSubject);
       })
       .catch(() => {
         dispatch({ type: FETCH_SUBJECT_ERROR });
@@ -68,6 +74,10 @@ const fetchQueue = (id = config.workflowId) => {
 const subjectError = () => {
   return (dispatch) => {
     dispatch({ type: FETCH_SUBJECT_ERROR });
+      .catch((err) => {
+        console.error('ducks/subject.js fetchSubject() error: ', err);
+        dispatch({ type: FETCH_SUBJECT_ERROR });
+      });
   };
 };
 
