@@ -56,8 +56,18 @@ class Toolbar extends React.Component {
   render() {
     return (
       <section className="toolbar">
-        <button onClick={this.useAnnotationTool}>&#x02A01;</button>
-        <button onClick={this.useNavigationTool}><i className="fa fa-arrows" /></button>
+        <button
+          className={(this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) ? 'active' : ''}
+          onClick={this.useAnnotationTool}
+        >
+          &#x02A01;
+        </button>
+        <button
+          className={(this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) ? 'active' : ''}
+          onClick={this.useNavigationTool}
+        >
+          <i className="fa fa-arrows" />
+        </button>
 
         <hr />
 
@@ -81,18 +91,24 @@ class Toolbar extends React.Component {
 Toolbar.propTypes = {
   dispatch: PropTypes.func,
   rotation: PropTypes.number,
-  scaling: PropTypes.number
+  scaling: PropTypes.number,
+  viewerState: PropTypes.string
 };
 
 Toolbar.defaultProps = {
   dispatch: () => {},
   rotation: 0,
-  scaling: 0
+  scaling: 0,
+  viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
-const mapStateToProps = (state) => ({
-  rotation: state.subjectViewer.rotation,
-  scaling: state.subjectViewer.scaling
-});
+const mapStateToProps = (state) => {
+  const sv = state.subjectViewer;
+  return {
+    rotation: sv.rotation,
+    scaling: sv.scaling,
+    viewerState: sv.viewerState
+  };
+};
 
 export default connect(mapStateToProps)(Toolbar);
