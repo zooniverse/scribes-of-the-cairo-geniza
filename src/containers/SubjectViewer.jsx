@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSubjectLocation } from '../lib/get-subject-location';
+import { subjectError, SUBJECT_STATUS } from '../ducks/subject';
+import SubjectError from '../components/SubjectError';
 
 import {
   resetView, updateImageSize, updateViewerSize
@@ -21,6 +23,7 @@ class SubjectViewer extends React.Component {
     //Events!
     this.updateSize = this.updateSize.bind(this);
     this.onImageLoad = this.onImageLoad.bind(this);
+    this.onImageError = this.onImageError.bind(this);
     this.getBoundingBox = this.getBoundingBox.bind(this);
 
     //Misc
@@ -53,13 +56,17 @@ class SubjectViewer extends React.Component {
   }
 
   onImageLoad() {
-    if (this.svgImage.image) {
+    if (this.svgImage && this.svgImage.image) {
       const imgW = (this.svgImage.image.width) ? this.svgImage.image.width : 1;
       const imgH = (this.svgImage.image.height) ? this.svgImage.image.height : 1;
 
       this.props.dispatch(updateImageSize(imgW, imgH));
       this.props.dispatch(resetView());
     }
+  }
+
+  onImageError() {
+    this.props.dispatch(subjectError());
   }
 
   getBoundingBox() {
@@ -72,15 +79,20 @@ class SubjectViewer extends React.Component {
   render() {
     const transform = `scale(${this.props.scaling}) translate(${this.props.translationX}, ${this.props.translationY}) rotate(${this.props.rotation}) `;
     let subjectLocation;
+    let renderedItem;
+    const subjectLoadError = this.props.subjectStatus === SUBJECT_STATUS.ERROR;
 
     if (this.props.currentSubject) {
       subjectLocation = getSubjectLocation(this.props.currentSubject, this.props.frame);
       subjectLocation = (subjectLocation && subjectLocation.src) ? subjectLocation.src : undefined;
     }
 
-    return (
-      <section className="subject-viewer" ref={(c) => { this.section = c; }}>
+    const errorStyle = subjectLoadError ? 'subject-viewer__error' : '';
 
+    if (subjectLoadError) {
+      renderedItem = <SubjectError />;
+    } else {
+      renderedItem = (
         <svg
           ref={(c) => { this.svg = c; }}
           viewBox="0 0 100 100"
@@ -91,10 +103,17 @@ class SubjectViewer extends React.Component {
                 ref={(c) => { this.svgImage = c; }}
                 src={subjectLocation}
                 onLoad={this.onImageLoad}
+                onError={this.onImageError}
               />
             )}
           </g>
         </svg>
+      );
+    }
+
+    return (
+      <section className={`subject-viewer ${errorStyle}`} ref={(c) => { this.section = c; }}>
+        {renderedItem}
       </section>
     );
   }
@@ -104,11 +123,13 @@ SubjectViewer.propTypes = {
   currentSubject: PropTypes.shape({
     src: PropTypes.string
   }),
+  dispatch: PropTypes.func,
   frame: PropTypes.number,
   rotation: PropTypes.number,
   translationX: PropTypes.number,
   translationY: PropTypes.number,
   scaling: PropTypes.number,
+  subjectStatus: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.string
   }),
@@ -123,6 +144,7 @@ SubjectViewer.defaultProps = {
   frame: 0,
   rotation: 0,
   scaling: 1,
+  subjectStatus: '',
   translationX: 0,
   translationY: 0,
   user: null,
@@ -132,12 +154,13 @@ SubjectViewer.defaultProps = {
   }
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
     scaling: sv.scaling,
+    subjectStatus: state.subject.status,
     translationX: sv.translationX,
     translationY: sv.translationY,
     user: state.login.user,
