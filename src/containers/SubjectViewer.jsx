@@ -43,6 +43,7 @@ class SubjectViewer extends React.Component {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.getPointerXY = this.getPointerXY.bind(this);
     this.getPointerXYOnImage = this.getPointerXYOnImage.bind(this);
+    this.onSelectAnnotation = this.onSelectAnnotation.bind(this);
 
     this.pointer = {
       start: { x: 0, y: 0 },
@@ -69,6 +70,16 @@ class SubjectViewer extends React.Component {
     window.removeEventListener('resize', this.updateSize);
   }
 
+  onImageLoad() {
+    if (this.svgImage && this.svgImage.image) {
+      const imgW = (this.svgImage.image.width) ? this.svgImage.image.width : 1;
+      const imgH = (this.svgImage.image.height) ? this.svgImage.image.height : 1;
+
+      this.props.dispatch(updateImageSize(imgW, imgH));
+      this.props.dispatch(resetView());
+    }
+  }
+
   updateSize() {
     if (!this.section || !this.svg) return;
 
@@ -83,16 +94,6 @@ class SubjectViewer extends React.Component {
     const svgW = boundingBox.width;
     const svgH = boundingBox.height;
     this.props.dispatch(updateViewerSize(svgW, svgH));
-  }
-
-  onImageLoad() {
-    if (this.svgImage && this.svgImage.image) {
-      const imgW = (this.svgImage.image.width) ? this.svgImage.image.width : 1;
-      const imgH = (this.svgImage.image.height) ? this.svgImage.image.height : 1;
-
-      this.props.dispatch(updateImageSize(imgW, imgH));
-      this.props.dispatch(resetView());
-    }
   }
 
   onImageError() {
@@ -216,6 +217,10 @@ class SubjectViewer extends React.Component {
     return Utility.stopEvent(e);
   }
 
+  onSelectAnnotation() {
+    this.props.dispatch(toggleDialog(<SelectedAnnotation />));
+  }
+
   render() {
     const transform = `scale(${this.props.scaling}) translate(${this.props.translationX}, ${this.props.translationY}) rotate(${this.props.rotation}) `;
     const cursor = this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING ? 'cursor-move' : 'cursor-crosshairs';
@@ -307,9 +312,6 @@ SubjectViewer.propTypes = {
   translationY: PropTypes.number,
   scaling: PropTypes.number,
   subjectStatus: PropTypes.string,
-  user: PropTypes.shape({
-    id: PropTypes.string
-  }),
   viewerSize: PropTypes.shape({
     width: PropTypes.number,
     height: PropTypes.number
@@ -330,8 +332,10 @@ SubjectViewer.defaultProps = {
   subjectStatus: '',
   translationX: 0,
   translationY: 0,
-  user: null,
-  viewerSize: { width: 0, height: 0 },
+  viewerSize: {
+    width: 0,
+    height: 0
+  },
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
@@ -349,7 +353,6 @@ const mapStateToProps = (state) => {
     subjectStatus: state.subject.status,
     translationX: sv.translationX,
     translationY: sv.translationY,
-    user: state.login.user,
     viewerSize: sv.viewerSize,
     viewerState: sv.viewerState
   };

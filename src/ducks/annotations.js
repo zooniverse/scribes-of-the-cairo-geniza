@@ -16,17 +16,18 @@ const initialState = {
 
 const annotationsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_ANNOTATION_POINT:
+    case ADD_ANNOTATION_POINT: {
       const annotationInProgress = (state.annotationInProgress)
-        ? Object.assign({}, state.annotationInProgress) //Create a copy, don't modify the existing object.
-        : { details: [{value: ''}], points: [], frame: action.frame };
+        ? Object.assign({}, state.annotationInProgress)
+        : { details: [{ value: '' }], points: [], frame: action.frame };
       annotationInProgress.points.push({ x: action.x, y: action.y });
       return Object.assign({}, state, {
         status: ANNOTATION_STATUS.IN_PROGRESS,
         annotationInProgress
       });
+    }
 
-    case COMPLETE_ANNOTATION:
+    case COMPLETE_ANNOTATION: {
       const annotations = (state.annotations)
         ? state.annotations.splice(0)
         : [];
@@ -38,6 +39,7 @@ const annotationsReducer = (state = initialState, action) => {
         selectedAnnotation: state.annotationInProgress,
         selectedAnnotationIndex: annotations.length - 1
       });
+    }
 
     default:
       return state;
@@ -48,7 +50,9 @@ const addAnnotationPoint = (x, y, frame) => {
   return (dispatch) => {
     dispatch({
       type: ADD_ANNOTATION_POINT,
-      x, y, frame
+      x,
+      y,
+      frame
     });
   };
 };

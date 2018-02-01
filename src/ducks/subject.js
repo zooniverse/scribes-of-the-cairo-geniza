@@ -29,11 +29,11 @@ const subjectReducer = (state = initialState, action) => {
       });
 
     case FETCH_SUBJECT_SUCCESS:
-      return {
+      return Object.assign({}, state, {
         queue: action.queue,
         currentSubject: action.currentSubject,
         status: SUBJECT_STATUS.READY
-      };
+      });
 
     case FETCH_SUBJECT_ERROR:
       return Object.assign({}, state, {
@@ -65,7 +65,8 @@ const fetchQueue = (id = config.workflowId) => {
         });
         prepareForNewSubject(dispatch, currentSubject);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('ducks/subject.js fetchSubject() error: ', err);
         dispatch({ type: FETCH_SUBJECT_ERROR });
       });
   };
@@ -74,10 +75,6 @@ const fetchQueue = (id = config.workflowId) => {
 const subjectError = () => {
   return (dispatch) => {
     dispatch({ type: FETCH_SUBJECT_ERROR });
-      .catch((err) => {
-        console.error('ducks/subject.js fetchSubject() error: ', err);
-        dispatch({ type: FETCH_SUBJECT_ERROR });
-      });
   };
 };
 

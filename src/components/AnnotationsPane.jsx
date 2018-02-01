@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import { Utility } from '../lib/Utility';
 
 class AnnotationsPane extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderAnnotationInProgress() {
     if (!this.props.annotationInProgress) return null;
 
@@ -33,7 +29,7 @@ class AnnotationsPane extends React.Component {
     );
   }
 
-  renderAnnotations(annotations) {
+  renderAnnotations() {
     if (!this.props.annotations.length) return null;
 
     const annotationPrefix = 'ANNOTATION_';
@@ -41,8 +37,8 @@ class AnnotationsPane extends React.Component {
     return this.props.annotations.map((annotation, index) => {
       if (annotation.frame !== this.props.frame) return null;
 
-      let onSelectAnnotation = this.props.onSelectAnnotation;
-      let svgPointPrefix = `ANNOTATION_${index}_POINT_`;
+      const onSelectAnnotation = this.props.onSelectAnnotation;
+      const svgPointPrefix = `ANNOTATION_${index}_POINT_`;
       const svgPoints = [];
 
       for (let i = 0; i < 2; i += 1) {
@@ -99,12 +95,21 @@ AnnotationsPane.propTypes = {
       y: PropTypes.number
     }))
   }),
-  annotations: PropTypes.arrayOf(PropTypes.object)
+  annotations: PropTypes.arrayOf(PropTypes.object),
+  imageSize: PropTypes.shape({
+    height: PropTypes.number,
+    width: PropTypes.number
+  }),
+  frame: PropTypes.number,
+  onSelectAnnotation: PropTypes.func
 };
 
 AnnotationsPane.defaultProps = {
   annotationInProgress: null,
-  annotations: []
+  annotations: [],
+  imageSize: {},
+  frame: 0,
+  onSelectAnnotation: () => {}
 };
 
 export default connect()(AnnotationsPane);
