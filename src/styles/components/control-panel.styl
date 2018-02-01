@@ -4,28 +4,61 @@
   -webkit-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
   -moz-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
   color: $plum
-  height: 33rem
+  height: 32rem
   position: absolute
   right: 0
   top: 12%
-  width: 14rem
+  width: 17rem
   z-index: 1
+
+  &__short
+    height: 24rem
+
+    &:hover, &:focus
+      .control-panel
+        width: 17rem
+
+  &__tall
+    height: 32rem
+
+  &__side
+    cursor: pointer
+    width: 3rem
+    overflow: hidden
+
+    .control-panel
+      right: -17rem
+      top: 0
+
+    &:hover, &:focus
+      width: 9rem
+
+      .control-panel
+        border-left: 1px solid $dust
+        right: -12rem
+
+    h2
+      @extend .primary-label
+      color: $plum
+      white-space: nowrap
+      transform: rotate(-90deg)
+      transform-origin: 4em 2.5em
+
+  &__hide
+    height: 24rem
+    width: 14rem
 
   hr
     border: 3px solid $plum
-    margin: 0
     width: 4rem
 
-  button
+  button:not(.control-panel__toggle)
     box-shadow: none
     margin: 0.25rem 0
+    width: 100%
 
   div
-    margin: 1rem
-
-  a
-    display: inline-block
-    margin: 0.5rem 0
+    margin: 1.25rem
 
   &__buttons
     div
@@ -34,6 +67,7 @@
     span:first-child
       margin-right: 0.5rem
 
+  &__info
     div:first-child
       display: flex
 
@@ -70,9 +104,22 @@
 
   &__header
     display: flex
-
-    span
-      margin-left: auto
+    margin-top: 0.5rem !important
+    margin-bottom: 0.5rem !important
 
     h4
       margin-bottom: 0
+
+    button
+      margin: 0 0 0 auto
+
+  &__toggle
+    background-color: transparent
+    border: none
+    color: $plum
+    cursor: pointer
+    display: block
+    font-family: $work-sans
+    font-weight: 600
+    margin: 1rem
+    text-decoration: underline
