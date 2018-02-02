@@ -1,4 +1,5 @@
 import oauth from 'panoptes-client/lib/oauth';
+import { fetchPreferences } from './project';
 
 // Action Types
 const SET_LOGIN_USER = 'project/user/SET_LOGIN_USER';
@@ -29,8 +30,10 @@ const setLoginUser = (user) => {
       type: SET_LOGIN_USER,
       user
     });
+    dispatch(fetchPreferences(user));
   };
 };
+
 
 const checkLoginUser = () => {
   // First thing on app load - check if the user is logged in.

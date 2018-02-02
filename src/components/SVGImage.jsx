@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SubjectLoading from './SubjectLoading';
 
+const FILTER = "url('#svg-invert-filter')"
+
 export default class SVGImage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false
+      loaded: false,
+      error: false
     };
 
     this.image = new Image();
@@ -16,8 +19,11 @@ export default class SVGImage extends React.Component {
         loaded: true
       });
     };
-    this.image.onerror = () => {
-      if (this.props.onError) this.props.onError();
+    this.image.onerror = (err) => {
+      if (this.props.onError) this.props.onError(err);
+      this.setState({
+        error: true
+      });
     };
 
     if (this.props.src) {
@@ -34,10 +40,12 @@ export default class SVGImage extends React.Component {
   }
 
   render() {
+    const invertFilter = this.props.contrast ? { filter: FILTER } : {};
+
     if (this.state.loaded) {
       return (
-        <image
-          className="svg-image"
+        <image className="svg-image"
+          style={invertFilter}
           xlinkHref={this.image.src}
           width={this.image.width}
           height={this.image.height}
@@ -51,12 +59,14 @@ export default class SVGImage extends React.Component {
 }
 
 SVGImage.propTypes = {
+  contrast: PropTypes.bool,
   src: PropTypes.string,
   onLoad: PropTypes.func,
   onError: PropTypes.func
 };
 
 SVGImage.defaultProps = {
+  contrast: false,
   src: null,
   onLoad: null,
   onError: null

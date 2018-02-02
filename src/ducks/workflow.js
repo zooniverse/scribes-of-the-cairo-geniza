@@ -3,7 +3,7 @@ import { config } from '../config';
 
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
-const FETCH_WORKFLOW_SUCCESS = 'FETCH_PROJECT_SUCCESS';
+const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
 const FETCH_WORKFLOW_ERROR = 'FETCH_WORKFLOW_ERROR';
 
 const WORKFLOW_STATUS = {
@@ -51,7 +51,7 @@ const fetchWorkflow = (id = config.workflowId) => {
       id
     });
 
-    return apiClient.type('workflows').get(id)
+    apiClient.type('workflows').get(id)
       .then((workflow) => {
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,
