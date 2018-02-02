@@ -14,15 +14,27 @@ const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_USER:
       return {
-        user: action.user,  // null if logged out.
-        initialised: true,  // true once we know if user is logged in/out; false if unknown.
+        user: action.user,
+        initialised: true
       };
+
     default:
       return state;
   }
 };
 
 // Action Creators
+const setLoginUser = (user) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_LOGIN_USER,
+      user
+    });
+    dispatch(fetchPreferences(user));
+  };
+};
+
+
 const checkLoginUser = () => {
   // First thing on app load - check if the user is logged in.
   return (dispatch) => {
@@ -34,7 +46,6 @@ const checkLoginUser = () => {
 };
 
 const loginToPanoptes = () => {
-  // Returns a login page URL for the user to navigate to.
   return (() => oauth.signIn(computeRedirectURL(window)));
 };
 
@@ -47,16 +58,6 @@ const logoutFromPanoptes = () => {
   };
 };
 
-const setLoginUser = (user) => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_LOGIN_USER,
-      user
-    });
-    dispatch(fetchPreferences(user));
-  };
-};
-
 // Helper functions
 const computeRedirectURL = (window) => {
   const { location } = window;
@@ -64,7 +65,6 @@ const computeRedirectURL = (window) => {
     `${location.protocol}//${location.hostname}:${location.port}`;
 };
 
-// Exports
 export default loginReducer;
 
 export {

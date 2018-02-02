@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ZooHeader, ZooFooter } from 'zooniverse-react-components';
-
-import { fetchProject } from '../ducks/project';
-import { fetchWorkflow } from '../ducks/workflow';
+import { fetchResources } from '../ducks/initialize';
 
 import AboutLayout from './about';
 import AuthContainer from '../containers/AuthContainer';
@@ -16,11 +14,12 @@ import ProjectHeader from './ProjectHeader';
 
 class App extends React.Component {
   componentWillMount() {
-    this.props.dispatch(fetchProject());
-    this.props.dispatch(fetchWorkflow());
+    this.props.dispatch(fetchResources());
   }
 
   render() {
+    if (!this.props.initializerReady) return null;
+
     return (
       <div>
         <header className="app-header">
@@ -51,6 +50,7 @@ class App extends React.Component {
 
 App.propTypes = {
   dialog: PropTypes.node,
+  initializerReady: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string
   })
@@ -58,11 +58,13 @@ App.propTypes = {
 
 App.defaultProps = {
   dialog: null,
+  initializerReady: false,
   location: {}
 };
 
 const mapStateToProps = (state) => ({
-  dialog: state.dialog.data
+  dialog: state.dialog.data,
+  initializerReady: state.initialize.ready
 });
 
 export default connect(mapStateToProps)(App);

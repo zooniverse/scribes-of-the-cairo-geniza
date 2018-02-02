@@ -67,5 +67,6 @@ const fetchWorkflow = (id = config.workflowId) => {
 export default workflowReducer;
 
 export {
-  fetchWorkflow
+  fetchWorkflow,
+  WORKFLOW_STATUS
 };

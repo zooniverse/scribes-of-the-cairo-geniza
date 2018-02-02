@@ -53,14 +53,14 @@ const fetchProject = (id = config.projectId) => {
   return (dispatch) => {
     dispatch({ type: FETCH_PROJECT });
 
-    apiClient.type('projects').get(id)
+    return apiClient.type('projects').get(id)
       .then((project) => {
         dispatch({
           type: FETCH_PROJECT_SUCCESS,
           data: project
         });
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch({ type: FETCH_PROJECT_ERROR });
       });
   };
@@ -108,6 +108,7 @@ const fetchPreferences = (user) => {
 export default projectReducer;
 
 export {
+  fetchProject,
   fetchPreferences,
-  fetchProject
+  PROJECT_STATUS
 };
