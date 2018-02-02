@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ZooHeader, ZooFooter } from 'zooniverse-react-components';
 
 import { fetchProject } from '../ducks/project';
+import { fetchWorkflow } from '../ducks/workflow';
 
 import AboutLayout from './about';
 import AuthContainer from '../containers/AuthContainer';
@@ -16,6 +17,7 @@ import ProjectHeader from './ProjectHeader';
 class App extends React.Component {
   componentWillMount() {
     this.props.dispatch(fetchProject());
+    this.props.dispatch(fetchWorkflow());
   }
 
   render() {
