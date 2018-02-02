@@ -11,9 +11,19 @@ class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleResize = this.handleResize.bind(this);
+    this.toggleButton = this.toggleButton.bind(this);
+    this.toggleIcon = this.toggleIcon.bind(this);
     this.toggleFieldGuide = this.toggleFieldGuide.bind(this);
     this.fetchTutorial = this.fetchTutorial.bind(this);
     this.showTutorial = this.showTutorial.bind(this);
+    this.toggleInfo = this.toggleInfo.bind(this);
+    this.togglePanel = this.togglePanel.bind(this);
+
+    this.state = {
+      showPanel: true,
+      showInfo: true
+    };
   }
 
   componentWillMount() {
@@ -30,6 +40,12 @@ class ControlPanel extends React.Component {
     if (nextProps.tutorial !== this.props.tutorial) {
       Tutorial.startIfNecessary(Tutorial, nextProps.tutorial, nextProps.user, nextProps.preferences);
     }
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
 
   toggleFieldGuide() {
@@ -53,28 +69,65 @@ class ControlPanel extends React.Component {
     }
   }
 
+  handleResize() {
+    if (window.innerHeight < 625 && this.state.showInfo) {
+      this.setState({ showInfo: false });
+    }
+  }
+
+  toggleButton() {
+    const text = this.state.showInfo ? 'Hide subject info' : 'View subject info';
+    return <button className="control-panel__toggle" onClick={this.toggleInfo}>{text}</button>;
+  }
+
+  toggleIcon() {
+    const iconClass = this.state.showPanel ? 'fa fa-chevron-right' : 'fa fa-chevron-left';
+    return <button className="control-panel__toggle" onClick={this.togglePanel}><i className={iconClass} /></button>;
+  }
+
+  toggleInfo() {
+    this.setState({ showInfo: !this.state.showInfo });
+  }
+
+  togglePanel() {
+    this.setState({ showPanel: !this.state.showPanel });
+  }
+
+  showSubjectInfo() {
+    return (
+      <div className="control-panel__info">
+        <div>
+          <span className="primary-label">Name</span>
+          <span className="body-font">ENA NS 78 0117</span>
+        </div>
+        <div>
+          <span className="primary-label">Attribution</span>
+          <span className="body-font">Library of the Jewish Theological Seminary</span>
+        </div>
+        <a href="/" className="text-link">Collection Page</a>
+      </div>
+    );
+  }
+
   render() {
     const fieldGuideText = this.props.dialog ? 'Hide Field Guide' : 'Show Field Guide';
-
-    return (
-      <section className="control-panel">
+    const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
+    const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
+    const panel = (
+      <section className={`control-panel ${hiddenStyle}`}>
         <div className="control-panel__header">
           <h4 className="primary-label">Subject info</h4>
-          <span>&#x025B8;</span>
+          {this.toggleIcon()}
         </div>
         <hr />
+        {this.toggleButton()}
         <div className="control-panel__buttons">
-          <div>
-            <span className="primary-label">Name</span>
-            <span className="body-font">ENA NS 78 0117</span>
-          </div>
-          <div>
-            <span className="primary-label">Attribution</span>
-            <span className="body-font">Library of the Jewish Theological Seminary</span>
-          </div>
-          <a href="/" className="text-link">Collection Page</a>
+
+          {this.state.showInfo && (
+            this.showSubjectInfo()
+          )}
+
           <button className="button">Show Crib Sheet</button>
-          <button className="button">Show Page Reverse</button>
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
@@ -86,6 +139,24 @@ class ControlPanel extends React.Component {
             <button className="button button__dark">Finished</button>
           </div>
         </div>
+      </section>
+    );
+
+    if (this.state.showPanel) {
+      return panel;
+    }
+
+    return (
+      <section
+        className={`control-panel control-panel__side ${peekHeight}`}
+        ref={(c) => { this.sidePanel = c; }}
+        role="button"
+        onClick={this.togglePanel}
+        tabIndex="0"
+      >
+        {this.toggleIcon()}
+        <h2>EXPAND INFO</h2>
+        {panel}
       </section>
     );
   }

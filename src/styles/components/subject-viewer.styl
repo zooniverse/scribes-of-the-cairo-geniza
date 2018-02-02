@@ -1,3 +1,30 @@
 .subject-viewer
   padding-top: 0 !important
   padding-bottom: 0 !important
+
+  &__error
+    align-items: center
+    background: url('../images/hebrew-big.png') no-repeat center center
+    background-size: cover
+    display: flex
+    min-height: 30rem
+    overflow: auto
+    width: 100%
+
+    div
+      margin: auto
+      text-align: center
+
+      a, button
+        display: inline-block
+        margin: 0 0.5rem
+        text-decoration: none
+
+        &:hover, &:focus
+          color: $bisque
+
+.cursor-move
+  cursor: move
+
+.cursor-crosshairs
+  cursor: crosshair
