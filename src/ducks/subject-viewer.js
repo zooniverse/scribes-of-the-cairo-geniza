@@ -73,11 +73,12 @@ const subjectViewerReducer = (state = initialState, action) => {
       });
     }
 
-    case SET_TRANSLATION:
+    case SET_TRANSLATION: {
       return Object.assign({}, state, {
         translationX: action.x,
         translationY: action.y
       });
+    }
 
     case UPDATE_IMAGE_SIZE: {
       return Object.assign({}, state, {
