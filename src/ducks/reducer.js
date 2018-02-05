@@ -8,8 +8,12 @@ import subject from './subject';
 import subjectViewer from './subject-viewer';
 import tutorial from './tutorial';
 import workflow from './workflow';
+import classification from './classification';
+import annotations from './annotations';
 
 export default combineReducers({
+  annotations,
+  classification,
   dialog,
   fieldGuide,
   initialize,
