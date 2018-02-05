@@ -41,6 +41,7 @@ class SubjectViewer extends React.Component {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
     this.getPointerXY = this.getPointerXY.bind(this);
     this.getPointerXYOnImage = this.getPointerXYOnImage.bind(this);
     this.onSelectAnnotation = this.onSelectAnnotation.bind(this);
@@ -199,6 +200,13 @@ class SubjectViewer extends React.Component {
     return Utility.stopEvent(e);
   }
 
+  onMouseLeave(e) {
+    if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
+      this.pointer.state = INPUT_STATE.IDLE;
+      return Utility.stopEvent(e);
+    }
+  }
+
   onMouseMove(e) {
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
       const pointerXY = this.getPointerXY(e);
@@ -245,6 +253,7 @@ class SubjectViewer extends React.Component {
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onMouseMove={this.onMouseMove}
+          onMouseLeave={this.onMouseLeave}
         >
           <g transform={transform}>
             {subjectLocation && (
