@@ -1,12 +1,12 @@
- import React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { setScaling, resetView,
   setRotation, toggleContrast,
-  // setTranslation,
-  // setViewerState, updateViewerSize, updateImageSize,
-  // SUBJECTVIEWER_STATE,
+  setViewerState,
+  // setTranslation, updateViewerSize, updateImageSize,
+  SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
 
 const ROTATION_STEP = 90;
@@ -21,6 +21,8 @@ class Toolbar extends React.Component {
     this.rotateSubject = this.rotateSubject.bind(this);
     this.resetView = this.resetView.bind(this);
     this.invertColors = this.invertColors.bind(this);
+    this.useAnnotationTool = this.useAnnotationTool.bind(this);
+    this.useNavigationTool = this.useNavigationTool.bind(this);
   }
 
   useZoomIn() {
@@ -43,11 +45,29 @@ class Toolbar extends React.Component {
     this.props.dispatch(toggleContrast());
   }
 
+  useAnnotationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
+  }
+
+  useNavigationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
+  }
+
   render() {
     return (
       <section className="toolbar">
-        <button>&#x02A01;</button>
-        <button><i className="fa fa-arrows" /></button>
+        <button
+          className={(this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) ? 'active' : ''}
+          onClick={this.useAnnotationTool}
+        >
+          &#x02A01;
+        </button>
+        <button
+          className={(this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) ? 'active' : ''}
+          onClick={this.useNavigationTool}
+        >
+          <i className="fa fa-arrows" />
+        </button>
 
         <hr />
 
@@ -71,18 +91,24 @@ class Toolbar extends React.Component {
 Toolbar.propTypes = {
   dispatch: PropTypes.func,
   rotation: PropTypes.number,
-  scaling: PropTypes.number
+  scaling: PropTypes.number,
+  viewerState: PropTypes.string
 };
 
 Toolbar.defaultProps = {
   dispatch: () => {},
   rotation: 0,
-  scaling: 0
+  scaling: 0,
+  viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
-const mapStateToProps = (state) => ({
-  rotation: state.subjectViewer.rotation,
-  scaling: state.subjectViewer.scaling
-});
+const mapStateToProps = (state) => {
+  const sv = state.subjectViewer;
+  return {
+    rotation: sv.rotation,
+    scaling: sv.scaling,
+    viewerState: sv.viewerState
+  };
+};
 
 export default connect(mapStateToProps)(Toolbar);

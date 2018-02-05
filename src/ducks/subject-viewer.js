@@ -2,9 +2,8 @@ const MIN_SCALING = 0.1;
 const MAX_SCALING = 10;
 
 const SUBJECTVIEWER_STATE = {
-  IDLE: 'idle',
-  NAVIGATING: 'navigating',
-  ANNOTATING: 'annotating'
+  ANNOTATING: 'annotating',
+  NAVIGATING: 'navigating'
 };
 
 const initialState = {
@@ -24,6 +23,7 @@ const SET_ROTATION = 'SET_ROTATION';
 const SET_SCALING = 'SET_SCALING';
 const SET_TRANSLATION = 'SET_TRANSLATION';
 const TOGGLE_CONTRAST = 'TOGGLE_CONTRAST';
+const SET_VIEWER_STATE = 'SET_VIEWER_STATE';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
 const UPDATE_VIEWER_SIZE = 'UPDATE_VIEWER_SIZE';
 
@@ -80,14 +80,18 @@ const subjectViewerReducer = (state = initialState, action) => {
       });
     }
 
-    case UPDATE_IMAGE_SIZE: {
+    case SET_VIEWER_STATE:
+      return Object.assign({}, state, {
+        viewerState: action.viewerState
+      });
+
+    case UPDATE_IMAGE_SIZE:
       return Object.assign({}, state, {
         imageSize: {
           width: action.width,
           height: action.height
         }
       });
-    }
 
     case UPDATE_VIEWER_SIZE: {
       let bestFitScaled = 1;
@@ -118,6 +122,24 @@ const resetView = () => {
   return (dispatch) => {
     dispatch({
       type: RESET_VIEW
+    });
+  };
+};
+
+const setTranslation = (x, y) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_TRANSLATION,
+      x, y
+    });
+  };
+};
+
+const setViewerState = (viewerState) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_VIEWER_STATE,
+      viewerState
     });
   };
 };
@@ -168,15 +190,6 @@ const toggleContrast = () => {
   };
 };
 
-const setTranslation = (x, y) => {
-  return (dispatch) => {
-    dispatch({
-      type: SET_TRANSLATION,
-      x, y
-    });
-  };
-};
-
 export default subjectViewerReducer;
 
 export {
@@ -185,6 +198,7 @@ export {
   setScaling,
   setTranslation,
   toggleContrast,
+  setViewerState,
   updateImageSize,
   updateViewerSize,
   SUBJECTVIEWER_STATE
