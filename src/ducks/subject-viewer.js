@@ -39,6 +39,9 @@ const subjectViewerReducer = (state = initialState, action) => {
         );
       }
 
+      // Zoom out some to ensure the user this is a subject to annotate
+      bestFitScale -= 0.025;
+
       return Object.assign({}, state, {
         contrast: false,
         rotation: 0,
