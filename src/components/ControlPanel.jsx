@@ -76,7 +76,7 @@ class ControlPanel extends React.Component {
   }
 
   toggleButton() {
-    const text = this.state.showInfo ? 'Hide subject info' : 'View subject info';
+    const text = this.state.showInfo ? 'Collapse Name & Attribution' : 'Expand Name & Attribution';
     return <button className="control-panel__toggle" onClick={this.toggleInfo}>{text}</button>;
   }
 
@@ -104,7 +104,7 @@ class ControlPanel extends React.Component {
           <span className="primary-label">Attribution</span>
           <span className="body-font">Library of the Jewish Theological Seminary</span>
         </div>
-        <a href="/" className="text-link">Collection Page</a>
+        <a href="/" className="text-link">Library Catalog Page</a>
       </div>
     );
   }
@@ -120,12 +120,12 @@ class ControlPanel extends React.Component {
           {this.toggleIcon()}
         </div>
         <hr />
-        {this.toggleButton()}
         <div className="control-panel__buttons">
 
           {this.state.showInfo && (
             this.showSubjectInfo()
           )}
+          {this.toggleButton()}
 
           <button className="button">Show Crib Sheet</button>
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
@@ -134,9 +134,12 @@ class ControlPanel extends React.Component {
             <button className="button" onClick={this.showTutorial}>Show Tutorial</button>
           )}
 
+          <hr className="control-panel__white-line" />
+
           <div>
+            <button className="button">Transcribe Page Reverse</button>
             <button className="button">Save Progress</button>
-            <button className="button button__dark">Finished</button>
+            <button className="button button__dark">Done</button>
           </div>
         </div>
       </section>

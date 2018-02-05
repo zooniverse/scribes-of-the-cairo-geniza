@@ -28,7 +28,46 @@
     padding: 0.25rem
     width: 1.75rem
 
-    &:hover, &:focus, &.active
+    &:hover:not(.button-header), &:focus:not(.button-header), &.active
       border-color: $sand
       background-color: $sand
       border-radius: 50%
+
+    span
+      color: $dust
+      font-family: $work-sans
+      font-size: 0.6rem
+      font-weight: 600
+      letter-spacing: 1px
+      margin-left: 0.5rem
+      text-transform: uppercase
+
+    i:not(.button-header)
+      float: left
+      margin: 0 0.2rem
+      font-style: normal
+
+  &__expanded
+    width: 13rem
+
+    hr:first-of-type
+      align-self: left
+      border: 3px solid $plum
+      width: 25%
+
+    hr
+      width: 90%
+
+    button
+      text-align: left
+      width: 95%
+
+      &:hover:not(.button-header), &:focus:not(.button-header), &.active
+        border-radius: 1.5rem
+
+    .button-header
+      i
+        float: right
+
+      span
+        color: $plum
