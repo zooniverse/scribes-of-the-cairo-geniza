@@ -54,22 +54,6 @@ class Toolbar extends React.Component {
     this.props.dispatch(toggleContrast());
   }
 
-  toggleIcon() {
-    const iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
-    return (
-      <button className="button-header" onClick={this.togglePanel}>
-        {this.state.showPanel && (
-          <span>Toolbar</span>
-        )}
-        <i className={`${iconClass} button-header`} />
-      </button>
-    );
-  }
-
-  togglePanel() {
-    this.setState({ showPanel: !this.state.showPanel });
-  }
-
   useAnnotationTool() {
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   }
@@ -80,6 +64,22 @@ class Toolbar extends React.Component {
 
   toggleFavorite() {
     this.props.dispatch(toggleFavorite());
+  }
+
+  togglePanel() {
+    this.setState({ showPanel: !this.state.showPanel });
+  }
+
+  toggleIcon() {
+    const iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    return (
+      <button className="button-header" onClick={this.togglePanel}>
+        {this.state.showPanel && (
+          <span>Toolbar</span>
+        )}
+        <i className={`${iconClass} button-header`} />
+      </button>
+    );
   }
 
   render() {
@@ -136,20 +136,18 @@ class Toolbar extends React.Component {
 
         <hr />
 
-        <button>
-          <i className="fa fa-heart-o" />
-          {expanded && (<span>Add To Favorites</span>)}
-        </button>
+        {this.props.user && (
+          <FavoritesButton
+            expanded={expanded}
+            favorite={this.props.favoriteSubject}
+            toggleFavorite={this.toggleFavorite}
+          />
+        )}
+
         <button>
           <i className="fa fa-list" />
           {expanded && (<span>Add To Collection</span>)}
         </button>
-
-        {this.props.user && (
-          <FavoritesButton favorite={this.props.favoriteSubject} toggleFavorite={this.toggleFavorite} />
-        )}
-
-        <button><i className="fa fa-list" /></button>
 
       </section>
     );
