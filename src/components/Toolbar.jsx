@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import CollectionsContainer from '../containers/CollectionsContainer';
+import { toggleDialog } from '../ducks/dialog';
 import { setScaling, resetView,
   setRotation, toggleContrast,
   setViewerState,
@@ -25,6 +27,8 @@ class Toolbar extends React.Component {
     this.togglePanel = this.togglePanel.bind(this);
     this.useAnnotationTool = this.useAnnotationTool.bind(this);
     this.useNavigationTool = this.useNavigationTool.bind(this);
+    this.showCollections = this.showCollections.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
 
     this.state = {
       showPanel: false
@@ -66,13 +70,23 @@ class Toolbar extends React.Component {
   togglePanel() {
     this.setState({ showPanel: !this.state.showPanel });
   }
-  
+
   useAnnotationTool() {
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   }
 
   useNavigationTool() {
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
+  }
+
+  showCollections() {
+    const PANE_SIZE = { height: 300, width: 500 };
+    this.props.dispatch(
+      toggleDialog(<CollectionsContainer closePopup={this.closeDialog} />, 'Add to Collections', PANE_SIZE));
+  }
+
+  closeDialog() {
+    this.props.dispatch(toggleDialog(null));
   }
 
   render() {
@@ -133,10 +147,12 @@ class Toolbar extends React.Component {
           <i className="fa fa-heart-o" />
           {expanded && (<span>Add To Favorites</span>)}
         </button>
-        <button>
-          <i className="fa fa-list" />
-          {expanded && (<span>Add To Collection</span>)}
-        </button>
+
+        {this.props.user && (
+          <button onClick={this.showCollections}>
+            <i className="fa fa-list" />
+          </button>
+        )}
       </section>
     );
   }
@@ -147,6 +163,9 @@ Toolbar.propTypes = {
   dispatch: PropTypes.func,
   rotation: PropTypes.number,
   scaling: PropTypes.number,
+  user: PropTypes.shape({
+    id: PropTypes.string
+  }),
   viewerState: PropTypes.string
 };
 
@@ -154,6 +173,7 @@ Toolbar.defaultProps = {
   dispatch: () => {},
   rotation: 0,
   scaling: 0,
+  user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
@@ -162,6 +182,7 @@ const mapStateToProps = (state) => {
   return {
     rotation: sv.rotation,
     scaling: sv.scaling,
+    user: state.login.user,
     viewerState: sv.viewerState
   };
 };
