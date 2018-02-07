@@ -30,6 +30,15 @@ export default function Home() {
           <a href="/">Scroll down to start transcribing</a>
         </div>
       </div>
+      
+      <div style={{ border: '1px solid #c33', maxWidth: '80%', margin: '0 auto' }}>
+        <button className="test-char alif"></button>
+        <button className="test-char baa"></button>
+        <button className="test-char alif"></button>
+        <button className="test-char taa"></button>
+        <button className="test-char baa"></button>
+      </div>
+      
       <div className="home-page__get-started">
         <h2>Get Started</h2>
         <div>
