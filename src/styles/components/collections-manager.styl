@@ -23,16 +23,16 @@
 .collections-manager
   margin: 4rem 2rem 0 2rem
 
+  hr
+    margin: 1rem 0
+    width: 100%
+
   button
     margin-left: 1rem
     max-width: 8rem
     height: 2rem
 
-  span
-    @extends .primary-label
-    color: $dust
-
-  .test
+  &__add
     display: flex
     height: auto !important
 
@@ -42,11 +42,57 @@
   &__create
     display: flex
 
+    input
+      border: 1px solid $plum
+      padding: 0 0.5rem
+
+  &__instructions
+    margin-bottom: 0.25rem
+
+  &__private-toggle
+    position: relative
+
+    label
+      border: 1px solid $plum
+      border-radius: 50%
+      cursor: pointer
+      height: 0.8rem
+      left: 0
+      position: absolute
+      width: 0.8rem
+      top: 0.3rem
+
+    input[type="checkbox"]:checked + label
+      background-color: $plum
+
+    input
+      visibility: hidden
+
+    span
+      color: $plum
+      display: block
+      line-height: 0.75rem
+      margin-left: 1.25rem
+
+  &__error
+    color: red
+    display: block
+    margin-bottom: 0.5rem
+
   &__input-div
     display: flex
     flex-direction: column
     position: relative
     min-height: 4rem
+
+    button
+      &:disabled
+        background-image: url('../images/bg-disabled.png')
+        cursor: default
+
+    span
+      @extends .primary-label
+      color: $dust
 
     .Select, input
       width: 100%
@@ -62,6 +108,7 @@
         position: fixed
 
     .Select-control
+      border: 1px solid $plum
       border-radius: 0
       display: flex
       height: auto

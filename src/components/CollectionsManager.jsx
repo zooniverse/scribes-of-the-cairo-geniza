@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 
+const ENABLE_DRAG = 'handle collections-manager';
+const DISABLE_DRAG = 'collections-manager';
+
 class CollectionsManager extends React.Component {
   constructor(props) {
     super(props);
@@ -33,18 +36,23 @@ class CollectionsManager extends React.Component {
     e.preventDefault();
     const value = this.create.value;
     const privateChecked = this.private.checked;
-
     this.props.onSubmit(value, privateChecked);
   }
 
   render() {
     const disableAdd = !this.props.selectedCollections.length;
     return (
-      <div className="collections-manager">
+      <div className={ENABLE_DRAG} ref={(c) => { this.manager = c; }}>
         <div className="collections-manager__input-div">
-          <span>Add to An Existing Collection</span>
+          <span className="collections-manager__instructions">Add to An Existing Collection</span>
 
-          <div className="test">
+          <div
+            className="collections-manager__add"
+            role="searchbox"
+            onMouseDown={() => { this.manager.className = DISABLE_DRAG; }}
+            onMouseUp={() => { this.manager.className = ENABLE_DRAG; }}
+            tabIndex={0}
+          >
             <Select.Async
               multi
               onChange={this.props.onChange}
@@ -58,62 +66,40 @@ class CollectionsManager extends React.Component {
           </div>
         </div>
 
+        <hr className="white-line" />
 
         <div className="collections-manager__input-div">
-          <span>Or create a new Collection</span>
+          <span className="collections-manager__instructions">Or create a new Collection</span>
 
-          <div className="collections-manager__create">
+          <form className="collections-manager__create" onSubmit={this.handleSubmission}>
             <input
               ref={(el) => { this.create = el; }}
               onChange={this.handleInputChange}
               placeholder="Collection Name"
+              onMouseDown={() => { this.manager.className = DISABLE_DRAG; }}
+              onMouseUp={() => { this.manager.className = ENABLE_DRAG; }}
             />
-
             <button className="button button__dark" disabled={this.state.disableAdd} type="submit">Add</button>
-          </div>
+          </form>
         </div>
 
-        <div>
+        {this.props.error && (
+          <span className="collections-manager__error">
+            {this.props.error}
+          </span>
+        )}
+
+        <div className="collections-manager__private-toggle">
+          <input
+            id="private"
+            type="checkbox"
+            ref={(el) => { this.private = el; }}
+            defaultChecked={false}
+          />
           <label htmlFor="private">
-            <input
-              id="private"
-              type="checkbox"
-              ref={(el) => { this.private = el; }}
-              defaultChecked={false}
-            />
-            Private
+            <span>Private</span>
           </label>
         </div>
-
-        {/* <div>
-          <form onSubmit={this.handleSubmission}>
-            <input
-              ref={(el) => { this.create = el; }}
-              onChange={this.handleInputChange}
-              placeholder="Collection Name"
-            />
-
-            <div>
-              <label htmlFor="private">
-                <input
-                  id="private"
-                  type="checkbox"
-                  ref={(el) => { this.private = el; }}
-                  defaultChecked={false}
-                />
-                Private
-              </label>
-              <button className="button" disabled={this.state.disableAdd} type="submit">Add</button>
-            </div>
-
-            {this.props.error && (
-              <div>
-                {this.props.error}
-              </div>
-            )}
-          </form>
-        </div> */}
-
       </div>
 
     );

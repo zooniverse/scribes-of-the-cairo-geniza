@@ -29,7 +29,7 @@ export default function AboutLayout({ match }) {
         <div className="about-page__intro">
           <h2>About</h2>
           <div>
-            <hr />
+            <hr className="plum-line" />
             <span>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -84,14 +84,14 @@ export default function AboutLayout({ match }) {
               return (
                 <div key={`team-member-${i}`}>
                   <img alt={member.name} src={members[member.photo]} />
-                  <hr />
+                  <hr className="plum-line" />
                   <h3>{member.name}</h3>
                   <span>{member.description}</span>
                 </div>
               );
             })}
           </div>
-          <hr />
+          <hr className="plum-line" />
           <div className="about-page__thanks">
             <h3>Special thanks</h3>
             <span>

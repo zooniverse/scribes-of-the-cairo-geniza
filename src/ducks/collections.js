@@ -6,29 +6,28 @@ const initialState = {
 };
 
 const collectionsReducer = (state = initialState, action) => {
- switch (action.type) {
+  switch (action.type) {
+    case SELECT_COLLECTION:
+      return {
+        selectedCollections: action.collection
+      };
 
-   case SELECT_COLLECTION:
-     return {
-       selectedCollections: action.collection,
-     };
-
-   default:
-     return state;
- };
+    default:
+      return state;
+  }
 };
 
 const selectCollection = (collection) => {
- return (dispatch) => {
-   dispatch({
-     type: SELECT_COLLECTION,
-     collection,
-   });
- };
+  return (dispatch) => {
+    dispatch({
+      type: SELECT_COLLECTION,
+      collection
+    });
+  };
 };
 
 export default collectionsReducer;
 
 export {
- selectCollection
+  selectCollection
 };

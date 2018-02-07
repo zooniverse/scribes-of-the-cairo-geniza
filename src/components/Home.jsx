@@ -19,7 +19,7 @@ export default function Home() {
           <ZooniverseLogotype width="100px" />
           <h1>Scribes of the Cairo Geniza</h1>
         </div>
-        <hr />
+        <hr className="plum-line" />
         <div>
           <span>
             The University of Pennsylvania Libraries, in partnership with the
@@ -33,7 +33,7 @@ export default function Home() {
       <div className="home-page__get-started">
         <h2>Get Started</h2>
         <div>
-          <hr />
+          <hr className="plum-line" />
           <div>
             <h2 className="h2-font">Transcribe Hebrew fragments</h2>
             <span>
@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <hr />
+          <hr className="plum-line" />
           <div>
             <h2 className="h2-font">Transcribe Arabic fragments</h2>
             <span>
@@ -78,7 +78,7 @@ export default function Home() {
         <span>Solomon Schechter</span>
       </div>
       <div className="home-page__about">
-        <hr />
+        <hr className="plum-line" />
         <h2 className="h2-font">About Scribes of the Cairo Geniza</h2>
         <div>
           <span>
