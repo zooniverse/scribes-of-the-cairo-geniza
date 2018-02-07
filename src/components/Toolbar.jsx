@@ -151,6 +151,7 @@ class Toolbar extends React.Component {
         {this.props.user && (
           <button onClick={this.showCollections}>
             <i className="fa fa-list" />
+            {expanded && (<span>Add To Collection</span>)}
           </button>
         )}
       </section>
