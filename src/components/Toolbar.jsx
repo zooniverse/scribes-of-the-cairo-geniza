@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { toggleFavorite } from '../ducks/subject';
+import FavoritesButton from './FavoritesButton';
 import { setScaling, resetView,
   setRotation, toggleContrast,
   setViewerState,
@@ -25,6 +27,7 @@ class Toolbar extends React.Component {
     this.togglePanel = this.togglePanel.bind(this);
     this.useAnnotationTool = this.useAnnotationTool.bind(this);
     this.useNavigationTool = this.useNavigationTool.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
 
     this.state = {
       showPanel: false
@@ -51,6 +54,22 @@ class Toolbar extends React.Component {
     this.props.dispatch(toggleContrast());
   }
 
+  useAnnotationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
+  }
+
+  useNavigationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
+  }
+
+  toggleFavorite() {
+    this.props.dispatch(toggleFavorite());
+  }
+
+  togglePanel() {
+    this.setState({ showPanel: !this.state.showPanel });
+  }
+
   toggleIcon() {
     const iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
     return (
@@ -61,18 +80,6 @@ class Toolbar extends React.Component {
         <i className={`${iconClass} button-header`} />
       </button>
     );
-  }
-
-  togglePanel() {
-    this.setState({ showPanel: !this.state.showPanel });
-  }
-  
-  useAnnotationTool() {
-    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
-  }
-
-  useNavigationTool() {
-    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
   }
 
   render() {
@@ -129,14 +136,19 @@ class Toolbar extends React.Component {
 
         <hr />
 
-        <button>
-          <i className="fa fa-heart-o" />
-          {expanded && (<span>Add To Favorites</span>)}
-        </button>
+        {this.props.user && (
+          <FavoritesButton
+            expanded={expanded}
+            favorite={this.props.favoriteSubject}
+            toggleFavorite={this.toggleFavorite}
+          />
+        )}
+
         <button>
           <i className="fa fa-list" />
           {expanded && (<span>Add To Collection</span>)}
         </button>
+
       </section>
     );
   }
@@ -145,23 +157,31 @@ class Toolbar extends React.Component {
 
 Toolbar.propTypes = {
   dispatch: PropTypes.func,
+  favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
   scaling: PropTypes.number,
-  viewerState: PropTypes.string
+  viewerState: PropTypes.string,
+  user: PropTypes.shape({
+    id: PropTypes.string
+  })
 };
 
 Toolbar.defaultProps = {
   dispatch: () => {},
+  favoriteSubject: false,
   rotation: 0,
   scaling: 0,
+  user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
 const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
+    favoriteSubject: state.subject.favorite,
     rotation: sv.rotation,
     scaling: sv.scaling,
+    user: state.login.user,
     viewerState: sv.viewerState
   };
 };
