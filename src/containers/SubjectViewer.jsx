@@ -254,6 +254,10 @@ class SubjectViewer extends React.Component {
           onMouseUp={this.onMouseUp}
           onMouseMove={this.onMouseMove}
           onMouseLeave={this.onMouseLeave}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+          onTouchMove={this.onMouseMove}
+          onTouchCancel ={this.onMouseLeave}
         >
           <g transform={transform}>
             {subjectLocation && (
