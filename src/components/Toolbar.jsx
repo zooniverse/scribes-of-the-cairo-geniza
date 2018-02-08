@@ -26,13 +26,13 @@ class Toolbar extends React.Component {
     this.rotateSubject = this.rotateSubject.bind(this);
     this.resetView = this.resetView.bind(this);
     this.invertColors = this.invertColors.bind(this);
-    this.toggleIcon = this.toggleIcon.bind(this);
-    this.togglePanel = this.togglePanel.bind(this);
     this.useAnnotationTool = this.useAnnotationTool.bind(this);
     this.useNavigationTool = this.useNavigationTool.bind(this);
+    this.toggleIcon = this.toggleIcon.bind(this);
+    this.togglePanel = this.togglePanel.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
     this.showCollections = this.showCollections.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
-    this.toggleFavorite = this.toggleFavorite.bind(this);
 
     this.state = {
       showPanel: false
@@ -85,18 +85,6 @@ class Toolbar extends React.Component {
         <i className={`${iconClass} button-header`} />
       </button>
     );
-  }
-
-  togglePanel() {
-    this.setState({ showPanel: !this.state.showPanel });
-  }
-
-  useAnnotationTool() {
-    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
-  }
-
-  useNavigationTool() {
-    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
   }
 
   showCollections() {
@@ -163,18 +151,6 @@ class Toolbar extends React.Component {
 
         <hr />
 
-        <button>
-          <i className="fa fa-heart-o" />
-          {expanded && (<span>Add To Favorites</span>)}
-        </button>
-
-        {this.props.user && (
-          <button onClick={this.showCollections}>
-            <i className="fa fa-list" />
-            {expanded && (<span>Add To Collection</span>)}
-          </button>
-        )}
-
         {this.props.user && (
           <FavoritesButton
             expanded={expanded}
@@ -183,10 +159,12 @@ class Toolbar extends React.Component {
           />
         )}
 
-        <button>
-          <i className="fa fa-list" />
-          {expanded && (<span>Add To Collection</span>)}
-        </button>
+        {this.props.user && (
+          <button onClick={this.showCollections}>
+            <i className="fa fa-list" />
+            {expanded && (<span>Add To Collection</span>)}
+          </button>
+        )}
 
       </section>
     );
