@@ -6,6 +6,7 @@ import { createClassification } from './classification';
 const FETCH_SUBJECT = 'FETCH_SUBJECT';
 const FETCH_SUBJECT_SUCCESS = 'FETCH_SUBJECT_SUCCESS';
 const FETCH_SUBJECT_ERROR = 'FETCH_SUBJECT_ERROR';
+const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 
 // Reducer
 const SUBJECT_STATUS = {
@@ -17,6 +18,7 @@ const SUBJECT_STATUS = {
 
 const initialState = {
   currentSubject: null,
+  favorite: false,
   queue: [],
   status: SUBJECT_STATUS.IDLE
 };
@@ -32,12 +34,19 @@ const subjectReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         queue: action.queue,
         currentSubject: action.currentSubject,
+        favorite: action.favorite,
+        queue: action.queue,
         status: SUBJECT_STATUS.READY
       });
 
     case FETCH_SUBJECT_ERROR:
       return Object.assign({}, state, {
         status: SUBJECT_STATUS.ERROR
+      });
+
+    case TOGGLE_FAVORITE:
+      return Object.assign({}, state, {
+        favorite: action.favorite
       });
 
     default:
@@ -60,6 +69,7 @@ const fetchQueue = (id = config.workflowId) => {
         const currentSubject = queue.shift();
         dispatch({
           currentSubject,
+          favorite: currentSubject.favorite || false,
           type: FETCH_SUBJECT_SUCCESS,
           queue
         });
@@ -78,10 +88,55 @@ const subjectError = () => {
   };
 };
 
+const createFavorites = (project) => {
+  const links = {
+    subjects: [],
+    projects: [config.projectId]
+  };
+
+  const display_name = (project.data) ? project.data.display_name : 'UNKNOWN PROJECT';
+  const collection = {
+    favorite: true,
+    display_name,
+    links
+  };
+  apiClient.type('collections')
+    .create(collection)
+    .save()
+    .catch(err => Promise.reject(err));
+};
+
+const toggleFavorite = () => {
+  return (dispatch, getState) => {
+    const projectID = config.projectId;
+    const favorite = getState().subject.favorite;
+    const user = getState().login.user.login;
+    const subject = getState().subject.currentSubject;
+    dispatch({ type: TOGGLE_FAVORITE, favorite: !favorite });
+
+    if (user) {
+      apiClient.type('collections').get({
+        project_ids: projectID,
+        favorite: true,
+        owner: user
+      }).then(([collection]) => {
+        if (collection && !favorite) {
+          collection.addLink('subjects', [subject.id.toString()]);
+        } else if (collection && favorite) {
+          collection.removeLink('subjects', [subject.id.toString()]);
+        } else {
+          createFavorites(getState().project);
+        }
+      });
+    }
+  };
+};
+
 export default subjectReducer;
 
 export {
   fetchQueue,
   subjectError,
+  toggleFavorite,
   SUBJECT_STATUS
 };

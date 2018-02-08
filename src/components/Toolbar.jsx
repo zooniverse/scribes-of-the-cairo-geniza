@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 import CollectionsContainer from '../containers/CollectionsContainer';
 import { toggleDialog } from '../ducks/dialog';
+import { toggleFavorite } from '../ducks/subject';
+import FavoritesButton from './FavoritesButton';
+
 import { setScaling, resetView,
   setRotation, toggleContrast,
   setViewerState,
@@ -29,6 +32,7 @@ class Toolbar extends React.Component {
     this.useNavigationTool = this.useNavigationTool.bind(this);
     this.showCollections = this.showCollections.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
 
     this.state = {
       showPanel: false
@@ -53,6 +57,22 @@ class Toolbar extends React.Component {
 
   invertColors() {
     this.props.dispatch(toggleContrast());
+  }
+
+  useAnnotationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
+  }
+
+  useNavigationTool() {
+    this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
+  }
+
+  toggleFavorite() {
+    this.props.dispatch(toggleFavorite());
+  }
+
+  togglePanel() {
+    this.setState({ showPanel: !this.state.showPanel });
   }
 
   toggleIcon() {
@@ -154,6 +174,20 @@ class Toolbar extends React.Component {
             {expanded && (<span>Add To Collection</span>)}
           </button>
         )}
+
+        {this.props.user && (
+          <FavoritesButton
+            expanded={expanded}
+            favorite={this.props.favoriteSubject}
+            toggleFavorite={this.toggleFavorite}
+          />
+        )}
+
+        <button>
+          <i className="fa fa-list" />
+          {expanded && (<span>Add To Collection</span>)}
+        </button>
+
       </section>
     );
   }
@@ -162,6 +196,7 @@ class Toolbar extends React.Component {
 
 Toolbar.propTypes = {
   dispatch: PropTypes.func,
+  favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
   scaling: PropTypes.number,
   user: PropTypes.shape({
@@ -172,6 +207,7 @@ Toolbar.propTypes = {
 
 Toolbar.defaultProps = {
   dispatch: () => {},
+  favoriteSubject: false,
   rotation: 0,
   scaling: 0,
   user: null,
@@ -181,6 +217,7 @@ Toolbar.defaultProps = {
 const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
+    favoriteSubject: state.subject.favorite,
     rotation: sv.rotation,
     scaling: sv.scaling,
     user: state.login.user,
