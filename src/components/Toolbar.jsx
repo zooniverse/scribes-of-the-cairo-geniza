@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import CollectionsContainer from '../containers/CollectionsContainer';
+import { toggleDialog } from '../ducks/dialog';
 import { toggleFavorite } from '../ducks/subject';
 import FavoritesButton from './FavoritesButton';
+
 import { setScaling, resetView,
   setRotation, toggleContrast,
   setViewerState,
@@ -23,11 +26,13 @@ class Toolbar extends React.Component {
     this.rotateSubject = this.rotateSubject.bind(this);
     this.resetView = this.resetView.bind(this);
     this.invertColors = this.invertColors.bind(this);
-    this.toggleIcon = this.toggleIcon.bind(this);
-    this.togglePanel = this.togglePanel.bind(this);
     this.useAnnotationTool = this.useAnnotationTool.bind(this);
     this.useNavigationTool = this.useNavigationTool.bind(this);
+    this.toggleIcon = this.toggleIcon.bind(this);
+    this.togglePanel = this.togglePanel.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
+    this.showCollections = this.showCollections.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
 
     this.state = {
       showPanel: false
@@ -80,6 +85,16 @@ class Toolbar extends React.Component {
         <i className={`${iconClass} button-header`} />
       </button>
     );
+  }
+
+  showCollections() {
+    const PANE_SIZE = { height: 300, width: 500 };
+    this.props.dispatch(
+      toggleDialog(<CollectionsContainer closePopup={this.closeDialog} />, 'Add to Collections', PANE_SIZE));
+  }
+
+  closeDialog() {
+    this.props.dispatch(toggleDialog(null));
   }
 
   render() {
@@ -144,10 +159,12 @@ class Toolbar extends React.Component {
           />
         )}
 
-        <button>
-          <i className="fa fa-list" />
-          {expanded && (<span>Add To Collection</span>)}
-        </button>
+        {this.props.user && (
+          <button onClick={this.showCollections}>
+            <i className="fa fa-list" />
+            {expanded && (<span>Add To Collection</span>)}
+          </button>
+        )}
 
       </section>
     );
@@ -160,10 +177,10 @@ Toolbar.propTypes = {
   favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
   scaling: PropTypes.number,
-  viewerState: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.string
-  })
+  }),
+  viewerState: PropTypes.string
 };
 
 Toolbar.defaultProps = {

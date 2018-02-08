@@ -11,7 +11,7 @@ export default function HomeStatistics() {
             <path d="M100 100 L 100,0 A100,100 0 0,1 200,100 z" fill="#472B36" />
           </svg>
           <span>Percent Complete</span>
-          <hr />
+          <hr className="plum-line" />
         </div>
         <div className="statistics__statistics">
           <h2>Statistics from phase two of Scribes of the Cairo Geniza</h2>
@@ -19,17 +19,17 @@ export default function HomeStatistics() {
             <div>
               <span>831</span>
               <span>Volunteers</span>
-              <hr />
+              <hr className="plum-line" />
             </div>
             <div>
               <span>12,473</span>
               <span>Classifications</span>
-              <hr />
+              <hr className="plum-line" />
             </div>
             <div>
               <span>3,147</span>
               <span>Completed Subjects</span>
-              <hr />
+              <hr className="plum-line" />
             </div>
           </div>
           <a href="/" className="text-links">More statistics</a>

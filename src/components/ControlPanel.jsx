@@ -119,7 +119,7 @@ class ControlPanel extends React.Component {
           <h4 className="primary-label">Subject info</h4>
           {this.toggleIcon()}
         </div>
-        <hr />
+        <hr className="plum-line" />
         <div className="control-panel__buttons">
 
           {this.state.showInfo && (
@@ -134,7 +134,7 @@ class ControlPanel extends React.Component {
             <button className="button" onClick={this.showTutorial}>Show Tutorial</button>
           )}
 
-          <hr className="control-panel__white-line" />
+          <hr className="white-line" />
 
           <div>
             <button className="button">Transcribe Page Reverse</button>

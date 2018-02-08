@@ -10,10 +10,12 @@ import tutorial from './tutorial';
 import workflow from './workflow';
 import classification from './classification';
 import annotations from './annotations';
+import collections from './collections';
 
 export default combineReducers({
   annotations,
   classification,
+  collections,
   dialog,
   fieldGuide,
   initialize,
