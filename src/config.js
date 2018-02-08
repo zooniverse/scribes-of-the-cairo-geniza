@@ -21,11 +21,11 @@ if (!env.match(/^(production|staging|development)$/)) {
 
 const baseConfig = {
   development: {
-    panoptesAppId: '974cc8da2448bac692703f0b364a6b41a7662d91a5a3a1acb064eb703a01e6df', // Anti-Slavery Manuscripts on Staging
+    panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',  //Scribes of the Cairo Geniza on Staging
     host: '',
     projectId: '1814',
     projectSlug: '',
-    workflowId: '3142'
+    workflowId: '3156'
   },
   production: {
     panoptesAppId: '',
