@@ -119,6 +119,12 @@ class SubjectViewer extends React.Component {
         e.touches[0].clientY) {
       clientX = e.touches[0].clientX;
       clientY = e.touches[0].clientY;
+    } else if (e.changedTouches && e.changedTouches.length > 0 &&
+        e.changedTouches[0].clientX && e.changedTouches[0].clientY) {
+      //Special workaround for Chrome desktop in tablet emulation. Need to
+      //confirm if this is sufficient for actual touch devices.
+      clientX = e.changedTouches[0].clientX;
+      clientY = e.changedTouches[0].clientY;
     }
 
     // SVG scaling: usually not an issue.
