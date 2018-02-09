@@ -9,8 +9,8 @@ export const Utility = {
     //var eve = e || window.event;
     e.preventDefault && e.preventDefault();
     e.stopPropagation && e.stopPropagation();
-    e.returnValue = false;
-    e.cancelBubble = true;
+    //e.returnValue = false;  //Deprecated, but keep in comments just in case IE11 users complain
+    //e.cancelBubble = true;  //Deprecated
     return false;
   },
 
