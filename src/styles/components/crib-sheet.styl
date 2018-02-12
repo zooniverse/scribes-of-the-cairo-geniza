@@ -18,6 +18,51 @@
   &__reference, &__personal
     margin: 1rem
 
+  &__card
+    @extends .body-font
+    background-color: inherit
+    display: flex
+    flex-direction: column
+    font-size: 0.75rem
+    font-weight: 600
+    padding: 0
+
+  &__item
+    background-color: transparent
+    margin: 0.5rem
+    position: relative
+
+    &:hover, &:focus
+      .crib-sheet__delete
+        visibility: visible
+
+  &__delete
+    background-color: $plum
+    border-radius: 50%
+    color: white
+    font-size: 0.5rem
+    padding: 0.2rem 0.3rem
+    position: absolute
+    right: -5px
+    top: -5px
+    visibility: hidden
+    z-index: 1
+
+  &__personal-content
+    display: flex
+    flex-wrap: wrap
+
+    button
+      border: none
+
+    img
+      border: 2px solid $plum
+      width: 6rem
+      height: 6rem
+
+      &:hover, &:focus
+        opacity: 0.5
+
   &__personal-instructions
     border-bottom: 3px solid $plum
     margin-bottom: 1rem
@@ -33,16 +78,18 @@
 
   &__personal-card
     @extend .tertiary-label
-    width: 5rem
+    margin: 0.5rem
+    width: 6rem
 
     div:first-child
-      height: 5rem
+      height: 6rem
       border: 2px solid $plum
       display: flex
       margin-bottom: 0.5rem
 
     button
       background-color: inherit
+      width: 100%
 
   &__add-instructions
     font-weight: 400
