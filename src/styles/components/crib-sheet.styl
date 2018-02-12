@@ -1,0 +1,79 @@
+.crib-sheet
+  &__header
+    @extend .secondary-label
+    font-size: 0.75rem
+
+    button
+      background-color: inherit
+      border-radius: 1rem
+      border: none
+      color: $plum
+      margin: 0.5rem
+      padding: 0.25rem 0.75rem
+      text-transform: uppercase
+
+      &:hover, &:focus, &.active-button
+        background-color: $sand
+
+  &__reference, &__personal
+    margin: 1rem
+
+  &__personal-instructions
+    border-bottom: 3px solid $plum
+    margin-bottom: 1rem
+    padding-bottom: 1rem
+
+    span
+      @extend .body-font
+      display: block
+      margin-bottom: 0.25rem
+
+      &:first-child
+        font-weight: 600
+
+  &__personal-card
+    @extend .tertiary-label
+    width: 5rem
+
+    div:first-child
+      height: 5rem
+      border: 2px solid $plum
+      display: flex
+      margin-bottom: 0.5rem
+
+    button
+      background-color: inherit
+
+  &__add-instructions
+    font-weight: 400
+
+.save-snippet
+  align-items: center
+  display: flex
+  margin-top: 5rem
+  flex-direction: column
+
+  input
+    font-size: 0.8em
+    padding: 0.5em
+    width: 15em
+
+  &__image
+    text-align: center
+    margin: 0.5em
+    height: 9em
+    width: 9em
+
+    img
+      object-fit: contain
+      overflow: hidden
+      height: 100%
+      width: 100%
+
+  &__buttons
+    font-size: 0.7em
+
+    button
+      margin: 1.5em
+      width: 7em
+      padding: 0.5em 1.5em

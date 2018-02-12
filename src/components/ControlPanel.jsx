@@ -5,6 +5,7 @@ import { Tutorial } from 'zooniverse-react-components';
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
+import CribSheet from '../components/CribSheet';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
 
 class ControlPanel extends React.Component {
@@ -19,6 +20,7 @@ class ControlPanel extends React.Component {
     this.showTutorial = this.showTutorial.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePanel = this.togglePanel.bind(this);
+    this.toggleCribSheet = this.toggleCribSheet.bind(this);
 
     this.state = {
       showPanel: true,
@@ -52,9 +54,12 @@ class ControlPanel extends React.Component {
     if (this.props.dialog) {
       return this.props.dispatch(toggleDialog(null));
     }
-
     return this.props.dispatch(toggleDialog(
       <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide'));
+  }
+
+  toggleCribSheet() {
+    return this.props.dispatch(toggleDialog(<CribSheet />));
   }
 
   fetchTutorial(props) {
@@ -110,7 +115,7 @@ class ControlPanel extends React.Component {
   }
 
   render() {
-    const fieldGuideText = this.props.dialog ? 'Hide Field Guide' : 'Show Field Guide';
+    const fieldGuideText = this.props.dialogTitle === 'Field Guide' ? 'Hide Field Guide' : 'Show Field Guide';
     const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
     const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
     const panel = (
@@ -127,7 +132,7 @@ class ControlPanel extends React.Component {
           )}
           {this.toggleButton()}
 
-          <button className="button">Show Crib Sheet</button>
+          <button className="button" onClick={this.toggleCribSheet}>Show Crib Sheet</button>
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
@@ -167,12 +172,14 @@ class ControlPanel extends React.Component {
 
 ControlPanel.propTypes = {
   dialog: PropTypes.node,
+  dialogTitle: PropTypes.string,
   dispatch: PropTypes.func,
   guide: PropTypes.shape({
     id: PropTypes.string
   }),
   icons: PropTypes.object,
   preferences: PropTypes.object,
+  referenceMode: PropTypes.bool,
   tutorial: PropTypes.shape({
     steps: PropTypes.array
   }),
@@ -188,10 +195,12 @@ ControlPanel.propTypes = {
 
 ControlPanel.defaultProps = {
   dialog: null,
+  dialogTitle: '',
   dispatch: () => {},
   guide: null,
   icons: null,
   preferences: null,
+  referenceMode: true,
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
@@ -201,9 +210,11 @@ ControlPanel.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     dialog: state.dialog.data,
+    dialogTitle: state.dialog.title,
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
+    referenceMode: state.cribSheet.referenceMode,
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,

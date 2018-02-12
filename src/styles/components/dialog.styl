@@ -4,6 +4,7 @@
 .close-button
   @extend .primary-label
   background: $bisque
+  border: none
   float: right
   padding: 0.75rem
 
@@ -22,7 +23,6 @@
     width: 4rem
 
   button
-    border: none
     cursor: pointer
 
   .dialog-content
@@ -35,10 +35,13 @@
       width: 100%
       z-index: 1
 
+    &__header
+      @extend .primary-label
+      display: inline-block
+
       h2
-        @extend .primary-label
-        display: inline-block
-        margin: 1em
+        font-size: 0.75rem
+        margin: 0.5rem 1rem
 
 .dialog-content::-webkit-scrollbar
   background-color: $bisque

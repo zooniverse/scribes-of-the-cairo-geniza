@@ -2,8 +2,9 @@ const DEFAULT_SIZE = { height: 450, width: 600 };
 
 const initialState = {
   data: null,
-  size: DEFAULT_SIZE,
-  isPrompt: false
+  title: '',
+  isPrompt: false,
+  size: DEFAULT_SIZE
 };
 
 const SET_DIALOG = 'SET_DIALOG';
