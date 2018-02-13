@@ -13,6 +13,7 @@ class CribSheet extends React.Component {
     this.activateCrop = this.activateCrop.bind(this);
     this.personalMode = this.personalMode.bind(this);
     this.referenceMode = this.referenceMode.bind(this);
+    this.deactivateCard = this.deactivateCard.bind(this);
     this.close = this.close.bind(this);
 
     this.state = {
@@ -98,13 +99,43 @@ class CribSheet extends React.Component {
           onClick={this.activateCard.bind(this, snippet)}
         >
           {snippet.cropUrl && (
-            <img role="presentation" src={snippet.cropUrl} />
+            <img alt="Crib Sheet Snippet" src={snippet.cropUrl} />
           )}
           <span>
             {snippet.name}
           </span>
         </button>
 
+      </div>
+    );
+  }
+
+  renderActiveCard() {
+    const card = this.state.activeCard;
+
+    return (
+      <div className="active-crib-card">
+        <button className="text-link" onClick={this.deactivateCard}>
+          Back
+        </button>
+
+        <div className="active-crib-card__content">
+          <div>
+            {card.cropUrl && (
+              <div className="active-crib-card__image">
+                <img alt="Your Snippet" src={card.cropUrl} />
+              </div>
+            )}
+
+            {card.name && (
+              <span>{card.name}</span>
+            )}
+          </div>
+          <div>
+            <button className="button">Delete</button>
+            <button className="button__dark">Edit</button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -148,7 +179,13 @@ class CribSheet extends React.Component {
     return (
       <div className="crib-sheet handle">
         {this.header()}
-        {cribSheet}
+        {this.state.activeCard && (
+          this.renderActiveCard()
+        )}
+
+        {!this.state.activeCard && (
+          cribSheet
+        )}
       </div>
     );
   }
@@ -158,7 +195,8 @@ class CribSheet extends React.Component {
 CribSheet.propTypes = {
   dispatch: PropTypes.func,
   preferences: PropTypes.shape({
-    preferences: PropTypes.object
+    preferences: PropTypes.object,
+    update: PropTypes.func
   }),
   referenceMode: PropTypes.bool,
   user: PropTypes.shape({

@@ -59,7 +59,8 @@ class ControlPanel extends React.Component {
   }
 
   toggleCribSheet() {
-    return this.props.dispatch(toggleDialog(<CribSheet />));
+    const dimensions = { height: 450, width: 650 };
+    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions));
   }
 
   fetchTutorial(props) {

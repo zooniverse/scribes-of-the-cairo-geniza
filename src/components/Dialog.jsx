@@ -43,8 +43,8 @@ class Dialog extends React.Component {
         >
           <div className="dialog-content">
             {this.props.title.length ? (
-              <div>
-                <div className="dialog-content__header">
+              <div className="handle dialog-content__header">
+                <div>
                   <h2>{this.props.title}</h2>
                   <hr />
                 </div>

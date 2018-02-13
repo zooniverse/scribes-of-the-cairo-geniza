@@ -30,17 +30,15 @@
     flex: 0 1 auto
     overflow: auto
 
-    > div:first-child
+    &__header
+      justify-content: space-between
       position: fixed
       width: 100%
       z-index: 1
-
-    &__header
-      @extend .primary-label
-      display: inline-block
+      display: inline-flex
 
       h2
-        font-size: 0.75rem
+        @extend .primary-label
         margin: 0.5rem 1rem
 
 .dialog-content::-webkit-scrollbar

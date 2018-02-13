@@ -67,7 +67,7 @@ class SaveClip extends React.Component {
           ref={(c) => { this.inputText = c; }}
           onMouseDown={() => { this.dialog.className = DISABLE_DRAG; }}
           onMouseUp={() => { this.dialog.className = ENABLE_DRAG; }}
-          placeholder="Snippet Name"
+          placeholder="Snippet Description"
         />
 
         <div className="save-snippet__buttons">
