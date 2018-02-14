@@ -2,7 +2,7 @@
   position: relative
 
   .active-crib-card
-    margin: 1rem
+    margin: 2rem
     text-align: center
 
     > button:first-child
@@ -17,13 +17,16 @@
       flex-direction: column
       justify-content: space-around
 
-      button
-        font-family: $work-sans
-        font-size: 0.8rem
-        margin: 0 0.5rem
-        height: 2.5rem
+      input
+        @extend .body-font
+        border: 1px solid $plum
+        font-weight: 600
+        margin: 0.75rem
         padding: 0.5rem
-        width: 10rem
+        width: 25rem
+
+      button
+        margin: 0 0.5rem
 
       span
         @extend .h1-font
@@ -168,9 +171,10 @@
       width: 100%
 
   &__buttons
-    font-size: 0.7em
-
     button
       margin: 1.5em
-      width: 7em
+      width: 8em
       padding: 0.5em 1.5em
+
+.delete-card-prompt
+  position: absolute

@@ -72,7 +72,7 @@ class SaveClip extends React.Component {
 
         <div className="save-snippet__buttons">
           <button className="button" onClick={this.onClose}>Cancel</button>
-          <button className="button__dark" onClick={this.saveClip}>Save</button>
+          <button className="button button__dark" onClick={this.saveClip}>Save</button>
         </div>
 
       </div>

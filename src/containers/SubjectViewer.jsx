@@ -332,6 +332,8 @@ class SubjectViewer extends React.Component {
     return (
       <section className={`subject-viewer ${errorStyle} ${cursor}`} ref={(c) => { this.section = c; }}>
         {renderedItem}
+
+        {this.props.popup && (this.props.popup)}
       </section>
     );
   }
@@ -356,6 +358,7 @@ SubjectViewer.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number
   }),
+  popup: PropTypes.node,
   rotation: PropTypes.number,
   translationX: PropTypes.number,
   translationY: PropTypes.number,
@@ -376,6 +379,7 @@ SubjectViewer.defaultProps = {
   dispatch: () => {},
   frame: 0,
   imageSize: { width: 0, height: 0 },
+  popup: null,
   rotation: 0,
   scaling: 1,
   subjectStatus: '',
@@ -397,6 +401,7 @@ const mapStateToProps = (state) => {
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
     imageSize: sv.imageSize,
+    popup: state.dialog.popup,
     rotation: sv.rotation,
     scaling: sv.scaling,
     subjectStatus: state.subject.status,

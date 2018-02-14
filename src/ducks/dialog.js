@@ -2,21 +2,28 @@ const DEFAULT_SIZE = { height: 450, width: 600 };
 
 const initialState = {
   data: null,
-  title: '',
   isPrompt: false,
-  size: DEFAULT_SIZE
+  popup: null,
+  size: DEFAULT_SIZE,
+  title: ''
 };
 
 const SET_DIALOG = 'SET_DIALOG';
+const SET_POPUP = 'SET_POPUP';
 
 const dialogReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_DIALOG:
-      return {
+      return Object.assign({}, state, {
         data: action.dialog,
         size: action.size,
         title: action.title
-      };
+      });
+
+    case SET_POPUP:
+      return Object.assign({}, state, {
+        popup: action.popup
+      });
 
     default:
       return state;
@@ -34,8 +41,18 @@ const toggleDialog = (dialog, title = '', size = DEFAULT_SIZE) => {
   };
 };
 
+const togglePopup = (popup) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_POPUP,
+      popup
+    });
+  };
+};
+
 export default dialogReducer;
 
 export {
-  toggleDialog
+  toggleDialog,
+  togglePopup
 };
