@@ -13,6 +13,9 @@ class SaveClip extends React.Component {
 
     this.saveClip = this.saveClip.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+
+    this.state = { disableSave: true };
   }
 
   onClose() {
@@ -56,6 +59,16 @@ class SaveClip extends React.Component {
     this.onClose();
   }
 
+  handleInputChange() {
+    const emptyField = this.inputText.value.length === 0;
+
+    if (!emptyField && this.state.disableSave === true) {
+      this.setState({ disableSave: false });
+    } else if (emptyField && this.state.disableSave === false) {
+      this.setState({ disableSave: true });
+    }
+  }
+
   render() {
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.dialog = c; }}>
@@ -65,6 +78,7 @@ class SaveClip extends React.Component {
         <input
           type="text"
           ref={(c) => { this.inputText = c; }}
+          onChange={this.handleInputChange}
           onMouseDown={() => { this.dialog.className = DISABLE_DRAG; }}
           onMouseUp={() => { this.dialog.className = ENABLE_DRAG; }}
           placeholder="Snippet Description"
@@ -72,7 +86,7 @@ class SaveClip extends React.Component {
 
         <div className="save-snippet__buttons">
           <button className="button" onClick={this.onClose}>Cancel</button>
-          <button className="button button__dark" onClick={this.saveClip}>Save</button>
+          <button className="button button__dark" disabled={this.state.disableSave} onClick={this.saveClip}>Save</button>
         </div>
 
       </div>

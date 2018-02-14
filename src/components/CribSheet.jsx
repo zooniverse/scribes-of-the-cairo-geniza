@@ -23,9 +23,11 @@ class CribSheet extends React.Component {
     this.deleteItem = this.deleteItem.bind(this);
     this.toggleEditBox = this.toggleEditBox.bind(this);
     this.close = this.close.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
 
     this.state = {
       cardIndex: null,
+      disableSave: true,
       editBox: false
     };
   }
@@ -55,6 +57,7 @@ class CribSheet extends React.Component {
       cribCopy[this.state.cardIndex].name = this.inputText.value;
       this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
       this.deactivateCard();
+      this.setState({ editBox: false });
     }
   }
 
@@ -111,7 +114,7 @@ class CribSheet extends React.Component {
 
   deactivateCard() {
     this.props.dispatch(activateCard(null));
-    this.setState({ cardIndex: null });
+    this.setState({ cardIndex: null, editBox: false });
   }
 
   renderItem(snippet, i) {
@@ -140,10 +143,21 @@ class CribSheet extends React.Component {
     );
   }
 
+  handleInputChange() {
+    const emptyField = this.inputText.value.length === 0;
+
+    if (!emptyField && this.state.disableSave === true) {
+      this.setState({ disableSave: false });
+    } else if (emptyField && this.state.disableSave === false) {
+      this.setState({ disableSave: true });
+    }
+  }
+
   renderActiveCard() {
     const card = this.props.activeCard;
     const editText = this.state.editBox ? 'Save' : 'Edit';
     const editFunction = this.state.editBox ? this.editCardText : this.toggleEditBox;
+    const disabled = this.state.disableSave && this.state.editBox;
 
     return (
       <div className="active-crib-card">
@@ -167,6 +181,7 @@ class CribSheet extends React.Component {
               <input
                 type="text"
                 ref={(c) => { this.inputText = c; }}
+                onChange={this.handleInputChange}
                 onMouseDown={() => { this.dialog.className = DISABLE_DRAG; }}
                 onMouseUp={() => { this.dialog.className = ENABLE_DRAG; }}
                 placeholder={card.name || ''}
@@ -175,7 +190,7 @@ class CribSheet extends React.Component {
           </div>
           <div>
             <button className="button" onClick={this.deleteCardPrompt}>Delete</button>
-            <button className="button button__dark" onClick={editFunction}>{editText}</button>
+            <button className="button button__dark" disabled={disabled} onClick={editFunction}>{editText}</button>
           </div>
         </div>
       </div>
