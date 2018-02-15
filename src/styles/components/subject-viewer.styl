@@ -2,6 +2,7 @@
   background-image: url('../images/bg-pattern.png')
   padding-top: 0 !important
   padding-bottom: 0 !important
+  touch-action: none  //Prevents intrepreting touch input as scroll/pan commands. Works in conjunction with onTouchStart={(e)=>{e.preventDefault();e.cancelPropogation()}}
 
   &__error
     align-items: center
