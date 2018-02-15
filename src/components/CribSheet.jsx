@@ -91,7 +91,7 @@ class CribSheet extends React.Component {
         {this.props.user && (
           <button className={!reference ? 'active-button' : ''} onClick={this.personalMode}>Your Crib Sheet</button>
         )}
-        <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>Script Reference</button>
+        <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>Script References</button>
         <button className="close-button" onClick={this.close}>X</button>
         <hr className="plum-line" />
       </div>
@@ -180,6 +180,7 @@ class CribSheet extends React.Component {
             {this.state.editBox && (
               <input
                 type="text"
+                className="crib-sheet-input"
                 ref={(c) => { this.inputText = c; }}
                 onChange={this.handleInputChange}
                 onMouseDown={() => { this.dialog.className = DISABLE_DRAG; }}
@@ -197,16 +198,20 @@ class CribSheet extends React.Component {
     );
   }
 
+  renderInstructions() {
+    return (
+      <div className="crib-sheet__personal-instructions">
+        <span>Use this crib sheet to save snippets for your personal reference.</span>
+        <span>If you&apos;re signed in, the images will be saved throughout your time on this project.</span>
+      </div>
+    );
+  }
+
   renderPersonal() {
     const cribsheet = this.props.preferences.preferences.cribsheet;
 
     return (
       <div className="crib-sheet__personal handle">
-        <div className="crib-sheet__personal-instructions">
-          <span>Use this crib sheet to save snippets for your personal reference</span>
-          <span>If you&apos;re signed in, the images will be saved throughout your time on this project.</span>
-        </div>
-
         <div className="crib-sheet__personal-content">
           {cribsheet && (
             cribsheet.map((snippet, i) => {
@@ -236,6 +241,10 @@ class CribSheet extends React.Component {
     return (
       <div className="crib-sheet">
         {this.header()}
+        {!this.props.referenceMode && (
+          this.renderInstructions()
+        )}
+
         {this.props.activeCard && (
           this.renderActiveCard()
         )}

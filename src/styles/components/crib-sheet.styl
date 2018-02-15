@@ -1,8 +1,12 @@
 .crib-sheet
   position: relative
 
+  hr
+    margin: 0
+
   .active-crib-card
     margin: 2rem
+    margin-top: 0
     text-align: center
 
     > button:first-child
@@ -17,16 +21,8 @@
       flex-direction: column
       justify-content: space-around
 
-      input
-        @extend .body-font
-        border: 1px solid $plum
-        font-weight: 600
-        margin: 0.25rem
-        padding: 0.5rem
-        width: 25rem
-
       button
-        margin: 0 0.5rem
+        margin: 0.5rem
 
         &:disabled
           background-image: url('../images/bg-disabled.png')
@@ -121,13 +117,12 @@
 
   &__personal-instructions
     border-bottom: 3px solid $plum
-    margin-bottom: 1rem
     padding-bottom: 1rem
+    margin: 1rem
 
     span
       @extend .body-font
       display: block
-      margin-bottom: 0.25rem
 
       &:first-child
         font-weight: 600
@@ -147,6 +142,10 @@
       background-color: inherit
       width: 100%
 
+      &:hover, &:focus
+        background: $plum
+        color: white
+
   &__add-instructions
     font-weight: 400
 
@@ -157,8 +156,6 @@
   flex-direction: column
 
   input
-    font-size: 0.8em
-    padding: 0.5em
     width: 15em
 
   &__image
@@ -185,3 +182,11 @@
 
 .delete-card-prompt
   position: absolute
+
+.crib-sheet-input
+  @extend .body-font
+  border: 1px solid $plum
+  font-weight: 600
+  margin: 0.25rem
+  padding: 0.5rem
+  width: 25rem

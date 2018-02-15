@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSubjectLocation } from '../lib/get-subject-location';
 import { toggleDialog } from '../ducks/dialog';
+import CribSheet from './CribSheet';
 
 const ENABLE_DRAG = 'handle save-snippet';
 const DISABLE_DRAG = 'save-snippet';
@@ -16,6 +17,11 @@ class SaveClip extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
 
     this.state = { disableSave: true };
+  }
+
+  componentWillUnmount() {
+    const dimensions = { height: 525, width: 650 };
+    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions));
   }
 
   onClose() {
@@ -77,6 +83,7 @@ class SaveClip extends React.Component {
         </div>
         <input
           type="text"
+          className="crib-sheet-input"
           ref={(c) => { this.inputText = c; }}
           onChange={this.handleInputChange}
           onMouseDown={() => { this.dialog.className = DISABLE_DRAG; }}
