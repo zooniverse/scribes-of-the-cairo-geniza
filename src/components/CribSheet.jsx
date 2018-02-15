@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SnippetDeletePrompt from './SnippetDeletePrompt';
-import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { toggleDialog } from '../ducks/dialog';
 import { setViewerState, SUBJECTVIEWER_STATE } from '../ducks/subject-viewer';
 import { activateCard, toggleReferenceMode } from '../ducks/crib-sheet';
 import { Utility } from '../lib/Utility';
-
-const ENABLE_DRAG = 'handle active-crib-card__content';
-const DISABLE_DRAG = 'active-crib-card__content';
+import ActiveCard from './ActiveCard';
 
 class CribSheet extends React.Component {
   constructor() {
@@ -17,19 +14,8 @@ class CribSheet extends React.Component {
     this.activateCrop = this.activateCrop.bind(this);
     this.personalMode = this.personalMode.bind(this);
     this.referenceMode = this.referenceMode.bind(this);
-    this.deactivateCard = this.deactivateCard.bind(this);
-    this.deleteCardPrompt = this.deleteCardPrompt.bind(this);
-    this.editCardText = this.editCardText.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
-    this.toggleEditBox = this.toggleEditBox.bind(this);
     this.close = this.close.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-
-    this.state = {
-      cardIndex: null,
-      disableSave: true,
-      editBox: false
-    };
   }
 
   onClose() {
@@ -44,26 +30,6 @@ class CribSheet extends React.Component {
   activateCrop(e) {
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.CROPPING));
     this.close(e);
-  }
-
-  deleteCardPrompt() {
-    this.props.dispatch(togglePopup(
-      <SnippetDeletePrompt cardIndex={this.state.cardIndex} preferences={this.props.preferences} />));
-  }
-
-  editCardText() {
-    if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
-      const cribCopy = this.props.preferences.preferences.cribsheet.slice();
-      cribCopy[this.state.cardIndex].name = this.inputText.value;
-      this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
-      this.deactivateCard();
-      this.setState({ editBox: false });
-    }
-  }
-
-  toggleEditBox() {
-    const editBox = !this.state.editBox;
-    this.setState({ editBox });
   }
 
   renderReference() {
@@ -98,23 +64,17 @@ class CribSheet extends React.Component {
     );
   }
 
-  deleteItem() {
+  deleteItem(i = this.state.cardIndex) {
     if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
       const cribCopy = this.props.preferences.preferences.cribsheet.slice();
-      cribCopy.splice(this.state.cardIndex, 1);
+      cribCopy.splice(i, 1);
       this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
       this.forceUpdate();
     }
   }
 
   activateCard(activeCard, cardIndex) {
-    this.props.dispatch(activateCard(activeCard));
-    this.setState({ cardIndex });
-  }
-
-  deactivateCard() {
-    this.props.dispatch(activateCard(null));
-    this.setState({ cardIndex: null, editBox: false });
+    this.props.dispatch(activateCard(activeCard, cardIndex));
   }
 
   renderItem(snippet, i) {
@@ -122,7 +82,7 @@ class CribSheet extends React.Component {
       <div className="crib-sheet__item" key={`SNIPPET_${i}`}>
         <button
           className="crib-sheet__delete"
-          onClick={this.deleteItem}
+          onClick={this.deleteItem.bind(this, i)}
         >
           <i className="fa fa-times" />
         </button>
@@ -143,64 +103,9 @@ class CribSheet extends React.Component {
     );
   }
 
-  handleInputChange() {
-    const emptyField = this.inputText.value.length === 0;
-
-    if (!emptyField && this.state.disableSave === true) {
-      this.setState({ disableSave: false });
-    } else if (emptyField && this.state.disableSave === false) {
-      this.setState({ disableSave: true });
-    }
-  }
-
-  renderActiveCard() {
-    const card = this.props.activeCard;
-    const editText = this.state.editBox ? 'Save' : 'Edit';
-    const editFunction = this.state.editBox ? this.editCardText : this.toggleEditBox;
-    const disabled = this.state.disableSave && this.state.editBox;
-
-    return (
-      <div className="active-crib-card">
-        <button className="text-link" onClick={this.deactivateCard}>
-          Back
-        </button>
-
-        <div className={ENABLE_DRAG} ref={(c) => { this.dialog = c; }}>
-          <div>
-            {card.cropUrl && (
-              <div className="active-crib-card__image">
-                <img alt="Your Snippet" src={card.cropUrl} />
-              </div>
-            )}
-
-            {card.name && !this.state.editBox && (
-              <span>{card.name}</span>
-            )}
-
-            {this.state.editBox && (
-              <input
-                type="text"
-                className="crib-sheet-input"
-                ref={(c) => { this.inputText = c; }}
-                onChange={this.handleInputChange}
-                onMouseDown={() => { this.dialog.className = DISABLE_DRAG; }}
-                onMouseUp={() => { this.dialog.className = ENABLE_DRAG; }}
-                placeholder={card.name || ''}
-              />
-            )}
-          </div>
-          <div>
-            <button className="button" onClick={this.deleteCardPrompt}>Delete</button>
-            <button className="button button__dark" disabled={disabled} onClick={editFunction}>{editText}</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   renderInstructions() {
     return (
-      <div className="crib-sheet__personal-instructions">
+      <div className="crib-sheet__personal-instructions handle">
         <span>Use this crib sheet to save snippets for your personal reference.</span>
         <span>If you&apos;re signed in, the images will be saved throughout your time on this project.</span>
       </div>
@@ -246,7 +151,7 @@ class CribSheet extends React.Component {
         )}
 
         {this.props.activeCard && (
-          this.renderActiveCard()
+          <ActiveCard />
         )}
 
         {!this.props.activeCard && (
@@ -256,7 +161,6 @@ class CribSheet extends React.Component {
     );
   }
 }
-
 
 CribSheet.propTypes = {
   activeCard: PropTypes.shape({

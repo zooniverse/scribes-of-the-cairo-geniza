@@ -51,16 +51,19 @@ class ControlPanel extends React.Component {
   }
 
   toggleFieldGuide() {
-    if (this.props.dialog) {
+    if (this.props.dialogComponent === 'FieldGuide') {
       return this.props.dispatch(toggleDialog(null));
     }
     return this.props.dispatch(toggleDialog(
-      <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide'));
+      <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide', undefined, 'FieldGuide'));
   }
 
   toggleCribSheet() {
+    if (this.props.dialogComponent === 'CribSheet') {
+      return this.props.dispatch(toggleDialog(null));
+    }
     const dimensions = { height: 525, width: 650 };
-    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions));
+    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions, 'CribSheet'));
   }
 
   fetchTutorial(props) {
@@ -116,7 +119,8 @@ class ControlPanel extends React.Component {
   }
 
   render() {
-    const fieldGuideText = this.props.dialogTitle === 'Field Guide' ? 'Hide Field Guide' : 'Show Field Guide';
+    const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? 'Hide Field Guide' : 'Show Field Guide';
+    const cribSheetText = this.props.dialogComponent === 'CribSheet' ? 'Hide Crib Sheet' : 'Show Crib Sheet';
     const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
     const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
     const panel = (
@@ -133,7 +137,7 @@ class ControlPanel extends React.Component {
           )}
           {this.toggleButton()}
 
-          <button className="button" onClick={this.toggleCribSheet}>Show Crib Sheet</button>
+          <button className="button" onClick={this.toggleCribSheet}>{cribSheetText}</button>
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
@@ -173,14 +177,13 @@ class ControlPanel extends React.Component {
 
 ControlPanel.propTypes = {
   dialog: PropTypes.node,
-  dialogTitle: PropTypes.string,
+  dialogComponent: PropTypes.string,
   dispatch: PropTypes.func,
   guide: PropTypes.shape({
     id: PropTypes.string
   }),
   icons: PropTypes.object,
   preferences: PropTypes.object,
-  referenceMode: PropTypes.bool,
   tutorial: PropTypes.shape({
     steps: PropTypes.array
   }),
@@ -196,12 +199,11 @@ ControlPanel.propTypes = {
 
 ControlPanel.defaultProps = {
   dialog: null,
-  dialogTitle: '',
+  dialogComponent: null,
   dispatch: () => {},
   guide: null,
   icons: null,
   preferences: null,
-  referenceMode: true,
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
@@ -211,11 +213,10 @@ ControlPanel.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     dialog: state.dialog.data,
-    dialogTitle: state.dialog.title,
+    dialogComponent: state.dialog.component,
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
-    referenceMode: state.cribSheet.referenceMode,
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,

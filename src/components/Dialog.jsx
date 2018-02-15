@@ -27,7 +27,6 @@ class Dialog extends React.Component {
     const y = ((window.innerHeight / 2) - (height / 2)) + window.pageYOffset;
 
     const defaultPosition = { x, y, height, width };
-
     return (
       <Rnd
         default={defaultPosition}

@@ -1,5 +1,6 @@
 const initialState = {
   activeCard: null,
+  activeCardIndex: null,
   referenceMode: true
 };
 
@@ -15,7 +16,8 @@ const cribSheetReducer = (state = initialState, action) => {
 
     case ACTIVE_CARD:
       return Object.assign({}, state, {
-        activeCard: action.activeCard
+        activeCard: action.activeCard,
+        activeCardIndex: action.activeCardIndex
       });
 
     default:
@@ -32,11 +34,12 @@ const toggleReferenceMode = (referenceMode) => {
   };
 };
 
-const activateCard = (activeCard) => {
+const activateCard = (activeCard, activeCardIndex = null) => {
   return (dispatch) => {
     dispatch({
       type: ACTIVE_CARD,
-      activeCard
+      activeCard,
+      activeCardIndex
     });
   };
 };

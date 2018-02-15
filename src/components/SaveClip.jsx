@@ -21,7 +21,7 @@ class SaveClip extends React.Component {
 
   componentWillUnmount() {
     const dimensions = { height: 525, width: 650 };
-    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions));
+    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions, 'CribSheet'));
   }
 
   onClose() {
@@ -36,7 +36,7 @@ class SaveClip extends React.Component {
     return `https://imgproc.zooniverse.org/crop/?w=${width}&h=${height}&x=${x}&y=${y}&u=${url}`;
   }
 
-  saveClip(e) {
+  saveClip() {
     let newCribsheet;
     const prefs = this.props.preferences;
     const clip = {
@@ -93,7 +93,13 @@ class SaveClip extends React.Component {
 
         <div className="save-snippet__buttons">
           <button className="button" onClick={this.onClose}>Cancel</button>
-          <button className="button button__dark" disabled={this.state.disableSave} onClick={this.saveClip}>Save</button>
+          <button
+            className="button button__dark"
+            disabled={this.state.disableSave}
+            onClick={this.saveClip}
+          >
+            Save
+          </button>
         </div>
 
       </div>

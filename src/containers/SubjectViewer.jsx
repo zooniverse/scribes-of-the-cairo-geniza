@@ -209,7 +209,7 @@ class SubjectViewer extends React.Component {
 
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
-        this.props.dispatch(toggleDialog(<SelectedAnnotation />));
+        this.props.dispatch(toggleDialog(<SelectedAnnotation />, 'Your Annotation'));
         this.props.dispatch(completeAnnotation());
       }
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
@@ -223,8 +223,8 @@ class SubjectViewer extends React.Component {
     this.setState({ mouseInViewer: false });
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
       this.pointer.state = INPUT_STATE.IDLE;
-      return Utility.stopEvent(e);
     }
+    return Utility.stopEvent(e);
   }
 
   onMouseEnter(e) {
@@ -255,7 +255,7 @@ class SubjectViewer extends React.Component {
   }
 
   onSelectAnnotation() {
-    this.props.dispatch(toggleDialog(<SelectedAnnotation />));
+    this.props.dispatch(toggleDialog(<SelectedAnnotation />, 'Your Annotation'));
   }
 
   render() {

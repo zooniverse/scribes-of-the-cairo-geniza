@@ -5,7 +5,8 @@ const initialState = {
   isPrompt: false,
   popup: null,
   size: DEFAULT_SIZE,
-  title: ''
+  title: '',
+  type: null
 };
 
 const SET_DIALOG = 'SET_DIALOG';
@@ -17,7 +18,8 @@ const dialogReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         data: action.dialog,
         size: action.size,
-        title: action.title
+        title: action.title,
+        component: action.component
       });
 
     case SET_POPUP:
@@ -30,13 +32,14 @@ const dialogReducer = (state = initialState, action) => {
   }
 };
 
-const toggleDialog = (dialog, title = '', size = DEFAULT_SIZE) => {
+const toggleDialog = (dialog, title = '', size = DEFAULT_SIZE, component = null) => {
   return (dispatch) => {
     dispatch({
       type: SET_DIALOG,
       dialog,
       size,
-      title
+      title,
+      component
     });
   };
 };
