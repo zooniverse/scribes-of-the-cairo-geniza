@@ -18,9 +18,11 @@ class SelectedAnnotation extends React.Component {
     this.deleteAnnotation = this.deleteAnnotation.bind(this);
     this.onTextUpdate = this.onTextUpdate.bind(this);
     this.saveText = this.saveText.bind(this);
+    this.toggleKeyboard = this.toggleKeyboard.bind(this);
 
     this.state = {
-      annotationText: ''
+      annotationText: '',
+      showKeyboard: true
     };
   }
 
@@ -44,13 +46,13 @@ class SelectedAnnotation extends React.Component {
   cancelAnnotation() {
     const initialAnnotationText =
       (this.props.selectedAnnotation && this.props.selectedAnnotation.details &&
-       this.props.selectedAnnotation.details[0] && this.props.selectedAnnotation.details[0].value)
-      ? this.props.selectedAnnotation.details[0].value : '';
-
+        this.props.selectedAnnotation.details[0] && this.props.selectedAnnotation.details[0].value)
+        ? this.props.selectedAnnotation.details[0].value : '';
     if (initialAnnotationText.trim().length === 0) {
-      this.deleteAnnotation();  //Cancel this action and delete this newly created Annotation.
+      this.deleteAnnotation();
     } else {
-      if (this.props.onClose) { this.props.onClose(); }  //Cancel this action and make no updates to the existing (and valid) Annotation.
+      this.props.dispatch(unselectAnnotation());
+      this.props.dispatch(toggleDialog(null));
     }
   }
 
@@ -72,7 +74,19 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(toggleDialog(null));
   }
 
+  toggleKeyboard() {
+    const showKeyboard = !this.state.showKeyboard;
+    const dimensions = { height: 250, width: 700 };
+    if (showKeyboard) {
+      dimensions.height = 600;
+    }
+    this.props.updateSize && this.props.updateSize(dimensions);
+    this.setState({ showKeyboard });
+  }
+
   render() {
+    const keyboardToggleText = this.state.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
+
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
         <div className="selected-annotation__instructions">
@@ -101,38 +115,39 @@ class SelectedAnnotation extends React.Component {
                 <span>Show Previous Marks</span>
               </label>
             </div>
-            <button className="text-link">Close keyboard</button>
+            <button className="text-link" onClick={this.toggleKeyboard}>{keyboardToggleText}</button>
           </div>
           <div>
             <button className="button" onClick={this.cancelAnnotation}>Cancel</button>
             <button className="button button__dark" onClick={this.saveText}>Done</button>
           </div>
         </div>
-        <hr />
-        <div className="selected-annotation__keyboard-div">
-          <span className="secondary-label">Current Script Type</span>
-          <div>
+        {this.state.showKeyboard && (
+          <div className="selected-annotation__keyboard-div">
+            <hr />
+            <span className="secondary-label">Current Script Type</span>
             <div>
-              <span>&#9664;</span>
-              <span className="text-link">Current Keyboard</span>
-              <span>&#9658;</span>
+              <div>
+                <span>&#9664;</span>
+                <span className="text-link">Current Keyboard</span>
+                <span>&#9658;</span>
+              </div>
+              <div className="round-toggle">
+                <input
+                  id="modern"
+                  type="checkbox"
+                  ref={(el) => { this.modern = el; }}
+                  defaultChecked={false}
+                />
+                <label className="primary-label" htmlFor="modern">
+                  <span>Show Modern Characters</span>
+                </label>
+              </div>
             </div>
-            <div className="round-toggle">
-              <input
-                id="modern"
-                type="checkbox"
-                ref={(el) => { this.modern = el; }}
-                defaultChecked={false}
-              />
-              <label className="primary-label" htmlFor="modern">
-                <span>Show Modern Characters</span>
-              </label>
+            <div className="selected-annotation__keyboard">
             </div>
           </div>
-          <div className="selected-annotation__keyboard">
-
-          </div>
-        </div>
+        )}
       </div>
     );
   }
@@ -140,17 +155,21 @@ class SelectedAnnotation extends React.Component {
 
 SelectedAnnotation.propTypes = {
   dispatch: PropTypes.func,
-  selectedAnnotation: PropTypes.object
+  selectedAnnotation: PropTypes.shape({
+    details: PropTypes.array
+  }),
+  updateSize: PropTypes.func
 };
 
 SelectedAnnotation.defaultProps = {
   dispatch: () => {},
-  selectedAnnotation: null
+  selectedAnnotation: null,
+  updateSize: () => {}
 };
 
 const mapStateToProps = (state) => {
   return {
-    selectedAnnotation: state.annotations.selectAnnotation
+    selectedAnnotation: state.annotations.selectedAnnotation
   };
 };
 

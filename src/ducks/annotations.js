@@ -1,3 +1,5 @@
+import { SUBJECTVIEWER_STATE, setViewerState } from './subject-viewer';
+
 const ADD_ANNOTATION_POINT = 'ADD_ANNOTATION_POINT';
 const COMPLETE_ANNOTATION = 'COMPLETE_ANNOTATION';
 const UPDATE_TEXT = 'UPDATE_TEXT';
@@ -110,12 +112,13 @@ const selectAnnotation = (index) => {
   return (dispatch, getState) => {
     const annotation = getState().annotations.annotations[index];
     if (annotation && getState().annotations.selectedAnnotation) return;
-
     dispatch({
       type: SELECT_ANNOTATION,
       annotation,
       index
     });
+
+    dispatch(setViewerState(SUBJECTVIEWER_STATE.IDLE));
   };
 };
 
@@ -124,6 +127,7 @@ const completeAnnotation = () => {
     dispatch({
       type: COMPLETE_ANNOTATION
     });
+    dispatch(setViewerState(SUBJECTVIEWER_STATE.IDLE));
   };
 };
 
