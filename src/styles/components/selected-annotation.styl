@@ -1,0 +1,61 @@
+.selected-annotation
+  margin: 1.5rem
+  margin-top: 3.5rem
+
+  .round-toggle
+    width: 14rem
+
+    span
+      width: 14rem
+
+  &__instructions
+    @extend .body-font
+
+    span:first-child
+      font-weight: 600
+
+  .input-box
+    @extend .body-font
+    border: 1px solid $plum
+    font-weight: 600
+    margin: 1rem 0
+    min-height: 2.5rem
+    padding: 0 0.5rem
+    width: 100%
+
+  &__controls
+    display: flex
+    justify-content: space-between
+
+    .button
+      height: 2.75rem
+      margin-left: 0.75rem
+      width: 11rem
+
+    div:nth-child(2)
+      display: flex
+      flex-direction: row
+
+    .text-link
+      background: inherit
+      margin-top: 0.5rem
+      padding: 0
+
+  hr
+    margin: 1rem 0
+
+  &__keyboard-div
+    > div:first-of-type
+      display: flex
+      justify-content: space-between
+
+    .secondary-label
+      font-size: 0.75rem
+      text-transform: uppercase
+
+  &__keyboard
+    background-image: url('../images/bg-disabled-secondary.png')
+    border: 1px solid black
+    height: 16rem
+    margin-top: 0.75rem
+    width: 100%
