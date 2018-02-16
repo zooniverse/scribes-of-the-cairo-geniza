@@ -127,7 +127,7 @@ const completeAnnotation = () => {
     dispatch({
       type: COMPLETE_ANNOTATION
     });
-    dispatch(setViewerState(SUBJECTVIEWER_STATE.IDLE));
+    dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   };
 };
 

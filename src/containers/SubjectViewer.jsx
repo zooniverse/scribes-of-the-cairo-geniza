@@ -201,7 +201,7 @@ class SubjectViewer extends React.Component {
 
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
-        this.props.dispatch(toggleDialog(<SelectedAnnotation />, 'Transcribe', ANNOTATION_BOX_DIMENSIONS));
+        this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
         this.props.dispatch(completeAnnotation());
       }
     }
@@ -235,7 +235,7 @@ class SubjectViewer extends React.Component {
 
   onSelectAnnotation(indexOfAnnotation) {
     this.props.dispatch(selectAnnotation(indexOfAnnotation));
-    this.props.dispatch(toggleDialog(<SelectedAnnotation />, 'Transcribe', ANNOTATION_BOX_DIMENSIONS));
+    this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
   }
 
   render() {

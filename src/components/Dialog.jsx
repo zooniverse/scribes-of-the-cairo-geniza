@@ -51,15 +51,15 @@ class Dialog extends React.Component {
           role="button"
         >
           <div className="dialog-content">
-            <div className="handle">
-              {this.props.title.length ? (
-                <h2>{this.props.title}</h2>
-              ) : false}
-
-              <button className="close-button" onClick={this.close}>X</button>
-
-              <hr className="plum-line" />
-            </div>
+            {this.props.title.length ? (
+              <div className="handle dialog-content__header">
+                <div>
+                  <h2>{this.props.title}</h2>
+                  <hr className="plum-line" />
+                  <button className="close-button" onClick={this.close}>X</button>
+                </div>
+              </div>
+            ) : false}
             {children}
           </div>
         </div>

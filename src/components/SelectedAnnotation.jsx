@@ -89,6 +89,13 @@ class SelectedAnnotation extends React.Component {
 
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
+        <div className="selected-annotation__header">
+          <div>
+            <h2 className="primary-label">Transcribe</h2>
+            <hr className="plum-line" />
+          </div>
+          <button className="close-button" onClick={this.cancelAnnotation}>X</button>
+        </div>
         <div className="selected-annotation__instructions">
           <span>The Hebrew language reads from right to left, so start on the right side. </span>
           <span>Check out examples of different alphabets in the Crib Sheet.</span>
