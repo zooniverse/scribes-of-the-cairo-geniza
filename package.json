@@ -25,6 +25,7 @@
   "homepage": "https://github.com/zooniverse/scribes-of-the-cairo-geniza",
   "dependencies": {
     "counterpart": "^0.18.1",
+    "graphql-request": "^1.4.1",
     "history": "~4.6.3",
     "markdownz": "~7.3.1",
     "panoptes-client": "~2.8.0",
