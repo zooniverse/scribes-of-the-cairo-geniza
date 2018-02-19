@@ -20,7 +20,7 @@ const AGGREGATIONS_INITIAL_STATE = {
   aggStatus: AGGREGATIONS_STATUS.IDLE
 };
 
-const subjectReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
+const aggregationsReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_AGGREGATIONS:
       return Object.assign({}, state, {
@@ -45,7 +45,7 @@ const subjectReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
 
 const fetchAggregations = (subjectId , workflowId = '3156'  /*SOMEBODY CHANGE ME*/) => {
   return (dispatch) => {
-    
+    console.log('x'.repeat(80), '\nsubjectId:', subjectId);
   }
 }
 

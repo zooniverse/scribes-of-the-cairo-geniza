@@ -1,6 +1,7 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 import { createClassification } from './classification';
+import { fetchAggregations } from './aggregations';
 
 // Action Types
 const FETCH_SUBJECT = 'FETCH_SUBJECT';
@@ -56,6 +57,7 @@ const subjectReducer = (state = initialState, action) => {
 
 const prepareForNewSubject = (dispatch, subject) => {
   dispatch(createClassification(subject));
+  subject && dispatch(fetchAggregations(subject.id));
 };
 
 const fetchQueue = (id = config.workflowId) => {
