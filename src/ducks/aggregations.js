@@ -1,4 +1,5 @@
 import { request } from 'graphql-request';
+import PropTypes from 'prop-types';
 import { config } from '../config';
 
 //Action types
@@ -19,6 +20,11 @@ const AGGREGATIONS_STATUS = {
 const AGGREGATIONS_INITIAL_STATE = {
   aggData: null,
   aggStatus: AGGREGATIONS_STATUS.IDLE
+};
+
+const AGGREGATIONS_PROP_TYPES = {
+  aggData: PropTypes.object,  //TODO: Check this?
+  aggStatus: PropTypes.string,
 };
 
 const aggregationsReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
@@ -46,8 +52,6 @@ const aggregationsReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
 
 const fetchAggregations = (subjectId) => {
   return (dispatch) => {
-    console.log('x'.repeat(80), '\nsubjectId:', subjectId);
-    
     /*SOMEBODY CHANGE ME*/
     const workflowId = '3156';
     const reducerKey = 'hebrew_word';
@@ -63,7 +67,6 @@ const fetchAggregations = (subjectId) => {
     dispatch({ type: FETCH_AGGREGATIONS_SUCCESS, data });
     //--------------------------------
 
-    
     /*
     const query = `{
       workflow(id: ${workflowId}) {
@@ -75,8 +78,6 @@ const fetchAggregations = (subjectId) => {
     
     request(caesarHost, query)
     .then((data) => {
-      console.log('y'.repeat(80), '\ndata:', data);
-      console.log(data);
       dispatch({ type: FETCH_ANNOTATIONS_SUCCESS, data });
     })
     .catch((err) => {
@@ -92,5 +93,6 @@ export default aggregationsReducer;
 export {
   fetchAggregations,
   AGGREGATIONS_INITIAL_STATE,
-  AGGREGATIONS_STATUS
+  AGGREGATIONS_STATUS,
+  AGGREGATIONS_PROP_TYPES
 };
