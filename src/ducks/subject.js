@@ -4,6 +4,7 @@ import { config } from '../config';
 import { resetAnnotations } from './annotations';
 import { createClassification } from './classification';
 import { changeFrame } from './subject-viewer';
+import { fetchAggregations } from './aggregations';
 
 // Action Types
 const RESET_SUBJECT = 'FETCH_SUBJECT';
@@ -75,7 +76,7 @@ const subjectReducer = (state = initialState, action) => {
 const fetchSubject = (subjectId = null) => {
   return (dispatch, getState) => {
     const workflow_id = getState().workflow.id;
-    
+
     if (!workflow_id) {
       console.error('ducks/subjects.js fetchSubject() error: no Workflow ID');
       return;
@@ -83,7 +84,7 @@ const fetchSubject = (subjectId = null) => {
 
     //Fetch Specific Subject
     if (subjectId) {
-      
+
       //Store update: enter "fetching" state.
       dispatch({ type: FETCH_SUBJECT, id: subjectId });
 
@@ -107,15 +108,15 @@ const fetchSubject = (subjectId = null) => {
           //Store update: enter "error" state.
           dispatch({ type: FETCH_SUBJECT_ERROR });
         });
-    
+
     //Fetch Next Subject In Queue
     } else {
-      
+
       const subjectQuery = { workflow_id };
 
       // TODO What if the fetched queue is empty?
       // Is there a queue and are there subjects in the queue?
-      
+
       //If there's an empty queue, fetch a new one.
       if (!getState().subject.queue.length) {
 
@@ -140,12 +141,12 @@ const fetchSubject = (subjectId = null) => {
             console.error('ducks/subject.js fetchSubject() error: ', err);
             dispatch({ type: FETCH_SUBJECT_ERROR });
           });
-      
+
       //If there's a queue, fetch the next item.
       } else {
         const updatedQueue = getState().subject.queue.slice();  //Make a copy of the queue
         const currentSubject = updatedQueue.shift();
-        
+
         //Store update: enter "success" state and save fetched data.
         dispatch({
           currentSubject,
@@ -158,7 +159,7 @@ const fetchSubject = (subjectId = null) => {
         //onSuccess(), prepare for a new subject.
         dispatch(prepareForNewSubject(currentSubject));
       }
-      
+
     }
   };
 };
@@ -178,6 +179,7 @@ const prepareForNewSubject = (subject) => {
     dispatch(resetAnnotations());
     dispatch(createClassification(subject));
     dispatch(changeFrame(0));
+    subject && dispatch(fetchAggregations(subject.id));
   }
 };
 

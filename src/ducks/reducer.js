@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { localeReducer as locale } from 'react-localize-redux';
 
+import aggregations from './aggregations';
 import annotations from './annotations';
 import classification from './classification';
 import collections from './collections';
@@ -12,6 +13,7 @@ import keyboard from './keyboard';
 import languages from './languages';
 import login from './login';
 import project from './project';
+import reminder from './reminder';
 import subject from './subject';
 import subjectViewer from './subject-viewer';
 import translations from './translations';
@@ -31,11 +33,13 @@ export default combineReducers({
   keyboard,
   languages,
   login,
+  aggregations,
   project,
+  reminder,
   subject,
   subjectViewer,
   translations,
   tutorial,
   workflow,
-  workInProgress,
+  workInProgress
 });

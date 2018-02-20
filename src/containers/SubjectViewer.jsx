@@ -18,6 +18,7 @@ import { addAnnotationPoint, completeAnnotation, selectAnnotation } from '../duc
 import { toggleDialog } from '../ducks/dialog';
 
 import AnnotationsPane from '../components/AnnotationsPane';
+import AggregationsPane from '../components/AggregationsPane';
 import SelectedAnnotation from '../components/SelectedAnnotation';
 import SVGImage from '../components/SVGImage';
 import Crop from '../components/Crop';
@@ -298,7 +299,7 @@ class SubjectViewer extends React.Component {
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
           onTouchMove={this.onMouseMove}
-          onTouchCancel ={this.onMouseLeave}
+          onTouchCancel={this.onMouseLeave}
         >
           <g transform={transform}>
             {subjectLocation && (
@@ -318,6 +319,7 @@ class SubjectViewer extends React.Component {
               getPointerXY={this.getPointerXYOnImage}
               onSelectAnnotation={this.onSelectAnnotation}
             />
+            <AggregationsPane imageSize={this.props.imageSize} />
           </g>
 
           {this.state.cropping === INPUT_STATE.ACTIVE && (
@@ -330,6 +332,12 @@ class SubjectViewer extends React.Component {
               />
             </g>
           )}
+
+          {this.props.reminder ? (
+            <g>
+              {this.props.reminder}
+            </g>
+          ) : false}
 
           <defs>
             <filter id="svg-invert-filter">
@@ -379,6 +387,7 @@ SubjectViewer.propTypes = {
     height: PropTypes.number
   }),
   popup: PropTypes.node,
+  reminder: PropTypes.node,
   rotation: PropTypes.number,
   translationX: PropTypes.number,
   translationY: PropTypes.number,
@@ -404,6 +413,7 @@ SubjectViewer.defaultProps = {
   frame: 0,
   imageSize: { width: 0, height: 0 },
   popup: null,
+  reminder: null,
   rotation: 0,
   scaling: 1,
   selectedAnnotation: null,
@@ -428,6 +438,7 @@ const mapStateToProps = (state) => {
     frame: sv.frame,
     imageSize: sv.imageSize,
     popup: state.dialog.popup,
+    reminder: state.reminder.node,
     rotation: sv.rotation,
     scaling: sv.scaling,
     selectedAnnotation: state.annotations.selectedAnnotation,
