@@ -44,8 +44,11 @@
   &__hide
     height: 28rem
 
-  hr
+  .plum-line
     width: 4rem
+
+    &__reverse
+      margin-left: auto
 
   button:not(.control-panel__toggle)
     box-shadow: none
@@ -71,9 +74,11 @@
       padding: 0
 
   &__info
-    div:first-child
+    div
       display: flex
+      flex-direction: column
 
+    div:first-child
       span:nth-child(2)
         white-space: nowrap
         overflow: hidden
@@ -109,12 +114,13 @@
     display: flex
     margin-top: 0.5rem !important
     margin-bottom: 0.5rem !important
+    justify-content: space-between
 
     h4
       margin-bottom: 0
 
     button
-      margin: 0 0 0 auto
+      margin: 0
 
   &__toggle
     background-color: transparent
@@ -130,3 +136,31 @@
   &__white-line
     border: 3px solid white
     margin: 0.75em 0
+
+  &__reverse
+    flex-direction: row-reverse
+
+  &__rtl
+    left: 0
+
+    &.control-panel__side
+      cursor: pointer
+      overflow: hidden
+
+      .control-panel
+        left: -20rem
+
+      &:hover, &:focus
+        width: 9rem
+
+        .control-panel
+          border-right: 1px solid $dust
+          left: -12rem
+
+        h2
+          transform-origin: 7.5em -1em
+
+        .control-panel__header
+          .control-panel__toggle
+            position: absolute
+            right: -2.75rem

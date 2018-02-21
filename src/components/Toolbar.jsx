@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 
 import CollectionsContainer from '../containers/CollectionsContainer';
@@ -76,7 +77,10 @@ class Toolbar extends React.Component {
   }
 
   toggleIcon() {
-    const iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    let iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    if (this.props.rightToLeft) {
+      iconClass = this.state.showPanel ? 'fa fa-chevron-right' : 'fa fa-chevron-left';
+    }
     return (
       <button className="button-header" onClick={this.togglePanel}>
         {this.state.showPanel && (
@@ -99,10 +103,12 @@ class Toolbar extends React.Component {
 
   render() {
     const expanded = this.state.showPanel;
-    const toolbarClass = expanded ? 'toolbar toolbar__expanded' : 'toolbar';
-
     return (
-      <section className={toolbarClass}>
+      <section className={classnames('toolbar', {
+        'toolbar__expanded': expanded, // eslint-disable-line
+        'toolbar__rtl': this.props.rightToLeft // eslint-disable-line
+      })}
+      >
         {this.toggleIcon()}
 
         <hr />
@@ -175,6 +181,7 @@ class Toolbar extends React.Component {
 Toolbar.propTypes = {
   dispatch: PropTypes.func,
   favoriteSubject: PropTypes.bool,
+  rightToLeft: PropTypes.bool,
   rotation: PropTypes.number,
   scaling: PropTypes.number,
   user: PropTypes.shape({
@@ -186,6 +193,7 @@ Toolbar.propTypes = {
 Toolbar.defaultProps = {
   dispatch: () => {},
   favoriteSubject: false,
+  rightToLeft: false,
   rotation: 0,
   scaling: 0,
   user: null,
@@ -196,6 +204,7 @@ const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
     favoriteSubject: state.subject.favorite,
+    rightToLeft: state.languages.rightToLeft,
     rotation: sv.rotation,
     scaling: sv.scaling,
     user: state.login.user,

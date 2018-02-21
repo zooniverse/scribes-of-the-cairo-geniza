@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Tutorial } from 'zooniverse-react-components';
 import { fetchGuide } from '../ducks/field-guide';
@@ -90,7 +91,10 @@ class ControlPanel extends React.Component {
   }
 
   toggleIcon() {
-    const iconClass = this.state.showPanel ? 'fa fa-chevron-right' : 'fa fa-chevron-left';
+    let iconClass = this.state.showPanel ? 'fa fa-chevron-right' : 'fa fa-chevron-left';
+    if (this.props.rightToLeft) {
+      iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    }
     return <button className="control-panel__toggle" onClick={this.togglePanel}><i className={iconClass} /></button>;
   }
 
@@ -124,12 +128,22 @@ class ControlPanel extends React.Component {
     const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
     const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
     const panel = (
-      <section className={`control-panel ${hiddenStyle}`}>
-        <div className="control-panel__header">
+      <section className={classnames('control-panel', {
+        'control-panel__hide': !this.state.showInfo,
+        'control-panel__rtl': this.props.rightToLeft
+      })}
+      >
+        <div className={classnames('control-panel__header', {
+          'control-panel__reverse': this.props.rightToLeft
+        })}
+        >
           <h4 className="primary-label">Subject info</h4>
           {this.toggleIcon()}
         </div>
-        <hr className="plum-line" />
+        <hr className={classnames('plum-line', {
+          'plum-line__reverse': this.props.rightToLeft
+        })}
+        />
         <div className="control-panel__buttons">
 
           {this.state.showInfo && (
@@ -161,13 +175,19 @@ class ControlPanel extends React.Component {
 
     return (
       <section
-        className={`control-panel control-panel__side ${peekHeight}`}
+        className={classnames('control-panel control-panel__side', {
+          'control-panel__tall': this.state.showInfo,
+          'control-panel__short': !this.state.showInfo,
+          'control-panel__rtl': this.props.rightToLeft
+        })}
         ref={(c) => { this.sidePanel = c; }}
         role="button"
         onClick={this.togglePanel}
         tabIndex="0"
       >
-        {this.toggleIcon()}
+        {!this.state.showPanel && (
+          this.toggleIcon()
+        )}
         <h2>EXPAND INFO</h2>
         {panel}
       </section>
@@ -184,6 +204,7 @@ ControlPanel.propTypes = {
   }),
   icons: PropTypes.object,
   preferences: PropTypes.object,
+  rightToLeft: PropTypes.bool,
   tutorial: PropTypes.shape({
     steps: PropTypes.array
   }),
@@ -204,6 +225,7 @@ ControlPanel.defaultProps = {
   guide: null,
   icons: null,
   preferences: null,
+  rightToLeft: false,
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
@@ -217,6 +239,7 @@ const mapStateToProps = (state) => {
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
+    rightToLeft: state.languages.rightToLeft,
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,

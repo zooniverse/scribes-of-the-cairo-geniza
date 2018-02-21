@@ -12,6 +12,7 @@ import classification from './classification';
 import annotations from './annotations';
 import collections from './collections';
 import cribSheet from './crib-sheet';
+import languages from './languages';
 
 export default combineReducers({
   annotations,
@@ -21,6 +22,7 @@ export default combineReducers({
   dialog,
   fieldGuide,
   initialize,
+  languages,
   login,
   project,
   subject,
