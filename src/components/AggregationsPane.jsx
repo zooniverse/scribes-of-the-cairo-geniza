@@ -15,8 +15,6 @@ class AggregationsPane extends React.Component {
     ];
     
     MAGIC_KEYWORD_TABLE.map((keyword, index)=>{
-      console.log('x'.repeat(80), this.props.aggData);
-      
       if (!this.props.aggData) return;
       
       const rectXs = this.props.aggData[`T0_tool${index}_clusters_x`];
