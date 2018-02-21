@@ -16,6 +16,7 @@ import { addAnnotationPoint, completeAnnotation } from '../ducks/annotations';
 import { toggleDialog } from '../ducks/dialog';
 
 import AnnotationsPane from '../components/AnnotationsPane';
+import AggregationsPane from '../components/AggregationsPane';
 import SelectedAnnotation from '../components/SelectedAnnotation';
 import SVGImage from '../components/SVGImage';
 
@@ -283,6 +284,9 @@ class SubjectViewer extends React.Component {
               frame={this.props.frame}
               getPointerXY={this.getPointerXYOnImage}
               onSelectAnnotation={this.onSelectAnnotation}
+            />
+            <AggregationsPane
+              imageSize={this.props.imageSize}
             />
           </g>
 

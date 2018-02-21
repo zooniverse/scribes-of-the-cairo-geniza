@@ -11,9 +11,11 @@ import workflow from './workflow';
 import classification from './classification';
 import annotations from './annotations';
 import collections from './collections';
+import aggregations from './aggregations';
 
 export default combineReducers({
   annotations,
+  aggregations,
   classification,
   collections,
   dialog,
