@@ -10,6 +10,8 @@ const FETCH_AGGREGATION_RESOURCES_ERROR = 'FETCH_AGGREGATION_RESOURCES_ERROR';
 const FETCH_AGGREGATIONS_SUCCESS = 'FETCH_AGGREGATIONS_SUCCESS';
 const FETCH_KEYWORD_WORKFLOW_SUCCESS = 'FETCH_KEYWORD_WORKFLOW_SUCCESS';
 
+const TOGGLE_HINTS = 'TOGGLE_HINTS';
+
 const AGGREGATIONS_STATUS = {
   IDLE: 'aggregations_status_idle',
   FETCHING: 'aggregations_status_fetching',
@@ -19,12 +21,14 @@ const AGGREGATIONS_STATUS = {
 
 const AGGREGATIONS_INITIAL_STATE = {
   data: null,
+  showHints: true,
   status: AGGREGATIONS_STATUS.IDLE,
   keywordWorkflow: null
 };
 
 const AGGREGATIONS_PROP_TYPES = {
   data: PropTypes.object,
+  showHints: PropTypes.bool,
   status: PropTypes.string,
   keywordWorkflow: PropTypes.object
 };
@@ -57,9 +61,25 @@ const aggregationsReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
         status: AGGREGATIONS_STATUS.ERROR
       });
 
+    case TOGGLE_HINTS:
+      return Object.assign({}, state, {
+        showHints: action.showHints
+      });
+
     default:
       return state;
   }
+};
+
+const toggleHints = () => {
+  return (dispatch, getState) => {
+    const showHints = !getState().aggregations.showHints;
+
+    dispatch({
+      type: TOGGLE_HINTS,
+      showHints
+    });
+  };
 };
 
 const fetchAggregations = (subjectId) => {
@@ -103,6 +123,7 @@ export default aggregationsReducer;
 
 export {
   fetchAggregations,
+  toggleHints,
   AGGREGATIONS_INITIAL_STATE,
   AGGREGATIONS_STATUS,
   AGGREGATIONS_PROP_TYPES

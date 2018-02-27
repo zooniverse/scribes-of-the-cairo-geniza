@@ -48,7 +48,8 @@ class AggregationsPane extends React.Component {
       const bounds = box.getBBox();
       const index = box.id.substr(box.id.length - 1);
       const label = document.getElementById(`keyword_label${index}`);
-      console.log(label);
+      const dimensions = label.getBBox();
+      console.log(dimensions.width);
       console.log(bounds.width);
     });
   }
@@ -56,7 +57,7 @@ class AggregationsPane extends React.Component {
   render() {
     const imageOffset = `translate(${-this.props.imageSize.width / 2}, ${-this.props.imageSize.height / 2})`;
     const rectangles = [];
-    if (!this.props.keywordWorkflow) return null;
+    if (!this.props.keywordWorkflow || !this.props.showHints) return null;
     let keywordTable = [];
     const workflow = this.props.keywordWorkflow;
 
@@ -84,7 +85,7 @@ class AggregationsPane extends React.Component {
         rectangles.push(
           <g key={`keyword_${index}_${i}`} className="aggregated-box" onClick={this.showHelpMsg.bind(this, index)}>
             <rect
-              id={`keyword_label${index}`}
+              id={`keyword_label${index}`} // there could be multiple of this
               x={x}
               y={y - 45}
               width={w}
@@ -93,7 +94,7 @@ class AggregationsPane extends React.Component {
             />
             <rect x={x} y={y} width={w} height={h} fill="#472B36" opacity="0.47" />
             <text
-              id={`keyword_index${index}`}
+              id={`keyword_index${index}`} // there could be multiple of this
               className="aggregated-boxes"
               fontFamily="Rubik"
               fontSize="2.5em"
@@ -127,23 +128,26 @@ AggregationsPane.propTypes = {
   }),
   keywordWorkflow: PropTypes.shape({
     id: PropTypes.string
-  })
+  }),
+  showHints: PropTypes.bool
   //...AGGREGATIONS_PROP_TYPES  //EDIT: This isn't working, need to check our Babel setup.
 };
 
 AggregationsPane.defaultProps = {
   aggregationStatus: AGGREGATIONS_STATUS.IDLE,
+  data: null,
   dispatch: () => {},
   imageSize: {},
+  keywordWorkflow: null,
+  showHints: true,
   // ...AGGREGATIONS_INITIAL_STATE,
-  data: null,
-  keywordWorkflow: null
 };
 
 const mapStateToProps = (state) => ({
+  aggregationStatus: state.aggregations.status,
   data: state.aggregations.data,
   keywordWorkflow: state.aggregations.keywordWorkflow,
-  aggregationStatus: state.aggregations.status
+  showHints: state.aggregations.showHints
 });
 
 export default connect(mapStateToProps)(AggregationsPane);
