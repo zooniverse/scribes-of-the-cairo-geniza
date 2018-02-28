@@ -125,7 +125,7 @@ class SelectedAnnotation extends React.Component {
             <button className="text-link" onClick={this.toggleKeyboard}>{keyboardToggleText}</button>
           </div>
           <div>
-            <button className="button" onClick={this.cancelAnnotation}>Cancel</button>
+            <button className="button" onClick={this.deleteAnnotation}>Delete</button>
             <button className="button button__dark" onClick={this.saveText}>Done</button>
           </div>
         </div>

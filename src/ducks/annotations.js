@@ -14,7 +14,7 @@ const ANNOTATION_STATUS = {
 
 const initialState = {
   annotationInProgress: null,
-  annotationPanePosition: null,
+  annotationBoxPosition: null,
   annotations: [],
   selectedAnnotation: null,
   selectedAnnotationIndex: null,
@@ -61,17 +61,17 @@ const annotationsReducer = (state = initialState, action) => {
 
     case SELECT_ANNOTATION: {
       const selectedAnnotation = action.annotation ? action.annotation : null;
-      const annotationPanePosition = selectedAnnotation.points[selectedAnnotation.points.length - 1];
+      const annotationBoxPosition = selectedAnnotation.points[selectedAnnotation.points.length - 1];
       return Object.assign({}, state, {
         selectedAnnotation,
-        annotationPanePosition,
+        annotationBoxPosition,
         selectedAnnotationIndex: action.index
       });
     }
 
     case UNSELECT_ANNOTATION: {
       return Object.assign({}, state, {
-        annotationPanePosition: null,
+        annotationBoxPosition: null,
         selectedAnnotation: null,
         selectedAnnotationIndex: null
       });
@@ -86,7 +86,7 @@ const annotationsReducer = (state = initialState, action) => {
       }
       return Object.assign({}, state, {
         annotations: filteredAnnotations,
-        annotationPanePosition: null,
+        annotationBoxPosition: null,
         selectedAnnotation: null,
         selectedAnnotationIndex: null
       });
@@ -145,6 +145,8 @@ const unselectAnnotation = () => {
     dispatch({
       type: UNSELECT_ANNOTATION
     });
+
+    dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   };
 };
 

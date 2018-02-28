@@ -50,6 +50,7 @@ class Dialog extends React.Component {
           tabIndex="0"
           role="button"
         >
+          <hr className="handle drag-bar" />
           <div className="dialog-content">
             {this.props.title.length ? (
               <div className="handle dialog-content__header">
