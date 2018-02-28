@@ -66,11 +66,7 @@
     div
       margin: 0.5rem 0
 
-    span:first-child
-      margin-right: 0.5rem
-
     .control-panel__toggle
-      margin: 0.5rem 0
       padding: 0
 
   &__info
@@ -83,7 +79,6 @@
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
-        width: 10rem
 
     div:nth-child(2)
       span
@@ -95,20 +90,27 @@
         line-height: 1.2rem
         max-height: 2.4rem
 
+      .ellipsis
         &:before
           content: '...'
           position: absolute
-          right: 0
           bottom: 0
 
         &:after
           content: ''
           position: absolute
-          right: 0
           width: 0.75rem
           height: 0.75rem
           margin-top: 0.2rem
           background: $bisque
+
+        &__left
+          &:before, &:after
+            left: 0
+
+        &__right
+          &:before, &:after
+            right: 0
 
   &__header
     display: flex
@@ -130,7 +132,6 @@
     display: block
     font-family: $work-sans
     font-weight: 600
-    margin: 1rem
     text-decoration: underline
 
   &__white-line

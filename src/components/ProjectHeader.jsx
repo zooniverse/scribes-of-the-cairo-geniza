@@ -18,7 +18,7 @@ class ProjectHeader extends React.Component {
       >
         <div>
           <nav className="tertiary-label">
-            <div className={classnames({ 'project-header__rtl': this.props.rightToLeft })}>
+            <div className={classnames({ 'project-header__rtl': this.props.rtl })}>
               <NavLink
                 activeClassName="project-header__active"
                 className="project-header__link"
@@ -69,17 +69,17 @@ ProjectHeader.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string
   }),
-  rightToLeft: PropTypes.bool
+  rtl: PropTypes.bool
 };
 
 ProjectHeader.defaultProps = {
   dispatch: () => {},
   location: {},
-  rightToLeft: false
+  rtl: false
 };
 
 const mapStateToProps = (state) => ({
-  rightToLeft: state.languages.rightToLeft
+  rtl: state.languages.rtl
 });
 
 export default connect(mapStateToProps)(ProjectHeader);

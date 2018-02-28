@@ -6,7 +6,7 @@ const LANGUAGES = {
 
 const initialState = {
   language: LANGUAGES.ENGLISH,
-  rightToLeft: false
+  rtl: false
 };
 
 const SET_LANGUAGE = 'SET_LANGUAGE';
@@ -16,7 +16,7 @@ const languagesReducer = (state = initialState, action) => {
     case SET_LANGUAGE:
       return {
         language: action.language,
-        rightToLeft: action.rightToLeft
+        rtl: action.rtl
       };
 
     default:
@@ -26,16 +26,16 @@ const languagesReducer = (state = initialState, action) => {
 
 const setLanguage = (language) => {
   return (dispatch) => {
-    let rightToLeft = false;
+    let rtl = false;
 
     if (language === LANGUAGES.HEBREW || language === LANGUAGES.ARABIC) {
-      rightToLeft = true;
+      rtl = true;
     }
 
     dispatch({
       type: SET_LANGUAGE,
       language,
-      rightToLeft
+      rtl
     });
   };
 };
