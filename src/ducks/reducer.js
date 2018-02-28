@@ -11,11 +11,13 @@ import workflow from './workflow';
 import classification from './classification';
 import annotations from './annotations';
 import collections from './collections';
+import cribSheet from './crib-sheet';
 
 export default combineReducers({
   annotations,
   classification,
   collections,
+  cribSheet,
   dialog,
   fieldGuide,
   initialize,

@@ -8,6 +8,7 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, '/src/'),
+    disableHostCheck: true,  //Enable localhost access on VMs, i.e. for our IE11 testing
     historyApiFallback: true,
     hot: true,
     inline: true,

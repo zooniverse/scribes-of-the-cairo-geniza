@@ -4,6 +4,7 @@ const MAX_SCALING = 10;
 const SUBJECTVIEWER_STATE = {
   ANNOTATING: 'annotating',
   IDLE: 'idle',
+  CROPPING: 'cropping',
   NAVIGATING: 'navigating'
 };
 

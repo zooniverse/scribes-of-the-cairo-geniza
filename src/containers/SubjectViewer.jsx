@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Utility } from '../lib/Utility';
+import { Utility, KEY_CODES } from '../lib/Utility';
 import { getSubjectLocation } from '../lib/get-subject-location';
 import { subjectError, SUBJECT_STATUS } from '../ducks/subject';
 import SubjectError from '../components/SubjectError';
 
 import {
   resetView, setTranslation, updateImageSize,
-  updateViewerSize, SUBJECTVIEWER_STATE
+  updateViewerSize, setViewerState,
+  SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
 
 import { addAnnotationPoint, completeAnnotation, selectAnnotation } from '../ducks/annotations';
@@ -18,6 +19,7 @@ import { toggleDialog } from '../ducks/dialog';
 import AnnotationsPane from '../components/AnnotationsPane';
 import SelectedAnnotation from '../components/SelectedAnnotation';
 import SVGImage from '../components/SVGImage';
+import Crop from '../components/Crop';
 
 const INPUT_STATE = {
   IDLE: 0,
@@ -30,47 +32,50 @@ class SubjectViewer extends React.Component {
   constructor(props) {
     super(props);
 
-    //HTML element refs.
+    // HTML element refs.
     this.section = null;
     this.svg = null;
     this.svgImage = null;
 
-    //Events!
+    // Events!
     this.updateSize = this.updateSize.bind(this);
     this.onImageLoad = this.onImageLoad.bind(this);
     this.onImageError = this.onImageError.bind(this);
     this.getBoundingBox = this.getBoundingBox.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.getPointerXY = this.getPointerXY.bind(this);
     this.getPointerXYOnImage = this.getPointerXYOnImage.bind(this);
     this.onSelectAnnotation = this.onSelectAnnotation.bind(this);
+    this.escapeCrop = this.escapeCrop.bind(this);
 
+    // Misc
+    this.tmpTransform = null;
+    this.rectangleStart = { x: 0, y: 0 };
     this.pointer = {
       start: { x: 0, y: 0 },
       now: { x: 0, y: 0 },
       state: INPUT_STATE.IDLE
     };
 
-    //Misc
-    this.tmpTransform = null;
-
-    this.pointer = {
-      start: { x: 0, y: 0 },
-      now: { x: 0, y: 0 },
-      state: INPUT_STATE.IDLE
+    this.state = {
+      cropping: INPUT_STATE.IDLE,
+      mouseInViewer: false
     };
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.updateSize);
+    document.addEventListener('keyup', this.escapeCrop);
     this.updateSize();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateSize);
+    document.removeEventListener('keyup', this.escapeCrop);
   }
 
   onImageLoad() {
@@ -108,6 +113,13 @@ class SubjectViewer extends React.Component {
       ? this.svg.getBoundingClientRect()
       : { left: 0, top: 0, width: 1, height: 1 };
     return boundingBox;
+  }
+
+  escapeCrop(e) {
+    if (Utility.getKeyCode(e) === KEY_CODES.ESCAPE && this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
+      this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
+      this.setState({ cropping: INPUT_STATE.IDLE });
+    }
   }
 
   getPointerXY(e) {
@@ -185,6 +197,10 @@ class SubjectViewer extends React.Component {
         translateX: this.props.translationX,
         translateY: this.props.translationY
       };
+    } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
+      const pointerXY = this.getPointerXYOnImage(e);
+      this.rectangleStart = { x: pointerXY.x, y: pointerXY.y };
+      this.setState({ cropping: INPUT_STATE.ACTIVE });
     }
     return Utility.stopEvent(e);
   }
@@ -204,15 +220,24 @@ class SubjectViewer extends React.Component {
         this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
         this.props.dispatch(completeAnnotation());
       }
+    } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
+      this.setState({ cropping: INPUT_STATE.IDLE });
+      this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.NAVIGATING));
     }
     return Utility.stopEvent(e);
   }
 
   onMouseLeave(e) {
+    this.setState({ mouseInViewer: false });
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
       this.pointer.state = INPUT_STATE.IDLE;
-      return Utility.stopEvent(e);
     }
+    return Utility.stopEvent(e);
+  }
+
+  onMouseEnter(e) {
+    this.setState({ mouseInViewer: true });
+    return Utility.stopEvent(e);
   }
 
   onMouseMove(e) {
@@ -230,6 +255,10 @@ class SubjectViewer extends React.Component {
         ));
       }
     }
+    if (!this.state.mouseInViewer) {
+      this.setState({ mouseInViewer: true });
+    }
+
     return Utility.stopEvent(e);
   }
 
@@ -259,6 +288,7 @@ class SubjectViewer extends React.Component {
         <svg
           ref={(c) => { this.svg = c; }}
           viewBox="0 0 100 100"
+          onMouseEnter={this.onMouseEnter}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onMouseMove={this.onMouseMove}
@@ -276,7 +306,6 @@ class SubjectViewer extends React.Component {
                 src={subjectLocation}
                 onLoad={this.onImageLoad}
                 onError={this.onImageError}
-                contrast={this.props.contrast}
               />
             )}
             <AnnotationsPane
@@ -288,6 +317,17 @@ class SubjectViewer extends React.Component {
               onSelectAnnotation={this.onSelectAnnotation}
             />
           </g>
+
+          {this.state.cropping === INPUT_STATE.ACTIVE && (
+            <g transform={transform}>
+              <Crop
+                getPointerXY={this.getPointerXYOnImage}
+                imageSize={this.props.imageSize}
+                mouseInViewer={this.state.mouseInViewer}
+                rectangleStart={this.rectangleStart}
+              />
+            </g>
+          )}
 
           <defs>
             <filter id="svg-invert-filter">
@@ -305,6 +345,8 @@ class SubjectViewer extends React.Component {
     return (
       <section className={`subject-viewer ${errorStyle} ${cursor}`} ref={(c) => { this.section = c; }}>
         {renderedItem}
+
+        {this.props.popup && (this.props.popup)}
       </section>
     );
   }
@@ -329,6 +371,7 @@ SubjectViewer.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number
   }),
+  popup: PropTypes.node,
   rotation: PropTypes.number,
   translationX: PropTypes.number,
   translationY: PropTypes.number,
@@ -349,6 +392,7 @@ SubjectViewer.defaultProps = {
   dispatch: () => {},
   frame: 0,
   imageSize: { width: 0, height: 0 },
+  popup: null,
   rotation: 0,
   scaling: 1,
   subjectStatus: '',
@@ -370,6 +414,7 @@ const mapStateToProps = (state) => {
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
     imageSize: sv.imageSize,
+    popup: state.dialog.popup,
     rotation: sv.rotation,
     scaling: sv.scaling,
     subjectStatus: state.subject.status,

@@ -1,0 +1,193 @@
+.crib-sheet
+  position: relative
+
+  hr
+    margin: 0
+
+  .active-crib-card
+    margin: 2rem
+    margin-top: 0
+    text-align: center
+
+    > button:first-child
+      @extend .text-link
+      background-color: transparent
+      border: none
+      float: left
+      position: absolute
+      left: 0.75rem
+
+    &__content
+      display: flex
+      flex-direction: column
+      justify-content: space-around
+
+      button
+        margin: 0.5rem
+
+        &:disabled
+          background-image: url('../images/bg-disabled.png')
+
+      span
+        @extend .h1-font
+        display: block
+        font-size: 1.2rem
+        margin: 0.5rem
+
+    &__image
+      height: 14rem
+      width: 14rem
+      margin: auto
+
+      img
+        object-fit: contain
+        height: 100%
+        width: 100%
+
+  &__header
+    @extend .secondary-label
+    font-size: 0.75rem
+
+    button
+      background-color: inherit
+      border-radius: 1rem
+      border: none
+      color: $plum
+      margin: 0.5rem
+      padding: 0.25rem 0.75rem
+      text-transform: uppercase
+
+      &:hover, &:focus, &.active-button
+        background-color: $sand
+
+  &__reference, &__personal
+    margin: 1rem
+
+  &__card
+    @extends .body-font
+    background-color: inherit
+    display: flex
+    flex-direction: column
+    font-size: 0.75rem
+    font-weight: 600
+    padding: 0
+
+    img
+      object-fit: none
+
+    span
+      max-width: 6rem
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+  &__item
+    margin: 0.75rem
+    position: relative
+
+    &:hover, &:focus
+      .crib-sheet__delete
+        visibility: visible
+
+  &__delete
+    background-color: $plum
+    border-radius: 50%
+    color: white
+    font-size: 0.5rem
+    padding: 0.2rem 0.3rem
+    position: absolute
+    right: -5px
+    top: -5px
+    visibility: hidden
+    z-index: 1
+
+  &__personal-content
+    display: flex
+    flex-wrap: wrap
+
+    button
+      border: none
+
+    img
+      border: 2px solid $plum
+      width: 6rem
+      height: 6rem
+
+      &:hover, &:focus
+        opacity: 0.5
+
+  &__personal-instructions
+    border-bottom: 3px solid $plum
+    padding-bottom: 1rem
+    margin: 1rem
+
+    span
+      @extend .body-font
+      display: block
+
+      &:first-child
+        font-weight: 600
+
+  &__personal-card
+    @extend .tertiary-label
+    margin: 0.75rem
+    width: 6rem
+
+    div:first-child
+      height: 6rem
+      border: 2px solid $plum
+      display: flex
+      margin-bottom: 0.5rem
+
+    button
+      background-color: inherit
+      width: 100%
+
+      &:hover, &:focus
+        background: $plum
+        color: white
+
+  &__add-instructions
+    font-weight: 400
+
+.save-snippet
+  align-items: center
+  display: flex
+  margin-top: 3rem
+  flex-direction: column
+
+  input
+    width: 15em
+
+  &__image
+    text-align: center
+    margin: 0.5em
+    height: 9em
+    width: 9em
+
+    img
+      object-fit: contain
+      overflow: hidden
+      height: 100%
+      width: 100%
+
+  &__buttons
+    button
+      margin: 1.5em
+      width: 8em
+      padding: 0.5em 1.5em
+
+      &:disabled
+        background-image: url('../images/bg-disabled.png')
+        cursor: default
+
+.delete-card-prompt
+  position: absolute
+
+.crib-sheet-input
+  @extend .body-font
+  border: 1px solid $plum
+  font-weight: 600
+  margin: 0.25rem
+  padding: 0.5rem
+  width: 25rem
