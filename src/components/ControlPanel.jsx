@@ -5,6 +5,7 @@ import { Tutorial } from 'zooniverse-react-components';
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
+import CribSheet from '../components/CribSheet';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
 
 class ControlPanel extends React.Component {
@@ -19,6 +20,7 @@ class ControlPanel extends React.Component {
     this.showTutorial = this.showTutorial.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePanel = this.togglePanel.bind(this);
+    this.toggleCribSheet = this.toggleCribSheet.bind(this);
 
     this.state = {
       showPanel: true,
@@ -49,12 +51,19 @@ class ControlPanel extends React.Component {
   }
 
   toggleFieldGuide() {
-    if (this.props.dialog) {
+    if (this.props.dialogComponent === 'FieldGuide') {
       return this.props.dispatch(toggleDialog(null));
     }
-
     return this.props.dispatch(toggleDialog(
-      <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide'));
+      <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide', undefined, 'FieldGuide'));
+  }
+
+  toggleCribSheet() {
+    if (this.props.dialogComponent === 'CribSheet') {
+      return this.props.dispatch(toggleDialog(null));
+    }
+    const dimensions = { height: 525, width: 650 };
+    return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions, 'CribSheet'));
   }
 
   fetchTutorial(props) {
@@ -110,7 +119,8 @@ class ControlPanel extends React.Component {
   }
 
   render() {
-    const fieldGuideText = this.props.dialog ? 'Hide Field Guide' : 'Show Field Guide';
+    const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? 'Hide Field Guide' : 'Show Field Guide';
+    const cribSheetText = this.props.dialogComponent === 'CribSheet' ? 'Hide Crib Sheet' : 'Show Crib Sheet';
     const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
     const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
     const panel = (
@@ -127,7 +137,7 @@ class ControlPanel extends React.Component {
           )}
           {this.toggleButton()}
 
-          <button className="button">Show Crib Sheet</button>
+          <button className="button" onClick={this.toggleCribSheet}>{cribSheetText}</button>
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
@@ -167,6 +177,7 @@ class ControlPanel extends React.Component {
 
 ControlPanel.propTypes = {
   dialog: PropTypes.node,
+  dialogComponent: PropTypes.string,
   dispatch: PropTypes.func,
   guide: PropTypes.shape({
     id: PropTypes.string
@@ -188,6 +199,7 @@ ControlPanel.propTypes = {
 
 ControlPanel.defaultProps = {
   dialog: null,
+  dialogComponent: null,
   dispatch: () => {},
   guide: null,
   icons: null,
@@ -201,6 +213,7 @@ ControlPanel.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     dialog: state.dialog.data,
+    dialogComponent: state.dialog.component,
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
