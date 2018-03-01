@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { activateCard } from '../ducks/crib-sheet';
 import { togglePopup } from '../ducks/dialog';
-import SnippetDeletePrompt from './SnippetDeletePrompt';
+import QuestionPrompt from './QuestionPrompt';
 
 const ENABLE_DRAG = 'handle active-crib-card__content';
 const DISABLE_DRAG = 'active-crib-card__content';
@@ -17,6 +17,8 @@ class ActiveCard extends React.Component {
     this.deleteCardPrompt = this.deleteCardPrompt.bind(this);
     this.editCardText = this.editCardText.bind(this);
     this.toggleEditBox = this.toggleEditBox.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.onClose = this.onClose.bind(this);
 
     this.state = {
       disableSave: true,
@@ -41,7 +43,7 @@ class ActiveCard extends React.Component {
   editCardText() {
     if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
       const cribCopy = this.props.preferences.preferences.cribsheet.slice();
-      cribCopy[this.props.cardIndex].name = this.inputText.value;
+      cribCopy[this.props.activeCardIndex].name = this.inputText.value;
       this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
       this.deactivateCard();
     }
@@ -52,9 +54,32 @@ class ActiveCard extends React.Component {
     this.setState({ editBox });
   }
 
+  onDelete() {
+    if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
+      const cribCopy = this.props.preferences.preferences.cribsheet.slice();
+      cribCopy.splice(this.props.activeCardIndex, 1);
+      this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
+      this.forceUpdate();
+      this.props.dispatch(togglePopup(null));
+      this.props.dispatch(activateCard(null));
+    }
+  }
+
+  onClose() {
+    this.props.dispatch(togglePopup(null));
+  }
+
   deleteCardPrompt() {
     this.props.dispatch(togglePopup(
-      <SnippetDeletePrompt cardIndex={this.props.cardIndex} preferences={this.props.preferences} />));
+      <QuestionPrompt
+        confirm="Yes, delete"
+        deny="No, cancel"
+        notes="This action cannot be undone."
+        onConfirm={this.onClose}
+        onDeny={this.onDelete}
+        question="Delete this snippet?"
+        title="Delete"
+      />));
   }
 
   render() {
@@ -108,7 +133,7 @@ ActiveCard.propTypes = {
     cropUrl: PropTypes.string,
     name: PropTypes.string
   }),
-  cardIndex: PropTypes.number,
+  activeCardIndex: PropTypes.number,
   dispatch: PropTypes.func,
   preferences: PropTypes.shape({
     preferences: PropTypes.object,
@@ -118,7 +143,7 @@ ActiveCard.propTypes = {
 
 ActiveCard.defaultProps = {
   activeCard: null,
-  cardIndex: null,
+  activeCardIndex: null,
   dispatch: () => {},
   preferences: {}
 };

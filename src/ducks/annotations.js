@@ -155,6 +155,8 @@ const deleteSelectedAnnotation = () => {
     dispatch({
       type: DELETE_SELECTED_ANNOTATION
     });
+
+    dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   };
 };
 

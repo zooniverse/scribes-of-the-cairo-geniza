@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toggleDialog } from '../ducks/dialog';
+import { toggleDialog, togglePopup } from '../ducks/dialog';
 import {
   deleteSelectedAnnotation,
   unselectAnnotation, updateText
 } from '../ducks/annotations';
+import QuestionPrompt from './QuestionPrompt';
 
 const ENABLE_DRAG = 'selected-annotation handle';
 const DISABLE_DRAG = 'selected-annotation';
@@ -14,11 +15,14 @@ class SelectedAnnotation extends React.Component {
   constructor() {
     super();
 
-    this.cancelAnnotation = this.cancelAnnotation.bind(this);
+    this.closeAnnotation = this.closeAnnotation.bind(this);
     this.deleteAnnotation = this.deleteAnnotation.bind(this);
     this.onTextUpdate = this.onTextUpdate.bind(this);
     this.saveText = this.saveText.bind(this);
     this.toggleKeyboard = this.toggleKeyboard.bind(this);
+    this.closePrompt = this.closePrompt.bind(this);
+    this.deletePrompt = this.deletePrompt.bind(this);
+    this.closePopup = this.closePopup.bind(this);
 
     this.state = {
       annotationText: '',
@@ -61,17 +65,17 @@ class SelectedAnnotation extends React.Component {
       ? this.state.annotationText.trim() : '';
     if (text !== '') {
       this.props.dispatch(updateText(text));
+      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(unselectAnnotation());
     } else {
-      this.deleteAnnotation();
+      this.deletePrompt(true);
     }
-
-    this.props.dispatch(toggleDialog(null));
-    this.props.dispatch(unselectAnnotation());
   }
 
   deleteAnnotation() {
     this.props.dispatch(deleteSelectedAnnotation());
     this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(togglePopup(null));
   }
 
   toggleKeyboard() {
@@ -84,6 +88,47 @@ class SelectedAnnotation extends React.Component {
     this.setState({ showKeyboard });
   }
 
+  closeAnnotation() {
+    if (this.props.selectedAnnotation && this.props.selectedAnnotation.details &&
+    this.props.selectedAnnotation.details[0] && !this.props.selectedAnnotation.details[0].value) {
+      this.deletePrompt(true);
+    } else {
+      this.props.dispatch(unselectAnnotation());
+      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(togglePopup(null));
+    }
+  }
+
+  closePopup() {
+    this.props.dispatch(togglePopup(null));
+  }
+
+  closePrompt() {
+    this.props.dispatch(togglePopup(
+      <QuestionPrompt
+        confirm="Yes, close without saving"
+        deny="No, continue transcribing"
+        onConfirm={this.closeAnnotation}
+        onDeny={this.closePopup}
+        question="Are you sure you want to close without saving?"
+        title="Close Annotation"
+      />));
+  }
+
+  deletePrompt(emptyText = false) {
+    const notes = emptyText ? 'You cannot save an empty transcription.' : '';
+    this.props.dispatch(togglePopup(
+      <QuestionPrompt
+        confirm="Yes, delete"
+        deny="No, continue transcribing"
+        notes={notes}
+        onConfirm={this.deleteAnnotation}
+        onDeny={this.closePopup}
+        question="Are you sure you want to delete this transcription?"
+        title="Close Annotation"
+      />));
+  }
+
   render() {
     const keyboardToggleText = this.state.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
 
@@ -94,7 +139,7 @@ class SelectedAnnotation extends React.Component {
             <h2 className="primary-label">Transcribe</h2>
             <hr className="plum-line" />
           </div>
-          <button className="close-button" onClick={this.cancelAnnotation}>X</button>
+          <button className="close-button" onClick={this.closePrompt}>X</button>
         </div>
         <div className="selected-annotation__instructions">
           <span>The Hebrew language reads from right to left, so start on the right side. </span>
@@ -125,7 +170,7 @@ class SelectedAnnotation extends React.Component {
             <button className="text-link" onClick={this.toggleKeyboard}>{keyboardToggleText}</button>
           </div>
           <div>
-            <button className="button" onClick={this.deleteAnnotation}>Delete</button>
+            <button className="button" onClick={this.deletePrompt}>Delete</button>
             <button className="button button__dark" onClick={this.saveText}>Done</button>
           </div>
         </div>
