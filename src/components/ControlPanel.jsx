@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Tutorial } from 'zooniverse-react-components';
+import styled from 'styled-components';
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
@@ -86,11 +88,17 @@ class ControlPanel extends React.Component {
 
   toggleButton() {
     const text = this.state.showInfo ? 'Collapse Name & Attribution' : 'Expand Name & Attribution';
-    return <button className="control-panel__toggle" onClick={this.toggleInfo}>{text}</button>;
+    const rtlSwitch = this.props.rtl ? 'right' : 'left';
+    const Button = styled.button`float: ${rtlSwitch};`;
+
+    return <Button className="control-panel__toggle" onClick={this.toggleInfo}>{text}</Button>;
   }
 
   toggleIcon() {
-    const iconClass = this.state.showPanel ? 'fa fa-chevron-right' : 'fa fa-chevron-left';
+    let iconClass = this.state.showPanel ? 'fa fa-chevron-right' : 'fa fa-chevron-left';
+    if (this.props.rtl) {
+      iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    }
     return <button className="control-panel__toggle" onClick={this.togglePanel}><i className={iconClass} /></button>;
   }
 
@@ -103,33 +111,46 @@ class ControlPanel extends React.Component {
   }
 
   showSubjectInfo() {
+    const rtlSwitch = this.props.rtl ? 'right' : 'left';
+    const Div = styled.div`text-align: ${rtlSwitch};`;
+    const ellipsis = this.props.rtl ? 'ellipsis__left' : 'ellipsis__right';
+
     return (
-      <div className="control-panel__info">
+      <Div className="control-panel__info">
         <div>
           <span className="primary-label">Name</span>
           <span className="body-font">ENA NS 78 0117</span>
         </div>
         <div>
           <span className="primary-label">Attribution</span>
-          <span className="body-font">Library of the Jewish Theological Seminary</span>
+          <span className={`body-font ellipsis ${ellipsis}`}>Library of the Jewish Theological Seminary</span>
         </div>
         <a href="/" className="text-link">Library Catalog Page</a>
-      </div>
+      </Div>
     );
   }
 
   render() {
     const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? 'Hide Field Guide' : 'Show Field Guide';
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? 'Hide Crib Sheet' : 'Show Crib Sheet';
-    const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
-    const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
+
     const panel = (
-      <section className={`control-panel ${hiddenStyle}`}>
-        <div className="control-panel__header">
+      <section className={classnames('control-panel', {
+        'control-panel__hide': !this.state.showInfo,
+        'control-panel__rtl': this.props.rtl
+      })}
+      >
+        <div className={classnames('control-panel__header', {
+          'control-panel__reverse': this.props.rtl
+        })}
+        >
           <h4 className="primary-label">Subject info</h4>
           {this.toggleIcon()}
         </div>
-        <hr className="plum-line" />
+        <hr className={classnames('plum-line', {
+          'plum-line__reverse': this.props.rtl
+        })}
+        />
         <div className="control-panel__buttons">
 
           {this.state.showInfo && (
@@ -161,13 +182,19 @@ class ControlPanel extends React.Component {
 
     return (
       <section
-        className={`control-panel control-panel__side ${peekHeight}`}
+        className={classnames('control-panel control-panel__side', {
+          'control-panel__tall': this.state.showInfo,
+          'control-panel__short': !this.state.showInfo,
+          'control-panel__rtl': this.props.rtl
+        })}
         ref={(c) => { this.sidePanel = c; }}
         role="button"
         onClick={this.togglePanel}
         tabIndex="0"
       >
-        {this.toggleIcon()}
+        {!this.state.showPanel && (
+          this.toggleIcon()
+        )}
         <h2>EXPAND INFO</h2>
         {panel}
       </section>
@@ -184,6 +211,7 @@ ControlPanel.propTypes = {
   }),
   icons: PropTypes.object,
   preferences: PropTypes.object,
+  rtl: PropTypes.bool,
   tutorial: PropTypes.shape({
     steps: PropTypes.array
   }),
@@ -204,6 +232,7 @@ ControlPanel.defaultProps = {
   guide: null,
   icons: null,
   preferences: null,
+  rtl: false,
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
@@ -217,6 +246,7 @@ const mapStateToProps = (state) => {
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
+    rtl: state.languages.rtl,
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,
