@@ -76,7 +76,10 @@ class Toolbar extends React.Component {
   }
 
   toggleIcon() {
-    const iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    let iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    if (this.props.rtl) {
+      iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
+    }
     return (
       <button className="button-header" onClick={this.togglePanel}>
         {this.state.showPanel && (
@@ -176,6 +179,7 @@ Toolbar.propTypes = {
   dispatch: PropTypes.func,
   favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
+  rtl: PropTypes.bool,
   scaling: PropTypes.number,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -187,6 +191,7 @@ Toolbar.defaultProps = {
   dispatch: () => {},
   favoriteSubject: false,
   rotation: 0,
+  rtl: false,
   scaling: 0,
   user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
@@ -197,6 +202,7 @@ const mapStateToProps = (state) => {
   return {
     favoriteSubject: state.subject.favorite,
     rotation: sv.rotation,
+    rtl: state.languages.rtl,
     scaling: sv.scaling,
     user: state.login.user,
     viewerState: sv.viewerState

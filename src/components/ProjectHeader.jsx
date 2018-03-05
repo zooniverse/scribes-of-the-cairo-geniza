@@ -1,8 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setLanguage, LANGUAGES } from '../ducks/languages';
 
 class ProjectHeader extends React.Component {
+  changeLanguage(language) {
+    this.props.dispatch(setLanguage(language));
+    // if (document.documentElement.lang) {
+    //   document.documentElement.lang = lang;
+    // }
+    // console.log(document.documentElement.lang);
+  }
+
   render() {
     let className = '';
 
@@ -48,9 +58,9 @@ class ProjectHeader extends React.Component {
             >
               Collect
             </a>
-            <button>ع</button>
-            <button>E</button>
-            <button>ע</button>
+            <button onClick={this.changeLanguage.bind(this, LANGUAGES.ARABIC)}>ع</button>
+            <button onClick={this.changeLanguage.bind(this, LANGUAGES.ENGLISH)}>E</button>
+            <button onClick={this.changeLanguage.bind(this, LANGUAGES.HEBREW)}>ע</button>
           </nav>
         </div>
       </section>
@@ -59,13 +69,15 @@ class ProjectHeader extends React.Component {
 }
 
 ProjectHeader.propTypes = {
+  dispatch: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string
   })
 };
 
 ProjectHeader.defaultProps = {
+  dispatch: () => {},
   location: {}
 };
 
-export default ProjectHeader;
+export default connect()(ProjectHeader);
