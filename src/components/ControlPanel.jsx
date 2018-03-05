@@ -133,8 +133,7 @@ class ControlPanel extends React.Component {
   render() {
     const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? 'Hide Field Guide' : 'Show Field Guide';
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? 'Hide Crib Sheet' : 'Show Crib Sheet';
-    const hiddenStyle = !this.state.showInfo ? 'control-panel__hide' : '';
-    const peekHeight = this.state.showInfo ? 'control-panel__tall' : 'control-panel__short';
+
     const panel = (
       <section className={classnames('control-panel', {
         'control-panel__hide': !this.state.showInfo,
