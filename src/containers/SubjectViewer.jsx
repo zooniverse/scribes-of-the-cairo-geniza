@@ -13,7 +13,7 @@ import {
   SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
 
-import { addAnnotationPoint, completeAnnotation } from '../ducks/annotations';
+import { addAnnotationPoint, completeAnnotation, selectAnnotation } from '../ducks/annotations';
 import { toggleDialog } from '../ducks/dialog';
 
 import AnnotationsPane from '../components/AnnotationsPane';
@@ -25,6 +25,8 @@ const INPUT_STATE = {
   IDLE: 0,
   ACTIVE: 1
 };
+
+const ANNOTATION_BOX_DIMENSIONS = { height: 600, width: 700 };
 
 class SubjectViewer extends React.Component {
   constructor(props) {
@@ -212,10 +214,9 @@ class SubjectViewer extends React.Component {
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
       const pointerXYOnImage = this.getPointerXYOnImage(e);
       this.props.dispatch(addAnnotationPoint(pointerXYOnImage.x, pointerXYOnImage.y, this.props.frame));
-
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
-        this.props.dispatch(toggleDialog(<SelectedAnnotation />, 'Your Annotation'));
+        this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
         this.props.dispatch(completeAnnotation());
       }
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
@@ -260,8 +261,9 @@ class SubjectViewer extends React.Component {
     return Utility.stopEvent(e);
   }
 
-  onSelectAnnotation() {
-    this.props.dispatch(toggleDialog(<SelectedAnnotation />, 'Your Annotation'));
+  onSelectAnnotation(indexOfAnnotation) {
+    this.props.dispatch(selectAnnotation(indexOfAnnotation));
+    this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
   }
 
   render() {

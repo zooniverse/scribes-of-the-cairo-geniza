@@ -66,6 +66,7 @@ class AnnotationsPane extends React.Component {
             return Utility.stopEvent(e);
           }}
           onMouseDown={e => Utility.stopEvent(e)}
+          onMouseUp={e => Utility.stopEvent(e)}
           onTouchStart={e => Utility.stopEvent(e)}
         >
           {svgPoints}

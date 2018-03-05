@@ -1,4 +1,4 @@
-.snippet-delete-prompt
+.question-prompt
   background: rgba(255, 255, 255, 0.5)
   cursor: default
   display: flex
@@ -14,14 +14,17 @@
     box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
     -webkit-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
     -moz-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
-    height: 11rem
+    height: 14rem
     margin: auto
-    width: 26rem
+    width: 28rem
+
+    div:last-child
+      margin-top: 2rem
 
     div
       margin: 1rem 1.5rem
 
-    div:not(.snippet-delete-prompt__instructions)
+    div:not(.question-prompt__instructions)
       display: flex
       justify-content: space-between
 
@@ -38,9 +41,13 @@
 
     span:first-child
       font-weight: 600
+      margin-right: 0.25rem
 
     .close-button
       padding: 0
 
     button:not(.close-button)
-      width: 11rem
+      width: 12rem
+
+.prompt-buttons
+  margin-top: 3rem

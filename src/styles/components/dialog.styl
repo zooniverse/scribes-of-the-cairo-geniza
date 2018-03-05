@@ -12,13 +12,21 @@
 .dialog
   align-items: stretch
   background-color: $bisque
-  border-top: 8px solid $sand
   box-shadow: 5px 5px 20px #888888
   display: flex
   flex-direction: column
   justify-content: center
   height: 100%
   overflow: hidden
+
+  .drag-bar
+    background-color: $sand
+    border: 0
+    position: absolute
+    top: 0
+    width: 100%
+    height: 0.5rem
+    margin: 0
 
   .plum-line
     width: 4rem

@@ -9,6 +9,7 @@ class Dialog extends React.Component {
   constructor(props) {
     super(props);
     this.close = this.close.bind(this);
+    this.updateSize = this.updateSize.bind(this);
   }
 
   onClose() {
@@ -20,6 +21,10 @@ class Dialog extends React.Component {
     return Utility.stopEvent(e);
   }
 
+  updateSize(size) {
+    this.rnd.updateSize(size);
+  }
+
   render() {
     const height = this.props.size.height;
     const width = this.props.size.width;
@@ -27,10 +32,15 @@ class Dialog extends React.Component {
     const y = ((window.innerHeight / 2) - (height / 2)) + window.pageYOffset;
 
     const defaultPosition = { x, y, height, width };
+    const children = React.Children.map(this.props.children, (child) => {
+      return React.cloneElement(child, { updateSize: this.updateSize });
+    });
+
     return (
       <Rnd
         default={defaultPosition}
         dragHandlerClassName={'.handle'}
+        ref={c => { this.rnd = c; }}
         enableResizing={false}
         minHeight={400}
         minWidth={400}
@@ -40,6 +50,7 @@ class Dialog extends React.Component {
           tabIndex="0"
           role="button"
         >
+          <hr className="handle drag-bar" />
           <div className="dialog-content">
             {this.props.title.length ? (
               <div className="handle dialog-content__header">
@@ -50,7 +61,7 @@ class Dialog extends React.Component {
                 </div>
               </div>
             ) : false}
-            {this.props.children}
+            {children}
           </div>
         </div>
       </Rnd>

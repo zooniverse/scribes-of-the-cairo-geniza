@@ -89,7 +89,7 @@ class CollectionsManager extends React.Component {
           </span>
         )}
 
-        <div className="collections-manager__private-toggle">
+        <div className="round-toggle">
           <input
             id="private"
             type="checkbox"
