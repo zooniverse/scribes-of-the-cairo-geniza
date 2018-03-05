@@ -1,0 +1,52 @@
+.script-references
+  margin: 1rem
+
+  &__header
+    border-bottom: 3px solid $plum
+    display: flex
+    flex-direction: row
+    padding-bottom: 1rem
+
+    .secondary-label
+      font-size: 0.75rem
+      text-transform: uppercase
+
+    .text-link
+      background: none
+      border: none
+
+    .h1-font
+      font-size: 1rem
+      line-height: inherit
+
+    > div:first-child
+      flex-basis: 40%
+      padding-right: 1rem
+
+      div
+        display: flex
+        justify-content: space-between
+
+    > div:last-child
+      border-left: 3px solid $plum
+      flex-basis: 60%
+      padding-left: 1rem
+
+      span
+        font-size: 0.75rem
+        line-height: 0.5rem
+
+  &__filter
+    div
+      margin-top: 0.25rem
+
+    button
+      background: none
+      border: none
+      margin-right: 0.5rem
+      padding: 0.25rem 0.5rem
+
+      &:hover, &:focus
+        background-color: $sand
+        border-radius: 1rem
+        color: $plum

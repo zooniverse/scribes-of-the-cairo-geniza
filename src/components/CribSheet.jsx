@@ -6,6 +6,7 @@ import { setViewerState, SUBJECTVIEWER_STATE } from '../ducks/subject-viewer';
 import { activateCard, toggleReferenceMode } from '../ducks/crib-sheet';
 import { Utility } from '../lib/Utility';
 import ActiveCard from './ActiveCard';
+import ScriptReferences from './ScriptReferences';
 
 class CribSheet extends React.Component {
   constructor() {
@@ -30,15 +31,6 @@ class CribSheet extends React.Component {
   activateCrop(e) {
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.CROPPING));
     this.close(e);
-  }
-
-  renderReference() {
-    // To be replaced with script keyboards
-    return (
-      <div className="crib-sheet__reference">
-        <h2>Hello World</h2>
-      </div>
-    );
   }
 
   personalMode() {
@@ -141,7 +133,7 @@ class CribSheet extends React.Component {
 
   render() {
     const cribSheet = this.props.referenceMode ?
-      this.renderReference() : this.renderPersonal();
+      <ScriptReferences /> : this.renderPersonal();
 
     return (
       <div className="crib-sheet">
