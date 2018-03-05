@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 const QuestionPrompt = (props) => {
   return (
-    <div className="squestion-prompt" role="presentation">
-      <div className="squestion-prompt__content">
+    <div className="question-prompt" role="presentation">
+      <div className="question-prompt__content">
         <div>
           <h2>{props.title}</h2>
         </div>
         <hr className="plum-line" />
 
-        <div className="squestion-prompt__instructions">
+        <div className="question-prompt__instructions">
           <span>{props.question}</span>
           <span>{props.notes}</span>
         </div>
