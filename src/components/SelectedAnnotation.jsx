@@ -7,6 +7,7 @@ import {
   unselectAnnotation, updateText
 } from '../ducks/annotations';
 import QuestionPrompt from './QuestionPrompt';
+import AnnotationKeyboard from './AnnotationKeyboard';
 
 const ENABLE_DRAG = 'selected-annotation handle';
 const DISABLE_DRAG = 'selected-annotation';
@@ -189,7 +190,7 @@ class SelectedAnnotation extends React.Component {
                   id="modern"
                   type="checkbox"
                   ref={(el) => { this.modern = el; }}
-                  defaultChecked={false}
+                  defaultChecked={this.props.showModernKeyboard}
                 />
                 <label className="primary-label" htmlFor="modern">
                   <span>Show Modern Characters</span>
@@ -197,6 +198,7 @@ class SelectedAnnotation extends React.Component {
               </div>
             </div>
             <div className="selected-annotation__keyboard">
+              <AnnotationKeyboard />
             </div>
           </div>
         )}
@@ -210,17 +212,20 @@ SelectedAnnotation.propTypes = {
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
+  showModernKeyboard: PropTypes.bool,
   updateSize: PropTypes.func
 };
 
 SelectedAnnotation.defaultProps = {
   dispatch: () => {},
   selectedAnnotation: null,
+  showModernKeyboard: true,
   updateSize: () => {}
 };
 
 const mapStateToProps = (state) => {
   return {
+    showModernKeyboard: state.keyboard.modern,
     selectedAnnotation: state.annotations.selectedAnnotation
   };
 };

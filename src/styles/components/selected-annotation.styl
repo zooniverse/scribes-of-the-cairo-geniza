@@ -71,6 +71,36 @@
   &__keyboard
     background-image: url('../images/bg-disabled-secondary.png')
     border: 1px solid black
+    display: grid
     height: 16rem
     margin-top: 0.75rem
     width: 100%
+
+.annotation-keyboard
+  align-items: center
+  display: flex
+  flex-direction: column
+  margin: auto
+
+  &__row
+    display: flex
+
+  &__button
+    background-color: $bisque
+    border: 2px solid $plum
+    color: $plum
+    font-family: $work-sans
+    font-size: 2rem
+    font-weight: 700
+    height: 3.5rem
+    width: 3.5rem
+    margin: 0.08rem
+    padding: 0
+
+  .enter-button
+    font-size: 0.8rem
+    width: 8rem
+
+  .space-button
+    font-size: 0.8rem
+    width: 29rem
