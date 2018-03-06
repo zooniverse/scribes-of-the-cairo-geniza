@@ -1,6 +1,9 @@
+import { KeyboardOptions } from '../lib/KeyboardTypes';
+
 const initialState = {
+  activeScript: KeyboardOptions[0],
   modern: true,
-  title: 'Ashkenazi Square'
+  index: 0
 };
 
 const SET_KEYBOARD = 'SET_KEYBOARD';
@@ -10,7 +13,8 @@ const keyboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_KEYBOARD:
       return Object.assign({}, state, {
-        title: ''
+        activeScript: action.activeScript,
+        index: action.index
       });
 
     case TOGGLE_MODERN:
@@ -23,10 +27,14 @@ const keyboardReducer = (state = initialState, action) => {
   }
 };
 
-const setKeyboard = () => {
+const setKeyboard = (index) => {
   return (dispatch) => {
+    const activeScript = KeyboardOptions[index];
+
     dispatch({
-      type: SET_KEYBOARD
+      type: SET_KEYBOARD,
+      activeScript,
+      index
     });
   };
 };

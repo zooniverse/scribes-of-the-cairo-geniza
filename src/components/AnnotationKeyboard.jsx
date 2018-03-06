@@ -4,21 +4,29 @@ import { connect } from 'react-redux';
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
 
 class AnnotationKeyboard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderKey(letter) {
+    const showScript = !this.props.showModern ? `char-button ${letter.name}` : '';
+    const characterRep = letter.unicode ? letter.unicode : letter.character;
+    const styles = {};
+    if (!this.props.showModern) {
+      styles.backgroundImage = `url('${this.props.activeScript.img}')`
+    }
     return (
-      <button className="annotation-keyboard__button" key={letter.characterID}>
-        <span>{letter.character}</span>
+      <button
+        className={`annotation-keyboard__button ${showScript}`}
+        key={letter.characterID}
+        style={styles}
+      >
+        {this.props.showModern && (
+          <span>{characterRep}</span>
+        )}
       </button>
     );
   }
 
   renderRow(row, i) {
     return (
-      <div className="annotation-keyboard__row">
+      <div key={`KEYBOARD_ROW_${i}`} className="annotation-keyboard__row">
         {row.map((letter) => {
           return this.renderKey(letter);
         })}
@@ -31,9 +39,9 @@ class AnnotationKeyboard extends React.Component {
 
   render() {
     const byRow = [];
-    byRow.push(MODERN_HEBREW.slice(0, 7));
-    byRow.push(MODERN_HEBREW.slice(8, 17));
-    byRow.push(MODERN_HEBREW.slice(18, 26));
+    byRow.push(MODERN_HEBREW.slice(0, 8));
+    byRow.push(MODERN_HEBREW.slice(8, 18));
+    byRow.push(MODERN_HEBREW.slice(18, 27));
 
     return (
       <div className="annotation-keyboard">
@@ -48,4 +56,22 @@ class AnnotationKeyboard extends React.Component {
   }
 }
 
-export default connect()(AnnotationKeyboard);
+AnnotationKeyboard.propTypes = {
+  activeScript: PropTypes.shape({
+    img: PropTypes.string,
+    name: PropTypes.string
+  }),
+  showModern: PropTypes.bool
+};
+
+AnnotationKeyboard.defaultProps = {
+  activeScript: null,
+  showModern: true
+};
+
+const mapStateToProps = (state) => ({
+  activeScript: state.keyboard.activeScript,
+  showModern: state.keyboard.modern
+});
+
+export default connect(mapStateToProps)(AnnotationKeyboard);
