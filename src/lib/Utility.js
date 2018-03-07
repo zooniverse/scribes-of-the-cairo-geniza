@@ -176,36 +176,3 @@ export const KEY_VALUES = {
   "9": KEY_CODES.NUM9,
   "Digit9": KEY_CODES.NUM9,
 };
-
-// export const HEBREW_KEY_VALUES = {
-//   "Alef":
-//   "Bet":
-//   "Gimel":
-//   "Dalet":
-//   "Hey":
-//   "Vav":
-//   "Zayin":
-//   "Het":
-//   "Tet":
-//   "Yod":
-//   "Final Kaf":
-//   "Kaf":
-//   "Lamed":
-//   "Final Mem":
-//   "Mem":
-//   "Final Nun":
-//   "Nun":
-//   "Samekh"
-//   "Ayin":
-//   "Final Pe":
-//   "Pe":
-//   "Final Tsadi":
-//   "Tsadi":
-//   "Qof":
-//   "Resh":
-//   "Shin":
-//   "Tav":
-//   "Double Vav":
-//   "Vav Yod":
-//   "Double Yod":
-// }

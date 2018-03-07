@@ -69,14 +69,14 @@
       text-transform: uppercase
 
   &__script-select
-    span
-      font-size: 0.8rem
+    .text-link, button
+      font-size: 1rem
       text-transform: uppercase
-
-    .text-link
       background: none
       border: none
-      margin: 0 0.25rem
+
+    .text-link
+      width: 14rem
 
   &__keyboard
     background-image: url('../images/bg-disabled-secondary.png')
@@ -86,140 +86,33 @@
     margin-top: 0.75rem
     width: 100%
 
-.annotation-keyboard
-  align-items: center
-  display: flex
-  flex-direction: column
-  margin: auto
-
-  &__row
-    display: flex
-
-  &__button
-    background-color: $bisque
-    border: 2px solid $plum
-    color: $plum
-    font-family: $work-sans
-    font-size: 2rem
-    font-weight: 700
-    height: 3.5rem
-    width: 3.5rem
-    margin: 0.08rem
-    padding: 0
-
-    &:hover, &:focus
-      background-color: $plum
-      color: $bisque
-
-  .enter-button
-    font-size: 0.8rem
-    width: 4rem
-
-  .space-button
-    font-size: 0.8rem
-    width: 32.75rem
-
-.char-button
-  background-image: url('../images/keyboards/ashkenazi-square.jpg')
-  display: inline-block
-
-  &.qof
-    background-position: -439px -255px
-
-  &.resh
-    background-position: -329px -255px
-
-  &.alef
-    background-position: -439px 1px
-
-  &.tet
-    background-position: -109px -63px
-
-  &.vav
-    background-position: -274px -63px
-
-  &.nunSofit
-    background-position: -384px -191px
-
-  &.memSofit
-    background-position: -54px -127px
-
-  &.pey
-    background-position: -164px -191px
-
-  &.shin
-    background-position: -219px -255px
-
-  &.dalet
-    background-position: -54px 1px
-
-  &.gimel
-    background-position: -109px 1px
-
-  &.kaf
-    background-position: 2px -63px
-
-  &.ayin
-    background-position: -274px -191px
-
-  &.yod
-    background-position: -54px -63px
-
-  &.het
-    background-position: -164px -63px
-
-  &.lamed
-    background-position: -274px -127px
-
-  &.kafSofit
-    background-position: -384px -127px
-
-  &.peySofit
-    background-position: -109px -191px
-
-  &.zayin
-    background-position: -219px -63px
-
-  &.samech
-    background-position: -329px -191px
-
-  &.bet
-    background-position: -219px 1px
-
-  &.hey
-    background-position: -439px -63px
-
-  &.nun
-    background-position: -439px -191px
-
-  &.mem
-    background-position: -164px -127px
-
-  &.tsadi
-    background-position: -54px -191px
-
-  &.tav
-    background-position: -109px -255px
-
-  &.tsadiSofit
-    background-position: 2px -191px
-
 .script-options
   background-color: $bisque
   border: 2px solid $plum
   flex-direction: column
+  height: 15rem
   margin-left: 1rem
+  overflow-y: scroll
   position: absolute
+
+  .active-script-option
+    background-color: $sand
 
   button
     background: none
     border: none
     display: block
     font-family: $work-sans
-    font-size: 0.8rem
+    font-size: 1rem
     padding: 0.2rem 0.25rem
     text-align: left
     width: 100%
 
     &:hover, &:focus
       background-color: $sand
+
+.script-options::-webkit-scrollbar
+  background-color: $bisque
+
+.script-options::-webkit-scrollbar-thumb
+  background: $plum

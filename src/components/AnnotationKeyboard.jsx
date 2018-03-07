@@ -9,7 +9,7 @@ class AnnotationKeyboard extends React.Component {
     const characterRep = letter.unicode ? letter.unicode : letter.character;
     const styles = {};
     if (!this.props.showModern) {
-      styles.backgroundImage = `url('${this.props.activeScript.img}')`
+      styles.backgroundImage = `url('${this.props.activeScript.img}')`;
     }
     return (
       <button
@@ -27,9 +27,7 @@ class AnnotationKeyboard extends React.Component {
   renderRow(row, i) {
     return (
       <div key={`KEYBOARD_ROW_${i}`} className="annotation-keyboard__row">
-        {row.map((letter) => {
-          return this.renderKey(letter);
-        })}
+        {row.map(letter => this.renderKey(letter))}
         {i === 1 && (
           <button className="annotation-keyboard__button enter-button">Enter</button>
         )}
@@ -45,9 +43,7 @@ class AnnotationKeyboard extends React.Component {
 
     return (
       <div className="annotation-keyboard">
-        {byRow.map((row, i) => {
-          return this.renderRow(row, i);
-        })}
+        {byRow.map((row, i) => this.renderRow(row, i))}
         <div>
           <button className="annotation-keyboard__button space-button">Space</button>
         </div>
@@ -69,7 +65,7 @@ AnnotationKeyboard.defaultProps = {
   showModern: true
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   activeScript: state.keyboard.activeScript,
   showModern: state.keyboard.modern
 });
