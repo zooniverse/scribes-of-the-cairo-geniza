@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
 import {
   deleteSelectedAnnotation,
   unselectAnnotation, updateText
 } from '../ducks/annotations';
 import QuestionPrompt from './QuestionPrompt';
+import AnnotationKeyboard from './AnnotationKeyboard';
+import { KeyboardOptions } from '../lib/KeyboardTypes';
 
 const ENABLE_DRAG = 'selected-annotation handle';
 const DISABLE_DRAG = 'selected-annotation';
@@ -19,14 +22,19 @@ class SelectedAnnotation extends React.Component {
     this.deleteAnnotation = this.deleteAnnotation.bind(this);
     this.onTextUpdate = this.onTextUpdate.bind(this);
     this.saveText = this.saveText.bind(this);
-    this.toggleKeyboard = this.toggleKeyboard.bind(this);
+    this.toggleKeyboardView = this.toggleKeyboardView.bind(this);
     this.closePrompt = this.closePrompt.bind(this);
     this.deletePrompt = this.deletePrompt.bind(this);
     this.closePopup = this.closePopup.bind(this);
+    this.setModern = this.setModern.bind(this);
+    this.toggleScriptOptions = this.toggleScriptOptions.bind(this);
+    this.closeDropdown = this.closeDropdown.bind(this);
+    this.previousScript = this.previousScript.bind(this);
+    this.nextScript = this.nextScript.bind(this);
 
     this.state = {
       annotationText: '',
-      showKeyboard: true
+      showScriptOptions: false
     };
   }
 
@@ -37,6 +45,11 @@ class SelectedAnnotation extends React.Component {
     }
     this.setState({ annotationText: text });
     this.inputText.focus();
+    document.addEventListener('mousedown', this.closeDropdown, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.closeDropdown, false);
   }
 
   onTextUpdate() {
@@ -45,6 +58,37 @@ class SelectedAnnotation extends React.Component {
     this.setState({
       annotationText: this.inputText.value
     });
+  }
+
+  setModern() {
+    this.props.dispatch(toggleModern());
+  }
+
+  toggleKeyboardView() {
+    const dimensions = { height: 250, width: 700 };
+    if (!this.props.showKeyboard) {
+      dimensions.height = 600;
+    }
+    this.props.updateSize && this.props.updateSize(dimensions);
+    this.props.dispatch(toggleKeyboard());
+  }
+
+  deleteAnnotation() {
+    this.props.dispatch(deleteSelectedAnnotation());
+    this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(togglePopup(null));
+  }
+
+  saveText() {
+    const text = (this.state.annotationText && this.state.annotationText.trim)
+      ? this.state.annotationText.trim() : '';
+    if (text !== '') {
+      this.props.dispatch(updateText(text));
+      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(unselectAnnotation());
+    } else {
+      this.deletePrompt(true);
+    }
   }
 
   cancelAnnotation() {
@@ -60,32 +104,11 @@ class SelectedAnnotation extends React.Component {
     }
   }
 
-  saveText() {
-    const text = (this.state.annotationText && this.state.annotationText.trim)
-      ? this.state.annotationText.trim() : '';
-    if (text !== '') {
-      this.props.dispatch(updateText(text));
-      this.props.dispatch(toggleDialog(null));
-      this.props.dispatch(unselectAnnotation());
-    } else {
-      this.deletePrompt(true);
+  closeDropdown(e) {
+    if (this.dropdown && this.dropdown.contains(e.target)) {
+      return;
     }
-  }
-
-  deleteAnnotation() {
-    this.props.dispatch(deleteSelectedAnnotation());
-    this.props.dispatch(toggleDialog(null));
-    this.props.dispatch(togglePopup(null));
-  }
-
-  toggleKeyboard() {
-    const showKeyboard = !this.state.showKeyboard;
-    const dimensions = { height: 250, width: 700 };
-    if (showKeyboard) {
-      dimensions.height = 600;
-    }
-    this.props.updateSize && this.props.updateSize(dimensions);
-    this.setState({ showKeyboard });
+    this.setState({ showScriptOptions: false });
   }
 
   closeAnnotation() {
@@ -115,6 +138,30 @@ class SelectedAnnotation extends React.Component {
       />));
   }
 
+  toggleScriptOptions() {
+    this.setState({ showScriptOptions: !this.state.showScriptOptions });
+  }
+
+  previousScript() {
+    this.props.dispatch(toggleModern(true));
+    let index = this.props.keyboardIndex - 1;
+    const totalItems = KeyboardOptions.length;
+    if (index < 0) {
+      index = totalItems - 1;
+    }
+    this.props.dispatch(setKeyboard(index));
+  }
+
+  nextScript() {
+    this.props.dispatch(toggleModern(true));
+    let index = this.props.keyboardIndex + 1;
+    const totalItems = KeyboardOptions.length;
+    if (index >= totalItems) {
+      index = 0;
+    }
+    this.props.dispatch(setKeyboard(index));
+  }
+
   deletePrompt(emptyText = false) {
     const notes = emptyText ? 'You cannot save an empty transcription.' : '';
     this.props.dispatch(togglePopup(
@@ -129,8 +176,31 @@ class SelectedAnnotation extends React.Component {
       />));
   }
 
+  activateScript(i) {
+    this.setState({ showScriptOptions: false });
+    this.props.dispatch(toggleModern(true));
+    this.props.dispatch(setKeyboard(i));
+  }
+
+  scriptOption(script, i) {
+    const isActive = this.props.activeScript === script ? 'active-script-option' : '';
+    return (
+      <button
+        key={`SCRIPT_OPTION_${i}`}
+        className={isActive}
+        onClick={this.activateScript.bind(this, i)}
+      >
+        {script.name}
+      </button>
+    );
+  }
+
   render() {
-    const keyboardToggleText = this.state.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
+    const keyboardToggleText = this.props.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
+    let currentScript = 'Current Script';
+    if (this.props.activeScript && this.props.activeScript.name) {
+      currentScript = this.props.activeScript.name;
+    }
 
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
@@ -167,29 +237,35 @@ class SelectedAnnotation extends React.Component {
                 <span>Show Previous Marks</span>
               </label>
             </div>
-            <button className="text-link" onClick={this.toggleKeyboard}>{keyboardToggleText}</button>
+            <button className="text-link" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
           </div>
           <div>
             <button className="button" onClick={this.deletePrompt}>Delete</button>
             <button className="button button__dark" onClick={this.saveText}>Done</button>
           </div>
         </div>
-        {this.state.showKeyboard && (
+        {this.props.showKeyboard && (
           <div className="selected-annotation__keyboard-div">
             <hr />
             <span className="secondary-label">Current Script Type</span>
             <div>
-              <div>
-                <span>&#9664;</span>
-                <span className="text-link">Current Keyboard</span>
-                <span>&#9658;</span>
+              <div className="selected-annotation__script-select">
+                <button onClick={this.previousScript}>&#9664;</button>
+                <button className="text-link" onClick={this.toggleScriptOptions}>{currentScript}</button>
+                {this.state.showScriptOptions && (
+                  <div className="script-options" ref={(c) => { this.dropdown = c; }}>
+                    {KeyboardOptions.map((script, i) => this.scriptOption(script, i))}
+                  </div>
+                )}
+                <button onClick={this.nextScript}>&#9658;</button>
               </div>
               <div className="round-toggle">
                 <input
                   id="modern"
                   type="checkbox"
+                  checked={this.props.showModernKeyboard}
+                  onChange={this.setModern}
                   ref={(el) => { this.modern = el; }}
-                  defaultChecked={false}
                 />
                 <label className="primary-label" htmlFor="modern">
                   <span>Show Modern Characters</span>
@@ -197,6 +273,7 @@ class SelectedAnnotation extends React.Component {
               </div>
             </div>
             <div className="selected-annotation__keyboard">
+              <AnnotationKeyboard />
             </div>
           </div>
         )}
@@ -206,23 +283,35 @@ class SelectedAnnotation extends React.Component {
 }
 
 SelectedAnnotation.propTypes = {
+  activeScript: PropTypes.shape({
+    name: PropTypes.string
+  }),
   dispatch: PropTypes.func,
+  keyboardIndex: PropTypes.number,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
+  showKeyboard: PropTypes.bool,
+  showModernKeyboard: PropTypes.bool,
   updateSize: PropTypes.func
 };
 
 SelectedAnnotation.defaultProps = {
+  activeScript: KeyboardOptions[0],
   dispatch: () => {},
+  keyboardIndex: 0,
   selectedAnnotation: null,
+  showKeyboard: true,
+  showModernKeyboard: true,
   updateSize: () => {}
 };
 
-const mapStateToProps = (state) => {
-  return {
-    selectedAnnotation: state.annotations.selectedAnnotation
-  };
-};
+const mapStateToProps = state => ({
+  activeScript: state.keyboard.activeScript,
+  keyboardIndex: state.keyboard.index,
+  showKeyboard: state.keyboard.showKeyboard,
+  showModernKeyboard: state.keyboard.modern,
+  selectedAnnotation: state.annotations.selectedAnnotation
+});
 
 export default connect(mapStateToProps)(SelectedAnnotation);

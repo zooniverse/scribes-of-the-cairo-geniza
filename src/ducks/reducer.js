@@ -13,6 +13,7 @@ import annotations from './annotations';
 import collections from './collections';
 import cribSheet from './crib-sheet';
 import languages from './languages';
+import keyboard from './keyboard';
 
 export default combineReducers({
   annotations,
@@ -22,6 +23,7 @@ export default combineReducers({
   dialog,
   fieldGuide,
   initialize,
+  keyboard,
   languages,
   login,
   project,

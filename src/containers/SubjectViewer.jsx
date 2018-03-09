@@ -27,6 +27,7 @@ const INPUT_STATE = {
 };
 
 const ANNOTATION_BOX_DIMENSIONS = { height: 600, width: 700 };
+const ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS = { height: 250, width: 700 };
 
 class SubjectViewer extends React.Component {
   constructor(props) {
@@ -216,7 +217,8 @@ class SubjectViewer extends React.Component {
       this.props.dispatch(addAnnotationPoint(pointerXYOnImage.x, pointerXYOnImage.y, this.props.frame));
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
-        this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
+        const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
+        this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', dimensions));
         this.props.dispatch(completeAnnotation());
       }
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
@@ -263,7 +265,8 @@ class SubjectViewer extends React.Component {
 
   onSelectAnnotation(indexOfAnnotation) {
     this.props.dispatch(selectAnnotation(indexOfAnnotation));
-    this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', ANNOTATION_BOX_DIMENSIONS));
+    const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
+    this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', dimensions));
   }
 
   render() {
@@ -375,6 +378,7 @@ SubjectViewer.propTypes = {
   translationX: PropTypes.number,
   translationY: PropTypes.number,
   scaling: PropTypes.number,
+  showKeyboard: PropTypes.bool,
   subjectStatus: PropTypes.string,
   viewerSize: PropTypes.shape({
     width: PropTypes.number,
@@ -394,6 +398,7 @@ SubjectViewer.defaultProps = {
   popup: null,
   rotation: 0,
   scaling: 1,
+  showKeyboard: true,
   subjectStatus: '',
   translationX: 0,
   translationY: 0,
@@ -416,6 +421,7 @@ const mapStateToProps = (state) => {
     popup: state.dialog.popup,
     rotation: sv.rotation,
     scaling: sv.scaling,
+    showKeyboard: state.keyboard.showKeyboard,
     subjectStatus: state.subject.status,
     translationX: sv.translationX,
     translationY: sv.translationY,
