@@ -3,10 +3,12 @@ import { KeyboardOptions } from '../lib/KeyboardTypes';
 const initialState = {
   activeScript: KeyboardOptions[0],
   modern: true,
+  showKeyboard: true,
   index: 0
 };
 
 const SET_KEYBOARD = 'SET_KEYBOARD';
+const TOGGLE_KEYBOARD = 'TOGGLE_KEYBOARD';
 const TOGGLE_MODERN = 'TOGGLE_MODERN';
 
 const keyboardReducer = (state = initialState, action) => {
@@ -15,6 +17,11 @@ const keyboardReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         activeScript: action.activeScript,
         index: action.index
+      });
+
+    case TOGGLE_KEYBOARD:
+      return Object.assign({}, state, {
+        showKeyboard: action.showKeyboard
       });
 
     case TOGGLE_MODERN:
@@ -39,9 +46,10 @@ const setKeyboard = (index) => {
   };
 };
 
-const toggleModern = () => {
+const toggleModern = (setToFalse = false) => {
   return (dispatch, getState) => {
-    const modern = !getState().keyboard.modern;
+    let modern = !getState().keyboard.modern;
+    if (setToFalse) { modern = false; }
 
     dispatch({
       type: TOGGLE_MODERN,
@@ -50,9 +58,21 @@ const toggleModern = () => {
   };
 };
 
+const toggleKeyboard = () => {
+  return (dispatch, getState) => {
+    const showKeyboard = !getState().keyboard.showKeyboard;
+
+    dispatch({
+      type: TOGGLE_KEYBOARD,
+      showKeyboard
+    });
+  };
+};
+
 export default keyboardReducer;
 
 export {
   setKeyboard,
+  toggleKeyboard,
   toggleModern
 };
