@@ -1,5 +1,8 @@
 import React from 'react';
 import { ZooniverseLogo, ZooniverseLogotype } from 'zooniverse-react-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Penn from '../images/penn.png';
 import JTSLogo from '../images/jts_logo.png';
 import Princeton from '../images/princeton_geniza.png';
@@ -9,11 +12,17 @@ import Scroll from '../images/hebrew-fragment.png';
 import Arabic from '../images/arabic-big.png';
 import HomeStatistics from './HomeStatistics';
 
-export default function Home() {
+const Home = ({ rtl }) => {
+  const Img = styled.img`
+    right: ${props => props.rtl ? 'auto' : '0'};
+    left: ${props => props.rtl ? '0' : 'auto'};
+    transform: ${props => props.rtl ? 'scaleX(-1)' : 'none'};
+  `;
+
   return (
     <section className="home-page">
       <div className="home-page__introduction">
-        <img alt="Hebrew Scroll" src={Scroll} />
+        <Img alt="Hebrew Scroll" rtl={rtl} src={Scroll} />
         <img alt="Arabic Text" src={Arabic} />
         <div>
           <ZooniverseLogotype width="100px" />
@@ -118,4 +127,19 @@ export default function Home() {
       </div>
     </section>
   );
-}
+};
+
+Home.propTypes = {
+  rtl: PropTypes.bool
+};
+
+Home.defaultProps = {
+  rtl: false
+};
+
+const mapStateToProps = state => ({
+  rtl: state.languages.rtl
+});
+
+
+export default connect(mapStateToProps)(Home);

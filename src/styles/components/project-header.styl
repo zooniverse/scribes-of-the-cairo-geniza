@@ -29,9 +29,18 @@
     padding-right: 0.5rem
     pointer-events: all
 
+    div
+      display: flex
+
     a
       display: block
       padding: 1rem
+
+  &__rtl
+    flex-direction: row-reverse
+
+    div:last-child
+      flex-direction: row-reverse
 
   &__active
     background: $sand

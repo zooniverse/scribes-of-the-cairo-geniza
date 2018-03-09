@@ -6,7 +6,6 @@
   color: $plum
   height: 36rem
   position: absolute
-  right: 0
   top: 12%
   width: 17rem
   z-index: 1
@@ -22,6 +21,9 @@
     cursor: pointer
     width: 3rem
     overflow: hidden
+
+    .control-panel__toggle
+      margin: 1rem
 
     .control-panel
       right: -17rem
@@ -63,22 +65,20 @@
     div
       margin: 0.5rem 0
 
-    span:first-child
-      margin-right: 0.5rem
-
     .control-panel__toggle
       margin: 0.5rem 0
       padding: 0
 
   &__info
-    div:first-child
+    div
       display: flex
+      flex-direction: column
 
+    div:first-child
       span:nth-child(2)
         white-space: nowrap
         overflow: hidden
         text-overflow: ellipsis
-        width: 10rem
 
     div:nth-child(2)
       span
@@ -90,31 +90,36 @@
         line-height: 1.2rem
         max-height: 2.4rem
 
+      .ellipsis
         &:before
           content: '...'
           position: absolute
-          right: 0
           bottom: 0
 
         &:after
           content: ''
           position: absolute
-          right: 0
           width: 0.75rem
           height: 0.75rem
           margin-top: 0.2rem
           background: $bisque
 
+        &__left
+          &:before, &:after
+            left: 0
+
+        &__right
+          &:before, &:after
+            right: 0
+
   &__header
     display: flex
+    justify-content: space-between
     margin-top: 0.5rem !important
     margin-bottom: 0.5rem !important
 
     h4
       margin-bottom: 0
-
-    button
-      margin: 0 0 0 auto
 
   &__toggle
     background-color: transparent
@@ -124,9 +129,20 @@
     display: block
     font-family: $work-sans
     font-weight: 600
-    margin: 1rem
     text-decoration: underline
 
   &__white-line
     border: 3px solid white
     margin: 0.75em 0
+
+  &__rtl
+    &:hover, &:focus
+      .control-panel
+        border-right: 1px solid $plum
+        right: 4rem
+
+      h2
+        transform-origin: 10em 1em
+
+    h2
+      transform-origin: 2em 1em
