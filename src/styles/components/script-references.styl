@@ -50,3 +50,26 @@
         background-color: $sand
         border-radius: 1rem
         color: $plum
+
+  &__letters
+    display: flex
+    flex-wrap: wrap
+    margin: 1rem 0
+
+  &__character
+    display: flex
+    flex-direction: column
+    margin: 0.5rem
+
+    div
+      border: 2px solid $plum
+      display: inline-block
+      height: 3.5rem
+      margin-bottom: 0.5rem
+      width: 3.5rem
+
+    span
+      @extend .tertiary-label
+      max-width: 3.5rem
+      text-align: center
+      text-transform: capitalize
