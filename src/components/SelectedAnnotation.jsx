@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
-import { setKeyboard, toggleModern } from '../ducks/keyboard';
+import { setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
 import {
   deleteSelectedAnnotation,
   unselectAnnotation, updateText
@@ -22,7 +22,7 @@ class SelectedAnnotation extends React.Component {
     this.deleteAnnotation = this.deleteAnnotation.bind(this);
     this.onTextUpdate = this.onTextUpdate.bind(this);
     this.saveText = this.saveText.bind(this);
-    this.toggleKeyboard = this.toggleKeyboard.bind(this);
+    this.toggleKeyboardView = this.toggleKeyboardView.bind(this);
     this.closePrompt = this.closePrompt.bind(this);
     this.deletePrompt = this.deletePrompt.bind(this);
     this.closePopup = this.closePopup.bind(this);
@@ -34,7 +34,6 @@ class SelectedAnnotation extends React.Component {
 
     this.state = {
       annotationText: '',
-      showKeyboard: true,
       showScriptOptions: false
     };
   }
@@ -65,14 +64,13 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(toggleModern());
   }
 
-  toggleKeyboard() {
-    const showKeyboard = !this.state.showKeyboard;
+  toggleKeyboardView() {
     const dimensions = { height: 250, width: 700 };
-    if (showKeyboard) {
+    if (!this.props.showKeyboard) {
       dimensions.height = 600;
     }
     this.props.updateSize && this.props.updateSize(dimensions);
-    this.setState({ showKeyboard });
+    this.props.dispatch(toggleKeyboard());
   }
 
   deleteAnnotation() {
@@ -145,6 +143,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   previousScript() {
+    this.props.dispatch(toggleModern(true));
     let index = this.props.keyboardIndex - 1;
     const totalItems = KeyboardOptions.length;
     if (index < 0) {
@@ -154,6 +153,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   nextScript() {
+    this.props.dispatch(toggleModern(true));
     let index = this.props.keyboardIndex + 1;
     const totalItems = KeyboardOptions.length;
     if (index >= totalItems) {
@@ -178,6 +178,7 @@ class SelectedAnnotation extends React.Component {
 
   activateScript(i) {
     this.setState({ showScriptOptions: false });
+    this.props.dispatch(toggleModern(true));
     this.props.dispatch(setKeyboard(i));
   }
 
@@ -195,7 +196,11 @@ class SelectedAnnotation extends React.Component {
   }
 
   render() {
-    const keyboardToggleText = this.state.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
+    const keyboardToggleText = this.props.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
+    let currentScript = 'Current Script';
+    if (this.props.activeScript && this.props.activeScript.name) {
+      currentScript = this.props.activeScript.name;
+    }
 
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
@@ -232,21 +237,21 @@ class SelectedAnnotation extends React.Component {
                 <span>Show Previous Marks</span>
               </label>
             </div>
-            <button className="text-link" onClick={this.toggleKeyboard}>{keyboardToggleText}</button>
+            <button className="text-link" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
           </div>
           <div>
             <button className="button" onClick={this.deletePrompt}>Delete</button>
             <button className="button button__dark" onClick={this.saveText}>Done</button>
           </div>
         </div>
-        {this.state.showKeyboard && (
+        {this.props.showKeyboard && (
           <div className="selected-annotation__keyboard-div">
             <hr />
             <span className="secondary-label">Current Script Type</span>
             <div>
               <div className="selected-annotation__script-select">
                 <button onClick={this.previousScript}>&#9664;</button>
-                <button className="text-link" onClick={this.toggleScriptOptions}>{this.props.activeScript.name}</button>
+                <button className="text-link" onClick={this.toggleScriptOptions}>{currentScript}</button>
                 {this.state.showScriptOptions && (
                   <div className="script-options" ref={(c) => { this.dropdown = c; }}>
                     {KeyboardOptions.map((script, i) => this.scriptOption(script, i))}
@@ -258,8 +263,8 @@ class SelectedAnnotation extends React.Component {
                 <input
                   id="modern"
                   type="checkbox"
-                  defaultChecked={this.props.showModernKeyboard}
-                  onClick={this.setModern}
+                  checked={this.props.showModernKeyboard}
+                  onChange={this.setModern}
                   ref={(el) => { this.modern = el; }}
                 />
                 <label className="primary-label" htmlFor="modern">
@@ -286,6 +291,7 @@ SelectedAnnotation.propTypes = {
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
+  showKeyboard: PropTypes.bool,
   showModernKeyboard: PropTypes.bool,
   updateSize: PropTypes.func
 };
@@ -295,6 +301,7 @@ SelectedAnnotation.defaultProps = {
   dispatch: () => {},
   keyboardIndex: 0,
   selectedAnnotation: null,
+  showKeyboard: true,
   showModernKeyboard: true,
   updateSize: () => {}
 };
@@ -302,6 +309,7 @@ SelectedAnnotation.defaultProps = {
 const mapStateToProps = state => ({
   activeScript: state.keyboard.activeScript,
   keyboardIndex: state.keyboard.index,
+  showKeyboard: state.keyboard.showKeyboard,
   showModernKeyboard: state.keyboard.modern,
   selectedAnnotation: state.annotations.selectedAnnotation
 });
