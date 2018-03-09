@@ -68,9 +68,51 @@
       font-size: 0.75rem
       text-transform: uppercase
 
+  &__script-select
+    .text-link, button
+      font-size: 1rem
+      text-transform: uppercase
+      background: none
+      border: none
+
+    .text-link
+      width: 14rem
+
   &__keyboard
     background-image: url('../images/bg-disabled-secondary.png')
     border: 1px solid black
+    display: grid
     height: 16rem
     margin-top: 0.75rem
     width: 100%
+
+.script-options
+  background-color: $bisque
+  border: 2px solid $plum
+  flex-direction: column
+  height: 15rem
+  margin-left: 1rem
+  overflow-y: scroll
+  position: absolute
+
+  .active-script-option
+    background-color: $sand
+
+  button
+    background: none
+    border: none
+    display: block
+    font-family: $work-sans
+    font-size: 1rem
+    padding: 0.2rem 0.25rem
+    text-align: left
+    width: 100%
+
+    &:hover, &:focus
+      background-color: $sand
+
+.script-options::-webkit-scrollbar
+  background-color: $bisque
+
+.script-options::-webkit-scrollbar-thumb
+  background: $plum
