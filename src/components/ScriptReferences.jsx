@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { KeyboardOptions, KEYBOARD_TYPES } from '../lib/KeyboardTypes';
+import { toggleDialog } from '../ducks/dialog';
 import { setKeyboard } from '../ducks/keyboard';
 import {
   changeKeyboard, toggleScripts,
@@ -24,6 +25,7 @@ class ScriptReferences extends React.Component {
     const script = this.props.activeScript;
     const activeIndex = KeyboardOptions.indexOf(script);
     this.props.dispatch(setKeyboard(activeIndex));
+    this.props.dispatch(toggleDialog());
   }
 
   toggleSelection() {
