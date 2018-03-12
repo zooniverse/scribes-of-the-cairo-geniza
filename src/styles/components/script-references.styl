@@ -46,15 +46,23 @@
       margin-right: 0.5rem
       padding: 0.25rem 0.5rem
 
-      &:hover, &:focus
+      &:hover, &:focus, &.active-filter
         background-color: $sand
         border-radius: 1rem
         color: $plum
 
   &__letters
-    display: flex
-    flex-wrap: wrap
-    margin: 1rem 0
+    > div:first-child
+      display: flex
+      flex-wrap: wrap
+      margin: 1rem 0
+      flex-direction: row-reverse
+
+    > div:last-child
+      button
+        display: block
+        margin-left: auto
+        width: 14rem
 
   &__character
     display: flex
@@ -73,3 +81,117 @@
       max-width: 3.5rem
       text-align: center
       text-transform: capitalize
+
+  &__groups
+    margin: 1rem 0
+
+    > span:first-child
+      font-family: $merriweather
+      font-weight: 700
+      color: $dust
+      margin-right: 0.75rem
+
+    > span:nth-child(2)
+      color: $dust
+      font-family: $merriweather
+      font-style: italic
+      font-size: 0.75rem
+
+  &__scripts
+    display: flex
+    flex-wrap: wrap
+
+    span
+      @extend .primary-label
+      font-size: 0.7rem
+
+    > div
+      border: 1px solid transparent
+      margin: 0.25rem 0.1rem
+      padding: 0.25rem
+
+      &:hover, &:focus
+        background-color: $sand
+        border: 1px solid $plum
+        cursor: pointer
+        box-shadow: 0px 10px 24px -10px $dark-grey
+        -webkit-box-shadow: 0px 10px 24px -10px $dark-grey
+        -moz-box-shadow: 0px 10px 24px -10px $dark-grey
+
+  &__script-preview
+    display: flex
+    padding: 0
+    border: none
+
+    div
+      border: 2px solid $plum
+      margin-right: 0.1rem
+
+    div:first-child
+      height: 3.4rem
+      width: 3.4rem
+
+  &__script
+    background-image: url('../images/script-sprites.jpg')
+    height: 3.4rem
+    width: 9.3rem
+
+    &.ashkenaziCursive
+      background-position: 0px -30px
+
+    &.ashkenaziMiniscule
+      background-position: 0px -262px
+
+    &.ashkenaziSquare
+      background-position: 0px -494px
+
+    &.byzantineCursive
+      background-position: -160px -30px
+
+    &.byzantineMiniscule
+      background-position: -160px -262px
+
+    &.byzantineSquare
+      background-position: -160px -494px
+
+    &.italianCursive
+      background-position: -317px -30px
+
+    &.italianMiniscule
+      background-position: -317px -262px
+
+    &.italianSquare
+      background-position: -317px -494px
+
+    &.maghrebiCursive
+      background-position: 0px -130px
+
+    &.maghrebiSquare
+      background-position: 0px -594px
+
+    &.orientalNeMiniscule
+      background-position: 0px -362px
+
+    &.orientalNeSquare
+      background-position: -160px -594px
+
+    &.orientalSwCursive
+      background-position: -160px -130px
+
+    &.orientalSwSquare
+      background-position: -317px -594px
+
+    &.sephardiCursive
+      background-position: -317px -130px
+
+    &.sephardiMiniscule
+      background-position: -160px -362px
+
+    &.sephardiSquare
+      background-position: 0px -695px
+
+    &.yemeniteMiniscule
+      background-position: -317px -362px
+
+    &.yemeniteSquare
+      background-position: -160px -695px

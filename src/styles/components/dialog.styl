@@ -37,7 +37,7 @@
   .dialog-content
     min-height: 100%
     flex: 0 1 auto
-    overflow: auto
+    overflow: scroll
 
     &__header
       justify-content: space-between
@@ -59,7 +59,10 @@
   background-color: $bisque
 
 .dialog-content::-webkit-scrollbar-thumb
-  background: $plum
+  background: $dark-grey
+  border: 4px solid transparent
+  border-radius: 1rem
+  background-clip: content-box
 
 .step-through-controls
   text-align: center

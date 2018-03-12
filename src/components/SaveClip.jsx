@@ -20,7 +20,7 @@ class SaveClip extends React.Component {
   }
 
   componentWillUnmount() {
-    const dimensions = { height: 525, width: 650 };
+    const dimensions = { height: 650, width: 710 };
     return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions, 'CribSheet'));
   }
 

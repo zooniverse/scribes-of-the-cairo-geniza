@@ -190,7 +190,7 @@ class SelectedAnnotation extends React.Component {
         className={isActive}
         onClick={this.activateScript.bind(this, i)}
       >
-        {script.name}
+        {script.name} {script.type}
       </button>
     );
   }
@@ -284,7 +284,8 @@ class SelectedAnnotation extends React.Component {
 
 SelectedAnnotation.propTypes = {
   activeScript: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
+    type: PropTypes.string
   }),
   dispatch: PropTypes.func,
   keyboardIndex: PropTypes.number,

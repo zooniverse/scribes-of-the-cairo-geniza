@@ -1,10 +1,14 @@
-import { KeyboardOptions } from '../lib/KeyboardTypes';
+import { KeyboardOptions, KEYBOARD_TYPES } from '../lib/KeyboardTypes';
 
 const initialState = {
   activeCard: null,
   activeCardIndex: null,
   activeScript: KeyboardOptions[0],
-  activeIndex: 0,
+  activeFilters: [
+    KEYBOARD_TYPES.CURSIVE,
+    KEYBOARD_TYPES.MINISCULE,
+    KEYBOARD_TYPES.SQUARE
+  ],
   referenceMode: true,
   scriptSelection: false
 };
@@ -12,6 +16,7 @@ const initialState = {
 const TOGGLE_REFERENCE_MODE = 'TOGGLE_REFERENCE_MODE';
 const ACTIVE_CARD = 'ACTIVE_CARD';
 const CHANGE_KEYBOARD = 'CHANGE_KEYBOARD';
+const SET_FILTERS = 'SET_FILTERS';
 const TOGGLE_SCRIPTS = 'TOGGLE_SCRIPTS';
 
 const cribSheetReducer = (state = initialState, action) => {
@@ -29,8 +34,12 @@ const cribSheetReducer = (state = initialState, action) => {
 
     case CHANGE_KEYBOARD:
       return Object.assign({}, state, {
-        activeIndex: action.activeIndex,
         activeScript: action.activeScript
+      });
+
+    case SET_FILTERS:
+      return Object.assign({}, state, {
+        activeFilters: action.activeFilters
       });
 
     case TOGGLE_SCRIPTS:
@@ -62,13 +71,10 @@ const activateCard = (activeCard, activeCardIndex = null) => {
   };
 };
 
-const changeKeyboard = (activeIndex) => {
-  const activeScript = KeyboardOptions[activeIndex];
-
+const changeKeyboard = (activeScript) => {
   return (dispatch) => {
     dispatch({
       type: CHANGE_KEYBOARD,
-      activeIndex,
       activeScript
     });
   };
@@ -85,11 +91,37 @@ const toggleScripts = () => {
   };
 };
 
+const setFilters = (filter) => {
+  return (dispatch, getState) => {
+    let activeFilters = getState().cribSheet.activeFilters.slice();
+    const index = activeFilters.indexOf(KEYBOARD_TYPES[filter]);
+    const allActive = activeFilters.length === 3;
+
+    if (index < 0) {
+      activeFilters.push(KEYBOARD_TYPES[filter]);
+    } else if (allActive) {
+      activeFilters = [KEYBOARD_TYPES[filter]];
+    } else {
+      activeFilters.splice(index, 1);
+    }
+
+    if (filter === null) {
+      activeFilters = initialState.activeFilters;
+    }
+
+    dispatch({
+      type: SET_FILTERS,
+      activeFilters
+    });
+  };
+};
+
 export default cribSheetReducer;
 
 export {
   activateCard,
   changeKeyboard,
+  setFilters,
   toggleReferenceMode,
   toggleScripts
 };
