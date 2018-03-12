@@ -198,8 +198,8 @@ class SelectedAnnotation extends React.Component {
   render() {
     const keyboardToggleText = this.props.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
     let currentScript = 'Current Script';
-    if (this.props.activeScript && this.props.activeScript.name) {
-      currentScript = this.props.activeScript.name;
+    if (this.props.activeScript && this.props.activeScript.name && this.props.activeScript.type) {
+      currentScript = `${this.props.activeScript.name} ${this.props.activeScript.type}`;
     }
 
     return (

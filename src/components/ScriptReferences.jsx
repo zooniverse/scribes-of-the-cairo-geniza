@@ -87,9 +87,7 @@ class ScriptReferences extends React.Component {
     return (
       <div className="script-references__letters">
         <div>
-          {this.props.activeScript.letters.map((letter, i) => {
-            return this.renderLetter(letter, i);
-          })}
+          {this.props.activeScript.letters.map((letter, i) => this.renderLetter(letter, i))}
         </div>
         <div>
           <button className="button" onClick={this.sendToKeyboard}>
@@ -137,9 +135,7 @@ class ScriptReferences extends React.Component {
 
     return (
       <div>
-        {Object.keys(dividedKeyboards).map((key) => {
-          return this.renderScript(dividedKeyboards[key], key);
-        })}
+        {Object.keys(dividedKeyboards).map(key => this.renderScript(dividedKeyboards[key], key))}
       </div>
     );
   }
@@ -178,7 +174,8 @@ ScriptReferences.propTypes = {
   activeScript: PropTypes.shape({
     letters: PropTypes.array,
     img: PropTypes.string,
-    name: PropTypes.string
+    name: PropTypes.string,
+    type: PropTypes.string
   }),
   dispatch: PropTypes.func,
   scriptSelection: PropTypes.bool
