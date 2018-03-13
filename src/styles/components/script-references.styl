@@ -1,5 +1,5 @@
 .script-references
-  margin: 1rem
+  margin: 1rem 1rem 0 1rem
 
   &__header
     border-bottom: 3px solid $plum
@@ -55,14 +55,24 @@
     > div:first-child
       display: flex
       flex-wrap: wrap
-      margin: 1rem 0
+      margin: 0.75rem 0
       flex-direction: row-reverse
 
     > div:last-child
+      text-align: right
+
       button
         display: block
-        margin-left: auto
+        margin: 0 0 0.25rem auto
         width: 14rem
+
+        &.script-sent
+          background: $success
+          border-color: $success
+          color: $bisque
+
+      span
+        @extend .tertiary-label
 
   &__character
     display: flex
@@ -73,7 +83,7 @@
       border: 2px solid $plum
       display: inline-block
       height: 3.5rem
-      margin-bottom: 0.5rem
+      margin-bottom: 0.25rem
       width: 3.5rem
 
     span

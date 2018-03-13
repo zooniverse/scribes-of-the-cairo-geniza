@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { KeyboardOptions, KEYBOARD_TYPES } from '../lib/KeyboardTypes';
-import { toggleDialog } from '../ducks/dialog';
-import { setKeyboard } from '../ducks/keyboard';
+import { setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
 import {
   changeKeyboard, toggleScripts,
   setFilters
@@ -19,13 +18,22 @@ class ScriptReferences extends React.Component {
     this.toggleFilter = this.toggleFilter.bind(this);
     this.changeScript = this.changeScript.bind(this);
     this.sendToKeyboard = this.sendToKeyboard.bind(this);
+
+    this.state = {
+      keyboardSent: false
+    };
   }
 
   sendToKeyboard() {
     const script = this.props.activeScript;
     const activeIndex = KeyboardOptions.indexOf(script);
     this.props.dispatch(setKeyboard(activeIndex));
-    this.props.dispatch(toggleDialog());
+    this.props.dispatch(toggleModern(true));
+    this.props.dispatch(toggleKeyboard(true));
+    this.setState({ keyboardSent: true });
+    setTimeout(() => {
+      this.setState({ keyboardSent: false });
+    }, 4000);
   }
 
   toggleSelection() {
@@ -84,15 +92,23 @@ class ScriptReferences extends React.Component {
   }
 
   renderLetters() {
+    const text = !this.state.keyboardSent ? 'Send Script to Keyboard \u2192' : 'Sent'
+    const buttonClass = this.state.keyboardSent ? 'script-sent' : '';
+
     return (
       <div className="script-references__letters">
         <div>
           {this.props.activeScript.letters.map((letter, i) => this.renderLetter(letter, i))}
         </div>
         <div>
-          <button className="button" onClick={this.sendToKeyboard}>
-            Send Script to Keyboard &#10132;
+          <button className={`button ${buttonClass}`} onClick={this.sendToKeyboard}>
+            {text}
           </button>
+          {this.state.keyboardSent && (
+            <span>
+              {this.props.activeScript.name} {this.props.activeScript.type} is now active in your transcription keyboard
+            </span>
+          )}
         </div>
       </div>
     );

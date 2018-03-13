@@ -21,7 +21,7 @@ const keyboardReducer = (state = initialState, action) => {
 
     case TOGGLE_KEYBOARD:
       return Object.assign({}, state, {
-        showKeyboard: action.showKeyboard
+        showKeyboard: action.keyboardState
       });
 
     case TOGGLE_MODERN:
@@ -58,13 +58,14 @@ const toggleModern = (setToFalse = false) => {
   };
 };
 
-const toggleKeyboard = () => {
+const toggleKeyboard = (showKeyboard = false) => {
   return (dispatch, getState) => {
-    const showKeyboard = !getState().keyboard.showKeyboard;
+    let keyboardState = !getState().keyboard.showKeyboard;
+    if (showKeyboard) { keyboardState = true; }
 
     dispatch({
       type: TOGGLE_KEYBOARD,
-      showKeyboard
+      keyboardState
     });
   };
 };
