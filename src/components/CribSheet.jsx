@@ -105,7 +105,8 @@ class CribSheet extends React.Component {
   }
 
   renderPersonal() {
-    const cribsheet = this.props.preferences.preferences.cribsheet;
+    const cribsheet = (this.props.preferences && this.props.preferences.preferences)
+      ? this.props.preferences.preferences.cribsheet : null;
 
     return (
       <div className="crib-sheet__personal handle">

@@ -60,8 +60,8 @@ class SaveClip extends React.Component {
         copied.push(clip);
         newCribsheet = copied;
       }
+      prefs.update({ 'preferences.cribsheet': newCribsheet }).save();
     }
-    prefs.update({ 'preferences.cribsheet': newCribsheet }).save();
     this.onClose();
   }
 
