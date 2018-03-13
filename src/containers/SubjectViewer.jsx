@@ -207,6 +207,7 @@ class SubjectViewer extends React.Component {
   }
 
   onMouseUp(e) {
+    if (this.props.selectedAnnotation) { return; }
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
       const pointerXY = this.getPointerXY(e);
       this.pointer.state = INPUT_STATE.IDLE;
@@ -378,6 +379,9 @@ SubjectViewer.propTypes = {
   translationX: PropTypes.number,
   translationY: PropTypes.number,
   scaling: PropTypes.number,
+  selectedAnnotation: PropTypes.shape({
+    details: PropTypes.array
+  }),
   showKeyboard: PropTypes.bool,
   subjectStatus: PropTypes.string,
   viewerSize: PropTypes.shape({
@@ -398,6 +402,7 @@ SubjectViewer.defaultProps = {
   popup: null,
   rotation: 0,
   scaling: 1,
+  selectedAnnotation: null,
   showKeyboard: true,
   subjectStatus: '',
   translationX: 0,
@@ -421,6 +426,7 @@ const mapStateToProps = (state) => {
     popup: state.dialog.popup,
     rotation: sv.rotation,
     scaling: sv.scaling,
+    selectedAnnotation: state.annotations.selectedAnnotation,
     showKeyboard: state.keyboard.showKeyboard,
     subjectStatus: state.subject.status,
     translationX: sv.translationX,

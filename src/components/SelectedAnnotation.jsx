@@ -10,6 +10,7 @@ import {
 import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
+import { Utility, KEY_CODES } from '../lib/Utility';
 
 const ENABLE_DRAG = 'selected-annotation handle';
 const DISABLE_DRAG = 'selected-annotation';
@@ -31,6 +32,8 @@ class SelectedAnnotation extends React.Component {
     this.closeDropdown = this.closeDropdown.bind(this);
     this.previousScript = this.previousScript.bind(this);
     this.nextScript = this.nextScript.bind(this);
+    this.charKeyPress = this.charKeyPress.bind(this);
+    this.checkHebrew = this.checkHebrew.bind(this);
 
     this.state = {
       annotationText: '',
@@ -52,7 +55,7 @@ class SelectedAnnotation extends React.Component {
     document.removeEventListener('mousedown', this.closeDropdown, false);
   }
 
-  onTextUpdate() {
+  onTextUpdate(e) {
     if (!this.inputText) return;
 
     this.setState({
@@ -60,8 +63,21 @@ class SelectedAnnotation extends React.Component {
     });
   }
 
+  checkHebrew(e) {
+    console.log(Utility.getKeyCode(e));
+  }
+
   setModern() {
     this.props.dispatch(toggleModern());
+  }
+
+  charKeyPress(letter) {
+    if (!this.inputText) return;
+    const text = this.inputText.value + letter.unicode;
+
+    this.setState({
+      annotationText: text
+    });
   }
 
   toggleKeyboardView() {
@@ -201,7 +217,6 @@ class SelectedAnnotation extends React.Component {
     if (this.props.activeScript && this.props.activeScript.name && this.props.activeScript.type) {
       currentScript = `${this.props.activeScript.name} ${this.props.activeScript.type}`;
     }
-
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
         <div className="selected-annotation__header">
@@ -220,6 +235,7 @@ class SelectedAnnotation extends React.Component {
           className="input-box"
           ref={(c) => { this.inputText = c; }}
           onChange={this.onTextUpdate}
+          onKeyUp={this.checkHebrew}
           onMouseDown={() => { this.annotationBox.className = DISABLE_DRAG; }}
           onMouseUp={() => { this.annotationBox.className = ENABLE_DRAG; }}
           value={this.state.annotationText}
@@ -273,7 +289,7 @@ class SelectedAnnotation extends React.Component {
               </div>
             </div>
             <div className="selected-annotation__keyboard">
-              <AnnotationKeyboard />
+              <AnnotationKeyboard onKeyPress={this.charKeyPress} onEnter={this.saveText} />
             </div>
           </div>
         )}

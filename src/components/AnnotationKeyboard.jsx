@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
 
 class AnnotationKeyboard extends React.Component {
+  inputText(letter) {
+    this.props.onKeyPress(letter);
+  }
+
   renderKey(letter) {
     const showScript = !this.props.showModern ? `char-button ${letter.name}` : '';
     const characterRep = letter.unicode ? letter.unicode : letter.character;
@@ -15,6 +19,7 @@ class AnnotationKeyboard extends React.Component {
       <button
         className={`annotation-keyboard__button ${showScript}`}
         key={letter.characterID}
+        onClick={this.inputText.bind(this, letter)}
         style={styles}
       >
         {this.props.showModern && (
@@ -29,7 +34,7 @@ class AnnotationKeyboard extends React.Component {
       <div key={`KEYBOARD_ROW_${i}`} className="annotation-keyboard__row">
         {row.map(letter => this.renderKey(letter))}
         {i === 1 && (
-          <button className="annotation-keyboard__button enter-button">Enter</button>
+          <button className="annotation-keyboard__button enter-button" onClick={this.props.onEnter}>Enter</button>
         )}
       </div>
     );
@@ -57,11 +62,15 @@ AnnotationKeyboard.propTypes = {
     img: PropTypes.string,
     name: PropTypes.string
   }),
+  onKeyPress: PropTypes.func,
+  onEnter: PropTypes.func,
   showModern: PropTypes.bool
 };
 
 AnnotationKeyboard.defaultProps = {
   activeScript: null,
+  onKeyPress: () => {},
+  onEnter: () => {},
   showModern: true
 };
 
