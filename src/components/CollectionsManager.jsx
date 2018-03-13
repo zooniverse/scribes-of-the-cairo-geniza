@@ -53,13 +53,16 @@ class CollectionsManager extends React.Component {
             onMouseUp={() => { this.manager.className = ENABLE_DRAG; }}
             tabIndex={0}
           >
-            <Select.Async
-              multi
-              onChange={this.props.onChange}
-              value={this.props.selectedCollections}
-              placeholder="Type to search Collections"
-              loadOptions={this.props.searchCollections}
-            />
+            <div>
+
+              <Select.Async
+                multi
+                onChange={this.props.onChange}
+                value={this.props.selectedCollections}
+                placeholder="Type to search Collections"
+                loadOptions={this.props.searchCollections}
+              />
+            </div>
             <button className="button button__dark" disabled={disableAdd} type="button" onClick={this.onAdd}>
               Add
             </button>

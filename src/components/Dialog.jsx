@@ -56,9 +56,9 @@ class Dialog extends React.Component {
               <div className="handle dialog-content__header">
                 <div>
                   <h2>{this.props.title}</h2>
-                  <hr className="plum-line" />
                   <button className="close-button" onClick={this.close}>X</button>
                 </div>
+                <hr className="plum-line" />
               </div>
             ) : false}
             {children}
