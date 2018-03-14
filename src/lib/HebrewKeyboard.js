@@ -2,7 +2,7 @@ const MODERN_HEBREW = [
   {
     character: 'ק',
     characterID: 1,
-    name: 'qof',
+    name: 'quf',
     unicode: '\u05E7'
   },
   {
@@ -44,7 +44,7 @@ const MODERN_HEBREW = [
   {
     character: 'פ',
     characterID: 8,
-    name: 'pey',
+    name: 'peh',
     unicode: '\u05E4'
   },
   {
@@ -62,13 +62,13 @@ const MODERN_HEBREW = [
   {
     character: 'ג',
     characterID: 11,
-    name: 'gimel',
+    name: 'gimmel',
     unicode: '\u05D2'
   },
   {
     character: 'כ',
     characterID: 12,
-    name: 'kaf',
+    name: 'khaf',
     unicode: '\u05DB'
   },
   {
@@ -80,7 +80,7 @@ const MODERN_HEBREW = [
   {
     character: 'י',
     characterID: 14,
-    name: 'yod',
+    name: 'yud',
     unicode: '\u05D9'
   },
   {
@@ -98,25 +98,25 @@ const MODERN_HEBREW = [
   {
     character: 'ך',
     characterID: 17,
-    name: 'kafSofit',
+    name: 'khafSofit',
     unicode: '\u05DA'
   },
   {
     character: 'ף',
     characterID: 18,
-    name: 'peySofit',
+    name: 'phehSofit',
     unicode: '\u05E3'
   },
   {
     character: 'ז',
     characterID: 19,
-    name: 'zayin',
+    name: 'zaylin',
     unicode: '\u05D6'
   },
   {
     character: 'ס',
     characterID: 20,
-    name: 'samech',
+    name: 'samekh',
     unicode: '\u05E1'
   },
   {

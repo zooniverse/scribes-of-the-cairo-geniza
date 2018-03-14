@@ -80,14 +80,15 @@ const fetchPreferences = (user) => {
             apiClient.type('project_preferences').create({
               links: { project: config.projectId },
               preferences: {}
-            }).save((newPreferences) => {
-              dispatch({
-                type: FETCH_PREFERENCES,
-                preferences: newPreferences
+            }).save()
+              .then((newPreferences) => {
+                dispatch({
+                  type: FETCH_PREFERENCES,
+                  preferences: newPreferences
+                });
+              }).catch((err) => {
+                console.warn(err.message);
               });
-            }).catch((err) => {
-              console.warn(err.message);
-            });
           }
         });
     } else {
