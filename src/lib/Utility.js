@@ -3,6 +3,7 @@ Utility Class
 =============
 ********************************************************************************
  */
+import MODERN_HEBREW from '../lib/HebrewKeyboard';
 
 export const Utility = {
   stopEvent: function (e) {
@@ -30,6 +31,17 @@ export const Utility = {
     }
 
     return 0;
+  },
+
+  getHebrewChar(e) {
+    const keyCode = this.getKeyCode(e);
+
+    const character = HEBREW_KEY_CODES[keyCode];
+    if (character) {
+      return MODERN_HEBREW[character];
+    }
+
+    return false;
   }
 };
 
@@ -178,31 +190,31 @@ export const KEY_VALUES = {
 };
 
 export const HEBREW_KEY_CODES = {
-  65: '\u05E9',
-  66: '\u05E0',
-  67: '\u05D1',
-  68: '\u05D2',
-  69: '\u05E7',
-  70: '\u05DB',
-  73: '\u05DF',
-  71: '\u05E2',
-  72: '\u05D9',
-  74: '\u05D7',
-  75: '\u05DC',
-  76: '\u05DA',
-  77: '\u05E6',
-  78: '\u05E0',
-  79: '\u05DD',
-  80: '\u05E4',
-  82: '\u05E8',
-  83: '\u05D3',
-  84: '\u05D0',
-  85: '\u05D5',
-  86: '\u05D4',
-  88: '\u05E1',
-  89: '\u05D8',
-  90: '\u05D6',
-  186: '\u05E3',
-  188: '\u05EA',
-  190: '\u05E5'
+  65: 'shin',
+  66: 'nun',
+  67: 'bet',
+  68: 'gimmel',
+  69: 'quf',
+  70: 'khaf',
+  73: 'nunSofit',
+  71: 'ayin',
+  72: 'yud',
+  74: 'het',
+  75: 'lamed',
+  76: 'khafSofit',
+  77: 'tsadi',
+  78: 'nun',
+  79: 'memSofit',
+  80: 'peh',
+  82: 'resh',
+  83: 'dalet',
+  84: 'alef',
+  85: 'vav',
+  86: 'hey',
+  88: 'samekh',
+  89: 'tet',
+  90: 'zaylin',
+  186: 'phehSofit',
+  188: 'tav',
+  190: 'tsadiSofit'
 };

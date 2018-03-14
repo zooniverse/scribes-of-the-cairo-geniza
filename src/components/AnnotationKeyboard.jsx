@@ -4,20 +4,50 @@ import { connect } from 'react-redux';
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
 
 class AnnotationKeyboard extends React.Component {
+  constructor() {
+    super();
+
+    this.lettersToRows = this.lettersToRows.bind(this);
+
+    this.state = {
+      lettersByRows: []
+    };
+  }
+
+  componentWillMount() {
+    this.lettersToRows();
+  }
+
   inputText(letter) {
     this.props.onKeyPress(letter);
   }
 
+  lettersToRows() {
+    const byRow = [];
+    Object.keys(MODERN_HEBREW).map((key) => {
+      const letter = MODERN_HEBREW[key];
+      if (!byRow[letter.row]) {
+        byRow[letter.row] = [];
+      }
+      byRow[letter.row].push(letter);
+    });
+    this.setState({ lettersByRows: byRow });
+  }
+
   renderKey(letter) {
     const showScript = !this.props.showModern ? `char-button ${letter.name}` : '';
+    let activeKey = '';
     const characterRep = letter.unicode ? letter.unicode : letter.character;
     const styles = {};
     if (!this.props.showModern) {
       styles.backgroundImage = `url('${this.props.activeScript.img}')`;
     }
+    if (this.props.activeKey === letter.name) {
+      activeKey = 'char-button__active';
+    }
     return (
       <button
-        className={`annotation-keyboard__button ${showScript}`}
+        className={`annotation-keyboard__button ${showScript} ${activeKey}`}
         key={letter.characterID}
         onClick={this.inputText.bind(this, letter)}
         style={styles}
@@ -41,14 +71,9 @@ class AnnotationKeyboard extends React.Component {
   }
 
   render() {
-    const byRow = [];
-    byRow.push(MODERN_HEBREW.slice(0, 8));
-    byRow.push(MODERN_HEBREW.slice(8, 18));
-    byRow.push(MODERN_HEBREW.slice(18, 27));
-
     return (
       <div className="annotation-keyboard">
-        {byRow.map((row, i) => this.renderRow(row, i))}
+        {this.state.lettersByRows.map((row, i) => this.renderRow(row, i))}
         <div>
           <button className="annotation-keyboard__button space-button">Space</button>
         </div>
@@ -58,6 +83,7 @@ class AnnotationKeyboard extends React.Component {
 }
 
 AnnotationKeyboard.propTypes = {
+  activeKey: PropTypes.string,
   activeScript: PropTypes.shape({
     img: PropTypes.string,
     name: PropTypes.string
@@ -68,6 +94,7 @@ AnnotationKeyboard.propTypes = {
 };
 
 AnnotationKeyboard.defaultProps = {
+  activeKey: null,
   activeScript: null,
   onKeyPress: () => {},
   onEnter: () => {},
@@ -75,6 +102,7 @@ AnnotationKeyboard.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+  activeKey: state.keyboard.activeKey,
   activeScript: state.keyboard.activeScript,
   showModern: state.keyboard.modern
 });
