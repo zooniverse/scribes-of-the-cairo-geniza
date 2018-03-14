@@ -10,7 +10,7 @@ import {
 import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
-import { Utility } from '../lib/Utility';
+import { Utility, KEY_VALUES } from '../lib/Utility';
 
 const ENABLE_DRAG = 'selected-annotation handle';
 const DISABLE_DRAG = 'selected-annotation';
@@ -32,7 +32,7 @@ class SelectedAnnotation extends React.Component {
     this.closeDropdown = this.closeDropdown.bind(this);
     this.previousScript = this.previousScript.bind(this);
     this.nextScript = this.nextScript.bind(this);
-    this.charKeyPress = this.charKeyPress.bind(this);
+    this.hebrewLetterClick = this.hebrewLetterClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
 
@@ -75,12 +75,14 @@ class SelectedAnnotation extends React.Component {
   onKeyDown(e) {
     const character = Utility.getHebrewChar(e);
 
+    if (Utility.getKeyCode(e) === KEY_VALUES.Enter) {
+      this.saveText();
+    }
+
     if (character !== false) {
       e.preventDefault();
-      const letter = character.unicode;
-      const text = this.inputText.value + letter;
       this.setState({
-        annotationText: text
+        annotationText: this.inputText.value + character.unicode
       });
       this.props.dispatch(pressedKey(character.name));
     }
@@ -90,7 +92,7 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(toggleModern());
   }
 
-  charKeyPress(letter) {
+  hebrewLetterClick(letter) {
     if (!this.inputText) return;
     const text = this.inputText.value + letter.unicode;
 
@@ -115,6 +117,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   saveText() {
+    console.log('ress enter');
     const text = (this.state.annotationText && this.state.annotationText.trim)
       ? this.state.annotationText.trim() : '';
     if (text !== '') {
@@ -309,7 +312,7 @@ class SelectedAnnotation extends React.Component {
               </div>
             </div>
             <div className="selected-annotation__keyboard">
-              <AnnotationKeyboard onKeyPress={this.charKeyPress} onEnter={this.saveText} />
+              <AnnotationKeyboard onLetterClick={this.hebrewLetterClick} onEnter={this.saveText} />
             </div>
           </div>
         )}

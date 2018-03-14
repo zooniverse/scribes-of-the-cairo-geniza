@@ -203,7 +203,7 @@ export const HEBREW_KEY_CODES = {
   75: 'lamed',
   76: 'khafSofit',
   77: 'tsadi',
-  78: 'nun',
+  78: 'mem',
   79: 'memSofit',
   80: 'peh',
   82: 'resh',

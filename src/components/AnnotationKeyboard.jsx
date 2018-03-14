@@ -18,8 +18,8 @@ class AnnotationKeyboard extends React.Component {
     this.lettersToRows();
   }
 
-  inputText(letter) {
-    this.props.onKeyPress(letter);
+  letterClick(letter) {
+    this.props.onLetterClick(letter);
   }
 
   lettersToRows() {
@@ -49,7 +49,7 @@ class AnnotationKeyboard extends React.Component {
       <button
         className={`annotation-keyboard__button ${showScript} ${activeKey}`}
         key={letter.characterID}
-        onClick={this.inputText.bind(this, letter)}
+        onClick={this.letterClick.bind(this, letter)}
         style={styles}
       >
         {this.props.showModern && (
@@ -88,7 +88,7 @@ AnnotationKeyboard.propTypes = {
     img: PropTypes.string,
     name: PropTypes.string
   }),
-  onKeyPress: PropTypes.func,
+  onLetterClick: PropTypes.func,
   onEnter: PropTypes.func,
   showModern: PropTypes.bool
 };
@@ -96,7 +96,7 @@ AnnotationKeyboard.propTypes = {
 AnnotationKeyboard.defaultProps = {
   activeKey: null,
   activeScript: null,
-  onKeyPress: () => {},
+  onLetterClick: () => {},
   onEnter: () => {},
   showModern: true
 };
