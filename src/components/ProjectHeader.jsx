@@ -1,56 +1,69 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { setLanguage, LANGUAGES } from '../ducks/languages';
 
 class ProjectHeader extends React.Component {
+  changeLanguage(language) {
+    this.props.dispatch(setLanguage(language));
+  }
+
   render() {
-    let className = '';
-
-    if (this.props.location.pathname === '/classify') {
-      className = 'project-header__classify';
-    }
-
     return (
-      <section className={`project-header ${className}`}>
+      <section
+        className={classnames('project-header', {
+          'project-header__classify': this.props.location.pathname === '/classify'
+        })}
+      >
         <div>
-          <nav className="tertiary-label">
-            <NavLink
-              activeClassName="project-header__active"
-              className="project-header__link"
-              exact
-              to="/"
-            >
-              Scribes of the Cairo Geniza
-            </NavLink>
-            <NavLink
-              activeClassName="project-header__active"
-              className="project-header__link"
-              to="/about"
-            >
-              About
-            </NavLink>
-            <NavLink
-              activeClassName="project-header__active"
-              className="project-header__link"
-              to="/classify"
-            >
-              Transcribe
-            </NavLink>
-            <a
-              className="project-header__link"
-              href="/"
-            >
-              Talk
-            </a>
-            <a
-              className="project-header__link"
-              href="/"
-            >
-              Collect
-            </a>
-            <button>ع</button>
-            <button>E</button>
-            <button>ע</button>
+          <nav
+            className={classnames('tertiary-label', {
+              'project-header__rtl': this.props.rtl
+            })}
+          >
+            <div>
+              <NavLink
+                activeClassName="project-header__active"
+                className="project-header__link"
+                exact
+                to="/"
+              >
+                Scribes of the Cairo Geniza
+              </NavLink>
+              <NavLink
+                activeClassName="project-header__active"
+                className="project-header__link"
+                to="/about"
+              >
+                About
+              </NavLink>
+              <NavLink
+                activeClassName="project-header__active"
+                className="project-header__link"
+                to="/classify"
+              >
+                Transcribe
+              </NavLink>
+              <a
+                className="project-header__link"
+                href="/"
+              >
+                Talk
+              </a>
+              <a
+                className="project-header__link"
+                href="/"
+              >
+                Collect
+              </a>
+            </div>
+            <div>
+              <button onClick={this.changeLanguage.bind(this, LANGUAGES.ARABIC)}>ع</button>
+              <button onClick={this.changeLanguage.bind(this, LANGUAGES.ENGLISH)}>E</button>
+              <button onClick={this.changeLanguage.bind(this, LANGUAGES.HEBREW)}>ע</button>
+            </div>
           </nav>
         </div>
       </section>
@@ -59,13 +72,21 @@ class ProjectHeader extends React.Component {
 }
 
 ProjectHeader.propTypes = {
+  dispatch: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string
-  })
+  }),
+  rtl: PropTypes.bool
 };
 
 ProjectHeader.defaultProps = {
-  location: {}
+  dispatch: () => {},
+  location: {},
+  rtl: false
 };
 
-export default ProjectHeader;
+const mapStateToProps = state => ({
+  rtl: state.languages.rtl
+});
+
+export default connect(mapStateToProps)(ProjectHeader);

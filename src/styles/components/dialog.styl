@@ -40,20 +40,22 @@
     overflow: scroll
 
     &__header
-      justify-content: space-between
+      display: flex
+      flex-direction: column
       position: fixed
       width: 100%
       z-index: 1
-      display: inline-flex
+
+      div
+        display: flex
+        justify-content: space-between
 
       .close-button
-        position: absolute
-        right: 0
-        top: 0
+        background: inherit
 
       h2
         @extend .primary-label
-        margin: 0.5rem 1rem
+        margin: 1rem 0.5rem 0 0.5rem
 
 .dialog-content::-webkit-scrollbar
   background-color: $bisque

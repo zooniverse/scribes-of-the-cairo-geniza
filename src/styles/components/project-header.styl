@@ -8,7 +8,7 @@
       background-color: $sand
       color: $dust
 
-  div:first-child
+  > div:first-child
     border: 20px solid white
     margin: 2em
     pointer-events: none
@@ -29,8 +29,18 @@
     padding-right: 0.5rem
     pointer-events: all
 
+    div
+      display: flex
+
     a
+      display: block
       padding: 1rem
+
+  &__rtl
+    flex-direction: row-reverse
+
+    div:last-child
+      flex-direction: row-reverse
 
   &__active
     background: $sand

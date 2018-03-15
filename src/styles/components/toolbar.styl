@@ -40,12 +40,11 @@
       font-size: 0.6rem
       font-weight: 600
       letter-spacing: 1px
-      margin-left: 0.5rem
+      margin: auto 0.5rem
       text-transform: uppercase
 
     i:not(.button-header)
       float: left
-      margin: 0 auto
       font-style: normal
 
   &__expanded
@@ -60,7 +59,6 @@
       width: 90%
 
     button
-      display: block
       text-align: left
       width: 95%
 
@@ -68,8 +66,8 @@
         border-radius: 1.5rem
 
     .button-header
-      i
-        float: right
+      display: flex
+      justify-content: space-between
 
       span
         color: $plum

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import CollectionsContainer from '../containers/CollectionsContainer';
 import { toggleDialog } from '../ducks/dialog';
@@ -76,13 +77,17 @@ class Toolbar extends React.Component {
   }
 
   toggleIcon() {
-    const iconClass = this.state.showPanel ? 'fa fa-chevron-left' : 'fa fa-chevron-right';
     return (
       <button className="button-header" onClick={this.togglePanel}>
         {this.state.showPanel && (
           <span>Toolbar</span>
         )}
-        <i className={`${iconClass} button-header`} />
+        <i
+          className={classnames('button-header', {
+            'fa fa-chevron-left': (!this.state.showPanel && this.props.rtl) || (!this.props.rtl && this.state.showPanel),
+            'fa fa-chevron-right': (this.state.showPanel && this.props.rtl) || (!this.props.rtl && !this.state.showPanel)
+          })}
+        />
       </button>
     );
   }
@@ -176,6 +181,7 @@ Toolbar.propTypes = {
   dispatch: PropTypes.func,
   favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
+  rtl: PropTypes.bool,
   scaling: PropTypes.number,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -187,6 +193,7 @@ Toolbar.defaultProps = {
   dispatch: () => {},
   favoriteSubject: false,
   rotation: 0,
+  rtl: false,
   scaling: 0,
   user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
@@ -197,6 +204,7 @@ const mapStateToProps = (state) => {
   return {
     favoriteSubject: state.subject.favorite,
     rotation: sv.rotation,
+    rtl: state.languages.rtl,
     scaling: sv.scaling,
     user: state.login.user,
     viewerState: sv.viewerState
