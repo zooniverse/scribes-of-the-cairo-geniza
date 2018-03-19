@@ -1,0 +1,28 @@
+button.test-char
+  cursor: pointer
+  display: inline-block
+  margin: 2px
+
+  //All characters in the alphabet are stored in a single file 
+  background: url('../TEMP-TEST/arabic-alphabet.gif') no-repeat 0 0
+  
+  //Here are the three big cons of this method:
+  //1. You need to be pretty good with your calculations
+  //2. esp. for components with no definite size (i.e. scaling compinents)
+  //3. There's a cost where you need to find the coordinates for each character
+  background-size: 560px 267px
+  width: 40px
+  height: 40px
+  
+  &.alif
+    background-position: -516px -16px
+  
+  &.baa
+    background-position: -468px -24px
+    
+  &.taa
+    background-position: -410px -26px
+  
+  //Pros:
+  //1. Consistent use of assets across tje 
+  //2. Much of the cost is a single-time upfront cost, and you can reuse the CSS classes to represent characters in the future.
