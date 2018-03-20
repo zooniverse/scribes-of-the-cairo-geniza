@@ -40,7 +40,6 @@ export const Utility = {
       return (val.character === nativeKey);
     });
     if (nativeCharacter) return nativeCharacter;
-    
 
     //If the user DOESN'T have natural Hebrew input, then definitely translate
     //their input based on the physical key pressed.

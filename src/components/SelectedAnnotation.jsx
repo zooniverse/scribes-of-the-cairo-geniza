@@ -21,7 +21,6 @@ class SelectedAnnotation extends React.Component {
 
     this.closeAnnotation = this.closeAnnotation.bind(this);
     this.deleteAnnotation = this.deleteAnnotation.bind(this);
-    this.onTextUpdate = this.onTextUpdate.bind(this);
     this.saveText = this.saveText.bind(this);
     this.toggleKeyboardView = this.toggleKeyboardView.bind(this);
     this.closePrompt = this.closePrompt.bind(this);
@@ -32,12 +31,11 @@ class SelectedAnnotation extends React.Component {
     this.closeDropdown = this.closeDropdown.bind(this);
     this.previousScript = this.previousScript.bind(this);
     this.nextScript = this.nextScript.bind(this);
-    this.hebrewLetterClick = this.hebrewLetterClick.bind(this);
+    this.addHebrewLetter = this.addHebrewLetter.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
 
     this.state = {
-      annotationText: '',
       showScriptOptions: false
     };
   }
@@ -47,21 +45,13 @@ class SelectedAnnotation extends React.Component {
     if (this.props.selectedAnnotation.details) {
       text = this.props.selectedAnnotation.details[0].value;
     }
-    this.setState({ annotationText: text });
+    this.inputText.value = text;
     this.inputText.focus();
     document.addEventListener('mousedown', this.closeDropdown, false);
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.closeDropdown, false);
-  }
-
-  onTextUpdate() {
-    if (!this.inputText) return;
-
-    this.setState({
-      annotationText: this.inputText.value
-    });
   }
 
   onKeyUp(e) {
@@ -73,17 +63,22 @@ class SelectedAnnotation extends React.Component {
   }
 
   onKeyDown(e) {
+    if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) {
+      return;
+    }
     const character = Utility.getHebrewChar(e);
 
     if (Utility.getKeyCode(e) === KEY_VALUES.Enter) {
       this.saveText();
     }
 
+    if (Utility.getKeyCode(e) === KEY_VALUES.Escape) {
+      this.closePrompt();
+    }
+
     if (character !== false) {
       e.preventDefault();
-      this.setState({
-        annotationText: this.inputText.value + character.unicode
-      });
+      this.addHebrewLetter(character);
       this.props.dispatch(pressedKey(character.name));
     }
   }
@@ -92,13 +87,18 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(toggleModern());
   }
 
-  hebrewLetterClick(letter) {
+  addHebrewLetter(letter) {
     if (!this.inputText) return;
-    const text = this.inputText.value + letter.unicode;
+    const text = this.inputText.value;
+    const startIndex = this.inputText.selectionStart;
+    const endIndex = this.inputText.selectionEnd;
 
-    this.setState({
-      annotationText: text
-    });
+    const startText = text.substring(0, startIndex);
+    const endText = text.substring(endIndex);
+
+    this.inputText.value = startText + letter.unicode + endText;
+    this.inputText.focus();
+    this.inputText.setSelectionRange(startIndex + 1, startIndex + 1);
   }
 
   toggleKeyboardView() {
@@ -117,9 +117,8 @@ class SelectedAnnotation extends React.Component {
   }
 
   saveText() {
-    console.log('ress enter');
-    const text = (this.state.annotationText && this.state.annotationText.trim)
-      ? this.state.annotationText.trim() : '';
+    const text = (this.inputText.value && this.inputText.value.trim)
+      ? this.inputText.value.trim() : '';
     if (text !== '') {
       this.props.dispatch(updateText(text));
       this.props.dispatch(toggleDialog(null));
@@ -256,12 +255,10 @@ class SelectedAnnotation extends React.Component {
           type="text"
           className="input-box"
           ref={(c) => { this.inputText = c; }}
-          onChange={this.onTextUpdate}
           onKeyDown={this.onKeyDown}
           onKeyUp={this.onKeyUp}
           onMouseDown={() => { this.annotationBox.className = DISABLE_DRAG; }}
           onMouseUp={() => { this.annotationBox.className = ENABLE_DRAG; }}
-          value={this.state.annotationText}
         />
         <div className="selected-annotation__controls">
           <div>
@@ -312,7 +309,7 @@ class SelectedAnnotation extends React.Component {
               </div>
             </div>
             <div className="selected-annotation__keyboard">
-              <AnnotationKeyboard onLetterClick={this.hebrewLetterClick} onEnter={this.saveText} />
+              <AnnotationKeyboard onLetterClick={this.addHebrewLetter} onEnter={this.saveText} />
             </div>
           </div>
         )}
