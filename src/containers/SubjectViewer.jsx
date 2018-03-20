@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import { Utility, KEY_CODES } from '../lib/Utility';
 import { getSubjectLocation } from '../lib/get-subject-location';
@@ -282,8 +283,6 @@ class SubjectViewer extends React.Component {
       subjectLocation = (subjectLocation && subjectLocation.src) ? subjectLocation.src : undefined;
     }
 
-    const errorStyle = subjectLoadError ? 'subject-viewer__error' : '';
-
     if (subjectLoadError) {
       renderedItem = <SubjectError />;
     } else {
@@ -346,7 +345,12 @@ class SubjectViewer extends React.Component {
     }
 
     return (
-      <section className={`subject-viewer ${errorStyle} ${cursor}`} ref={(c) => { this.section = c; }}>
+      <section
+        className={classnames(`subject-viewer ${cursor}`, {
+          'subject-viewer__error': subjectLoadError
+        })}
+        ref={(c) => { this.section = c; }}
+      >
         {renderedItem}
 
         {this.props.popup && (this.props.popup)}

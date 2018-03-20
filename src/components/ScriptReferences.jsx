@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import { KeyboardOptions, KEYBOARD_TYPES } from '../lib/KeyboardTypes';
 import { setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
 import {
@@ -51,17 +52,17 @@ class ScriptReferences extends React.Component {
 
   renderFilters() {
     const allActive = this.props.activeFilters.length === 3;
-    const allActiveFilters = allActive ? 'active-filter' : '';
     return (
       <div className="script-references__filter">
         <span className="secondary-label">Filter Scripts By</span>
         <div>
           {Object.keys(KEYBOARD_TYPES).map((key, i) => {
             const isActive = this.props.activeFilters.indexOf(KEYBOARD_TYPES[key]) >= 0;
-            const activeClass = isActive && !allActive ? 'active-filter' : '';
             return (
               <button
-                className={`secondary-label ${activeClass}`}
+                className={classnames('secondary-label', {
+                  'active-filter': isActive && !allActive
+                })}
                 key={`SCRIPT_FILTER_${i}`}
                 onClick={this.toggleFilter.bind(this, key)}
               >
@@ -69,7 +70,14 @@ class ScriptReferences extends React.Component {
               </button>
             );
           })}
-          <button className={`secondary-label ${allActiveFilters}`} onClick={this.toggleFilter.bind(this, null)}>All</button>
+          <button
+            className={classnames('secondary-label', {
+              'active-filter': allActive
+            })}
+            onClick={this.toggleFilter.bind(this, null)}
+          >
+            All
+          </button>
         </div>
       </div>
     );
@@ -93,7 +101,6 @@ class ScriptReferences extends React.Component {
 
   renderLetters() {
     const text = !this.state.keyboardSent ? 'Send Script to Keyboard \u2192' : 'Sent'
-    const buttonClass = this.state.keyboardSent ? 'script-sent' : '';
 
     return (
       <div className="script-references__letters">
@@ -101,7 +108,12 @@ class ScriptReferences extends React.Component {
           {this.props.activeScript.letters.map((letter, i) => this.renderLetter(letter, i))}
         </div>
         <div>
-          <button className={`button ${buttonClass}`} onClick={this.sendToKeyboard}>
+          <button
+            className={classnames('button', {
+              'script-sent': this.state.keyboardSent
+            })}
+            onClick={this.sendToKeyboard}
+          >
             {text}
           </button>
           {this.state.keyboardSent && (
