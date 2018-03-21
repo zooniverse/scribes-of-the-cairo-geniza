@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import { Utility, KEY_CODES } from '../lib/Utility';
 import { getSubjectLocation } from '../lib/get-subject-location';
@@ -207,6 +208,7 @@ class SubjectViewer extends React.Component {
   }
 
   onMouseUp(e) {
+    if (this.props.selectedAnnotation) { return; }
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
       const pointerXY = this.getPointerXY(e);
       this.pointer.state = INPUT_STATE.IDLE;
@@ -281,8 +283,6 @@ class SubjectViewer extends React.Component {
       subjectLocation = (subjectLocation && subjectLocation.src) ? subjectLocation.src : undefined;
     }
 
-    const errorStyle = subjectLoadError ? 'subject-viewer__error' : '';
-
     if (subjectLoadError) {
       renderedItem = <SubjectError />;
     } else {
@@ -345,7 +345,12 @@ class SubjectViewer extends React.Component {
     }
 
     return (
-      <section className={`subject-viewer ${errorStyle} ${cursor}`} ref={(c) => { this.section = c; }}>
+      <section
+        className={classnames(`subject-viewer ${cursor}`, {
+          'subject-viewer__error': subjectLoadError
+        })}
+        ref={(c) => { this.section = c; }}
+      >
         {renderedItem}
 
         {this.props.popup && (this.props.popup)}
@@ -378,6 +383,9 @@ SubjectViewer.propTypes = {
   translationX: PropTypes.number,
   translationY: PropTypes.number,
   scaling: PropTypes.number,
+  selectedAnnotation: PropTypes.shape({
+    details: PropTypes.array
+  }),
   showKeyboard: PropTypes.bool,
   subjectStatus: PropTypes.string,
   viewerSize: PropTypes.shape({
@@ -398,6 +406,7 @@ SubjectViewer.defaultProps = {
   popup: null,
   rotation: 0,
   scaling: 1,
+  selectedAnnotation: null,
   showKeyboard: true,
   subjectStatus: '',
   translationX: 0,
@@ -421,6 +430,7 @@ const mapStateToProps = (state) => {
     popup: state.dialog.popup,
     rotation: sv.rotation,
     scaling: sv.scaling,
+    selectedAnnotation: state.annotations.selectedAnnotation,
     showKeyboard: state.keyboard.showKeyboard,
     subjectStatus: state.subject.status,
     translationX: sv.translationX,
