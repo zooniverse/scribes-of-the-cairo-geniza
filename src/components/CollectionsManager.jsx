@@ -83,7 +83,7 @@ class CollectionsManager extends React.Component {
               onMouseDown={() => { this.manager.className = DISABLE_DRAG; }}
               onMouseUp={() => { this.manager.className = ENABLE_DRAG; }}
             />
-            <button className="button button__dark" disabled={this.state.disableAdd} type="submit">Add</button>
+            <button className="button button__dark" disabled={this.state.disableAdd} type="submit">{this.props.translate('collection.add')}</button>
           </form>
         </div>
 

@@ -63,8 +63,8 @@ export default {
     scriptTypes: 'أنواع الخط العبري',
     yourSheet: 'الورقة المرجعية الخاصة بكم',
     types: {
-      orientalNE: 'عراقي وإيراني',
-      orientalSW: 'مصري وفلسطيني',
+      orientalne: 'عراقي وإيراني',
+      orientalsw: 'مصري وفلسطيني',
       maghrebi: 'مغربي',
       sephardi: 'سفاردي',
       yemenite: 'يمني',

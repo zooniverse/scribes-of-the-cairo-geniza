@@ -63,8 +63,8 @@ export default {
     scriptTypes: 'Hebrew Script Types',
     yourSheet: 'Your Crib Sheet',
     types: {
-      orientalNE: 'Oriental NE',
-      orientalSW: 'Oriental SW',
+      orientalne: 'Oriental NE',
+      orientalsw: 'Oriental SW',
       maghrebi: 'Maghrebi',
       sephardi: 'Sephardi',
       yemenite: 'Yemenite',

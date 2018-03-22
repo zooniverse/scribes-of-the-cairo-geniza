@@ -63,8 +63,8 @@ export default {
     scriptTypes: 'סוגי כתב עברי',
     yourSheet: 'מאגר סוגי הכתב שלך',
     types: {
-      orientalNE: '(מזרחי (צפון-מזרח המזרח התיכון',
-      orientalSW: '(מזרחי (מערב-דרום המזרח התיכון',
+      orientalne: '(מזרחי (צפון-מזרח המזרח התיכון',
+      orientalsw: '(מזרחי (מערב-דרום המזרח התיכון',
       maghrebi: 'מגרבי',
       sephardi: 'ספרדי',
       yemenite: 'תימני',

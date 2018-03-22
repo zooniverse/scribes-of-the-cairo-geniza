@@ -68,7 +68,7 @@ class ScriptReferences extends React.Component {
                 key={`SCRIPT_FILTER_${i}`}
                 onClick={this.toggleFilter.bind(this, key)}
               >
-                {KEYBOARD_TYPES[key]}
+                {this.props.translate(`scriptReferences.${KEYBOARD_TYPES[key].toLowerCase()}`)}
               </button>
             );
           })}
@@ -135,10 +135,11 @@ class ScriptReferences extends React.Component {
 
     return (
       <div className="script-references__groups" key={`${type}_KEYBOARDS`}>
-        <span>{type}</span>
+        <span>{this.props.translate(`scriptReferences.${type.toLowerCase()}`)}</span>
         <span>One sentence about where {type} is found.</span>
         <div className="script-references__scripts">
           {collection.map((script, i) => {
+            const scriptTitle = script.name.toLowerCase().replace(/\s+/g, '');
             const styles = {};
             styles.backgroundImage = `url('${script.img}')`;
             return (
@@ -147,7 +148,7 @@ class ScriptReferences extends React.Component {
                   <div className="alef" style={styles} />
                   <div className={`script-references__script ${script.class}`} />
                 </button>
-                <span>{script.name}</span>
+                <span>{this.props.translate(`scriptReferences.types.${scriptTitle}`)}</span>
               </div>
             );
           })}

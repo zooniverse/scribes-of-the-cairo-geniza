@@ -286,7 +286,7 @@ class SelectedAnnotation extends React.Component {
         {this.props.showKeyboard && (
           <div className="selected-annotation__keyboard-div">
             <hr />
-            <span className="secondary-label">Current Script Type</span>
+            <span className="secondary-label">{this.props.translate('scriptReferences.currentScript')}</span>
             <div>
               <div className="selected-annotation__script-select">
                 <button onClick={this.previousScript}>&#9664;</button>
