@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 const ENABLE_DRAG = 'handle collections-manager';
 const DISABLE_DRAG = 'collections-manager';
@@ -44,7 +45,7 @@ class CollectionsManager extends React.Component {
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.manager = c; }}>
         <div className="collections-manager__input-div">
-          <span className="collections-manager__instructions">Add to An Existing Collection</span>
+          <span className="collections-manager__instructions">{this.props.translate('collection.addTo')}</span>
 
           <div
             className="collections-manager__add"
@@ -59,12 +60,12 @@ class CollectionsManager extends React.Component {
                 multi
                 onChange={this.props.onChange}
                 value={this.props.selectedCollections}
-                placeholder="Type to search Collections"
+                placeholder={this.props.translate('collection.search')}
                 loadOptions={this.props.searchCollections}
               />
             </div>
             <button className="button button__dark" disabled={disableAdd} type="button" onClick={this.onAdd}>
-              Add
+              {this.props.translate('collection.add')}
             </button>
           </div>
         </div>
@@ -72,13 +73,13 @@ class CollectionsManager extends React.Component {
         <hr className="white-line" />
 
         <div className="collections-manager__input-div">
-          <span className="collections-manager__instructions">Or create a new Collection</span>
+          <span className="collections-manager__instructions">{this.props.translate('collection.create')}</span>
 
           <form className="collections-manager__create" onSubmit={this.handleSubmission}>
             <input
               ref={(el) => { this.create = el; }}
               onChange={this.handleInputChange}
-              placeholder="Collection Name"
+              placeholder={this.props.translate('collection.name')}
               onMouseDown={() => { this.manager.className = DISABLE_DRAG; }}
               onMouseUp={() => { this.manager.className = ENABLE_DRAG; }}
             />
@@ -100,7 +101,7 @@ class CollectionsManager extends React.Component {
             defaultChecked={false}
           />
           <label htmlFor="private">
-            <span>Private</span>
+            <span>{this.props.translate('collection.private')}</span>
           </label>
         </div>
       </div>
@@ -115,7 +116,8 @@ CollectionsManager.propTypes = {
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   searchCollections: PropTypes.func,
-  selectedCollections: PropTypes.arrayOf(PropTypes.object)
+  selectedCollections: PropTypes.arrayOf(PropTypes.object),
+  translate: PropTypes.func
 };
 
 CollectionsManager.defaultProps = {
@@ -124,11 +126,14 @@ CollectionsManager.defaultProps = {
   onChange: () => {},
   onSubmit: () => {},
   searchCollections: () => {},
-  selectedCollections: []
+  selectedCollections: [],
+  translate: () => {}
 };
 
 const mapStateToProps = (state) => ({
-  selectedCollections: state.collections.selectedCollections
+  currentLanguage: getActiveLanguage(state.locale).code,
+  selectedCollections: state.collections.selectedCollections,
+  translate: getTranslate(state.locale)
 });
 
 export default connect(mapStateToProps)(CollectionsManager);

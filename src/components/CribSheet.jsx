@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+
 import { toggleDialog } from '../ducks/dialog';
 import { setViewerState, SUBJECTVIEWER_STATE } from '../ducks/subject-viewer';
 import { activateCard, toggleReferenceMode } from '../ducks/crib-sheet';
@@ -47,9 +49,9 @@ class CribSheet extends React.Component {
     return (
       <div className="crib-sheet__header handle">
         {this.props.user && (
-          <button className={!reference ? 'active-button' : ''} onClick={this.personalMode}>Your Crib Sheet</button>
+          <button className={!reference ? 'active-button' : ''} onClick={this.personalMode}>{this.props.translate('scriptReferences.yourSheet')}</button>
         )}
-        <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>Script References</button>
+        <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>{this.props.translate('scriptReferences.title')}</button>
         <button className="close-button" onClick={this.close}>X</button>
         <hr className="plum-line" />
       </div>
@@ -98,8 +100,8 @@ class CribSheet extends React.Component {
   renderInstructions() {
     return (
       <div className="crib-sheet__personal-instructions handle">
-        <span>Use this crib sheet to save snippets for your personal reference.</span>
-        <span>If you&apos;re signed in, the images will be saved throughout your time on this project.</span>
+        <span>{this.props.translate('cribSheet.instructions')}</span>
+        <span>{this.props.translate('cribSheet.instructions2')}</span>
       </div>
     );
   }
@@ -120,12 +122,10 @@ class CribSheet extends React.Component {
           <div className="crib-sheet__personal-card">
             <div>
               <button onClick={this.activateCrop}>
-                <span>
-                  Add Image
-                </span>
+                <span>{this.props.translate('cribSheet.addImage')}</span>
               </button>
             </div>
-            <span className="crib-sheet__add-instructions">Click to add another image</span>
+            <span className="crib-sheet__add-instructions">{this.props.translate('cribSheet.clickAdd')}</span>
           </div>
         </div>
       </div>
@@ -166,6 +166,7 @@ CribSheet.propTypes = {
     update: PropTypes.func
   }),
   referenceMode: PropTypes.bool,
+  translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
   })
@@ -176,14 +177,17 @@ CribSheet.defaultProps = {
   dispatch: () => {},
   preferences: {},
   referenceMode: true,
+  translate: () => {},
   user: null
 };
 
 const mapStateToProps = (state) => {
   return {
     activeCard: state.cribSheet.activeCard,
+    currentLanguage: getActiveLanguage(state.locale).code,
     preferences: state.project.userPreferences,
     referenceMode: state.cribSheet.referenceMode,
+    translate: getTranslate(state.locale),
     user: state.login.user
   };
 };
