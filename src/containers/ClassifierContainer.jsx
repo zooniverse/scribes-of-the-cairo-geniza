@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchQueue } from '../ducks/subject';
+import { fetchSubject } from '../ducks/subject';
 
 import ControlPanel from '../components/ControlPanel';
 import Toolbar from '../components/Toolbar';
@@ -9,7 +9,7 @@ import SubjectViewer from './SubjectViewer';
 
 class ClassifierContainer extends React.Component {
   componentWillMount() {
-    this.props.dispatch(fetchQueue());
+    this.props.dispatch(fetchSubject());
   }
 
   render() {

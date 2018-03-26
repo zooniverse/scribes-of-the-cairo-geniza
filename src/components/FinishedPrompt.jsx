@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { toggleDialog } from '../ducks/dialog';
+import {
+  setSubjectCompletionAnswers, submitClassification
+} from '../ducks/classification';
 
 class FinishedPrompt extends React.Component {
   constructor() {
@@ -18,7 +21,8 @@ class FinishedPrompt extends React.Component {
   }
 
   onDone() {
-    console.log('done');
+    this.props.dispatch(submitClassification());
+    this.props.dispatch(toggleDialog(null));
   }
 
   onDoneAndTalk() {
@@ -26,6 +30,13 @@ class FinishedPrompt extends React.Component {
   }
 
   render() {
+    const tasks = (this.props.workflow.tasks)
+      ? Object.keys(this.props.workflow.tasks).map(taskId =>
+        Object.assign({}, this.props.workflow.tasks[taskId], { taskId })
+      )
+        .filter(task => isAQuestionTask(task, this.props.workflow))
+      : [];
+
     return (
       <div className="finished-prompt handle">
         <h2 className="h1-font">Has everything been transcribed?</h2>
@@ -40,30 +51,39 @@ class FinishedPrompt extends React.Component {
             <b> Done</b> to go to the next document.
           </span>
         </div>
-        <div className="finished-prompt__toggle">
-          <div className="round-toggle">
-            <input
-              id="allDone"
-              type="checkbox"
-              ref={(el) => { this.allDone = el; }}
-              defaultChecked={false}
-            />
-            <label className="primary-label" htmlFor="allDone">
-              <span>Yes, all lines are complete</span>
-            </label>
-          </div>
-          <div className="round-toggle">
-            <input
-              id="notDone"
-              type="checkbox"
-              ref={(el) => { this.notDone = el; }}
-              defaultChecked={false}
-            />
-            <label className="primary-label" htmlFor="notDone">
-              <span>No, some lines have not been transcribed</span>
-            </label>
-          </div>
-        </div>
+        {tasks.map((task, taskIndex) => {
+          return (
+            <div
+              className="finished-prompt__toggle"
+              key={`submit-classification-form-task-${taskIndex}`}
+            >
+              {task.answers.map((answer, answerIndex) => {
+                const checked = this.props.subjectCompletionAnswers &&
+                this.props.subjectCompletionAnswers[task.taskId] === answerIndex;
+                return (
+                  <div
+                    className="round-toggle"
+                    key={`submit-classification-form-task-${taskIndex}-answer-${answerIndex}`}
+                  >
+                    <input
+                      type="radio"
+                      checked={checked}
+                      id={`prompt_${answerIndex}`}
+                      onChange={() => {
+                        this.props.dispatch(setSubjectCompletionAnswers(task.taskId, answerIndex));
+                      }}
+                    />
+                    <label
+                      htmlFor={`prompt_${answerIndex}`}
+                    >
+                      <span>{answer.label}</span>
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
         <div className="finished-prompt__buttons">
           <button className="button" onClick={this.onCancel}>Cancel</button>
           <button className="button" onClick={this.onDone}>Done</button>
@@ -74,12 +94,31 @@ class FinishedPrompt extends React.Component {
   }
 }
 
+function isAQuestionTask(task, workflow) {
+  return (
+    task.taskId !== workflow.first_task &&
+    task.type === 'single' &&
+    task.question && task.answers && task.answers.length > 0
+  );
+}
+
 FinishedPrompt.propTypes = {
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
+  subjectCompletionAnswers: PropTypes.object,
+  workflow: PropTypes.shape({
+    tasks: PropTypes.object
+  })
 };
 
 FinishedPrompt.defaultProps = {
-  dispatch: () => {}
+  dispatch: () => {},
+  subjectCompletionAnswers: null,
+  workflow: null
 };
 
-export default connect()(FinishedPrompt);
+const mapStateToProps = state => ({
+  subjectCompletionAnswers: state.classification.subjectCompletionAnswers,
+  workflow: state.workflow.data
+});
+
+export default connect(mapStateToProps)(FinishedPrompt);

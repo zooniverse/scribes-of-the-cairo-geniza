@@ -1,10 +1,16 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import counterpart from 'counterpart';
 import { config } from '../config';
+import { fetchSubject } from './subject';
+import { resetView } from './subject-viewer';
+import { getSessionID } from '../lib/get-session-id';
+
+const CLASSIFICATIONS_QUEUE_NAME = 'classificationsQueue';
 
 const SUBMIT_CLASSIFICATION = 'SUBMIT_CLASSIFICATION';
 const SUBMIT_CLASSIFICATION_FINISHED = 'SUBMIT_CLASSIFICATION_FINISHED';
 const CREATE_CLASSIFICATION = 'CREATE_CLASSIFICATION';
+const SET_SUBJECT_COMPLETION_ANSWERS = 'SET_SUBJECT_COMPLETION_ANSWERS';
 
 const CLASSIFICATION_STATUS = {
   IDLE: 'classification_status_idle',
@@ -15,7 +21,8 @@ const CLASSIFICATION_STATUS = {
 
 const initialState = {
   classification: null,
-  status: CLASSIFICATION_STATUS.status
+  status: CLASSIFICATION_STATUS.status,
+  subjectCompletionAnswers: {}
 };
 
 const classificationReducer = (state = initialState, action) => {
@@ -37,6 +44,13 @@ const classificationReducer = (state = initialState, action) => {
         classification: null,
         status: CLASSIFICATION_STATUS.IDLE,
         subjectCompletionAnswers: {}
+      });
+
+    case SET_SUBJECT_COMPLETION_ANSWERS:
+      const sca = Object.assign({}, state.subjectCompletionAnswers);
+      sca[action.taskId] = action.answerValue;
+      return Object.assign({}, state, {
+        subjectCompletionAnswers: sca
       });
 
     default:
@@ -77,8 +91,142 @@ const createClassification = (subject) => {
   };
 };
 
+const queueClassification = (classification, user = null) => {
+  const QUEUE_NAME = (user)
+    ? `${user.id}.${CLASSIFICATIONS_QUEUE_NAME}`
+    : `_.${CLASSIFICATIONS_QUEUE_NAME}`;
+
+  const queue = JSON.parse(localStorage.getItem(QUEUE_NAME)) || [];
+  queue.push(classification);
+
+  try {
+    localStorage.setItem(QUEUE_NAME, JSON.stringify(queue));
+  } catch (err) {
+    console.error('ducks/classifications.js queueClassification() error: ', err);
+  }
+};
+
+const setSubjectCompletionAnswers = (taskId, answerValue) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_SUBJECT_COMPLETION_ANSWERS,
+      taskId, answerValue,
+    });
+  };
+};
+
+const saveAllQueuedClassifications = (dispatch, user = null) => {
+  const QUEUE_NAME = (user)
+    ? `${user.id}.${CLASSIFICATIONS_QUEUE_NAME}`
+    : `_.${CLASSIFICATIONS_QUEUE_NAME}`;
+
+  const queue = JSON.parse(localStorage.getItem(QUEUE_NAME));
+
+  if (queue && queue.length !== 0) {
+    const newQueue = [];
+    localStorage.setItem(QUEUE_NAME, null);
+
+    let itemsProcessed = 0;
+    let itemsFailed = 0;
+    const itemsToProcess = queue.length;
+
+    const doFinally = () => {
+      itemsProcessed += 1;
+
+      if (itemsProcessed === itemsToProcess) {
+        console.info(`ducks/classifications.js saveAllQueuedClassifications() finished: ${itemsProcessed} items processed, ${itemsFailed} failures`);
+
+        if (itemsFailed > 0) {
+          alert('Your Transcription could not be submitted at this time. However, we\'ve saved your work on this computer and it will automatically be resubmitted the next time you submit a Transcription. Please refresh the page to start working on a new letter.');
+        }
+
+        localStorage.setItem(QUEUE_NAME, JSON.stringify(newQueue));
+
+        dispatch({ type: SUBMIT_CLASSIFICATION_FINISHED });
+        dispatch(fetchSubject());
+        dispatch(resetView());
+      }
+    };
+
+    queue.forEach((classificationData) => {
+      apiClient.type('classifications').create(classificationData).save()
+        .then((classificationObject) => {
+          classificationObject.destroy();
+          doFinally();
+        })
+        .catch((err) => {
+          console.error('ducks/classifications.js saveAllQueuedClassifications() error: ', err);
+
+          switch (err.status) {
+            case 422:
+              break;
+
+            default:
+              itemsFailed += 1;
+              newQueue.push(classificationData);
+          }
+          doFinally();
+        });
+    });
+  }
+};
+
+const submitClassification = () => {
+  return (dispatch, getState) => {
+    const subject = getState().subject;
+    const subject_dimensions = (subject && subject.imageMetadata) ? subject.imageMetadata : [];
+    const classification = getState().classification.classification;
+    const updatedAnnotations = [];
+    const user = getState().login.user;
+
+    if (!classification) {
+      console.error('ducks/classifications.js submitClassification() error: no classification', '');
+      alert('ERROR: Could not submit Classification.');
+      return;
+    }
+
+    let task = 'T0';
+    if (getState().workflow.data) {
+      task = getState().workflow.data.first_task;
+    }
+    const firstTaskAnnotations = {
+      _key: Math.random(),
+      _toolIndex: 0,
+      task,
+      value: getState().annotations.annotations
+    };
+    updatedAnnotations.push(firstTaskAnnotations);
+
+    const sca = getState().classification.subjectCompletionAnswers;
+    Object.keys(sca).map((taskId) => {
+      const answerForTask = {
+        task: taskId,
+        value: sca[taskId]
+      };
+      updatedAnnotations.push(answerForTask);
+    });
+
+    dispatch({ type: SUBMIT_CLASSIFICATION });
+    classification.update({
+      annotations: updatedAnnotations,
+      completed: true,
+      'metadata.session': getSessionID(),
+      'metadata.finished_at': (new Date()).toISOString(),
+      'metadata.viewport': {
+        width: innerWidth,
+        height: innerHeight
+      },
+      'metadata.subject_dimensions': subject_dimensions || [],
+    });
+    queueClassification(classification, user);
+    saveAllQueuedClassifications(dispatch, user);
+  };
+};
+
 export default classificationReducer;
 
 export {
-  createClassification
+  createClassification,
+  setSubjectCompletionAnswers,
+  submitClassification
 };

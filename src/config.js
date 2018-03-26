@@ -25,7 +25,7 @@ const baseConfig = {
     host: '',
     projectId: '1814',
     projectSlug: '',
-    workflowId: '3156'
+    workflowId: '3157'
   },
   production: {
     panoptesAppId: '',

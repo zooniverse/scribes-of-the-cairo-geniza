@@ -35,7 +35,6 @@ const subjectReducer = (state = initialState, action) => {
         queue: action.queue,
         currentSubject: action.currentSubject,
         favorite: action.favorite,
-        queue: action.queue,
         status: SUBJECT_STATUS.READY
       });
 
@@ -58,27 +57,49 @@ const prepareForNewSubject = (dispatch, subject) => {
   dispatch(createClassification(subject));
 };
 
-const fetchQueue = (id = config.workflowId) => {
-  return (dispatch) => {
-    dispatch({
-      type: FETCH_SUBJECT
-    });
+const fetchSubject = (initialFetch = false) => {
+  return (dispatch, getState) => {
+    if (initialFetch && getState().subject.status !== SUBJECT_STATUS.IDLE) return;
+    const workflow_id = getState().workflow.id;
 
-    apiClient.type('subjects/queued').get({ workflow_id: id })
-      .then((queue) => {
-        const currentSubject = queue.shift();
-        dispatch({
-          currentSubject,
-          favorite: currentSubject.favorite || false,
-          type: FETCH_SUBJECT_SUCCESS,
-          queue
+    dispatch({ type: FETCH_SUBJECT });
+
+    const subjectQuery = { workflow_id };
+
+    const fetchQueue = () => {
+      apiClient.type('subjects/queued').get(subjectQuery)
+        .then((queue) => {
+          const currentSubject = queue.shift();
+          dispatch({
+            currentSubject,
+            id: currentSubject.id,
+            queue,
+            type: FETCH_SUBJECT_SUCCESS,
+            favorite: currentSubject.favorite || false
+          });
+
+          prepareForNewSubject(dispatch, currentSubject);
+        })
+        .catch((err) => {
+          console.error('ducks/subject.js fetchSubject() error: ', err);
+          dispatch({ type: FETCH_SUBJECT_ERROR });
         });
-        prepareForNewSubject(dispatch, currentSubject);
-      })
-      .catch((err) => {
-        console.error('ducks/subject.js fetchSubject() error: ', err);
-        dispatch({ type: FETCH_SUBJECT_ERROR });
+    };
+
+    if (!getState().subject.queue.length) {
+      fetchQueue();
+    } else {
+      const currentSubject = getState().subject.queue.shift();
+      dispatch({
+        currentSubject,
+        id: currentSubject.id,
+        queue: getState().subject.queue,
+        type: FETCH_SUBJECT_SUCCESS,
+        favorite: currentSubject.favorite || false
       });
+
+      prepareForNewSubject(dispatch, currentSubject);
+    }
   };
 };
 
@@ -135,7 +156,7 @@ const toggleFavorite = () => {
 export default subjectReducer;
 
 export {
-  fetchQueue,
+  fetchSubject,
   subjectError,
   toggleFavorite,
   SUBJECT_STATUS
