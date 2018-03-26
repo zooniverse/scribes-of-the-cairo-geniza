@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { config } from '../config';
 import { toggleDialog } from '../ducks/dialog';
 import {
   setSubjectCompletionAnswers, submitClassification
@@ -26,17 +27,38 @@ class FinishedPrompt extends React.Component {
   }
 
   onDoneAndTalk() {
-    console.log('talk');
+    let talkUrl = `${config.host}projects/${config.projectSlug}/talk`;
+
+    if (this.props.currentSubject) {
+      talkUrl += `/subjects/${this.props.currentSubject.id}`;
+    }
+    window.open(talkUrl, '_blank');
+
+    // this.props.dispatch(submitClassification());
+    // this.props.dispatch(toggleDialog(null));
+  }
+
+  answersMatchQuestions() {
+    let numberOfAnswersMatchQuestions = true;
+
+    if (this.props.subjectCompletionAnswers && this.props.workflow) {
+      const numberOfQuestions = Object.keys(this.props.workflow.tasks)
+        .map(taskId => Object.assign({}, this.props.workflow.tasks[taskId], { taskId }))
+        .filter(task => isAQuestionTask(task, this.props.workflow)).length;
+      const numberOfAnswers = Object.keys(this.props.subjectCompletionAnswers).length;
+      numberOfAnswersMatchQuestions = numberOfQuestions === numberOfAnswers;
+    }
+    return numberOfAnswersMatchQuestions;
   }
 
   render() {
+    const answersMatchQuestions = this.answersMatchQuestions();
     const tasks = (this.props.workflow.tasks)
       ? Object.keys(this.props.workflow.tasks).map(taskId =>
         Object.assign({}, this.props.workflow.tasks[taskId], { taskId })
       )
         .filter(task => isAQuestionTask(task, this.props.workflow))
       : [];
-
     return (
       <div className="finished-prompt handle">
         <h2 className="h1-font">Has everything been transcribed?</h2>
@@ -86,8 +108,14 @@ class FinishedPrompt extends React.Component {
         })}
         <div className="finished-prompt__buttons">
           <button className="button" onClick={this.onCancel}>Cancel</button>
-          <button className="button" onClick={this.onDone}>Done</button>
-          <button className="button button__dark" onClick={this.onDoneAndTalk}>Done & Talk</button>
+          <button className="button" disabled={!answersMatchQuestions} onClick={this.onDone}>Done</button>
+          <button
+            className="button button__dark"
+            disabled={!answersMatchQuestions}
+            onClick={this.onDoneAndTalk}
+          >
+            Done & Talk
+          </button>
         </div>
       </div>
     );
@@ -103,6 +131,9 @@ function isAQuestionTask(task, workflow) {
 }
 
 FinishedPrompt.propTypes = {
+  currentSubject: PropTypes.shape({
+    id: PropTypes.string
+  }),
   dispatch: PropTypes.func,
   subjectCompletionAnswers: PropTypes.object,
   workflow: PropTypes.shape({
@@ -111,12 +142,14 @@ FinishedPrompt.propTypes = {
 };
 
 FinishedPrompt.defaultProps = {
+  currentSubject: null,
   dispatch: () => {},
   subjectCompletionAnswers: null,
   workflow: null
 };
 
 const mapStateToProps = state => ({
+  currentSubject: state.subject.currentSubject,
   subjectCompletionAnswers: state.classification.subjectCompletionAnswers,
   workflow: state.workflow.data
 });
