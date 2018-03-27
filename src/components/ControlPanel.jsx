@@ -20,10 +20,10 @@ class ControlPanel extends React.Component {
     this.toggleIcon = this.toggleIcon.bind(this);
     this.toggleFieldGuide = this.toggleFieldGuide.bind(this);
     this.fetchTutorial = this.fetchTutorial.bind(this);
-    this.showTutorial = this.showTutorial.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePanel = this.togglePanel.bind(this);
     this.toggleCribSheet = this.toggleCribSheet.bind(this);
+    this.toggleTutorial = this.toggleTutorial.bind(this);
 
     this.state = {
       showPanel: true,
@@ -69,18 +69,22 @@ class ControlPanel extends React.Component {
     return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions, 'CribSheet'));
   }
 
-  fetchTutorial(props) {
-    if (props.workflow && props.preferences && props.tutorialStatus === TUTORIAL_STATUS.IDLE) {
-      this.props.dispatch(fetchTutorial(props.workflow));
+  toggleTutorial() {
+    if (this.props.dialogComponent === 'Tutorial') {
+      return this.props.dispatch(toggleDialog(null));
     }
-  }
 
-  showTutorial() {
     if (this.props.tutorial) {
       const dimensions = { height: 515, width: 400 };
       this.props.dispatch(toggleDialog(
         <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
       ));
+    }
+  }
+
+  fetchTutorial(props) {
+    if (props.workflow && props.preferences && props.tutorialStatus === TUTORIAL_STATUS.IDLE) {
+      this.props.dispatch(fetchTutorial(props.workflow));
     }
   }
 
@@ -142,6 +146,7 @@ class ControlPanel extends React.Component {
   render() {
     const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? 'Hide Field Guide' : 'Show Field Guide';
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? 'Hide Crib Sheet' : 'Show Crib Sheet';
+    const tutorialText = this.props.dialogComponent === 'Tutorial' ? 'Hide Tutorial' : 'Show Tutorial';
     const Section = styled.section`
       left: ${props => props.rtl ? '0' : 'auto'};
       right: ${props => props.rtl ? 'auto' : '0'};
@@ -171,7 +176,7 @@ class ControlPanel extends React.Component {
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
-            <button className="button" onClick={this.showTutorial}>Show Tutorial</button>
+            <button className="button" onClick={this.toggleTutorial}>{tutorialText}</button>
           )}
 
           <hr className="white-line" />

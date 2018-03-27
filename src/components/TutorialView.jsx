@@ -63,7 +63,6 @@ class TutorialView extends React.Component {
     }
     const now = new Date().toISOString();
     completedThisSession[this.props.tutorial.id] = now;
-
     if (this.props.user) {
       const projectPreferences = this.props.preferences;
       if (!projectPreferences.preferences) {
