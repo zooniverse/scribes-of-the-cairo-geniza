@@ -35,7 +35,6 @@ class Dialog extends React.Component {
     const children = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, { updateSize: this.updateSize });
     });
-
     return (
       <Rnd
         default={defaultPosition}

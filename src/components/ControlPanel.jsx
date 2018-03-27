@@ -8,6 +8,7 @@ import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
+import TutorialView from '../components/TutorialView';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
 
 class ControlPanel extends React.Component {
@@ -76,7 +77,10 @@ class ControlPanel extends React.Component {
 
   showTutorial() {
     if (this.props.tutorial) {
-      Tutorial.start(Tutorial, this.props.tutorial, this.props.user, this.props.preferences);
+      const dimensions = { height: 515, width: 400 };
+      this.props.dispatch(toggleDialog(
+        <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
+      ));
     }
   }
 
@@ -126,7 +130,6 @@ class ControlPanel extends React.Component {
               'ellipsis__left': this.props.rtl,
               'ellipsis__right': !this.props.rtl
             })}
-            className="body-font"
           >
             Library of the Jewish Theological Seminary
           </span>
