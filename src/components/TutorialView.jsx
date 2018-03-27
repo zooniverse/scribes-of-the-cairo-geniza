@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StepThrough } from 'zooniverse-react-components';
-import { Markdown } from "markdownz";
+import { Markdown } from 'markdownz';
 import { toggleDialog } from '../ducks/dialog';
+
+const completedThisSession = {};
+if (window.tutorialsCompletedThisSession) {
+  window.tutorialsCompletedThisSession = completedThisSession;
+}
 
 class TutorialView extends React.Component {
   constructor() {
     super();
 
+    this.previousActiveElement = document.activeElement;
     this.closeTutorial = this.closeTutorial.bind(this);
     this.advanceTutorial = this.advanceTutorial.bind(this);
 
@@ -34,6 +40,10 @@ class TutorialView extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.handleUnmount();
+  }
+
   closeTutorial() {
     this.props.dispatch(toggleDialog(null));
   }
@@ -44,6 +54,28 @@ class TutorialView extends React.Component {
     if (swiper) {
       swiper.swipe.next();
       swiper.handleScroll();
+    }
+  }
+
+  handleUnmount() {
+    if (this.previousActiveElement.focus) {
+      this.previousActiveElement.focus();
+    }
+    const now = new Date().toISOString();
+    completedThisSession[this.props.tutorial.id] = now;
+
+    if (this.props.user) {
+      const projectPreferences = this.props.preferences;
+      if (!projectPreferences.preferences) {
+        projectPreferences.preferences = {};
+      }
+      if (!projectPreferences.preferences.tutorials_completed_at) {
+        projectPreferences.preferences.tutorials_completed_at = {};
+      }
+      const changes = {};
+      changes[`preferences.tutorials_completed_at.${this.props.tutorial.id}`] = now;
+      projectPreferences.update(changes);
+      projectPreferences.save();
     }
   }
 
@@ -83,8 +115,14 @@ class TutorialView extends React.Component {
 
 TutorialView.propTypes = {
   dispatch: PropTypes.func,
-  preferences: PropTypes.object,
-  tutorial: PropTypes.object,
+  preferences: PropTypes.shape({
+    preferences: PropTypes.object
+  }),
+  tutorial: PropTypes.shape({
+    get: PropTypes.func,
+    id: PropTypes.string,
+    steps: PropTypes.array
+  }),
   user: PropTypes.shape({
     id: PropTypes.string
   })
