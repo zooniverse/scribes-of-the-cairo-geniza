@@ -99,7 +99,8 @@ export default {
     deletePrompt: '?למחוק את גזירת המסך',
     deletePrompt2: '.פעולה זו אינה ניתנת לשחזור',
     cancel: 'בטל מחיקה',
-    confirm: 'כן, מחק'
+    confirm: 'כן, מחק',
+    deny: 'No, continue transcribing'
   },
   helpers: {
     getStarted: '"כדי להתחיל, לחץ על "הוסף תעתוק',

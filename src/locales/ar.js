@@ -103,7 +103,8 @@ export default {
     deletePrompt: '?هل تريد حذف هذا المقتطف',
     deletePrompt2: '.لا يمكن التراجع عن هذا الإجراء',
     cancel: 'لا، إلغاء ذلك',
-    confirm: 'نعم، حذف'
+    confirm: 'نعم، حذف',
+    deny: 'No, continue transcribing'
   },
   helpers: {
     getStarted: 'تبدأ بالنقر على "إضافة النسخ"',

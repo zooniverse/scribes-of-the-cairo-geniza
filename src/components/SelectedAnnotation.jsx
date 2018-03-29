@@ -206,7 +206,7 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(togglePopup(
       <QuestionPrompt
         confirm={this.props.translate('cribSheet.confirm')}
-        deny="No, continue transcribing"
+        deny={this.props.translate('cribSheet.deny')}
         notes={notes}
         onConfirm={this.deleteAnnotation}
         onDeny={this.closePopup}

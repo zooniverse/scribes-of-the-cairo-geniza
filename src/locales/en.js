@@ -103,7 +103,8 @@ export default {
     deletePrompt: 'Delete this snippet?',
     deletePrompt2: 'This action cannot be undone.',
     cancel: 'No, cancel',
-    confirm: 'Yes, delete'
+    confirm: 'Yes, delete',
+    deny: 'No, continue transcribing'
   },
   helpers: {
     getStarted: 'Get started by clicking "Add Transcription"',
