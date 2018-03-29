@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
+import MODERN_ARABIC from '../lib/ArabicKeyboard';
 
 class AnnotationKeyboard extends React.Component {
   constructor() {
