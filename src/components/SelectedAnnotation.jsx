@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { toggleDialog, togglePopup } from '../ducks/dialog';
-import { pressedKey, setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
+import {
+  pressedKey, setKeyboard,
+  toggleLanguage, toggleKeyboard,
+  toggleModern, LANGUAGES
+} from '../ducks/keyboard';
 import {
   deleteSelectedAnnotation,
   unselectAnnotation, updateText
@@ -36,6 +40,7 @@ class SelectedAnnotation extends React.Component {
     this.addHebrewLetter = this.addHebrewLetter.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
+    this.changeLanguage = this.changeLanguage.bind(this);
 
     this.state = {
       showScriptOptions: false
@@ -57,7 +62,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   onKeyUp(e) {
-    const character = Utility.getHebrewChar(e);
+    const character = Utility.getLangChar(e, this.props.keyboardLanguage);
 
     if (character !== false) {
       this.props.dispatch(pressedKey(null));
@@ -68,7 +73,7 @@ class SelectedAnnotation extends React.Component {
     if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) {
       return;
     }
-    const character = Utility.getHebrewChar(e);
+    const character = Utility.getLangChar(e, this.props.keyboardLanguage);
 
     if (Utility.getKeyCode(e) === KEY_VALUES.Enter) {
       this.saveText();
@@ -98,13 +103,13 @@ class SelectedAnnotation extends React.Component {
     const startText = text.substring(0, startIndex);
     const endText = text.substring(endIndex);
 
-    this.inputText.value = startText + letter.unicode + endText;
+    this.inputText.value = startText + letter.character + endText;
     this.inputText.focus();
     this.inputText.setSelectionRange(startIndex + 1, startIndex + 1);
   }
 
   toggleKeyboardView() {
-    const dimensions = { height: 250, width: 700 };
+    const dimensions = { height: 250, width: 760 };
     if (!this.props.showKeyboard) {
       dimensions.height = 600;
     }
@@ -148,6 +153,10 @@ class SelectedAnnotation extends React.Component {
       return;
     }
     this.setState({ showScriptOptions: false });
+  }
+
+  changeLanguage(language) {
+    this.props.dispatch(toggleLanguage(language));
   }
 
   closeAnnotation() {
@@ -298,6 +307,11 @@ class SelectedAnnotation extends React.Component {
                 )}
                 <button onClick={this.nextScript}>&#9658;</button>
               </div>
+              {/* This div is only used until we get workflow selection set up by language */}
+              <div>
+                <button onClick={this.changeLanguage.bind(this, 'Arabic')}>Arabic</button>
+                <button onClick={this.changeLanguage.bind(this, 'Hebrew')}>Hebrew</button>
+              </div>
               <div className="round-toggle">
                 <input
                   id="modern"
@@ -328,6 +342,7 @@ SelectedAnnotation.propTypes = {
   }),
   dispatch: PropTypes.func,
   keyboardIndex: PropTypes.number,
+  keyboardLanguage: PropTypes.string,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
@@ -341,6 +356,7 @@ SelectedAnnotation.defaultProps = {
   activeScript: KeyboardOptions[0],
   dispatch: () => {},
   keyboardIndex: 0,
+  keyboardLanguage: LANGUAGES.HEBREW,
   selectedAnnotation: null,
   showKeyboard: true,
   showModernKeyboard: true,
@@ -352,6 +368,7 @@ const mapStateToProps = state => ({
   activeScript: state.keyboard.activeScript,
   currentLanguage: getActiveLanguage(state.locale).code,
   keyboardIndex: state.keyboard.index,
+  keyboardLanguage: state.keyboard.activeLanguage,
   showKeyboard: state.keyboard.showKeyboard,
   showModernKeyboard: state.keyboard.modern,
   selectedAnnotation: state.annotations.selectedAnnotation,

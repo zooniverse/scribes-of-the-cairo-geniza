@@ -4,6 +4,8 @@ Utility Class
 ********************************************************************************
  */
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
+import MODERN_ARABIC from '../lib/ArabicKeyboard';
+import { LANGUAGES } from '../ducks/keyboard';
 
 export const Utility = {
   stopEvent: function (e) {
@@ -33,10 +35,13 @@ export const Utility = {
     return 0;
   },
 
-  getHebrewChar(e) {
+  getLangChar(e, lang) {
+    const keyboard = lang === LANGUAGES.HEBREW ? MODERN_HEBREW : MODERN_ARABIC;
+    const codeMap = lang === LANGUAGES.HEBREW ? HEBREW_KEY_CODES : ARABIC_KEY_CODES;
+
     //If the user has a natural Hebrew keyboard, maybe don't override what their input with our onscreen keyboard input.
     const nativeKey = e.key;  //WARNING: may need to check that KeyEvent.key is consistent across all browsers. I'm looking at you, IE11! https://caniuse.com/#search=keyboardevent.key
-    const nativeCharacter = (nativeKey) && Object.values(MODERN_HEBREW).find((val) => {
+    const nativeCharacter = (nativeKey) && Object.values(keyboard).find((val) => {
       return (val.character === nativeKey);
     });
     if (nativeCharacter) return nativeCharacter;
@@ -45,9 +50,9 @@ export const Utility = {
     //their input based on the physical key pressed.
     const keyCode = this.getKeyCode(e);
 
-    const character = HEBREW_KEY_CODES[keyCode];
+    const character = codeMap[keyCode];
     if (character) {
-      return MODERN_HEBREW[character];
+      return keyboard[character];
     }
 
     return false;
@@ -226,4 +231,40 @@ export const HEBREW_KEY_CODES = {
   186: 'phehSofit',
   188: 'tav',
   190: 'tsadiSofit'
+};
+
+export const ARABIC_KEY_CODES = {
+  81: 'dad',
+  87: 'sad',
+  69: 'thaa',
+  82: 'qaf',
+  84: 'feh',
+  89: 'ghain',
+  85: 'ain',
+  73: 'heh',
+  79: 'khah',
+  80: 'hah',
+  219: 'jeem',
+  221: 'tehMarbuta',
+  65: 'sheen',
+  83: 'seen',
+  68: 'yeh',
+  70: 'beh',
+  71: 'lam',
+  72: 'alef',
+  74: 'teh',
+  75: 'nun',
+  76: 'meem',
+  186: 'kaf',
+  222: 'hamza',
+  90: 'zah',
+  88: 'tah',
+  67: 'dahal',
+  86: 'dal',
+  66: 'zain',
+  78: 'reh',
+  77: 'waw',
+  188: 'alefLam',
+  190: 'behDotless',
+  191: 'alefMaksura'
 };

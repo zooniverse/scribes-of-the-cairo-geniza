@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { LANGUAGES } from '../ducks/keyboard';
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
 import MODERN_ARABIC from '../lib/ArabicKeyboard';
 
@@ -20,14 +21,21 @@ class AnnotationKeyboard extends React.Component {
     this.lettersToRows();
   }
 
+  componentWillReceiveProps(next) {
+    if (next.keyboardLanguage !== this.props.keyboardLanguage) {
+      this.lettersToRows(next);
+    }
+  }
+
   letterClick(letter) {
     this.props.onLetterClick(letter);
   }
 
-  lettersToRows() {
+  lettersToRows(props = this.props) {
+    const alphabet = props.keyboardLanguage === LANGUAGES.HEBREW ? MODERN_HEBREW : MODERN_ARABIC;
     const byRow = [];
-    Object.keys(MODERN_HEBREW).map((key) => {
-      const letter = MODERN_HEBREW[key];
+    Object.keys(alphabet).map((key) => {
+      const letter = alphabet[key];
       if (!byRow[letter.row]) {
         byRow[letter.row] = [];
       }
@@ -53,8 +61,13 @@ class AnnotationKeyboard extends React.Component {
         style={styles}
       >
         {this.props.showModern && (
-          <span>{characterRep}</span>
+          <div>
+            {Object.keys(characterRep).map((key) => {
+              return <span key={letter + key} className={`annotation-keyboard__${this.props.keyboardLanguage}`}>{characterRep[key]}</span>;
+            })}
+          </div>
         )}
+
       </button>
     );
   }
@@ -88,6 +101,7 @@ AnnotationKeyboard.propTypes = {
     img: PropTypes.string,
     name: PropTypes.string
   }),
+  keyboardLanguage: PropTypes.string,
   onLetterClick: PropTypes.func,
   onEnter: PropTypes.func,
   showModern: PropTypes.bool
@@ -96,6 +110,7 @@ AnnotationKeyboard.propTypes = {
 AnnotationKeyboard.defaultProps = {
   activeKey: null,
   activeScript: null,
+  keyboardLanguage: LANGUAGES.HEBREW,
   onLetterClick: () => {},
   onEnter: () => {},
   showModern: true
@@ -104,6 +119,7 @@ AnnotationKeyboard.defaultProps = {
 const mapStateToProps = state => ({
   activeKey: state.keyboard.activeKey,
   activeScript: state.keyboard.activeScript,
+  keyboardLanguage: state.keyboard.activeLanguage,
   showModern: state.keyboard.modern
 });
 

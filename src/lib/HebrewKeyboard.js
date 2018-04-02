@@ -1,192 +1,192 @@
 const MODERN_HEBREW = {
   quf: {
-    character: 'ק',
+    character: '\u05E7',
     characterID: 1,
     name: 'quf',
     row: 0,
-    unicode: '\u05E7'
+    unicode: { character: '\u05E7' }
   },
   resh: {
-    character: 'ר',
+    character: '\u05E8',
     characterID: 2,
     name: 'resh',
     row: 0,
-    unicode: '\u05E8'
+    unicode: { character: '\u05E8' }
   },
   alef: {
-    character: 'א',
+    character: '\u05D0',
     characterID: 3,
     name: 'alef',
     row: 0,
-    unicode: '\u05D0'
+    unicode: { character: '\u05D0' }
   },
   tet: {
-    character: 'ט',
+    character: '\u05D8',
     characterID: 4,
     name: 'tet',
     row: 0,
-    unicode: '\u05D8'
+    unicode: { character: '\u05D8' }
   },
   vav: {
-    character: 'ו',
+    character: '\u05D5',
     characterID: 5,
     name: 'vav',
     row: 0,
-    unicode: '\u05D5'
+    unicode: { character: '\u05D5' }
   },
   nunSofit: {
-    character: 'ן',
+    character: '\u05DF',
     characterID: 6,
     name: 'nunSofit',
     row: 0,
-    unicode: '\u05DF'
+    unicode: { character: '\u05DF' }
   },
   memSofit: {
-    character: 'ם',
+    character: '\u05DD',
     characterID: 7,
     name: 'memSofit',
     row: 0,
-    unicode: '\u05DD'
+    unicode: { character: '\u05DD' }
   },
   peh: {
-    character: 'פ',
+    character: '\u05E4',
     characterID: 8,
     name: 'peh',
     row: 0,
-    unicode: '\u05E4'
+    unicode: { character: '\u05E4' }
   },
   shin: {
-    character: 'ש',
+    character: '\u05E9',
     characterID: 9,
     name: 'shin',
     row: 1,
-    unicode: '\u05E9'
+    unicode: { character: '\u05E9' }
   },
   dalet: {
-    character: 'ד',
+    character: '\u05D3',
     characterID: 10,
     name: 'dalet',
     row: 1,
-    unicode: '\u05D3'
+    unicode: { character: '\u05D3' }
   },
   gimmel: {
-    character: 'ג',
+    character: '\u05D2',
     characterID: 11,
     name: 'gimmel',
     row: 1,
-    unicode: '\u05D2'
+    unicode: { character: '\u05D2' }
   },
   khaf: {
-    character: 'כ',
+    character: '\u05DB',
     characterID: 12,
     name: 'khaf',
     row: 1,
-    unicode: '\u05DB'
+    unicode: { character: '\u05DB' }
   },
   ayin: {
-    character: 'ע',
+    character: '\u05E2',
     characterID: 13,
     name: 'ayin',
     row: 1,
-    unicode: '\u05E2'
+    unicode: { character: '\u05E2' }
   },
   yud: {
-    character: 'י',
+    character: '\u05D9',
     characterID: 14,
     name: 'yud',
     row: 1,
-    unicode: '\u05D9'
+    unicode: { character: '\u05D9' }
   },
   het: {
-    character: 'ח',
+    character: '\u05D7',
     characterID: 15,
     name: 'het',
     row: 1,
-    unicode: '\u05D7'
+    unicode: { character: '\u05D7' }
   },
   lamed: {
-    character: 'ל',
+    character: '\u05DC',
     characterID: 16,
     name: 'lamed',
     row: 1,
-    unicode: '\u05DC'
+    unicode: { character: '\u05DC' }
   },
   khafSofit: {
-    character: 'ך',
+    character: '\u05DA',
     characterID: 17,
     name: 'khafSofit',
     row: 1,
-    unicode: '\u05DA'
+    unicode: { character: '\u05DA' }
   },
   phehSofit: {
-    character: 'ף',
+    character: '\u05E3',
     characterID: 18,
     name: 'phehSofit',
     row: 1,
-    unicode: '\u05E3'
+    unicode: { character: '\u05E3' }
   },
   zaylin: {
-    character: 'ז',
+    character: '\u05D6',
     characterID: 19,
     name: 'zaylin',
     row: 2,
-    unicode: '\u05D6'
+    unicode: { character: '\u05D6' }
   },
   samekh: {
-    character: 'ס',
+    character: '\u05E1',
     characterID: 20,
     name: 'samekh',
     row: 2,
-    unicode: '\u05E1'
+    unicode: { character: '\u05E1' }
   },
   bet: {
-    character: 'ב',
+    character: '\u05D1',
     characterID: 21,
     name: 'bet',
     row: 2,
-    unicode: '\u05D1'
+    unicode: { character: '\u05D1' }
   },
   hey: {
-    character: 'ה',
+    character: '\u05D4',
     characterID: 22,
     name: 'hey',
     row: 2,
-    unicode: '\u05D4'
+    unicode: { character: '\u05D4' }
   },
   nun: {
-    character: 'נ',
+    character: '\u05E0',
     characterID: 23,
     name: 'nun',
     row: 2,
-    unicode: '\u05E0'
+    unicode: { character: '\u05E0' }
   },
   mem: {
-    character: 'מ',
+    character: '\u05DE',
     characterID: 24,
     name: 'mem',
     row: 2,
-    unicode: '\u05DE'
+    unicode: { character: '\u05DE' }
   },
   tsadi: {
-    character: 'צ',
+    character: '\u05E6',
     characterID: 25,
     name: 'tsadi',
     row: 2,
-    unicode: '\u05E6'
+    unicode: { character: '\u05E6' }
   },
   tav: {
-    character: 'ת',
+    character: '\u05EA',
     characterID: 26,
     name: 'tav',
     row: 2,
-    unicode: '\u05EA'
+    unicode: { character: '\u05EA' }
   },
   tsadiSofit: {
-    character: 'ץ',
+    character: '\u05E5',
     characterID: 27,
     name: 'tsadiSofit',
     row: 2,
-    unicode: '\u05E5'
+    unicode: { character: '\u05E5' }
   }
 };
 

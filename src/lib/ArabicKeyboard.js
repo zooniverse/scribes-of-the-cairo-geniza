@@ -5,10 +5,10 @@ const MODERN_ARABIC = {
     name: 'dad',
     row: 0,
     unicode: {
-      final: '\ufebe',
-      medial: '\ufec0',
+      isolated: '\ufebd',
       initial: '\ufebf',
-      isolated: '\ufebd'
+      final: '\ufebe',
+      medial: '\ufec0'
     }
   },
   sad: {
@@ -17,10 +17,10 @@ const MODERN_ARABIC = {
     name: 'sad',
     row: 0,
     unicode: {
-      final: '\ufeba',
-      medial: '\ufebc',
+      isolated: '\ufeb9',
       initial: '\ufebb',
-      isolated: '\ufeb9'
+      final: '\ufeba',
+      medial: '\ufebc'
     }
   },
   thaa: {
@@ -29,10 +29,10 @@ const MODERN_ARABIC = {
     name: 'thaa',
     row: 0,
     unicode: {
-      final: '\ufe9a',
-      medial: '\ufe9c',
+      isolated: '\ufe99',
       initial: '\ufe9b',
-      isolated: '\ufe99'
+      final: '\ufe9a',
+      medial: '\ufe9c'
     }
   },
   qaf: {
@@ -41,10 +41,10 @@ const MODERN_ARABIC = {
     name: 'qaf',
     row: 0,
     unicode: {
-      final: '\ufed6',
-      medial: '\ufed8',
+      isolated: '\ufed5',
       initial: '\ufed7',
-      isolated: '\ufed5'
+      final: '\ufed6',
+      medial: '\ufed8'
     }
   },
   feh: {
@@ -53,10 +53,10 @@ const MODERN_ARABIC = {
     name: 'feh',
     row: 0,
     unicode: {
-      final: '\ufed2',
-      medial: '\ufed4',
+      isolated: '\ufed1',
       initial: '\ufed3',
-      isolated: '\ufed1'
+      final: '\ufed2',
+      medial: '\ufed4'
     }
   },
   ghain: {
@@ -65,10 +65,10 @@ const MODERN_ARABIC = {
     name: 'ghain',
     row: 0,
     unicode: {
-      final: '\ufece',
-      medial: '\ufed0',
+      isolated: '\ufecd',
       initial: '\ufecf',
-      isolated: '\ufecd'
+      final: '\ufece',
+      medial: '\ufed0'
     }
   },
   ain: {
@@ -77,10 +77,10 @@ const MODERN_ARABIC = {
     name: 'ain',
     row: 0,
     unicode: {
-      final: '\ufeca',
-      medial: '\ufecc',
+      isolated: '\ufec9',
       initial: '\ufecb',
-      isolated: '\ufec9'
+      final: '\ufeca',
+      medial: '\ufecc'
     }
   },
   heh: {
@@ -89,10 +89,10 @@ const MODERN_ARABIC = {
     name: 'heh',
     row: 0,
     unicode: {
-      final: '\ufeea',
-      medial: '\ufeec',
+      isolated: '\ufee9',
       initial: '\ufeeb',
-      isolated: '\ufee9'
+      final: '\ufeea',
+      medial: '\ufeec'
     }
   },
   khah: {
@@ -101,10 +101,10 @@ const MODERN_ARABIC = {
     name: 'khah',
     row: 0,
     unicode: {
-      final: '\ufea6',
-      medial: '\ufea8',
+      isolated: '\ufea5',
       initial: '\ufea7',
-      isolated: '\ufea5'
+      final: '\ufea6',
+      medial: '\ufea8'
     }
   },
   hah: {
@@ -113,10 +113,10 @@ const MODERN_ARABIC = {
     name: 'hah',
     row: 0,
     unicode: {
-      final: '\ufea2',
-      medial: '\ufea4',
+      isolated: '\ufea1',
       initial: '\ufea3',
-      isolated: '\ufea1'
+      final: '\ufea2',
+      medial: '\ufea4'
     }
   },
   jeem: {
@@ -125,10 +125,10 @@ const MODERN_ARABIC = {
     name: 'jeem',
     row: 0,
     unicode: {
-      final: '\ufe9e',
-      medial: '\uFEA0',
+      isolated: '\ufe9d',
       initial: '\ufe9f',
-      isolated: '\ufe9d'
+      final: '\ufe9e',
+      medial: '\uFEA0'
     }
   },
   tehMarbuta: {
@@ -137,8 +137,8 @@ const MODERN_ARABIC = {
     name: 'heh',
     row: 0,
     unicode: {
-      final: '\ufe94',
-      isolated: '\ufe93'
+      isolated: '\ufe93',
+      final: '\ufe94'
     }
   },
   sheen: {
@@ -147,10 +147,10 @@ const MODERN_ARABIC = {
     name: 'sheen',
     row: 1,
     unicode: {
-      final: '\ufeb6',
-      medial: '\ufeb8',
+      isolated: '\ufeb5',
       initial: '\ufeb7',
-      isolated: '\ufeb5'
+      final: '\ufeb6',
+      medial: '\ufeb8'
     }
   },
   seen: {
@@ -159,10 +159,10 @@ const MODERN_ARABIC = {
     name: 'seen',
     row: 1,
     unicode: {
-      final: '\ufeb2',
-      medial: '\ufeb4',
+      isolated: '\ufeb1',
       initial: '\ufeb3',
-      isolated: '\ufeb1'
+      final: '\ufeb2',
+      medial: '\ufeb4'
     }
   },
   yeh: {
@@ -171,10 +171,10 @@ const MODERN_ARABIC = {
     name: 'yeh',
     row: 1,
     unicode: {
-      final: '\ufef2',
-      medial: '\ufef4',
+      isolated: '\ufef1',
       initial: '\ufef3',
-      isolated: '\ufef1'
+      final: '\ufef2',
+      medial: '\ufef4'
     }
   },
   beh: {
@@ -183,10 +183,10 @@ const MODERN_ARABIC = {
     name: 'beh',
     row: 1,
     unicode: {
-      final: '\ufe90',
-      medial: '\ufe92',
+      isolated: '\ufe8f',
       initial: '\ufe91',
-      isolated: '\ufe8f'
+      final: '\ufe90',
+      medial: '\ufe92'
     }
   },
   lam: {
@@ -195,10 +195,10 @@ const MODERN_ARABIC = {
     name: 'lam',
     row: 1,
     unicode: {
-      final: '\ufede',
-      medial: '\ufee0',
+      isolated: '\ufedd',
       initial: '\ufedf',
-      isolated: '\ufedd'
+      final: '\ufede',
+      medial: '\ufee0'
     }
   },
   alef: {
@@ -207,20 +207,20 @@ const MODERN_ARABIC = {
     name: 'alef',
     row: 1,
     unicode: {
-      initial: '\ufe8d',
-      isolated: '\u0627'
+      isolated: '\u0627',
+      initial: '\ufe8e'
     }
   },
   teh: {
     character: '\u062a',
     characterID: 19,
     name: 'teh',
-    row: 0,
+    row: 1,
     unicode: {
-      final: '\ufe96',
-      medial: '\ufe98',
+      isolated: '\ufe95',
       initial: '\ufe97',
-      isolated: '\ufe95'
+      final: '\ufe96',
+      medial: '\ufe98'
     }
   },
   nun: {
@@ -229,10 +229,10 @@ const MODERN_ARABIC = {
     name: 'nun',
     row: 1,
     unicode: {
-      final: '\ufee6',
-      medial: '\ufee8',
+      isolated: '\ufee5',
       initial: '\ufee7',
-      isolated: '\ufee5'
+      final: '\ufee6',
+      medial: '\ufee8'
     }
   },
   meem: {
@@ -241,10 +241,10 @@ const MODERN_ARABIC = {
     name: 'meem',
     row: 1,
     unicode: {
-      final: '\ufee2',
-      medial: '\ufee4',
+      isolated: '\ufee1',
       initial: '\ufee3',
-      isolated: '\ufee1'
+      final: '\ufee2',
+      medial: '\ufee4'
     }
   },
   kaf: {
@@ -253,10 +253,10 @@ const MODERN_ARABIC = {
     name: 'kaf',
     row: 1,
     unicode: {
-      final: '\ufeda',
-      medial: '\ufedc',
+      isolated: '\ufed9',
       initial: '\ufedb',
-      isolated: '\ufed9'
+      final: '\ufeda',
+      medial: '\ufedc'
     }
   },
   hamza: {
@@ -274,10 +274,10 @@ const MODERN_ARABIC = {
     name: 'zah',
     row: 2,
     unicode: {
-      final: '\ufec6',
-      medial: '\ufec8',
+      isolated: '\ufec5',
       initial: '\ufec7',
-      isolated: '\ufec5'
+      final: '\ufec6',
+      medial: '\ufec8'
     }
   },
   tah: {
@@ -286,20 +286,20 @@ const MODERN_ARABIC = {
     name: 'tah',
     row: 2,
     unicode: {
-      final: '\ufec2',
-      medial: '\ufec4',
+      isolated: '\ufec1',
       initial: '\ufec3',
-      isolated: '\ufec1'
+      final: '\ufec2',
+      medial: '\ufec4'
     }
   },
   dahal: {
-    character: '\u068C',
+    character: '\u0630',
     characterID: 26,
     name: 'dahal',
     row: 2,
     unicode: {
-      final: '\ufb85',
-      isolated: '\ufb84'
+      isolated: '\ufeab',
+      final: '\ufeac'
     }
   },
   dal: {
@@ -308,8 +308,8 @@ const MODERN_ARABIC = {
     name: 'dal',
     row: 2,
     unicode: {
-      final: '\ufeaa',
-      isolated: '\ufea9'
+      isolated: '\ufea9',
+      final: '\ufeaa'
     }
   },
   zain: {
@@ -318,8 +318,8 @@ const MODERN_ARABIC = {
     name: 'zain',
     row: 2,
     unicode: {
-      final: '\ufeb0',
-      isolated: '\ufeaf'
+      isolated: '\ufeaf',
+      final: '\ufeb0'
     }
   },
   reh: {
@@ -328,8 +328,8 @@ const MODERN_ARABIC = {
     name: 'reh',
     row: 2,
     unicode: {
-      final: '\ufeae',
-      isolated: '\ufead'
+      isolated: '\ufead',
+      final: '\ufeae'
     }
   },
   waw: {
@@ -338,8 +338,8 @@ const MODERN_ARABIC = {
     name: 'waw',
     row: 2,
     unicode: {
-      final: '\ufeee',
-      isolated: '\ufeed'
+      isolated: '\ufeed',
+      final: '\ufeee'
     }
   },
   alefLam: {
@@ -348,8 +348,8 @@ const MODERN_ARABIC = {
     name: 'alefLam',
     row: 2,
     unicode: {
-      final: '\ufefc',
-      isolated: '\ufefb'
+      isolated: '\ufefb',
+      final: '\ufefc'
     }
   },
   behDotless: {

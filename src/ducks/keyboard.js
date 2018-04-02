@@ -1,7 +1,13 @@
 import { KeyboardOptions } from '../lib/KeyboardTypes';
 
+const LANGUAGES = {
+  ARABIC: 'Arabic',
+  HEBREW: 'Hebrew'
+};
+
 const initialState = {
   activeKey: null,
+  activeLanguage: LANGUAGES.HEBREW,
   activeScript: KeyboardOptions[0],
   modern: true,
   showKeyboard: true,
@@ -12,6 +18,7 @@ const PRESSED_KEY = 'PRESSED_KEY';
 const SET_KEYBOARD = 'SET_KEYBOARD';
 const TOGGLE_KEYBOARD = 'TOGGLE_KEYBOARD';
 const TOGGLE_MODERN = 'TOGGLE_MODERN';
+const SET_LANGUAGE = 'SET_LANGUAGE';
 
 const keyboardReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -34,6 +41,11 @@ const keyboardReducer = (state = initialState, action) => {
     case PRESSED_KEY:
       return Object.assign({}, state, {
         activeKey: action.character
+      });
+
+    case SET_LANGUAGE:
+      return Object.assign({}, state, {
+        activeLanguage: action.language
       });
 
     default:
@@ -86,11 +98,22 @@ const pressedKey = (character) => {
   };
 };
 
+const toggleLanguage = (language) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_LANGUAGE,
+      language
+    });
+  };
+};
+
 export default keyboardReducer;
 
 export {
+  LANGUAGES,
   pressedKey,
   setKeyboard,
+  toggleLanguage,
   toggleKeyboard,
   toggleModern
 };
