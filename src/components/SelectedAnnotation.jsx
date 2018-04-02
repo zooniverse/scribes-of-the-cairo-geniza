@@ -37,7 +37,7 @@ class SelectedAnnotation extends React.Component {
     this.closeDropdown = this.closeDropdown.bind(this);
     this.previousScript = this.previousScript.bind(this);
     this.nextScript = this.nextScript.bind(this);
-    this.addHebrewLetter = this.addHebrewLetter.bind(this);
+    this.addLetterChar = this.addLetterChar.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
@@ -85,7 +85,7 @@ class SelectedAnnotation extends React.Component {
 
     if (character !== false) {
       e.preventDefault();
-      this.addHebrewLetter(character);
+      this.addLetterChar(character);
       this.props.dispatch(pressedKey(character.name));
     }
   }
@@ -94,7 +94,7 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(toggleModern());
   }
 
-  addHebrewLetter(letter) {
+  addLetterChar(letter) {
     if (!this.inputText) return;
     const text = this.inputText.value;
     const startIndex = this.inputText.selectionStart;
@@ -326,7 +326,7 @@ class SelectedAnnotation extends React.Component {
               </div>
             </div>
             <div className="selected-annotation__keyboard">
-              <AnnotationKeyboard onLetterClick={this.addHebrewLetter} onEnter={this.saveText} />
+              <AnnotationKeyboard onLetterClick={this.addLetterChar} onEnter={this.saveText} />
             </div>
           </div>
         )}
