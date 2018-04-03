@@ -249,5 +249,13 @@ export default {
       Bodleian Libraries at the University of Oxford, The British Library, and The
       National Library of Israel.
     `
+  },
+  textModifiers: {
+    insertion: 'insertion',
+    deletion: 'deletion',
+    damaged: 'damaged',
+    drawing: 'drawing',
+    grid: 'grid',
+    divineName: 'divineName'
   }
 };

@@ -41,8 +41,10 @@ class SelectedAnnotation extends React.Component {
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
+    this.addTextModifier = this.addTextModifier.bind(this);
 
     this.state = {
+      disableSubmit: true,
       showScriptOptions: false
     };
   }
@@ -65,6 +67,9 @@ class SelectedAnnotation extends React.Component {
     if (this.props.activeKey) {
       this.props.dispatch(pressedKey(null));
     }
+
+    const disableSubmit = !this.inputText.value.length;
+    this.setState({ disableSubmit });
   }
 
   onKeyDown(e) {
@@ -109,6 +114,9 @@ class SelectedAnnotation extends React.Component {
     this.inputText.value = startText + character + endText;
     this.inputText.focus();
     this.inputText.setSelectionRange(startIndex + 1, startIndex + 1);
+
+    const disableSubmit = !this.inputText.value.length;
+    this.setState({ disableSubmit });
   }
 
   toggleKeyboardView() {
@@ -187,6 +195,42 @@ class SelectedAnnotation extends React.Component {
         question="Are you sure you want to close without saving?"
         title="Close Annotation"
       />));
+  }
+
+  addTextModifier(textTag) {
+    const textTitle = this.props.translate(`textModifiers.${textTag}`);
+    console.log(textTitle);
+    let value;
+    let textAfter;
+    let textInBetween;
+
+    const startTag = '[' + textTag + ']';
+    const endTag = '[/' + textTag + ']';
+    const text = this.inputText;
+    const textAreaValue = text.value;
+    const selectionStart = text.selectionStart;
+    const selectionEnd = text.selectionEnd;
+    const textBefore = textAreaValue.substring(0, selectionStart);
+    if (selectionStart === selectionEnd) {
+      textAfter = textAreaValue.substring(selectionStart, textAreaValue.length);
+      if (textTag === 'unclear') {
+        value = textBefore + startTag + textAfter;
+      } else {
+        value = textBefore + startTag + endTag + textAfter;
+      }
+    } else {
+      textInBetween = textAreaValue.substring(selectionStart, selectionEnd);
+      textAfter = textAreaValue.substring(selectionEnd, textAreaValue.length);
+      if (textTag === 'unclear') {
+        value = textBefore + startTag + textInBetween + textAfter;
+      } else {
+        value = textBefore + startTag + textInBetween + endTag + textAfter;
+      }
+    }
+
+    this.setState({
+      annotationText: this.cleanText(value),
+    });
   }
 
   toggleScriptOptions() {
@@ -275,6 +319,14 @@ class SelectedAnnotation extends React.Component {
           onMouseUp={() => { this.annotationBox.className = ENABLE_DRAG; }}
           placeholder={this.props.translate('transcribeBox.textArea')}
         />
+        <div className="selected-annotation__text-modifiers">
+          <button onClick={this.addTextModifier.bind(this, 'insertion')}>Insertion</button>
+          <button onClick={this.addTextModifier.bind(this, 'deletion')}>Deletion</button>
+          <button onClick={this.addTextModifier.bind(this, 'damaged')}>Damaged</button>
+          <button onClick={this.addTextModifier.bind(this, 'drawing')}>Drawing</button>
+          <button onClick={this.addTextModifier.bind(this, 'grid')}>Grid</button>
+          <button onClick={this.addTextModifier.bind(this, 'divineName')}>Divine Name</button>
+        </div>
         <div className="selected-annotation__controls">
           <div>
             <div className="round-toggle">
@@ -297,7 +349,7 @@ class SelectedAnnotation extends React.Component {
           </div>
           <div>
             <button className="button" onClick={this.deletePrompt}>{this.props.translate('cribSheet.delete')}</button>
-            <button className="button button__dark" onClick={this.saveText}>{this.props.translate('transcribeBox.done')}</button>
+            <button className="button button__dark" disabled={this.state.disableSubmit} onClick={this.saveText}>{this.props.translate('transcribeBox.done')}</button>
           </div>
         </div>
         {this.props.showKeyboard && (
