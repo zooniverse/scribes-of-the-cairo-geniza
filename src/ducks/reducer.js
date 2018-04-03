@@ -15,6 +15,7 @@ import collections from './collections';
 import cribSheet from './crib-sheet';
 import languages from './languages';
 import keyboard from './keyboard';
+import translations from './translations';
 
 export default combineReducers({
   annotations,
@@ -31,6 +32,7 @@ export default combineReducers({
   project,
   subject,
   subjectViewer,
+  translations,
   tutorial,
   workflow
 });
