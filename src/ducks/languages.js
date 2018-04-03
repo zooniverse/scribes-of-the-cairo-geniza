@@ -1,3 +1,11 @@
+import {
+  addTranslationForLanguage, initialize, setActiveLanguage
+} from 'react-localize-redux';
+
+import english from '../locales/en';
+import arabic from '../locales/ar';
+import hebrew from '../locales/he';
+
 const LANGUAGES = {
   ENGLISH: 'English',
   HEBREW: 'Hebrew',
@@ -31,7 +39,6 @@ const setLanguage = (language) => {
     if (language === LANGUAGES.HEBREW || language === LANGUAGES.ARABIC) {
       rtl = true;
     }
-
     let newLang = 'en';
     if (language === LANGUAGES.HEBREW) {
       newLang = 'he';
@@ -41,6 +48,7 @@ const setLanguage = (language) => {
     if (document.documentElement.lang) {
       document.documentElement.lang = newLang;
     }
+    dispatch(setActiveLanguage(newLang));
 
     dispatch({
       type: SET_LANGUAGE,
@@ -50,9 +58,20 @@ const setLanguage = (language) => {
   };
 };
 
+const initializeLanguages = () => {
+  return (dispatch) => {
+    const languages = ['en', 'ar', 'he'];
+    dispatch(initialize(languages));
+    dispatch(addTranslationForLanguage(english, 'en'));
+    dispatch(addTranslationForLanguage(hebrew, 'he'));
+    dispatch(addTranslationForLanguage(arabic, 'ar'));
+  };
+};
+
 export default languagesReducer;
 
 export {
+  initializeLanguages,
   setLanguage,
   LANGUAGES
 };
