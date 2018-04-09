@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { localeReducer as locale } from 'react-localize-redux';
 import dialog from './dialog';
 import fieldGuide from './field-guide';
 import initialize from './initialize';
@@ -23,6 +24,7 @@ export default combineReducers({
   dialog,
   fieldGuide,
   initialize,
+  locale,
   keyboard,
   languages,
   login,

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Tutorial } from 'zooniverse-react-components';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
@@ -59,7 +61,7 @@ class ControlPanel extends React.Component {
       return this.props.dispatch(toggleDialog(null));
     }
     return this.props.dispatch(toggleDialog(
-      <FieldGuide guide={this.props.guide} icons={this.props.icons} />, 'Field Guide', undefined, 'FieldGuide'));
+      <FieldGuide guide={this.props.guide} icons={this.props.icons} />, this.props.translate('fieldGuide.title'), undefined, 'FieldGuide'));
   }
 
   toggleCribSheet() {
@@ -89,7 +91,7 @@ class ControlPanel extends React.Component {
   }
 
   toggleButton() {
-    const text = this.state.showInfo ? 'Collapse Name & Attribution' : 'Expand Name & Attribution';
+    const text = this.state.showInfo ? this.props.translate('infoBox.collapseName') : this.props.translate('infoBox.expandName');
     return <button className="control-panel__toggle" onClick={this.toggleInfo}>{text}</button>;
   }
 
@@ -124,29 +126,28 @@ class ControlPanel extends React.Component {
     return (
       <div className="control-panel__info">
         <div>
-          <span className="primary-label">Name</span>
+          <span className="primary-label">{this.props.translate('infoBox.name')}</span>
           <span className="body-font">ENA NS 78 0117</span>
         </div>
         <div>
-          <span className="primary-label">Attribution</span>
+          <span className="primary-label">{this.props.translate('infoBox.attribution')}</span>
           <span
             className={classnames('body-font ellipsis', {
               'ellipsis__left': this.props.rtl,
               'ellipsis__right': !this.props.rtl
             })}
-            className="body-font"
           >
             Library of the Jewish Theological Seminary
           </span>
         </div>
-        <a href="/" className="text-link">Library Catalog Page</a>
+        <a href="/" className="text-link">{this.props.translate('infoBox.libraryCatalog')}</a>
       </div>
     );
   }
 
   render() {
-    const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? 'Hide Field Guide' : 'Show Field Guide';
-    const cribSheetText = this.props.dialogComponent === 'CribSheet' ? 'Hide Crib Sheet' : 'Show Crib Sheet';
+    const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? this.props.translate('infoBox.hideGuide') : this.props.translate('infoBox.showGuide');
+    const cribSheetText = this.props.dialogComponent === 'CribSheet' ? this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
     const Section = styled.section`
       left: ${props => props.rtl ? '0' : 'auto'};
       right: ${props => props.rtl ? 'auto' : '0'};
@@ -161,7 +162,7 @@ class ControlPanel extends React.Component {
         rtl={this.props.rtl}
       >
         <div className="control-panel__header">
-          <h4 className="primary-label">Subject info</h4>
+          <h4 className="primary-label">{this.props.translate('infoBox.subjectInfo')}</h4>
           {this.toggleIcon()}
         </div>
         <hr className="plum-line" />
@@ -176,15 +177,15 @@ class ControlPanel extends React.Component {
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
-            <button className="button" onClick={this.showTutorial}>Show Tutorial</button>
+            <button className="button" onClick={this.showTutorial}>{this.props.translate('infoBox.showTutorial')}</button>
           )}
 
           <hr className="white-line" />
 
           <div>
-            <button className="button">Transcribe Page Reverse</button>
-            <button className="button">Save Progress</button>
-            <button className="button button__dark" onClick={this.finishedPrompt}>Done</button>
+            <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
+            <button className="button">{this.props.translate('infoBox.saveProgress')}</button>
+            <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
           </div>
         </div>
       </Section>
@@ -225,6 +226,7 @@ ControlPanel.propTypes = {
   icons: PropTypes.object,
   preferences: PropTypes.object,
   rtl: PropTypes.bool,
+  translate: PropTypes.func,
   tutorial: PropTypes.shape({
     steps: PropTypes.array
   }),
@@ -246,6 +248,7 @@ ControlPanel.defaultProps = {
   icons: null,
   preferences: null,
   rtl: false,
+  translate: () => {},
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
@@ -254,12 +257,14 @@ ControlPanel.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
+    currentLanguage: getActiveLanguage(state.locale).code,
     dialog: state.dialog.data,
     dialogComponent: state.dialog.component,
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
     rtl: state.languages.rtl,
+    translate: getTranslate(state.locale),
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,
