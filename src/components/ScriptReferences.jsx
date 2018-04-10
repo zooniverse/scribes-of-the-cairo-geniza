@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+
 import { KeyboardOptions, KEYBOARD_TYPES } from '../lib/KeyboardTypes';
 import { setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
 import {
@@ -54,7 +56,7 @@ class ScriptReferences extends React.Component {
     const allActive = this.props.activeFilters.length === 3;
     return (
       <div className="script-references__filter">
-        <span className="secondary-label">Filter Scripts By</span>
+        <span className="secondary-label">{this.props.translate('scriptReferences.filterBy')}</span>
         <div>
           {Object.keys(KEYBOARD_TYPES).map((key, i) => {
             const isActive = this.props.activeFilters.indexOf(KEYBOARD_TYPES[key]) >= 0;
@@ -66,7 +68,7 @@ class ScriptReferences extends React.Component {
                 key={`SCRIPT_FILTER_${i}`}
                 onClick={this.toggleFilter.bind(this, key)}
               >
-                {KEYBOARD_TYPES[key]}
+                {this.props.translate(`scriptReferences.${KEYBOARD_TYPES[key].toLowerCase()}`)}
               </button>
             );
           })}
@@ -100,7 +102,7 @@ class ScriptReferences extends React.Component {
   }
 
   renderLetters() {
-    const text = !this.state.keyboardSent ? 'Send Script to Keyboard \u2192' : 'Sent'
+    const text = !this.state.keyboardSent ? `${this.props.translate('scriptReferences.sendScript')} \u2192` : 'Sent'
 
     return (
       <div className="script-references__letters">
@@ -133,10 +135,11 @@ class ScriptReferences extends React.Component {
 
     return (
       <div className="script-references__groups" key={`${type}_KEYBOARDS`}>
-        <span>{type}</span>
+        <span>{this.props.translate(`scriptReferences.${type.toLowerCase()}`)}</span>
         <span>One sentence about where {type} is found.</span>
         <div className="script-references__scripts">
           {collection.map((script, i) => {
+            const scriptTitle = script.name.toLowerCase().replace(/\s+/g, '');
             const styles = {};
             styles.backgroundImage = `url('${script.img}')`;
             return (
@@ -145,7 +148,7 @@ class ScriptReferences extends React.Component {
                   <div className="alef" style={styles} />
                   <div className={`script-references__script ${script.class}`} />
                 </button>
-                <span>{script.name}</span>
+                <span>{this.props.translate(`scriptReferences.types.${scriptTitle}`)}</span>
               </div>
             );
           })}
@@ -169,11 +172,10 @@ class ScriptReferences extends React.Component {
   }
 
   render() {
-    const toggleText = this.props.scriptSelection ? 'Back' : 'Change';
+    const toggleText = this.props.scriptSelection ? this.props.translate('scriptReferences.back') : this.props.translate('scriptReferences.changeScript');
     const rightPanel = !this.props.scriptSelection ? (
       <span className="body-font">
-        Change the script type to see variations in character
-        formation based on location and time period.
+        {this.props.translate('scriptReferences.changeInstructions')}
       </span>) : this.renderFilters();
     const bodyRender = this.props.scriptSelection ? this.renderScripts() : this.renderLetters();
 
@@ -181,7 +183,7 @@ class ScriptReferences extends React.Component {
       <div className="script-references handle">
         <div className="script-references__header">
           <div>
-            <span className="secondary-label">Current Script Type</span>
+            <span className="secondary-label">{this.props.translate('scriptReferences.currentScript')}</span>
             <div>
               <span className="h1-font">{this.props.activeScript.name} {this.props.activeScript.type}</span>
               <button className="text-link" onClick={this.toggleSelection}>{toggleText}</button>
@@ -206,20 +208,24 @@ ScriptReferences.propTypes = {
     type: PropTypes.string
   }),
   dispatch: PropTypes.func,
-  scriptSelection: PropTypes.bool
+  scriptSelection: PropTypes.bool,
+  translate: PropTypes.func
 };
 
 ScriptReferences.defaultProps = {
   activeFilters: [],
   activeScript: KeyboardOptions[0],
   dispatch: () => {},
-  scriptSelection: false
+  scriptSelection: false,
+  translate: () => {}
 };
 
 const mapStateToProps = state => ({
   activeScript: state.cribSheet.activeScript,
   activeFilters: state.cribSheet.activeFilters,
-  scriptSelection: state.cribSheet.scriptSelection
+  currentLanguage: getActiveLanguage(state.locale).code,
+  scriptSelection: state.cribSheet.scriptSelection,
+  translate: getTranslate(state.locale)
 });
 
 export default connect(mapStateToProps)(ScriptReferences);

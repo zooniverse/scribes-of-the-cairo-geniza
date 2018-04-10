@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+
 import { toggleDialog, togglePopup } from '../ducks/dialog';
 import { pressedKey, setKeyboard, toggleKeyboard, toggleModern } from '../ducks/keyboard';
 import {
@@ -203,8 +205,8 @@ class SelectedAnnotation extends React.Component {
     const notes = emptyText ? 'You cannot save an empty transcription.' : '';
     this.props.dispatch(togglePopup(
       <QuestionPrompt
-        confirm="Yes, delete"
-        deny="No, continue transcribing"
+        confirm={this.props.translate('cribSheet.confirm')}
+        deny={this.props.translate('cribSheet.deny')}
         notes={notes}
         onConfirm={this.deleteAnnotation}
         onDeny={this.closePopup}
@@ -233,7 +235,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   render() {
-    const keyboardToggleText = this.props.showKeyboard ? 'Close Keyboard' : 'Show Keyboard';
+    const keyboardToggleText = this.props.showKeyboard ? this.props.translate('transcribeBox.closeKeyboard') : this.props.translate('transcribeBox.openKeyboard');
     let currentScript = 'Current Script';
     if (this.props.activeScript && this.props.activeScript.name && this.props.activeScript.type) {
       currentScript = `${this.props.activeScript.name} ${this.props.activeScript.type}`;
@@ -242,14 +244,14 @@ class SelectedAnnotation extends React.Component {
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
         <div className="selected-annotation__header">
           <div>
-            <h2 className="primary-label">Transcribe</h2>
+            <h2 className="primary-label">{this.props.translate('transcribeBox.title')}</h2>
             <hr className="plum-line" />
           </div>
           <button className="close-button" onClick={this.closePrompt}>X</button>
         </div>
         <div className="selected-annotation__instructions">
-          <span>The Hebrew language reads from right to left, so start on the right side. </span>
-          <span>Check out examples of different alphabets in the Crib Sheet.</span>
+          <span>{this.props.translate('transcribeBox.instructions')}</span>
+          <span>{this.props.translate('transcribeBox.instructions2')}</span>
         </div>
         <input
           type="text"
@@ -259,6 +261,7 @@ class SelectedAnnotation extends React.Component {
           onKeyUp={this.onKeyUp}
           onMouseDown={() => { this.annotationBox.className = DISABLE_DRAG; }}
           onMouseUp={() => { this.annotationBox.className = ENABLE_DRAG; }}
+          placeholder={this.props.translate('transcribeBox.textArea')}
         />
         <div className="selected-annotation__controls">
           <div>
@@ -276,14 +279,14 @@ class SelectedAnnotation extends React.Component {
             <button className="text-link" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
           </div>
           <div>
-            <button className="button" onClick={this.deletePrompt}>Delete</button>
-            <button className="button button__dark" onClick={this.saveText}>Done</button>
+            <button className="button" onClick={this.deletePrompt}>{this.props.translate('cribSheet.delete')}</button>
+            <button className="button button__dark" onClick={this.saveText}>{this.props.translate('transcribeBox.done')}</button>
           </div>
         </div>
         {this.props.showKeyboard && (
           <div className="selected-annotation__keyboard-div">
             <hr />
-            <span className="secondary-label">Current Script Type</span>
+            <span className="secondary-label">{this.props.translate('scriptReferences.currentScript')}</span>
             <div>
               <div className="selected-annotation__script-select">
                 <button onClick={this.previousScript}>&#9664;</button>
@@ -330,6 +333,7 @@ SelectedAnnotation.propTypes = {
   }),
   showKeyboard: PropTypes.bool,
   showModernKeyboard: PropTypes.bool,
+  translate: PropTypes.func,
   updateSize: PropTypes.func
 };
 
@@ -340,15 +344,18 @@ SelectedAnnotation.defaultProps = {
   selectedAnnotation: null,
   showKeyboard: true,
   showModernKeyboard: true,
+  translate: () => {},
   updateSize: () => {}
 };
 
 const mapStateToProps = state => ({
   activeScript: state.keyboard.activeScript,
+  currentLanguage: getActiveLanguage(state.locale).code,
   keyboardIndex: state.keyboard.index,
   showKeyboard: state.keyboard.showKeyboard,
   showModernKeyboard: state.keyboard.modern,
-  selectedAnnotation: state.annotations.selectedAnnotation
+  selectedAnnotation: state.annotations.selectedAnnotation,
+  translate: getTranslate(state.locale)
 });
 
 export default connect(mapStateToProps)(SelectedAnnotation);

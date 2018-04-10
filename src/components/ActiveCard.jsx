@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+
 import { activateCard } from '../ducks/crib-sheet';
 import { togglePopup } from '../ducks/dialog';
 import QuestionPrompt from './QuestionPrompt';
@@ -26,34 +28,6 @@ class ActiveCard extends React.Component {
     };
   }
 
-  deactivateCard() {
-    this.props.dispatch(activateCard(null));
-  }
-
-  handleInputChange() {
-    const emptyField = this.inputText.value.length === 0;
-
-    if (!emptyField && this.state.disableSave === true) {
-      this.setState({ disableSave: false });
-    } else if (emptyField && this.state.disableSave === false) {
-      this.setState({ disableSave: true });
-    }
-  }
-
-  editCardText() {
-    if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
-      const cribCopy = this.props.preferences.preferences.cribsheet.slice();
-      cribCopy[this.props.activeCardIndex].name = this.inputText.value;
-      this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
-      this.deactivateCard();
-    }
-  }
-
-  toggleEditBox() {
-    const editBox = !this.state.editBox;
-    this.setState({ editBox });
-  }
-
   onDelete() {
     if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
       const cribCopy = this.props.preferences.preferences.cribsheet.slice();
@@ -69,29 +43,57 @@ class ActiveCard extends React.Component {
     this.props.dispatch(togglePopup(null));
   }
 
+  toggleEditBox() {
+    const editBox = !this.state.editBox;
+    this.setState({ editBox });
+  }
+
+  editCardText() {
+    if (this.props.preferences.preferences && this.props.preferences.preferences.cribsheet) {
+      const cribCopy = this.props.preferences.preferences.cribsheet.slice();
+      cribCopy[this.props.activeCardIndex].name = this.inputText.value;
+      this.props.preferences.update({ 'preferences.cribsheet': cribCopy }).save();
+      this.deactivateCard();
+    }
+  }
+
+  handleInputChange() {
+    const emptyField = this.inputText.value.length === 0;
+
+    if (!emptyField && this.state.disableSave === true) {
+      this.setState({ disableSave: false });
+    } else if (emptyField && this.state.disableSave === false) {
+      this.setState({ disableSave: true });
+    }
+  }
+
+  deactivateCard() {
+    this.props.dispatch(activateCard(null));
+  }
+
   deleteCardPrompt() {
     this.props.dispatch(togglePopup(
       <QuestionPrompt
-        confirm="Yes, delete"
-        deny="No, cancel"
-        notes="This action cannot be undone."
+        confirm={this.props.translate('cribSheet.confirm')}
+        deny={this.props.translate('cribSheet.cancel')}
+        notes={this.props.translate('cribSheet.deletePrompt2')}
         onConfirm={this.onClose}
         onDeny={this.onDelete}
-        question="Delete this snippet?"
-        title="Delete"
+        question={this.props.translate('cribSheet.deletePrompt')}
+        title={this.props.translate('cribSheet.delete')}
       />));
   }
 
   render() {
     const card = this.props.activeCard;
-    const editText = this.state.editBox ? 'Save' : 'Edit';
+    const editText = this.state.editBox ? this.props.translate('cribSheet.save') : this.props.translate('cribSheet.edit');
     const editFunction = this.state.editBox ? this.editCardText : this.toggleEditBox;
     const disabled = this.state.disableSave && this.state.editBox;
 
     return (
       <div className="active-crib-card">
         <button className="text-link" onClick={this.deactivateCard}>
-          Back
+          {this.props.translate('scriptReferences.back')}
         </button>
 
         <div className={ENABLE_DRAG} ref={(c) => { this.dialog = c; }}>
@@ -119,7 +121,7 @@ class ActiveCard extends React.Component {
             )}
           </div>
           <div>
-            <button className="button" onClick={this.deleteCardPrompt}>Delete</button>
+            <button className="button" onClick={this.deleteCardPrompt}>{this.props.translate('cribSheet.delete')}</button>
             <button className="button button__dark" disabled={disabled} onClick={editFunction}>{editText}</button>
           </div>
         </div>
@@ -138,21 +140,25 @@ ActiveCard.propTypes = {
   preferences: PropTypes.shape({
     preferences: PropTypes.object,
     update: PropTypes.func
-  })
+  }),
+  translate: PropTypes.func
 };
 
 ActiveCard.defaultProps = {
   activeCard: null,
   activeCardIndex: null,
   dispatch: () => {},
-  preferences: {}
+  preferences: {},
+  translate: () => {}
 };
 
 const mapStateToProps = (state) => {
   return {
     activeCard: state.cribSheet.activeCard,
     activeCardIndex: state.cribSheet.activeCardIndex,
-    preferences: state.project.userPreferences
+    currentLanguage: getActiveLanguage(state.locale).code,
+    preferences: state.project.userPreferences,
+    translate: getTranslate(state.locale)
   };
 };
 

@@ -1,6 +1,7 @@
 import { fetchProject } from './project';
 import { fetchWorkflow } from './workflow';
 import { fetchGuide } from './field-guide';
+import { initializeLanguages } from './languages';
 
 const FETCH_RESOURCES = 'FETCH_RESOURCES';
 const FETCH_RESOURCES_SUCCESS = 'FETCH_RESOURCES_SUCCESS';
@@ -40,6 +41,7 @@ const initializeReducer = (state = initialState, action) => {
 const fetchResources = () => {
   return (dispatch) => {
     dispatch({ type: FETCH_RESOURCES });
+    dispatch(initializeLanguages());
 
     Promise.all([
       dispatch(fetchProject()),
