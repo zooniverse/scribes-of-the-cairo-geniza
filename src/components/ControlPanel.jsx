@@ -7,7 +7,7 @@ import { Tutorial } from 'zooniverse-react-components';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
-import { toggleDialog } from '../ducks/dialog';
+import { toggleDialog, togglePopup } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
 import TutorialView from '../components/TutorialView';
@@ -45,7 +45,9 @@ class ControlPanel extends React.Component {
     this.fetchTutorial(nextProps);
 
     if (nextProps.tutorial !== this.props.tutorial) {
-      Tutorial.startIfNecessary(Tutorial, nextProps.tutorial, nextProps.user, nextProps.preferences);
+      Tutorial.checkIfCompleted(nextProps.tutorial, nextProps.user, nextProps.preferences).then((completed) => {
+        if (!completed) { this.toggleTutorial(); }
+      });
     }
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
@@ -78,7 +80,7 @@ class ControlPanel extends React.Component {
 
     if (this.props.tutorial) {
       const dimensions = { height: 515, width: 400 };
-      this.props.dispatch(toggleDialog(
+      this.props.dispatch(togglePopup(
         <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
       ));
     }

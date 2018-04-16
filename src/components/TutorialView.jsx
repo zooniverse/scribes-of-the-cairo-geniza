@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
-import { toggleDialog } from '../ducks/dialog';
+import { togglePopup } from '../ducks/dialog';
 
 const completedThisSession = {};
 if (window.tutorialsCompletedThisSession) {
@@ -45,7 +45,7 @@ class TutorialView extends React.Component {
   }
 
   closeTutorial() {
-    this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(togglePopup(null));
   }
 
   advanceTutorial() {
@@ -53,7 +53,7 @@ class TutorialView extends React.Component {
 
     if (swiper) {
       swiper.swipe.next();
-      swiper.handleScroll();
+      this.stepThrough.goNext();
     }
   }
 
@@ -84,28 +84,34 @@ class TutorialView extends React.Component {
     }
 
     return (
-      <div className="tutorial">
-        <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
-          {this.props.tutorial.steps.map((step) => {
-            if (!step._key) {
-              step._key = Math.random();
-            }
-            let source;
-            if (this.state.media[step.media]) {
-              source = this.state.media[step.media].src;
-            }
+      <div className="tutorial-container">
+        <div className="tutorial">
+          <div className="tutorial__header">
+            <span>Tutorial</span>
+            <button onClick={this.closeTutorial}>X</button>
+          </div>
+          <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
+            {this.props.tutorial.steps.map((step) => {
+              if (!step._key) {
+                step._key = Math.random();
+              }
+              let source;
+              if (this.state.media[step.media]) {
+                source = this.state.media[step.media].src;
+              }
 
-            return (
-              <div key={step._key} className="tutorial-step">
-                <img alt="Tutorial" src={source} />
-                <Markdown>{step.content}</Markdown>
-              </div>
-            );
-          })}
-        </StepThrough>
-        <div>
-          <button className="button" onClick={this.closeTutorial}>Close</button>
-          <button className="button button__dark" onClick={this.advanceTutorial}>Next</button>
+              return (
+                <div key={step._key} className="tutorial-step">
+                  <img alt="Tutorial" src={source} />
+                  <Markdown>{step.content}</Markdown>
+                </div>
+              );
+            })}
+          </StepThrough>
+          <div>
+            <button className="button" onClick={this.closeTutorial}>Close</button>
+            <button className="button button__dark" onClick={this.advanceTutorial}>Next</button>
+          </div>
         </div>
       </div>
     );
