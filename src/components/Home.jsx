@@ -1,6 +1,7 @@
 import React from 'react';
 import { ZooniverseLogo, ZooniverseLogotype } from 'zooniverse-react-components';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Penn from '../images/penn.png';
@@ -12,7 +13,7 @@ import Scroll from '../images/hebrew-fragment.png';
 import Arabic from '../images/arabic-big.png';
 import HomeStatistics from './HomeStatistics';
 
-const Home = ({ rtl }) => {
+const Home = ({ rtl, translate }) => {
   const Img = styled.img`
     right: ${props => props.rtl ? 'auto' : '0'};
     left: ${props => props.rtl ? '0' : 'auto'};
@@ -26,7 +27,7 @@ const Home = ({ rtl }) => {
         <img alt="Arabic Text" src={Arabic} />
         <div>
           <ZooniverseLogotype width="100px" />
-          <h1>Scribes of the Cairo Geniza</h1>
+          <h1>{translate('topNav.site')}</h1>
         </div>
         <hr className="plum-line" />
         <div>
@@ -130,16 +131,19 @@ const Home = ({ rtl }) => {
 };
 
 Home.propTypes = {
-  rtl: PropTypes.bool
+  rtl: PropTypes.bool,
+  translate: PropTypes.func
 };
 
 Home.defaultProps = {
-  rtl: false
+  rtl: false,
+  translate: () => {}
 };
 
 const mapStateToProps = state => ({
-  rtl: state.languages.rtl
+  currentLanguage: getActiveLanguage(state.locale).code,
+  rtl: state.languages.rtl,
+  translate: getTranslate(state.locale)
 });
-
 
 export default connect(mapStateToProps)(Home);
