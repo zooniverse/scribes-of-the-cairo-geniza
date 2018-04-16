@@ -88,7 +88,14 @@ class AnnotationKeyboard extends React.Component {
       <div className="annotation-keyboard">
         {this.state.lettersByRows.map((row, i) => this.renderRow(row, i))}
         <div>
-          <button className="annotation-keyboard__button space-button">Space</button>
+          <button
+            className={classnames('annotation-keyboard__button space-button', {
+              'char-button__active': this.props.activeKey === 'space'
+            })}
+            onClick={this.props.onLetterClick}
+          >
+            Space
+          </button>
         </div>
       </div>
     );

@@ -45,7 +45,8 @@ const keyboardReducer = (state = initialState, action) => {
 
     case SET_LANGUAGE:
       return Object.assign({}, state, {
-        activeLanguage: action.language
+        activeLanguage: action.language,
+        modern: action.modern
       });
 
     default:
@@ -99,10 +100,16 @@ const pressedKey = (character) => {
 };
 
 const toggleLanguage = (language) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    let modern = !getState().keyboard.modern;
+    if (language === LANGUAGES.ARABIC) {
+      modern = true;
+    }
+
     dispatch({
       type: SET_LANGUAGE,
-      language
+      language,
+      modern
     });
   };
 };
