@@ -1,6 +1,7 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 import { createClassification } from './classification';
+import { resetAnnotations } from './annotations';
 
 // Action Types
 const FETCH_SUBJECT = 'FETCH_SUBJECT';
@@ -54,6 +55,7 @@ const subjectReducer = (state = initialState, action) => {
 };
 
 const prepareForNewSubject = (dispatch, subject) => {
+  dispatch(resetAnnotations());
   dispatch(createClassification(subject));
 };
 
