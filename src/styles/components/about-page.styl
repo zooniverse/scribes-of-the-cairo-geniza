@@ -117,15 +117,14 @@
 
     h3
       @extend .primary-label
-      margin: 0 0 0.5rem 1rem
+      margin-bottom: 0.5rem
 
     span
       @extend .body-font
       display: block
       font-size: 0.75rem
-      margin: 0 2rem 2rem 1rem
 
-    div
+    > div
       max-width: 33%
       margin: 0 auto
 
@@ -134,6 +133,9 @@
 
       @media(max-width: 550px)
         max-width: 100%
+
+      div
+        margin: 0 1rem 2rem 1rem
 
   &__thanks
     padding: 1.5rem 2rem
@@ -145,3 +147,5 @@
 
     span
       @extend .body-font
+      display: block
+      margin-bottom: 1rem

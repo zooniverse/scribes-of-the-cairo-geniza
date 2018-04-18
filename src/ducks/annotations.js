@@ -6,6 +6,7 @@ const UPDATE_TEXT = 'UPDATE_TEXT';
 const SELECT_ANNOTATION = 'SELECT_ANNOTATION';
 const UNSELECT_ANNOTATION = 'UNSELECT_ANNOTATION';
 const DELETE_SELECTED_ANNOTATION = 'DELETE_SELECTED_ANNOTATION';
+const RESET_ANNOTATIONS = 'RESET_ANNOTATIONS';
 
 const ANNOTATION_STATUS = {
   IDLE: 'annotation_status_idle',
@@ -23,6 +24,9 @@ const initialState = {
 
 const annotationsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_ANNOTATIONS:
+      return initialState;
+
     case ADD_ANNOTATION_POINT: {
       const annotationInProgress = (state.annotationInProgress)
         ? Object.assign({}, state.annotationInProgress)
@@ -160,10 +164,16 @@ const deleteSelectedAnnotation = () => {
   };
 };
 
+const resetAnnotations = () => {
+  return (dispatch) => {
+    dispatch({ type: RESET_ANNOTATIONS });
+  };
+};
+
 export default annotationsReducer;
 
 export {
   addAnnotationPoint, completeAnnotation,
-  deleteSelectedAnnotation, selectAnnotation,
-  updateText, unselectAnnotation
+  deleteSelectedAnnotation, resetAnnotations,
+  selectAnnotation, updateText, unselectAnnotation
 };

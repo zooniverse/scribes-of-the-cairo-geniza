@@ -11,6 +11,7 @@ import { toggleDialog, togglePopup } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
 import TutorialView from '../components/TutorialView';
+import FinishedPrompt from '../components/FinishedPrompt';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
 
 class ControlPanel extends React.Component {
@@ -26,6 +27,7 @@ class ControlPanel extends React.Component {
     this.togglePanel = this.togglePanel.bind(this);
     this.toggleCribSheet = this.toggleCribSheet.bind(this);
     this.toggleTutorial = this.toggleTutorial.bind(this);
+    this.finishedPrompt = this.finishedPrompt.bind(this);
 
     this.state = {
       showPanel: true,
@@ -124,6 +126,12 @@ class ControlPanel extends React.Component {
     this.setState({ showPanel: !this.state.showPanel });
   }
 
+  finishedPrompt() {
+    this.props.dispatch(toggleDialog(
+      <FinishedPrompt />, 'Finished'
+    ));
+  }
+
   showSubjectInfo() {
     return (
       <div className="control-panel__info">
@@ -189,7 +197,7 @@ class ControlPanel extends React.Component {
           <div>
             <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
             <button className="button">{this.props.translate('infoBox.saveProgress')}</button>
-            <button className="button button__dark">{this.props.translate('infoBox.finished')}</button>
+            <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
           </div>
         </div>
       </Section>

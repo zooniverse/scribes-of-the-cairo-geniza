@@ -1,33 +1,35 @@
 import React from 'react';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Connect from '../Connect';
 import Penn from '../../images/penn.png';
 import JTSLogo from '../../images/jts_logo.png';
 import Princeton from '../../images/princeton_geniza.png';
 import Genizah from '../../images/genizah_research.png';
-import TheTeam from '../../lib/team';
 
 const members = {
   Laurie: require('../../images/team/LaurieAllen.jpg'),
-  Jean: require('../../images/team/JeanBauer.png'),
   Samantha: require('../../images/team/SamanthaBlickhan.jpg'),
   Laura: require('../../images/team/LauraNewmanEckstein.jpg'),
   Doug: require('../../images/team/DougEmery.jpg'),
   Mitch: require('../../images/team/MitchFraas.jpg'),
-  Jessica: require('../../images/team/JessicaGoldberg.jpg'),
   Arthur: require('../../images/team/ArthurKiron.jpg'),
+  Raha: null,
   Moshe: require('../../images/team/MosheLavee.png'),
+  Vered: require('../../images/team/VeredKretzmer.png'),
   Eve: require('../../images/team/EveKrakowski.jpg'),
   William: require('../../images/team/WilliamNoel.jpg'),
   Becky: require('../../images/team/BeckyRother.jpg'),
   Marina: require('../../images/team/MarinaRustow.jpg')
 };
 
-export default function AboutLayout({ match }) {
+function AboutLayout({ translate }) {
   return (
     <div className="about-page">
       <section>
         <div className="about-page__intro">
-          <h2>About</h2>
+          <h2>{translate('topNav.about')}</h2>
           <div>
             <hr className="plum-line" />
             <span>
@@ -80,13 +82,17 @@ export default function AboutLayout({ match }) {
         <div className="about-page__team">
           <h2>The team</h2>
           <div className="about-page__members">
-            {TheTeam.map((member, i) => {
+            {Object.keys(members).map((key, i) => {
               return (
                 <div key={`team-member-${i}`}>
-                  <img alt={member.name} src={members[member.photo]} />
+                  {members[key] && (
+                    <img alt={key} src={members[key]} />
+                  )}
                   <hr className="plum-line" />
-                  <h3>{member.name}</h3>
-                  <span>{member.description}</span>
+                  <div>
+                    <h3>{translate(`bios.${key}.name`)}</h3>
+                    <span>{translate(`bios.${key}.description`)}</span>
+                  </div>
                 </div>
               );
             })}
@@ -94,11 +100,8 @@ export default function AboutLayout({ match }) {
           <hr className="plum-line" />
           <div className="about-page__thanks">
             <h3>Special thanks</h3>
-            <span>
-              In addition, special thanks and credit to Jessica Dummer, Scott Enderle,
-              Dr. David Kraemer, Dr. Nita Krevans, Kate Lynch, Gayatri B. Oruganti,
-              Ben Outhwaite, Craig Perry, and Oded Zinger for their contributions.
-            </span>
+            <span>{translate('specialThanks.main')}</span>
+            <span>{translate('specialThanks.additional')}</span>
           </div>
         </div>
         <Connect />
@@ -106,3 +109,18 @@ export default function AboutLayout({ match }) {
     </div>
   );
 }
+
+AboutLayout.propTypes = {
+  translate: PropTypes.func
+};
+
+AboutLayout.defaultProps = {
+  translate: () => {}
+};
+
+const mapStateToProps = state => ({
+  currentLanguage: getActiveLanguage(state.locale).code,
+  translate: getTranslate(state.locale)
+});
+
+export default connect(mapStateToProps)(AboutLayout);
