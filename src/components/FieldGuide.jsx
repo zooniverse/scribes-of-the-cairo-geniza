@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
+import { connect } from 'react-redux';
+import { loadTranslations } from '../ducks/translations';
 
 class FieldGuide extends React.Component {
   constructor(props) {
@@ -20,6 +22,7 @@ class FieldGuide extends React.Component {
 
   componentWillMount() {
     this.groupItems();
+    this.props.dispatch(loadTranslations('field_guide', '40'));
   }
 
   groupItems() {
@@ -70,11 +73,6 @@ class FieldGuide extends React.Component {
   renderActiveCard() {
     if (!this.state.activeCard) { return null; }
     const card = this.state.activeCard;
-    let src;
-
-    if (this.props.icons[card.icon]) {
-      src = this.props.icons[card.icon].src;
-    }
 
     return (
       <div className="active-card">
@@ -126,4 +124,4 @@ FieldGuide.propTypes = {
   icons: PropTypes.object
 };
 
-export default FieldGuide;
+export default connect()(FieldGuide);
