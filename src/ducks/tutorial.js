@@ -52,6 +52,7 @@ const fetchTutorial = (workflow) => {
         });
       })
       .catch((err) => {
+        console.warn('Error Fetching Tutorial:', err);
         dispatch({ type: FETCH_TUTORIAL_ERROR });
       });
   };

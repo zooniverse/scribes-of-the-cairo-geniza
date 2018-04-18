@@ -7,9 +7,10 @@ import { Tutorial } from 'zooniverse-react-components';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
-import { toggleDialog } from '../ducks/dialog';
+import { toggleDialog, togglePopup } from '../ducks/dialog';
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
+import TutorialView from '../components/TutorialView';
 import FinishedPrompt from '../components/FinishedPrompt';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
 
@@ -22,10 +23,10 @@ class ControlPanel extends React.Component {
     this.toggleIcon = this.toggleIcon.bind(this);
     this.toggleFieldGuide = this.toggleFieldGuide.bind(this);
     this.fetchTutorial = this.fetchTutorial.bind(this);
-    this.showTutorial = this.showTutorial.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePanel = this.togglePanel.bind(this);
     this.toggleCribSheet = this.toggleCribSheet.bind(this);
+    this.toggleTutorial = this.toggleTutorial.bind(this);
     this.finishedPrompt = this.finishedPrompt.bind(this);
 
     this.state = {
@@ -46,7 +47,9 @@ class ControlPanel extends React.Component {
     this.fetchTutorial(nextProps);
 
     if (nextProps.tutorial !== this.props.tutorial) {
-      Tutorial.startIfNecessary(Tutorial, nextProps.tutorial, nextProps.user, nextProps.preferences);
+      Tutorial.checkIfCompleted(nextProps.tutorial, nextProps.user, nextProps.preferences).then((completed) => {
+        if (!completed) { this.toggleTutorial(); }
+      });
     }
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
@@ -72,15 +75,22 @@ class ControlPanel extends React.Component {
     return this.props.dispatch(toggleDialog(<CribSheet />, '', dimensions, 'CribSheet'));
   }
 
-  fetchTutorial(props) {
-    if (props.workflow && props.preferences && props.tutorialStatus === TUTORIAL_STATUS.IDLE) {
-      this.props.dispatch(fetchTutorial(props.workflow));
+  toggleTutorial() {
+    if (this.props.dialogComponent === 'Tutorial') {
+      return this.props.dispatch(toggleDialog(null));
+    }
+
+    if (this.props.tutorial) {
+      const dimensions = { height: 515, width: 400 };
+      this.props.dispatch(togglePopup(
+        <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
+      ));
     }
   }
 
-  showTutorial() {
-    if (this.props.tutorial) {
-      Tutorial.start(Tutorial, this.props.tutorial, this.props.user, this.props.preferences);
+  fetchTutorial(props) {
+    if (props.workflow && props.preferences && props.tutorialStatus === TUTORIAL_STATUS.IDLE) {
+      this.props.dispatch(fetchTutorial(props.workflow));
     }
   }
 
@@ -148,6 +158,8 @@ class ControlPanel extends React.Component {
   render() {
     const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? this.props.translate('infoBox.hideGuide') : this.props.translate('infoBox.showGuide');
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
+    const tutorialText = this.props.dialogComponent === 'Tutorial' ? 'Hide Tutorial' : 'Show Tutorial';
+
     const Section = styled.section`
       left: ${props => props.rtl ? '0' : 'auto'};
       right: ${props => props.rtl ? 'auto' : '0'};
@@ -177,7 +189,7 @@ class ControlPanel extends React.Component {
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
-            <button className="button" onClick={this.showTutorial}>{this.props.translate('infoBox.showTutorial')}</button>
+            <button className="button" onClick={this.toggleTutorial}>{this.props.translate('infoBox.showTutorial')}</button>
           )}
 
           <hr className="white-line" />
