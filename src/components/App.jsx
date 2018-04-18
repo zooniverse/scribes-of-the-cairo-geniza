@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ZooHeader, ZooFooter } from 'zooniverse-react-components';
-import { fetchResources } from '../ducks/initialize';
 
+import { fetchResources } from '../ducks/initialize';
+import { generateSessionID } from '../lib/get-session-id';
 import AboutLayout from './about';
 import AuthContainer from '../containers/AuthContainer';
 import ClassifierContainer from '../containers/ClassifierContainer';
@@ -15,6 +16,10 @@ import ProjectHeader from './ProjectHeader';
 class App extends React.Component {
   componentWillMount() {
     this.props.dispatch(fetchResources());
+  }
+
+  componentDidMount() {
+    generateSessionID();
   }
 
   render() {

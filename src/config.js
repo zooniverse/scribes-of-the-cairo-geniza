@@ -22,16 +22,16 @@ if (!env.match(/^(production|staging|development)$/)) {
 const baseConfig = {
   development: {
     panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',  //Scribes of the Cairo Geniza on Staging
-    host: '',
+    host: 'https://master.pfe-preview.zooniverse.org/',
     projectId: '1814',
-    projectSlug: '',
-    workflowId: '3156'
+    projectSlug: 'wgranger-test/scribes-of-the-cairo-geniza-testing',
+    workflowId: '3157'
   },
   production: {
     panoptesAppId: '',
-    host: '',
+    host: 'https://www.zooniverse.org/',
     projectId: '5042',
-    projectSlug: '',
+    projectSlug: 'judaicadh/scribes-of-the-cairo-geniza',
     workflowId: ''
   }
 };
