@@ -39,7 +39,8 @@ class ReduxConnectedReactComponent {
 --------------------------------------------------------------------------------
  */
 
-//import { fetchSavedSubject, prepareForNewSubject, setSubjectId } from './subject';
+import { fetchWorkflow } from './workflow';
+import { fetchSubject } from './subject';
 //import { setAnnotations } from './annotations';
 
 /*
@@ -94,9 +95,7 @@ const save = () => {
     const subjectId = getState().subject.id;
     const annotations = getState().annotations.annotations;
     
-    console.log('!'.repeat(100), workflowId, subjectId, annotations);
-
-    if (workflowId && subjectId) {      
+    if (workflowId && subjectId) {
       const userId = (getState().login.user) ? getState().login.user.id : ANONYMOUS_USER_ID;
       localStorage.setItem(`${userId}.${WORKFLOW_ID_KEY}`, workflowId);
       localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);
@@ -116,6 +115,16 @@ const load = () => {
       const workflowId = localStorage.getItem(`${userId}.${WORKFLOW_ID_KEY}`);
       const subjectId = localStorage.getItem(`${userId}.${SUBJECT_ID_KEY}`);  //TODO: Check if a type conversion is required.
       const annotations = JSON.parse(localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`));
+      
+      Promise.all([
+        dispatch(fetchWorkflow(workflowId)),
+      ]).then(() => {
+        Promise.all([
+          dispatch(fetchSubject(subjectId)),
+        ]).then(() => {
+          console.log('+'.repeat(100), annotations);
+        });
+      });
       
       //dispatch(fetchSavedSubject(subjectId));
       //dispatch(fetchSavedSubject(subjectId));

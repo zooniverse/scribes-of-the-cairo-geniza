@@ -29,6 +29,9 @@ const subjectReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_SUBJECT:
       return Object.assign({}, state, {
+        currentSubject: null,
+        id: action.id,
+        favorite: false,
         status: SUBJECT_STATUS.FETCHING
       });
 
@@ -43,6 +46,9 @@ const subjectReducer = (state = initialState, action) => {
 
     case FETCH_SUBJECT_ERROR:
       return Object.assign({}, state, {
+        currentSubject: null,
+        id: null,
+        favorite: false,
         status: SUBJECT_STATUS.ERROR
       });
 
@@ -65,7 +71,7 @@ const prepareForNewSubject = (dispatch, subject) => {
     - subjectId: OPTIONAL. ID of the subject, as a string. e.g.: "1234"
         If unspecified (undefined), fetches from list of queued subjects.
    */
-const fetchSubject = (subjectId = undefined) => {
+const fetchSubject = (subjectId = null) => {
   return (dispatch, getState) => {
     const workflow_id = getState().workflow.id;
     
@@ -74,41 +80,72 @@ const fetchSubject = (subjectId = undefined) => {
       return;
     }
 
-    dispatch({ type: FETCH_SUBJECT });
-    
     //Fetch Specific Subject
     if (subjectId) {
       
+      //Store update: enter "fetching" state.
+      dispatch({ type: FETCH_SUBJECT, id: subjectId });
+
+      //Asynchronous action
+      apiClient.type('subjects').get(subjectId)
+        .then((currentSubject) => {
+          //Store update: enter "success" state and save fetched data.
+          dispatch({
+            currentSubject,
+            id: currentSubject.id,
+            queue: [],
+            type: FETCH_SUBJECT_SUCCESS,
+            favorite: currentSubject.favorite || false
+          });
+
+          //onSuccess(), prepare for a new subject.
+          prepareForNewSubject(dispatch, currentSubject);
+        })
+
+        .catch((err)=>{
+          //Store update: enter "error" state.
+          dispatch({ type: FETCH_SUBJECT_ERROR });
+        });
     
     //Fetch Next Subject In Queue
     } else {
       
       const subjectQuery = { workflow_id };
 
-      const fetchQueue = () => {
+      // TODO What if the fetched queue is empty?
+      // Is there a queue and are there subjects in the queue?
+      
+      //If there's an empty queue, fetch a new one.
+      if (!getState().subject.queue.length) {
+
         apiClient.type('subjects/queued').get(subjectQuery)
           .then((queue) => {
-            const currentSubject = queue.shift();
+            const updatedQueue = queue.slice();  //Make a copy of the queue
+            const currentSubject = updatedQueue.shift();
+
+            //Store update: enter "success" state and save fetched data.
             dispatch({
               currentSubject,
               id: currentSubject.id,
-              queue,
+              queue: updatedQueue,
               type: FETCH_SUBJECT_SUCCESS,
               favorite: currentSubject.favorite || false
             });
 
+            //onSuccess(), prepare for a new subject.
             prepareForNewSubject(dispatch, currentSubject);
           })
           .catch((err) => {
             console.error('ducks/subject.js fetchSubject() error: ', err);
             dispatch({ type: FETCH_SUBJECT_ERROR });
           });
-      };
-
-      if (!getState().subject.queue.length) {
-        fetchQueue();
+      
+      //If there's a queue, fetch the next item.
       } else {
-        const currentSubject = getState().subject.queue.shift();
+        const updatedQueue = getState().subject.queue.slice();  //Make a copy of the queue
+        const currentSubject = updatedQueue.shift();
+        
+        //Store update: enter "success" state and save fetched data.
         dispatch({
           currentSubject,
           id: currentSubject.id,
@@ -117,6 +154,7 @@ const fetchSubject = (subjectId = undefined) => {
           favorite: currentSubject.favorite || false
         });
 
+        //onSuccess(), prepare for a new subject.
         prepareForNewSubject(dispatch, currentSubject);
       }
       
