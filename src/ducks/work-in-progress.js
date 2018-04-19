@@ -81,8 +81,11 @@ const check = (user) => {
 const clear = () => {
   return (dispatch, getState) => {
     const userId = (getState().login.user) ? getState().login.user.id : ANONYMOUS_USER_ID;
+    localStorage.removeItem(`${userId}.${WORKFLOW_ID_KEY}`);
     localStorage.removeItem(`${userId}.${SUBJECT_ID_KEY}`);
     localStorage.removeItem(`${userId}.${ANNOTATIONS_KEY}`);
+    
+    console.log('WorkInProgress.clear()');
   }
 };
 
@@ -91,16 +94,22 @@ const clear = () => {
  */
 const save = () => {
   return (dispatch, getState) => {
+    const userId = (getState().login.user) ? getState().login.user.id : ANONYMOUS_USER_ID;
     const workflowId = getState().workflow.id;
     const subjectId = getState().subject.id;
     const annotations = getState().annotations.annotations;
     
-    if (workflowId && subjectId) {
-      const userId = (getState().login.user) ? getState().login.user.id : ANONYMOUS_USER_ID;
-      localStorage.setItem(`${userId}.${WORKFLOW_ID_KEY}`, workflowId);
-      localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);
-      localStorage.setItem(`${userId}.${ANNOTATIONS_KEY}`, JSON.stringify(annotations));
+    //Sanity check: make sure we have something to load.
+    if (!workflowId || !subjectId || !annotations) {
+      console.error('WorkInProgress.save() error: nothing to save.');
+      return;
     }
+      
+    localStorage.setItem(`${userId}.${WORKFLOW_ID_KEY}`, workflowId);
+    localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);
+    localStorage.setItem(`${userId}.${ANNOTATIONS_KEY}`, JSON.stringify(annotations));
+    
+    console.log('WorkInProgress.save() success');
   };
 };
 
@@ -116,21 +125,24 @@ const load = () => {
       const subjectId = localStorage.getItem(`${userId}.${SUBJECT_ID_KEY}`);  //TODO: Check if a type conversion is required.
       const annotations = JSON.parse(localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`));
       
+      //Sanity check: make sure we have something to load.
+      if (!workflowId || !subjectId || !annotations) {
+        console.error('WorkInProgress.save() error: nothing to load.');
+        return;
+      }
+      
+      //First, load the Workflow, then the Subject, then the Annotations.
+      //Finally, clear all saved WIP data.
       dispatch(fetchWorkflow(workflowId)).then(() => {
         return dispatch(fetchSubject(subjectId));
       }).then(() => {
         return dispatch(loadAnnotations(annotations));
       }).then(() => {
+        console.log('WorkInProgress.load() success');
         return dispatch(clear());
       });
-      
-      //dispatch(fetchSavedSubject(subjectId));
-      //dispatch(fetchSavedSubject(subjectId));
-      //dispatch(setSubjectId(subjectId));  //Required so that when prepareForNewSubject creates a Classification, subject ID isn't null. (fetchSavedSubject, above, is async, you see.)
-      //prepareForNewSubject(dispatch, null);
-      //dispatch(setAnnotations(annotations));  //Note: be sure to set Annotations AFTER prepareForNewSubject().
     } catch (err) {
-      //TODO
+      console.error('WorkInProgress.load() error: ', err);
     }
   };
 };

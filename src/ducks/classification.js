@@ -2,6 +2,7 @@ import apiClient from 'panoptes-client/lib/api-client';
 import counterpart from 'counterpart';
 import { config } from '../config';
 import { fetchSubject } from './subject';
+import { WorkInProgress } from './work-in-progress';
 import { resetView } from './subject-viewer';
 import { getSessionID } from '../lib/get-session-id';
 
@@ -145,6 +146,7 @@ const saveAllQueuedClassifications = (dispatch, user = null) => {
         dispatch({ type: SUBMIT_CLASSIFICATION_FINISHED });
         dispatch(fetchSubject());
         dispatch(resetView());
+        dispatch(WorkInProgress.clear());  //Clear the Work In Progress ONLY after all Subjects have successfully been submitted.
       }
     };
 
