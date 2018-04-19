@@ -8,6 +8,7 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { WorkInProgress } from '../ducks/work-in-progress';
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
 import TutorialView from '../components/TutorialView';
@@ -193,6 +194,21 @@ class ControlPanel extends React.Component {
           )}
 
           <hr className="white-line" />
+          
+          <div>
+            <button className="button" onClick={()=>{
+              console.log('WorkInProgress.check(): ', WorkInProgress.check(this.props.user));
+            }}>DEBUG CHECK</button>
+            <button className="button" onClick={()=>{
+              this.props.dispatch(WorkInProgress.clear());
+            }}>DEBUG CLEAR</button>
+            <button className="button" onClick={()=>{
+              this.props.dispatch(WorkInProgress.save());
+            }}>DEBUG SAVE</button>
+            <button className="button" onClick={()=>{
+              this.props.dispatch(WorkInProgress.load());
+            }}>DEBUG LOAD</button>
+          </div>
 
           <div>
             <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>

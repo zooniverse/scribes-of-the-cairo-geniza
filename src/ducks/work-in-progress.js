@@ -42,10 +42,24 @@ class ReduxConnectedReactComponent {
 //import { fetchSavedSubject, prepareForNewSubject, setSubjectId } from './subject';
 //import { setAnnotations } from './annotations';
 
+/*
+--------------------------------------------------------------------------------
+ */
+
+// Constants and Action Types
+// --------------------------
+
 const WORKFLOW_ID_KEY = 'workInProgress_workflowId';
 const SUBJECT_ID_KEY = 'workInProgress_subjectId';
 const ANNOTATIONS_KEY = 'workInProgress_annotations';
 const ANONYMOUS_USER_ID = 'anonymous';
+
+/*
+--------------------------------------------------------------------------------
+ */
+
+// Action Creators
+// ---------------
 
 /*  Checks if the user has any work in progress saved.
     Doesn't use Redux's dispatch() since this is a simple synchronous check.
@@ -112,12 +126,29 @@ const load = () => {
   };
 };
 
+/*
+--------------------------------------------------------------------------------
+ */
+
+// Function Library
+// ----------------
+
+/*  Actions are packaged into a single "library object" for ease of importing
+    between components.
+ */
 const WorkInProgress = {
   check,
   save,
   load,
   clear,  
 };
+
+/*
+--------------------------------------------------------------------------------
+ */
+
+// Exports
+// -------
 
 export {
   WorkInProgress
