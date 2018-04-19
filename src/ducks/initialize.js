@@ -43,9 +43,6 @@ const fetchResources = () => {
     dispatch({ type: FETCH_RESOURCES });
     dispatch(initializeLanguages());
 
-    console.log('a'.repeat(100), dispatch(fetchProject()));
-    console.log('b'.repeat(100), dispatch(fetchWorkflow()));
-    
     Promise.all([
       dispatch(fetchProject()),
       dispatch(fetchWorkflow()),

@@ -35,7 +35,6 @@ class ClassifierContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentSubject: state.subject.currentSubject,
     subjectStatus: state.subject.status,
   };
 };
