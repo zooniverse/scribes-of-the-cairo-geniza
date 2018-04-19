@@ -73,7 +73,6 @@
 
 .tutorial-step
   height: 22rem
-  overflow: scroll
   padding: 0 1rem
 
   &::-webkit-scrollbar, &::-webkit-scrollbar-corner
@@ -98,3 +97,10 @@
     max-height: 11rem
     max-width: 20rem
     object-fit: cover
+
+.tutorial-flip
+  .step-through-content
+    direction: ltr
+
+  .tutorial-step
+    direction: rtl

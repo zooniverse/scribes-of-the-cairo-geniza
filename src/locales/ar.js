@@ -70,6 +70,9 @@ export default {
     saveProgress: 'حفظ التقدم',
     finished: 'تم الانتهاء'
   },
+  tutorial: {
+    title: 'الدرس التعليمي'
+  },
   transcribeBox: {
     title: 'نسخ',
     instructions: `

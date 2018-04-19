@@ -31,6 +31,9 @@ export default {
     saveProgress: 'Save Progress',
     finished: 'Finished'
   },
+  tutorial: {
+    title: 'Tutorial'
+  },
   transcribeBox: {
     title: 'Transcribe',
     instructions: 'The Hebrew language reads from right to left, so start on the right side.',

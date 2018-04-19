@@ -5,7 +5,7 @@ import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { loadTranslations, TRANSLATION_STATUS } from '../ducks/translations';
+import { TRANSLATION_STATUS } from '../ducks/translations';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -46,11 +46,10 @@ class FieldGuide extends React.Component {
 
   goToEnd() {
     let steps = Math.floor(this.props.guide.items.length / ITEMS_PER_PAGE);
-    const swiper = this.stepThrough.swiper;
 
     while (steps > 0) {
       steps -= 1;
-      swiper.swipe.next();
+      this.stepThrough.goNext();
     }
   }
 

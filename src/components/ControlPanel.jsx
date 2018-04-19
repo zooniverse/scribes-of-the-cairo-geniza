@@ -81,10 +81,7 @@ class ControlPanel extends React.Component {
     }
 
     if (this.props.tutorial) {
-      const dimensions = { height: 515, width: 400 };
-      this.props.dispatch(togglePopup(
-        <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
-      ));
+      this.props.dispatch(togglePopup(<TutorialView />));
     }
   }
 

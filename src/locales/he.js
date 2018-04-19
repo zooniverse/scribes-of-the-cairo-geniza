@@ -31,6 +31,9 @@ export default {
     saveProgress: 'שמור התקדמות',
     finished: 'סיום'
   },
+  tutorial: {
+    title: 'הדרכה'
+  },
   transcribeBox: {
     title: 'תעתוק',
     instructions: '.הקלד את הטקסט שלפניך',
