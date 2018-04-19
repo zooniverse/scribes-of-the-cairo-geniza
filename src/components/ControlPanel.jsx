@@ -200,12 +200,15 @@ class ControlPanel extends React.Component {
               console.log('WorkInProgress.check(): ', WorkInProgress.check(this.props.user));
             }}>DEBUG CHECK</button>
             <button className="button" onClick={()=>{
+              console.log('WorkInProgress.clear()');
               this.props.dispatch(WorkInProgress.clear());
             }}>DEBUG CLEAR</button>
             <button className="button" onClick={()=>{
+              console.log('WorkInProgress.save()');
               this.props.dispatch(WorkInProgress.save());
             }}>DEBUG SAVE</button>
             <button className="button" onClick={()=>{
+              console.log('WorkInProgress.load()');
               this.props.dispatch(WorkInProgress.load());
             }}>DEBUG LOAD</button>
           </div>

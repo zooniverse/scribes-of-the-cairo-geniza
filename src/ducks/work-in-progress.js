@@ -93,8 +93,10 @@ const save = () => {
     const workflowId = getState().workflow.id;
     const subjectId = getState().subject.id;
     const annotations = getState().annotations.annotations;
+    
+    console.log('!'.repeat(100), workflowId, subjectId, annotations);
 
-    if (subjectId !== null) {      
+    if (workflowId && subjectId) {      
       const userId = (getState().login.user) ? getState().login.user.id : ANONYMOUS_USER_ID;
       localStorage.setItem(`${userId}.${WORKFLOW_ID_KEY}`, workflowId);
       localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);

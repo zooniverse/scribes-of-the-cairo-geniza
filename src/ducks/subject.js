@@ -19,6 +19,7 @@ const SUBJECT_STATUS = {
 
 const initialState = {
   currentSubject: null,
+  id: null,
   favorite: false,
   queue: [],
   status: SUBJECT_STATUS.IDLE
@@ -33,6 +34,7 @@ const subjectReducer = (state = initialState, action) => {
 
     case FETCH_SUBJECT_SUCCESS:
       return Object.assign({}, state, {
+        id: action.id,
         queue: action.queue,
         currentSubject: action.currentSubject,
         favorite: action.favorite,
@@ -59,48 +61,65 @@ const prepareForNewSubject = (dispatch, subject) => {
   dispatch(createClassification(subject));
 };
 
-const fetchSubject = (initialFetch = false) => {
+/*  Fetches a Zooniverse subject from Panoptes.
+    - subjectId: OPTIONAL. ID of the subject, as a string. e.g.: "1234"
+        If unspecified (undefined), fetches from list of queued subjects.
+   */
+const fetchSubject = (subjectId = undefined) => {
   return (dispatch, getState) => {
-    if (initialFetch && getState().subject.status !== SUBJECT_STATUS.IDLE) return;
     const workflow_id = getState().workflow.id;
+    
+    if (!workflow_id) {
+      console.error('ducks/subjects.js fetchSubject() error: no Workflow ID');
+      return;
+    }
 
     dispatch({ type: FETCH_SUBJECT });
-
-    const subjectQuery = { workflow_id };
-
-    const fetchQueue = () => {
-      apiClient.type('subjects/queued').get(subjectQuery)
-        .then((queue) => {
-          const currentSubject = queue.shift();
-          dispatch({
-            currentSubject,
-            id: currentSubject.id,
-            queue,
-            type: FETCH_SUBJECT_SUCCESS,
-            favorite: currentSubject.favorite || false
-          });
-
-          prepareForNewSubject(dispatch, currentSubject);
-        })
-        .catch((err) => {
-          console.error('ducks/subject.js fetchSubject() error: ', err);
-          dispatch({ type: FETCH_SUBJECT_ERROR });
-        });
-    };
-
-    if (!getState().subject.queue.length) {
-      fetchQueue();
+    
+    //Fetch Specific Subject
+    if (subjectId) {
+      
+    
+    //Fetch Next Subject In Queue
     } else {
-      const currentSubject = getState().subject.queue.shift();
-      dispatch({
-        currentSubject,
-        id: currentSubject.id,
-        queue: getState().subject.queue,
-        type: FETCH_SUBJECT_SUCCESS,
-        favorite: currentSubject.favorite || false
-      });
+      
+      const subjectQuery = { workflow_id };
 
-      prepareForNewSubject(dispatch, currentSubject);
+      const fetchQueue = () => {
+        apiClient.type('subjects/queued').get(subjectQuery)
+          .then((queue) => {
+            const currentSubject = queue.shift();
+            dispatch({
+              currentSubject,
+              id: currentSubject.id,
+              queue,
+              type: FETCH_SUBJECT_SUCCESS,
+              favorite: currentSubject.favorite || false
+            });
+
+            prepareForNewSubject(dispatch, currentSubject);
+          })
+          .catch((err) => {
+            console.error('ducks/subject.js fetchSubject() error: ', err);
+            dispatch({ type: FETCH_SUBJECT_ERROR });
+          });
+      };
+
+      if (!getState().subject.queue.length) {
+        fetchQueue();
+      } else {
+        const currentSubject = getState().subject.queue.shift();
+        dispatch({
+          currentSubject,
+          id: currentSubject.id,
+          queue: getState().subject.queue,
+          type: FETCH_SUBJECT_SUCCESS,
+          favorite: currentSubject.favorite || false
+        });
+
+        prepareForNewSubject(dispatch, currentSubject);
+      }
+      
     }
   };
 };

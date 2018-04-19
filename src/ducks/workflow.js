@@ -44,14 +44,14 @@ const workflowReducer = (state = initialState, action) => {
   }
 };
 
-const fetchWorkflow = (id = config.workflowId) => {
+const fetchWorkflow = (workflowId = config.workflowId) => {
   return (dispatch) => {
     dispatch({
       type: FETCH_WORKFLOW,
-      id
+      id: workflowId,
     });
 
-    apiClient.type('workflows').get(id)
+    apiClient.type('workflows').get(workflowId)
       .then((workflow) => {
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,
