@@ -116,14 +116,11 @@ const load = () => {
       const subjectId = localStorage.getItem(`${userId}.${SUBJECT_ID_KEY}`);  //TODO: Check if a type conversion is required.
       const annotations = JSON.parse(localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`));
       
-      Promise.all([
-        dispatch(fetchWorkflow(workflowId)),
-      ]).then(() => {
-        Promise.all([
-          dispatch(fetchSubject(subjectId)),
-        ]).then(() => {
-          console.log('+'.repeat(100), annotations);
-        });
+      dispatch(fetchWorkflow(workflowId)).then(() => {
+        console.log('+'.repeat(100), 'aaa');
+        return dispatch(fetchSubject(subjectId));                                    
+      }).then(() => {
+        console.log('+'.repeat(100), 'bbb');
       });
       
       //dispatch(fetchSavedSubject(subjectId));

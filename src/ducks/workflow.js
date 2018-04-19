@@ -51,7 +51,7 @@ const fetchWorkflow = (workflowId = config.workflowId) => {
       id: workflowId,
     });
 
-    apiClient.type('workflows').get(workflowId)
+    return apiClient.type('workflows').get(workflowId)
       .then((workflow) => {
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,

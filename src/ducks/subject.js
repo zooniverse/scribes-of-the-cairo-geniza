@@ -87,7 +87,7 @@ const fetchSubject = (subjectId = null) => {
       dispatch({ type: FETCH_SUBJECT, id: subjectId });
 
       //Asynchronous action
-      apiClient.type('subjects').get(subjectId)
+      return apiClient.type('subjects').get(subjectId)
         .then((currentSubject) => {
           //Store update: enter "success" state and save fetched data.
           dispatch({
@@ -118,7 +118,7 @@ const fetchSubject = (subjectId = null) => {
       //If there's an empty queue, fetch a new one.
       if (!getState().subject.queue.length) {
 
-        apiClient.type('subjects/queued').get(subjectQuery)
+        return apiClient.type('subjects/queued').get(subjectQuery)
           .then((queue) => {
             const updatedQueue = queue.slice();  //Make a copy of the queue
             const currentSubject = updatedQueue.shift();
@@ -180,7 +180,7 @@ const createFavorites = (project) => {
     display_name,
     links
   };
-  apiClient.type('collections')
+  return apiClient.type('collections')
     .create(collection)
     .save()
     .catch(err => Promise.reject(err));
@@ -195,7 +195,7 @@ const toggleFavorite = () => {
     dispatch({ type: TOGGLE_FAVORITE, favorite: !favorite });
 
     if (user) {
-      apiClient.type('collections').get({
+      return apiClient.type('collections').get({
         project_ids: projectID,
         favorite: true,
         owner: user
