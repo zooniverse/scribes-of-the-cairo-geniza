@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getActiveLanguage } from 'react-localize-redux';
 import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
 import { connect } from 'react-redux';
-import { loadTranslations } from '../ducks/translations';
+import classnames from 'classnames';
+import { loadTranslations, TRANSLATION_STATUS } from '../ducks/translations';
+
+const ITEMS_PER_PAGE = 8;
 
 class FieldGuide extends React.Component {
   constructor(props) {
@@ -22,20 +26,56 @@ class FieldGuide extends React.Component {
 
   componentWillMount() {
     this.groupItems();
-    this.props.dispatch(loadTranslations('field_guide', '40'));
   }
 
-  groupItems() {
-    const groupedItems = [];
+  componentDidMount() {
+    if (this.props.rtl) {
+      this.goToEnd();
+    }
+  }
 
+  componentWillReceiveProps(next) {
+    if (next.currentLanguage !== this.props.currentLanguage) {
+      this.groupItems(next.currentLanguage);
+
+      if (next.rtl) {
+        this.goToEnd();
+      }
+    }
+  }
+
+  goToEnd() {
+    let steps = Math.floor(this.props.guide.items.length / ITEMS_PER_PAGE);
+    const swiper = this.stepThrough.swiper;
+
+    while (steps > 0) {
+      steps -= 1;
+      swiper.swipe.next();
+    }
+  }
+
+  groupItems(language = this.props.currentLanguage) {
+    const groupedItems = [];
     if (this.props.guide && this.props.guide.items) {
-      const size = 8;
-      const items = this.props.guide.items.slice();
+      const items = this.findTranslations(language);
 
       while (items.length > 0)
-        groupedItems.push(items.splice(0, size));
+        groupedItems.push(items.splice(0, ITEMS_PER_PAGE));
     }
     this.setState({ groupedItems });
+  }
+
+  findTranslations(language) {
+    const items = this.props.guide.items.slice();
+
+    if (this.props.translationStatus === TRANSLATION_STATUS.READY) {
+      const translated = this.props.translatedGuide[language];
+      items.map((item, i) => {
+        item.title = translated[`items.${i}.title`];
+        item.content = translated[`items.${i}.content`];
+      });
+    }
+    return items;
   }
 
   activateCard(activeCard) {
@@ -97,11 +137,15 @@ class FieldGuide extends React.Component {
 
   render() {
     return (
-      <div className="handle">
+      <div
+        className={classnames('handle', {
+          'field-guide-flip': this.props.rtl
+        })}
+      >
         {this.state.activeCard && (this.renderActiveCard())}
 
         {!this.state.activeCard && (
-          <StepThrough>
+          <StepThrough ref={(el) => { this.stepThrough = el; }}>
             {this.state.groupedItems.map((items, i) => {
               return this.renderItem(items, i);
             })}
@@ -113,15 +157,30 @@ class FieldGuide extends React.Component {
 }
 
 FieldGuide.defaultProps = {
+  currentLanguage: 'en',
   guide: {},
-  icons: {}
+  icons: {},
+  rtl: false,
+  translatedGuide: {},
+  translationStatus: TRANSLATION_STATUS.IDLE
 };
 
 FieldGuide.propTypes = {
+  currentLanguage: PropTypes.string,
   guide: PropTypes.shape({
     id: PropTypes.string
   }),
-  icons: PropTypes.object
+  icons: PropTypes.object,
+  rtl: PropTypes.bool,
+  translatedGuide: PropTypes.object,
+  translationStatus: PropTypes.string
 };
 
-export default connect()(FieldGuide);
+const mapStateToProps = state => ({
+  currentLanguage: getActiveLanguage(state.locale).code,
+  rtl: state.languages.rtl,
+  translatedGuide: state.translations.strings.field_guide,
+  translationStatus: state.translations.status
+});
+
+export default connect(mapStateToProps)(FieldGuide);
