@@ -1,9 +1,11 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
-import { createClassification } from './classification';
+
 import { resetAnnotations } from './annotations';
+import { createClassification } from './classification';
 
 // Action Types
+const RESET_SUBJECT = 'FETCH_SUBJECT';
 const FETCH_SUBJECT = 'FETCH_SUBJECT';
 const FETCH_SUBJECT_SUCCESS = 'FETCH_SUBJECT_SUCCESS';
 const FETCH_SUBJECT_ERROR = 'FETCH_SUBJECT_ERROR';
@@ -27,6 +29,9 @@ const initialState = {
 
 const subjectReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_SUBJECT:
+      return initialState;
+
     case FETCH_SUBJECT:
       return Object.assign({}, state, {
         currentSubject: null,
@@ -62,11 +67,6 @@ const subjectReducer = (state = initialState, action) => {
   }
 };
 
-const prepareForNewSubject = (dispatch, subject) => {
-  dispatch(resetAnnotations());
-  dispatch(createClassification(subject));
-};
-
 /*  Fetches a Zooniverse subject from Panoptes.
     - subjectId: OPTIONAL. ID of the subject, as a string. e.g.: "1234"
         If unspecified (undefined), fetches from list of queued subjects.
@@ -99,7 +99,7 @@ const fetchSubject = (subjectId = null) => {
           });
 
           //onSuccess(), prepare for a new subject.
-          prepareForNewSubject(dispatch, currentSubject);
+          dispatch(prepareForNewSubject(currentSubject));
         })
 
         .catch((err)=>{
@@ -133,7 +133,7 @@ const fetchSubject = (subjectId = null) => {
             });
 
             //onSuccess(), prepare for a new subject.
-            prepareForNewSubject(dispatch, currentSubject);
+            dispatch(prepareForNewSubject(currentSubject));
           })
           .catch((err) => {
             console.error('ducks/subject.js fetchSubject() error: ', err);
@@ -155,11 +155,28 @@ const fetchSubject = (subjectId = null) => {
         });
 
         //onSuccess(), prepare for a new subject.
-        prepareForNewSubject(dispatch, currentSubject);
+        dispatch(prepareForNewSubject(currentSubject));
       }
       
     }
   };
+};
+
+/*  Resets Subject to its initial values.
+ */
+const resetSubject = () => {
+  return (dispatch) => {
+    dispatch({ type: RESET_SUBJECT });
+  }
+};
+
+/*  Resets all the dependencies that rely on the Subject.
+ */
+const prepareForNewSubject = (subject) => {
+  return (dispatch) => {
+    dispatch(resetAnnotations());
+    dispatch(createClassification(subject));
+  }
 };
 
 const subjectError = () => {
@@ -215,6 +232,7 @@ const toggleFavorite = () => {
 export default subjectReducer;
 
 export {
+  resetSubject,
   fetchSubject,
   subjectError,
   toggleFavorite,

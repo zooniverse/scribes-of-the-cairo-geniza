@@ -1,6 +1,10 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 
+import { resetSubject } from './subject';
+import { resetAnnotations } from './annotations';
+import { createClassification } from './classification';
+
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
 const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
@@ -57,11 +61,24 @@ const fetchWorkflow = (workflowId = config.workflowId) => {
           type: FETCH_WORKFLOW_SUCCESS,
           data: workflow
         });
+
+        //onSuccess(), prepare for a new workflow.
+        dispatch(prepareForNewWorkflow());
       })
       .catch(() => {
         dispatch({ type: FETCH_WORKFLOW_ERROR });
       });
   };
+};
+
+/*  Resets all the dependencies that rely on the Workflow.
+ */
+const prepareForNewWorkflow = () => {
+  return (dispatch) => {
+    dispatch(resetSubject());
+    dispatch(resetAnnotations());
+    dispatch(createClassification(subject));
+  }
 };
 
 export default workflowReducer;

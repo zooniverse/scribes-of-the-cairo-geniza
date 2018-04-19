@@ -41,7 +41,7 @@ class ReduxConnectedReactComponent {
 
 import { fetchWorkflow } from './workflow';
 import { fetchSubject } from './subject';
-//import { setAnnotations } from './annotations';
+import { loadAnnotations } from './annotations';
 
 /*
 --------------------------------------------------------------------------------
@@ -117,10 +117,11 @@ const load = () => {
       const annotations = JSON.parse(localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`));
       
       dispatch(fetchWorkflow(workflowId)).then(() => {
-        console.log('+'.repeat(100), 'aaa');
-        return dispatch(fetchSubject(subjectId));                                    
+        return dispatch(fetchSubject(subjectId));
       }).then(() => {
-        console.log('+'.repeat(100), 'bbb');
+        return dispatch(loadAnnotations(annotations));
+      }).then(() => {
+        return dispatch(clear());
       });
       
       //dispatch(fetchSavedSubject(subjectId));
