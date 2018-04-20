@@ -3,7 +3,6 @@ import { ZooniverseLogo, ZooniverseLogotype } from 'zooniverse-react-components'
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Penn from '../images/penn.png';
 import JTSLogo from '../images/jts_logo.png';
 import Princeton from '../images/princeton_geniza.png';
@@ -12,18 +11,13 @@ import Library from '../images/schechter-geniza.png';
 import Scroll from '../images/hebrew-fragment.png';
 import Arabic from '../images/arabic-big.png';
 import HomeStatistics from './HomeStatistics';
+import FlippedImg from './styled/FlippedImg';
 
 const Home = ({ rtl, translate }) => {
-  const Img = styled.img`
-    right: ${props => props.rtl ? 'auto' : '0'};
-    left: ${props => props.rtl ? '0' : 'auto'};
-    transform: ${props => props.rtl ? 'scaleX(-1)' : 'none'};
-  `;
-
   return (
     <section className="home-page">
       <div className="home-page__introduction">
-        <Img alt="Hebrew Scroll" rtl={rtl} src={Scroll} />
+        <FlippedImg alt="Hebrew Scroll" rtl={rtl} src={Scroll} />
         <img alt="Arabic Text" src={Arabic} />
         <div>
           <ZooniverseLogotype width="100px" />

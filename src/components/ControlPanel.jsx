@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Tutorial } from 'zooniverse-react-components';
@@ -8,11 +7,14 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
+
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
 import TutorialView from '../components/TutorialView';
 import FinishedPrompt from '../components/FinishedPrompt';
-import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
+
+import FlippedControlPanel from './styled/FlippedControlPanel';
 
 class ControlPanel extends React.Component {
   constructor(props) {
@@ -157,13 +159,8 @@ class ControlPanel extends React.Component {
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
     const tutorialText = this.props.dialogComponent === 'Tutorial' ? 'Hide Tutorial' : 'Show Tutorial';
 
-    const Section = styled.section`
-      left: ${props => props.rtl ? '0' : 'auto'};
-      right: ${props => props.rtl ? 'auto' : '0'};
-    `;
-
     const panel = (
-      <Section
+      <FlippedControlPanel
         className={classnames('control-panel', {
           'control-panel__hide': !this.state.showInfo,
           'control-panel__rtl': this.props.rtl
@@ -197,7 +194,7 @@ class ControlPanel extends React.Component {
             <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
           </div>
         </div>
-      </Section>
+      </FlippedControlPanel>
     );
 
     if (this.state.showPanel) {
@@ -205,7 +202,7 @@ class ControlPanel extends React.Component {
     }
 
     return (
-      <Section
+      <FlippedControlPanel
         className={classnames('control-panel control-panel__side', {
           'control-panel__tall': this.state.showInfo,
           'control-panel__short': !this.state.showInfo,
@@ -220,7 +217,7 @@ class ControlPanel extends React.Component {
         {this.toggleIcon()}
         <h2>EXPAND INFO</h2>
         {panel}
-      </Section>
+      </FlippedControlPanel>
     );
   }
 }

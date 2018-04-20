@@ -47,19 +47,6 @@ const translationsReducer = (state = initialState, action) => {
   }
 };
 
-const loadResources = () => {
-  return (dispatch) => {
-    Promise.all([
-      dispatch(loadTranslations('field_guide', '40')),
-      dispatch(loadTranslations('tutorial', '207'))
-    ]).then(() => {
-      dispatch({ type: FETCH_TRANSLATIONS_SUCCESS });
-    }).catch(() => {
-      dispatch({ type: FETCH_TRANSLATIONS_ERROR });
-    });
-  };
-};
-
 const loadTranslations = (translated_type, translated_id) => {
   return (dispatch, getState) => {
     const languages = ['ar', 'he', 'en'];
@@ -83,6 +70,19 @@ const loadTranslations = (translated_type, translated_id) => {
             });
           }
         });
+    });
+  };
+};
+
+const loadResources = () => {
+  return (dispatch) => {
+    Promise.all([
+      dispatch(loadTranslations('field_guide', '40')),
+      dispatch(loadTranslations('tutorial', '207'))
+    ]).then(() => {
+      dispatch({ type: FETCH_TRANSLATIONS_SUCCESS });
+    }).catch(() => {
+      dispatch({ type: FETCH_TRANSLATIONS_ERROR });
     });
   };
 };

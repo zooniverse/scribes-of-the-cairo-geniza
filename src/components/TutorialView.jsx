@@ -42,29 +42,12 @@ class TutorialView extends React.Component {
     }
   }
 
-  componentDidMount() {
-    console.log('mount');
-  }
-
-  componentWillReceiveProps(next) {
-    console.log(next);
-  }
-
   componentWillUnmount() {
     this.handleUnmount();
   }
 
   closeTutorial() {
     this.props.dispatch(togglePopup(null));
-  }
-
-  goToEnd() {
-    let steps = this.props.tutorial.steps.length;
-
-    while (steps > 0) {
-      steps -= 1;
-      this.advanceTutorial();
-    }
   }
 
   advanceTutorial() {

@@ -18,9 +18,6 @@ class FieldGuide extends React.Component {
       groupedItems: []
     };
 
-    this.renderItem = this.renderItem.bind(this);
-    this.groupItems = this.groupItems.bind(this);
-    this.renderActiveCard = this.renderActiveCard.bind(this);
     this.deactivateCard = this.deactivateCard.bind(this);
   }
 
@@ -58,8 +55,9 @@ class FieldGuide extends React.Component {
     if (this.props.guide && this.props.guide.items) {
       const items = this.findTranslations(language);
 
-      while (items.length > 0)
+      while (items.length > 0) {
         groupedItems.push(items.splice(0, ITEMS_PER_PAGE));
+      }
     }
     this.setState({ groupedItems });
   }
@@ -167,7 +165,8 @@ FieldGuide.defaultProps = {
 FieldGuide.propTypes = {
   currentLanguage: PropTypes.string,
   guide: PropTypes.shape({
-    id: PropTypes.string
+    id: PropTypes.string,
+    items: PropTypes.array
   }),
   icons: PropTypes.object,
   rtl: PropTypes.bool,
