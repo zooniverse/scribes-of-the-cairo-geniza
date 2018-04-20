@@ -18,7 +18,7 @@ const PRESSED_KEY = 'PRESSED_KEY';
 const SET_KEYBOARD = 'SET_KEYBOARD';
 const TOGGLE_KEYBOARD = 'TOGGLE_KEYBOARD';
 const TOGGLE_MODERN = 'TOGGLE_MODERN';
-const SET_LANGUAGE = 'SET_LANGUAGE';
+const SET_KEYBOARD_LANGUAGE = 'SET_KEYBOARD_LANGUAGE';
 
 const keyboardReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -43,7 +43,7 @@ const keyboardReducer = (state = initialState, action) => {
         activeKey: action.character
       });
 
-    case SET_LANGUAGE:
+    case SET_KEYBOARD_LANGUAGE:
       return Object.assign({}, state, {
         activeLanguage: action.language,
         modern: action.modern
@@ -107,7 +107,7 @@ const toggleLanguage = (language) => {
     }
 
     dispatch({
-      type: SET_LANGUAGE,
+      type: SET_KEYBOARD_LANGUAGE,
       language,
       modern
     });
