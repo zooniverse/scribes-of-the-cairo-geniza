@@ -61,9 +61,10 @@ class ControlPanel extends React.Component {
     }
     
     //Now check if the user has any work in progress.
+    console.log('+++ componentWillReceiveProps', this.props.user !== nextProps.user, WorkInProgress.check(nextProps.user));
     if (this.props.user !== nextProps.user && WorkInProgress.check(nextProps.user)) {
-      console.log('+'.repeat(100), nextProps.user);
-      return this.props.dispatch(togglePopup(<WorkInProgressPopup />));
+      console.log('+++ WorkInProgressPopup', nextProps.user);
+      this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
     
     window.addEventListener('resize', this.handleResize);
@@ -92,7 +93,7 @@ class ControlPanel extends React.Component {
 
   toggleTutorial() {
     if (this.props.dialogComponent === 'Tutorial') {
-      return this.props.dispatch(togglePopup(null));
+      this.props.dispatch(togglePopup(null));
     }
 
     if (this.props.tutorial) {
@@ -208,27 +209,15 @@ class ControlPanel extends React.Component {
 
           <div>
             <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
-            <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
-              {this.props.translate('infoBox.saveProgress')}
-            </button>
-            {this.props.wipTimestamp && (<div className="workinprogress-timestamp">{this.props.wipTimestamp.toString()}</div>)}
+            {this.props.user && (  //Show the Save Progress button to logged-in users only.
+              <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
+                {this.props.translate('infoBox.saveProgress')}
+              </button>
+            )}
+            {this.props.wipTimestamp && (<div className="workinprogress-timestamp">{'Last save: ' + this.props.wipTimestamp.toString()}</div>)}
             <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
           </div>
-          
-          <div>
-            <button className="button" onClick={()=>{
-              console.log('WorkInProgress.check(): ', WorkInProgress.check(this.props.user));
-            }}>DEBUG CHECK</button>
-            <button className="button" onClick={()=>{
-              console.log('WorkInProgress.clear()');
-              this.props.dispatch(WorkInProgress.clear());
-            }}>DEBUG CLEAR</button>
-            <button className="button" onClick={()=>{
-              console.log('WorkInProgress.load()');
-              this.props.dispatch(WorkInProgress.load());
-            }}>DEBUG LOAD</button>
-          </div>
-          
+
         </div>
       </Section>
     );

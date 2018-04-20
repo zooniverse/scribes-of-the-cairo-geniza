@@ -353,7 +353,7 @@ class SubjectViewer extends React.Component {
       >
         {renderedItem}
 
-        {this.props.popup && (this.props.popup)}
+        {this.props.popup}
       </section>
     );
   }
