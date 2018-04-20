@@ -189,7 +189,7 @@ const save = () => {
       console.error('WorkInProgress.save() error: nothing to save.');
       return;
     }
-      
+
     localStorage.setItem(`${userId}.${WORKFLOW_ID_KEY}`, workflowId);
     localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);
     localStorage.setItem(`${userId}.${ANNOTATIONS_KEY}`, JSON.stringify(annotations));

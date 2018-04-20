@@ -12,11 +12,13 @@ import {
   WorkInProgress, WORKINPROGRESS_INITIAL_STATE, WORKINPROGRESS_PROPTYPES,
   getWorkInProgressStateValues
 } from '../ducks/work-in-progress';
-import FieldGuide from '../components/FieldGuide';
-import CribSheet from '../components/CribSheet';
-import TutorialView from '../components/TutorialView';
-import FinishedPrompt from '../components/FinishedPrompt';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
+
+import FieldGuide from './FieldGuide';
+import CribSheet from './CribSheet';
+import TutorialView from './TutorialView';
+import FinishedPrompt from './FinishedPrompt';
+import WorkInProgressPopup from './WorkInProgressPopup';
 
 class ControlPanel extends React.Component {
   constructor(props) {
@@ -50,11 +52,20 @@ class ControlPanel extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.fetchTutorial(nextProps);
 
-    if (nextProps.tutorial !== this.props.tutorial) {
+    //If there's new tutorial data, show it...
+    //...unless there's a WorkInProgress prompt in the way.
+    if (nextProps.tutorial !== this.props.tutorial && !WorkInProgress.check(this.props.user)) {
       Tutorial.checkIfCompleted(nextProps.tutorial, nextProps.user, nextProps.preferences).then((completed) => {
         if (!completed) { this.toggleTutorial(); }
       });
     }
+    
+    //Now check if the user has any work in progress.
+    if (this.props.user !== nextProps.user && WorkInProgress.check(nextProps.user)) {
+      console.log('+'.repeat(100), nextProps.user);
+      return this.props.dispatch(togglePopup(<WorkInProgressPopup />));
+    }
+    
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
   }
@@ -81,14 +92,11 @@ class ControlPanel extends React.Component {
 
   toggleTutorial() {
     if (this.props.dialogComponent === 'Tutorial') {
-      return this.props.dispatch(toggleDialog(null));
+      return this.props.dispatch(togglePopup(null));
     }
 
     if (this.props.tutorial) {
-      const dimensions = { height: 515, width: 400 };
-      this.props.dispatch(togglePopup(
-        <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
-      ));
+      this.props.dispatch(togglePopup(<TutorialView />));
     }
   }
 
