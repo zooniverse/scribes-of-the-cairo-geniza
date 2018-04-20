@@ -251,11 +251,12 @@ export default {
     `
   },
   textModifiers: {
-    insertion: 'insertion',
-    deletion: 'deletion',
-    damaged: 'damaged',
-    drawing: 'drawing',
-    grid: 'grid',
-    divineName: 'divineName'
+    insertion: 'Insertion',
+    deletion: 'Deletion',
+    damaged: 'Damaged',
+    drawing: 'Drawing',
+    grid: 'Grid',
+    divine: 'Divine Name',
+    divineName: 'Divine Name'
   }
 };

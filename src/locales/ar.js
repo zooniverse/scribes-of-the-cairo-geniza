@@ -237,10 +237,10 @@ export default {
     `
   },
   textModifiers: {
-    insertion: '<‏إضافة>',
-    deletion: '{حذف}',
-    damaged: '[عطل]',
-    drawing: '#‏رسمة#',
-    grid: '#شبكة#'
+    insertion: '‏إضافة',
+    deletion: 'حذف',
+    damaged: 'عطل',
+    drawing: '‏رسمة',
+    grid: 'شبكة'
   }
 };

@@ -226,11 +226,12 @@ export default {
     `
   },
   textModifiers: {
-    insertion: '<נוסף>',
-    deletion: '{מחוק}',
-    damaged: '[פגום]',
-    drawing: '#ציור#',
-    grid: '#גריד#',
-    divineName: '<’ה>'
+    insertion: 'נוסף',
+    deletion: 'מחוק',
+    damaged: 'פגום',
+    drawing: 'ציור',
+    grid: 'גריד',
+    divine: '’ה',
+    divineName: '’ה'
   }
 };

@@ -16,6 +16,7 @@ import {
 import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
+import cleanText from '../lib/clean-text';
 import { Utility, KEY_VALUES } from '../lib/Utility';
 
 const ENABLE_DRAG = 'selected-annotation handle';
@@ -197,15 +198,15 @@ class SelectedAnnotation extends React.Component {
       />));
   }
 
-  addTextModifier(textTag) {
-    const textTitle = this.props.translate(`textModifiers.${textTag}`);
-    console.log(textTitle);
+  addTextModifier(type) {
+    const tag = this.props.translate(`textModifiers.${type}`);
     let value;
     let textAfter;
     let textInBetween;
+    const wrapperTags = ['insertion', 'deletion'];
 
-    const startTag = '[' + textTag + ']';
-    const endTag = '[/' + textTag + ']';
+    const startTag = `[${tag}]`;
+    const endTag = `[/${tag}]`;
     const text = this.inputText;
     const textAreaValue = text.value;
     const selectionStart = text.selectionStart;
@@ -213,7 +214,7 @@ class SelectedAnnotation extends React.Component {
     const textBefore = textAreaValue.substring(0, selectionStart);
     if (selectionStart === selectionEnd) {
       textAfter = textAreaValue.substring(selectionStart, textAreaValue.length);
-      if (textTag === 'unclear') {
+      if (wrapperTags.indexOf(type) < 0) {
         value = textBefore + startTag + textAfter;
       } else {
         value = textBefore + startTag + endTag + textAfter;
@@ -221,16 +222,13 @@ class SelectedAnnotation extends React.Component {
     } else {
       textInBetween = textAreaValue.substring(selectionStart, selectionEnd);
       textAfter = textAreaValue.substring(selectionEnd, textAreaValue.length);
-      if (textTag === 'unclear') {
+      if (wrapperTags.indexOf(type) < 0) {
         value = textBefore + startTag + textInBetween + textAfter;
       } else {
         value = textBefore + startTag + textInBetween + endTag + textAfter;
       }
     }
-
-    this.setState({
-      annotationText: this.cleanText(value),
-    });
+    this.inputText.value = cleanText(value, tag, type);
   }
 
   toggleScriptOptions() {
@@ -320,12 +318,14 @@ class SelectedAnnotation extends React.Component {
           placeholder={this.props.translate('transcribeBox.textArea')}
         />
         <div className="selected-annotation__text-modifiers">
-          <button onClick={this.addTextModifier.bind(this, 'insertion')}>Insertion</button>
-          <button onClick={this.addTextModifier.bind(this, 'deletion')}>Deletion</button>
-          <button onClick={this.addTextModifier.bind(this, 'damaged')}>Damaged</button>
-          <button onClick={this.addTextModifier.bind(this, 'drawing')}>Drawing</button>
-          <button onClick={this.addTextModifier.bind(this, 'grid')}>Grid</button>
-          <button onClick={this.addTextModifier.bind(this, 'divineName')}>Divine Name</button>
+          <button onClick={this.addTextModifier.bind(this, 'insertion')}>{this.props.translate('textModifiers.insertion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'deletion')}>{this.props.translate('textModifiers.deletion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'damaged')}>{this.props.translate('textModifiers.damaged')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'drawing')}>{this.props.translate('textModifiers.drawing')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'grid')}>{this.props.translate('textModifiers.grid')}</button>
+          {this.props.currentLanguage === 'he' && (
+            <button onClick={this.addTextModifier.bind(this, 'divine')}>{this.props.translate('textModifiers.divineName')}</button>
+          )}
         </div>
         <div className="selected-annotation__controls">
           <div>
