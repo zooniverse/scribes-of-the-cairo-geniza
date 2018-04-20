@@ -8,7 +8,10 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
-import { WorkInProgress } from '../ducks/work-in-progress';
+import {
+  WorkInProgress, WORKINPROGRESS_INITIAL_STATE, WORKINPROGRESS_PROPTYPES,
+  getWorkInProgressStateValues
+} from '../ducks/work-in-progress';
 import FieldGuide from '../components/FieldGuide';
 import CribSheet from '../components/CribSheet';
 import TutorialView from '../components/TutorialView';
@@ -194,6 +197,15 @@ class ControlPanel extends React.Component {
           )}
 
           <hr className="white-line" />
+
+          <div>
+            <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
+            <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
+              {this.props.translate('infoBox.saveProgress')}
+            </button>
+            {this.props.wipTimestamp && (<div className="workinprogress-timestamp">{this.props.wipTimestamp.toString()}</div>)}
+            <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
+          </div>
           
           <div>
             <button className="button" onClick={()=>{
@@ -204,20 +216,11 @@ class ControlPanel extends React.Component {
               this.props.dispatch(WorkInProgress.clear());
             }}>DEBUG CLEAR</button>
             <button className="button" onClick={()=>{
-              console.log('WorkInProgress.save()');
-              this.props.dispatch(WorkInProgress.save());
-            }}>DEBUG SAVE</button>
-            <button className="button" onClick={()=>{
               console.log('WorkInProgress.load()');
               this.props.dispatch(WorkInProgress.load());
             }}>DEBUG LOAD</button>
           </div>
-
-          <div>
-            <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
-            <button className="button">{this.props.translate('infoBox.saveProgress')}</button>
-            <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
-          </div>
+          
         </div>
       </Section>
     );
@@ -268,7 +271,8 @@ ControlPanel.propTypes = {
   }),
   workflow: PropTypes.shape({
     id: PropTypes.string
-  })
+  }),
+  ...WORKINPROGRESS_PROPTYPES
 };
 
 ControlPanel.defaultProps = {
@@ -283,7 +287,8 @@ ControlPanel.defaultProps = {
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
-  workflow: null
+  workflow: null,
+  ...WORKINPROGRESS_INITIAL_STATE,
 };
 
 const mapStateToProps = (state) => {
@@ -299,7 +304,8 @@ const mapStateToProps = (state) => {
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,
-    workflow: state.workflow.data
+    workflow: state.workflow.data,
+    ...getWorkInProgressStateValues(state),
   };
 };
 

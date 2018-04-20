@@ -39,6 +39,8 @@ class ReduxConnectedReactComponent {
 --------------------------------------------------------------------------------
  */
 
+import PropTypes from 'prop-types';
+
 import { fetchWorkflow } from './workflow';
 import { fetchSubject } from './subject';
 import { loadAnnotations } from './annotations';
@@ -50,10 +52,91 @@ import { loadAnnotations } from './annotations';
 // Constants and Action Types
 // --------------------------
 
+const SET_TIMESTAMP = 'work-in-progress/SET_TIMESTAMP';
+const CLEAR_TIMESTAMP = 'work-in-progress/CLEAR_TIMESTAMP';
+
 const WORKFLOW_ID_KEY = 'workInProgress_workflowId';
 const SUBJECT_ID_KEY = 'workInProgress_subjectId';
 const ANNOTATIONS_KEY = 'workInProgress_annotations';
 const ANONYMOUS_USER_ID = 'anonymous';
+
+//See ./reducer.js for the store name.
+const REDUX_STORE_NAME = 'workInProgress';
+
+/*
+--------------------------------------------------------------------------------
+ */
+
+// React-Redux Helper Objects
+// --------------------------
+
+/*  WORKINPROGRESS_INITIAL_STATE defines the default/starting values of the
+    Redux store. To use this in your Redux-connected React components, try...
+
+    Usage:
+      MyReactComponent.defaultProps = {
+        ...WORKINPROGRESS_INITIAL_STATE,
+        otherProp: 'default value'
+      };
+ */
+const WORKINPROGRESS_INITIAL_STATE = {
+  wipTimestamp: null,  //'Date' object indicating the last time a save was made.
+                       //null if there's no save.
+};
+
+/*  WORKINPROGRESS_PROPTYPES is used to define the property types of the data,
+    and only matters to Redux-connected React components.
+
+    Usage:
+      MyReactComponent.propTypes = {
+        ...WORKINPROGRESS_PROPTYPES,
+        otherProp: PropTypes.string,
+      };
+ */
+const WORKINPROGRESS_PROPTYPES = {
+  wipTimestamp: PropTypes.object,
+};
+
+/*  Used as a convenience feature in mapStateToProps() functions in
+    Redux-connected React components.
+
+    Usage:
+      mapStateToProps = (state) => {
+        return {
+          ...getWorkInProgressStateValues(state),
+          someOtherValue: state.someOtherStore.someOtherValue
+        }
+      }
+ */
+const getWorkInProgressStateValues = (state) => {
+  return {
+    wipTimestamp: state[REDUX_STORE_NAME].wipTimestamp,
+  };
+};
+
+/*
+--------------------------------------------------------------------------------
+ */
+
+// Redux Reducer
+// -------------
+
+const wipReducer = (state = WORKINPROGRESS_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case SET_TIMESTAMP:
+      return Object.assign({}, state, {
+        wipTimestamp: action.timestamp,
+      });
+    
+    case CLEAR_TIMESTAMP:
+      return Object.assign({}, state, {
+        wipTimestamp: null,
+      });
+
+    default:
+      return state;
+  };
+};
 
 /*
 --------------------------------------------------------------------------------
@@ -85,6 +168,8 @@ const clear = () => {
     localStorage.removeItem(`${userId}.${SUBJECT_ID_KEY}`);
     localStorage.removeItem(`${userId}.${ANNOTATIONS_KEY}`);
     
+    //Store update
+    dispatch({ type: CLEAR_TIMESTAMP });
     console.log('WorkInProgress.clear()');
   }
 };
@@ -109,6 +194,8 @@ const save = () => {
     localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);
     localStorage.setItem(`${userId}.${ANNOTATIONS_KEY}`, JSON.stringify(annotations));
     
+    //Store update
+    dispatch({ type: SET_TIMESTAMP, timestamp: new Date(Date.now()) });
     console.log('WorkInProgress.save() success');
   };
 };
@@ -171,6 +258,11 @@ const WorkInProgress = {
 // Exports
 // -------
 
+export default wipReducer;
+
 export {
-  WorkInProgress
+  WorkInProgress,
+  WORKINPROGRESS_INITIAL_STATE,
+  WORKINPROGRESS_PROPTYPES,
+  getWorkInProgressStateValues,
 };
