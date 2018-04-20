@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+import { getTranslate, getActiveLanguage, Translate } from 'react-localize-redux';
 
 import { toggleDialog, togglePopup } from '../ducks/dialog';
 import {
@@ -199,14 +199,14 @@ class SelectedAnnotation extends React.Component {
   }
 
   addTextModifier(type) {
-    const tag = this.props.translate(`textModifiers.${type}`);
+    const tag = this.props.translate(`textModifiers.${type}`, null, { defaultLanguage: this.props.keyboardLocale });
     let value;
     let textAfter;
     let textInBetween;
-    const wrapperTags = ['insertion', 'deletion'];
+    const wrapperTags = ['insertion', 'deletion', 'grid'];
 
-    const startTag = `[${tag}]`;
-    const endTag = `[/${tag}]`;
+    const startTag = `[${tag}/]`;
+    const endTag = `[${tag}]`;
     const text = this.inputText;
     const textAreaValue = text.value;
     const selectionStart = text.selectionStart;
@@ -215,7 +215,7 @@ class SelectedAnnotation extends React.Component {
     if (selectionStart === selectionEnd) {
       textAfter = textAreaValue.substring(selectionStart, textAreaValue.length);
       if (wrapperTags.indexOf(type) < 0) {
-        value = textBefore + startTag + textAfter;
+        value = textBefore + endTag + textAfter;
       } else {
         value = textBefore + startTag + endTag + textAfter;
       }
@@ -223,7 +223,7 @@ class SelectedAnnotation extends React.Component {
       textInBetween = textAreaValue.substring(selectionStart, selectionEnd);
       textAfter = textAreaValue.substring(selectionEnd, textAreaValue.length);
       if (wrapperTags.indexOf(type) < 0) {
-        value = textBefore + startTag + textInBetween + textAfter;
+        value = textBefore + endTag + textInBetween + textAfter;
       } else {
         value = textBefore + startTag + textInBetween + endTag + textAfter;
       }
@@ -323,7 +323,7 @@ class SelectedAnnotation extends React.Component {
           <button onClick={this.addTextModifier.bind(this, 'damaged')}>{this.props.translate('textModifiers.damaged')}</button>
           <button onClick={this.addTextModifier.bind(this, 'drawing')}>{this.props.translate('textModifiers.drawing')}</button>
           <button onClick={this.addTextModifier.bind(this, 'grid')}>{this.props.translate('textModifiers.grid')}</button>
-          {this.props.currentLanguage === 'he' && (
+          {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
             <button onClick={this.addTextModifier.bind(this, 'divine')}>{this.props.translate('textModifiers.divineName')}</button>
           )}
         </div>
@@ -403,6 +403,7 @@ SelectedAnnotation.propTypes = {
   dispatch: PropTypes.func,
   keyboardIndex: PropTypes.number,
   keyboardLanguage: PropTypes.string,
+  keyboardLocale: PropTypes.string,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
@@ -418,6 +419,7 @@ SelectedAnnotation.defaultProps = {
   dispatch: () => {},
   keyboardIndex: 0,
   keyboardLanguage: LANGUAGES.HEBREW,
+  keyboardLocale: 'he',
   selectedAnnotation: null,
   showKeyboard: true,
   showModernKeyboard: true,
@@ -431,6 +433,7 @@ const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
   keyboardIndex: state.keyboard.index,
   keyboardLanguage: state.keyboard.activeLanguage,
+  keyboardLocale: state.keyboard.locale,
   showKeyboard: state.keyboard.showKeyboard,
   showModernKeyboard: state.keyboard.modern,
   selectedAnnotation: state.annotations.selectedAnnotation,
