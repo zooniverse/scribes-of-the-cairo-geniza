@@ -6,6 +6,7 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { toggleDialog } from '../ducks/dialog';
 import { setViewerState, SUBJECTVIEWER_STATE } from '../ducks/subject-viewer';
 import { activateCard, toggleReferenceMode } from '../ducks/crib-sheet';
+import { LANGUAGES } from '../ducks/keyboard';
 import { Utility } from '../lib/Utility';
 import ActiveCard from './ActiveCard';
 import ScriptReferences from './ScriptReferences';
@@ -51,7 +52,9 @@ class CribSheet extends React.Component {
         {this.props.user && (
           <button className={!reference ? 'active-button' : ''} onClick={this.personalMode}>{this.props.translate('scriptReferences.yourSheet')}</button>
         )}
-        <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>{this.props.translate('scriptReferences.title')}</button>
+        {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
+          <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>{this.props.translate('scriptReferences.title')}</button>
+        )}
         <button className="close-button" onClick={this.close}>X</button>
         <hr className="plum-line" />
       </div>
@@ -133,7 +136,7 @@ class CribSheet extends React.Component {
   }
 
   render() {
-    const cribSheet = this.props.referenceMode ?
+    const cribSheet = this.props.referenceMode && this.props.keyboardLanguage === LANGUAGES.HEBREW ?
       <ScriptReferences /> : this.renderPersonal();
 
     return (
@@ -161,6 +164,7 @@ CribSheet.propTypes = {
     name: PropTypes.string
   }),
   dispatch: PropTypes.func,
+  keyboardLanguage: PropTypes.string,
   preferences: PropTypes.shape({
     preferences: PropTypes.object,
     update: PropTypes.func
@@ -175,6 +179,7 @@ CribSheet.propTypes = {
 CribSheet.defaultProps = {
   activeCard: null,
   dispatch: () => {},
+  keyboardLanguage: LANGUAGES.HEBREW,
   preferences: {},
   referenceMode: true,
   translate: () => {},
@@ -185,6 +190,7 @@ const mapStateToProps = (state) => {
   return {
     activeCard: state.cribSheet.activeCard,
     currentLanguage: getActiveLanguage(state.locale).code,
+    keyboardLanguage: state.keyboard.activeLanguage,
     preferences: state.project.userPreferences,
     referenceMode: state.cribSheet.referenceMode,
     translate: getTranslate(state.locale),

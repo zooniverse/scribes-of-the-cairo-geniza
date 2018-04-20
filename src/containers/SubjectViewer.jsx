@@ -27,8 +27,8 @@ const INPUT_STATE = {
   ACTIVE: 1
 };
 
-const ANNOTATION_BOX_DIMENSIONS = { height: 600, width: 700 };
-const ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS = { height: 250, width: 700 };
+const ANNOTATION_BOX_DIMENSIONS = { height: 600, width: 760 };
+const ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS = { height: 250, width: 760 };
 
 class SubjectViewer extends React.Component {
   constructor(props) {

@@ -1,5 +1,6 @@
 .annotation-keyboard
   align-items: center
+  direction: ltr
   display: flex
   flex-direction: column
   margin: auto
@@ -23,6 +24,19 @@
       background-color: $plum
       color: $bisque
 
+    div
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+      height: 3.25rem
+
+      span
+        display: block
+        width: 25px
+
+  &__Arabic
+    font-size: 1.2rem
+
   .enter-button
     font-size: 0.8rem
     width: 3.5rem
@@ -37,7 +51,6 @@
 
   &__active
     background-color: $plum
-    border: 4px solid $plum
     color: $bisque
 
 .quf
