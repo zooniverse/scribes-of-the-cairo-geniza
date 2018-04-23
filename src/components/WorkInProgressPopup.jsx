@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate } from 'react-localize-redux';
+
 import { togglePopup } from '../ducks/dialog';
 import { WorkInProgress } from '../ducks/work-in-progress';
 
@@ -34,15 +36,14 @@ class WorkInProgressPopup extends React.Component {
           <hr className="pseudo-drag-bar" />
           <div className="work-in-progress-popup__content">
             <div className="work-in-progress-popup__message">
-              <h2 className="h1-font">Resume Work In Progress?</h2>
+              <h2 className="h1-font">{this.props.translate('workInProgress.header')}</h2>
               <p>
-                We detected that you have some work in progress saved.
-                You can continue your saved work, or start with a new page.
+                {this.props.translate('workInProgress.message')}
               </p>
             </div>
             <div className="work-in-progress-popup__controls">
-              <button className="button" onClick={this.startNewWork}>New Page</button>
-              <button className="button button__dark" onClick={this.resumeWorkInProgress}>Resume Work</button>
+              <button className="button" onClick={this.startNewWork}>{this.props.translate('workInProgress.startNewWork')}</button>
+              <button className="button button__dark" onClick={this.resumeWorkInProgress}>{this.props.translate('workInProgress.resumeWorkInProgress')}</button>
             </div>
           </div>
         </div>
@@ -53,10 +54,18 @@ class WorkInProgressPopup extends React.Component {
 
 WorkInProgressPopup.propTypes = {
   dispatch: PropTypes.func,
+  translate: PropTypes.func,
 };
 
 WorkInProgressPopup.defaultProps = {
   dispatch: () => {},
+  translate: () => {},
 };
 
-export default connect()(WorkInProgressPopup);
+const mapStateToProps = (state) => {
+  return {
+    translate: getTranslate(state.locale)
+  };
+};
+
+export default connect(mapStateToProps)(WorkInProgressPopup);

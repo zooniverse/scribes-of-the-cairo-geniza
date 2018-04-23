@@ -32,6 +32,12 @@ export default {
     finished: 'סיום',
     lastSave: 'Last save'
   },
+  workInProgress: {
+    header: 'Resume Work In Progress?',
+    message: 'We detected that you have some work in progress saved. You can continue your saved work, or start with a new page.',
+    startNewWork: 'New Page',
+    resumeWorkInProgress: 'Resume Work',
+  },
   transcribeBox: {
     title: 'תעתוק',
     instructions: '.הקלד את הטקסט שלפניך',
