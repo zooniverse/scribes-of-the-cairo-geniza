@@ -29,7 +29,8 @@ export default {
     showTutorial: 'إظهار الدرس التعليمي ',
     hideTutorial: 'إخفاء الدرس التعليمي',
     saveProgress: 'حفظ التقدم',
-    finished: 'تم الانتهاء'
+    finished: 'تم الانتهاء',
+    lastSave: 'Last save'
   },
   transcribeBox: {
     title: 'نسخ',

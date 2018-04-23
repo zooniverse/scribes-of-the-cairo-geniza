@@ -29,7 +29,8 @@ export default {
     showTutorial: 'הצג מדריך לעבודה באתר',
     hideTutorial: 'סגור הדרכה',
     saveProgress: 'שמור התקדמות',
-    finished: 'סיום'
+    finished: 'סיום',
+    lastSave: 'Last save'
   },
   transcribeBox: {
     title: 'תעתוק',

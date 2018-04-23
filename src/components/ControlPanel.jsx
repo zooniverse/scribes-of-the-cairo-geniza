@@ -219,8 +219,8 @@ class ControlPanel extends React.Component {
                 {this.props.translate('infoBox.saveProgress')}
               </button>
             )}
-            {this.props.wipTimestamp && (<div className="workinprogress-timestamp">{'Last save: ' + this.props.wipTimestamp.toString()}</div>)}
             <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
+            {this.props.wipTimestamp && (<div className="workinprogress-timestamp body-font">{this.props.translate('infoBox.lastSave') + ': ' + this.props.wipTimestamp.toString()}</div>)}
           </div>
 
         </div>

@@ -29,7 +29,8 @@ export default {
     showTutorial: 'Show Tutorial',
     hideTutorial: 'Hide Tutorial',
     saveProgress: 'Save Progress',
-    finished: 'Finished'
+    finished: 'Finished',
+    lastSave: 'Last save'
   },
   transcribeBox: {
     title: 'Transcribe',
