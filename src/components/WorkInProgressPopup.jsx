@@ -31,16 +31,19 @@ class WorkInProgressPopup extends React.Component {
     return (
       <div className="work-in-progress-popup-container">
         <div className="work-in-progress-popup">
-          <div className="work-in-progress-popup__message">
-            <span className="work-in-progress-popup__header">Resume Work In Progress?</span>
-            <p>
-              We detected that you have some work in progress saved.
-              You can continue your saved work, or start with a new page.
-            </p>
-          </div>
-          <div>
-            <button className="button" onClick={this.startNewWork}>New Page</button>
-            <button className="button button__dark" onClick={this.resumeWorkInProgress}>Resume Work</button>
+          <hr className="pseudo-drag-bar" />
+          <div className="work-in-progress-popup__content">
+            <div className="work-in-progress-popup__message">
+              <h2 className="h1-font">Resume Work In Progress?</h2>
+              <p>
+                We detected that you have some work in progress saved.
+                You can continue your saved work, or start with a new page.
+              </p>
+            </div>
+            <div className="work-in-progress-popup__controls">
+              <button className="button" onClick={this.startNewWork}>New Page</button>
+              <button className="button button__dark" onClick={this.resumeWorkInProgress}>Resume Work</button>
+            </div>
           </div>
         </div>
       </div>
