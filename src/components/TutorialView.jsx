@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
+import classnames from 'classnames';
 import { togglePopup } from '../ducks/dialog';
 
 const completedThisSession = {};
@@ -52,7 +54,6 @@ class TutorialView extends React.Component {
     const swiper = this.stepThrough && this.stepThrough.swiper;
 
     if (swiper) {
-      swiper.swipe.next();
       this.stepThrough.goNext();
     }
   }
@@ -82,16 +83,24 @@ class TutorialView extends React.Component {
     if (!this.state.loaded) {
       return null;
     }
+    const language = this.props.currentLanguage;
+    const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
+      ? this.props.translatedTutorial[language] : null;
 
     return (
       <div className="tutorial-container">
-        <div className="tutorial">
+        <div
+          className={classnames('tutorial', {
+            'tutorial-flip': this.props.rtl
+          })}
+        >
           <div className="tutorial__header">
-            <span>Tutorial</span>
+            <span>{this.props.translate('tutorial.title')}</span>
             <button onClick={this.closeTutorial}>X</button>
           </div>
           <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
-            {this.props.tutorial.steps.map((step) => {
+            {this.props.tutorial.steps.map((step, i) => {
+              const content = translations ? translations[`steps.${i}.content`] : step.content;
               if (!step._key) {
                 step._key = Math.random();
               }
@@ -102,8 +111,10 @@ class TutorialView extends React.Component {
 
               return (
                 <div key={step._key} className="tutorial-step">
-                  <img alt="Tutorial" src={source} />
-                  <Markdown>{step.content}</Markdown>
+                  {source && (
+                    <img alt="Tutorial" src={source} />
+                  )}
+                  <Markdown>{content}</Markdown>
                 </div>
               );
             })}
@@ -119,10 +130,14 @@ class TutorialView extends React.Component {
 }
 
 TutorialView.propTypes = {
+  currentLanguage: PropTypes.string,
   dispatch: PropTypes.func,
   preferences: PropTypes.shape({
     preferences: PropTypes.object
   }),
+  rtl: PropTypes.bool,
+  translate: PropTypes.func,
+  translatedTutorial: PropTypes.object,
   tutorial: PropTypes.shape({
     get: PropTypes.func,
     id: PropTypes.string,
@@ -134,14 +149,22 @@ TutorialView.propTypes = {
 };
 
 TutorialView.defaultProps = {
+  currentLanguage: 'en',
   dispatch: () => {},
   preferences: null,
+  rtl: false,
+  translate: () => {},
+  translatedTutorial: {},
   tutorial: null,
   user: null
 };
 
 const mapStateToProps = state => ({
+  currentLanguage: getActiveLanguage(state.locale).code,
   preferences: state.project.userPreferences,
+  rtl: state.languages.rtl,
+  translate: getTranslate(state.locale),
+  translatedTutorial: state.translations.strings.tutorial,
   tutorial: state.tutorial.data,
   user: state.login.user
 });

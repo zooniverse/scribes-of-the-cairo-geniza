@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { loadResources } from '../ducks/translations';
 import {
   fetchSubject, SUBJECT_STATUS,
 } from '../ducks/subject';
@@ -11,6 +12,8 @@ import SubjectViewer from './SubjectViewer';
 
 class ClassifierContainer extends React.Component {
   componentWillMount() {
+    this.props.dispatch(loadResources());
+
     //TODO: check if a Workflow has been selected. Prompt the user to select
     //one if there's none.
   

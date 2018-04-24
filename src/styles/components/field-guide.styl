@@ -60,3 +60,23 @@
       p
         @extend .body-font
         font-size: 0.75em
+
+.field-guide-flip
+  .step-through-content
+    direction: ltr
+
+    > div:first-child
+      display: flex
+      flex-direction: row-reverse
+
+    .field-guide
+      direction: rtl
+
+  .step-through-controls
+    display: flex
+    flex-direction: row-reverse
+    justify-content: center
+
+  .step-through-pips
+    display: flex
+    flex-direction: row-reverse

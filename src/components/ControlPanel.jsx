@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { Tutorial } from 'zooniverse-react-components';
@@ -18,6 +17,7 @@ import FieldGuide from './FieldGuide';
 import CribSheet from './CribSheet';
 import TutorialView from './TutorialView';
 import FinishedPrompt from './FinishedPrompt';
+import FlippedControlPanel from './styled/FlippedControlPanel';
 import WorkInProgressPopup from './WorkInProgressPopup';
 
 class ControlPanel extends React.Component {
@@ -178,13 +178,8 @@ class ControlPanel extends React.Component {
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
     const tutorialText = this.props.dialogComponent === 'Tutorial' ? 'Hide Tutorial' : 'Show Tutorial';
 
-    const Section = styled.section`
-      left: ${props => props.rtl ? '0' : 'auto'};
-      right: ${props => props.rtl ? 'auto' : '0'};
-    `;
-
     const panel = (
-      <Section
+      <FlippedControlPanel
         className={classnames('control-panel', {
           'control-panel__hide': !this.state.showInfo,
           'control-panel__rtl': this.props.rtl
@@ -224,7 +219,7 @@ class ControlPanel extends React.Component {
           </div>
 
         </div>
-      </Section>
+      </FlippedControlPanel>
     );
 
     if (this.state.showPanel) {
@@ -232,7 +227,7 @@ class ControlPanel extends React.Component {
     }
 
     return (
-      <Section
+      <FlippedControlPanel
         className={classnames('control-panel control-panel__side', {
           'control-panel__tall': this.state.showInfo,
           'control-panel__short': !this.state.showInfo,
@@ -247,7 +242,7 @@ class ControlPanel extends React.Component {
         {this.toggleIcon()}
         <h2>EXPAND INFO</h2>
         {panel}
-      </Section>
+      </FlippedControlPanel>
     );
   }
 }

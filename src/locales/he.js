@@ -38,6 +38,9 @@ export default {
     startNewWork: 'New Page',
     resumeWorkInProgress: 'Resume Work',
   },
+  tutorial: {
+    title: 'הדרכה'
+  },
   transcribeBox: {
     title: 'תעתוק',
     instructions: '.הקלד את הטקסט שלפניך',
@@ -70,17 +73,17 @@ export default {
     scriptTypes: 'סוגי כתב עברי',
     yourSheet: 'מאגר סוגי הכתב שלך',
     types: {
-      orientalne: '(מזרחי (צפון-מזרח המזרח התיכון',
-      orientalsw: '(מזרחי (מערב-דרום המזרח התיכון',
-      maghrebi: 'מגרבי',
-      sephardi: 'ספרדי',
-      yemenite: 'תימני',
-      byzantine: 'ביזאנטי',
-      ashkenazi: 'אשכנזי',
-      italian: 'איטלקי',
-      square: 'מרובע',
-      miniscule: 'בינוני',
-      cursive: 'רהוט'
+      OrientalNE: '(מזרחי (צפון-מזרח המזרח התיכון',
+      OrientalSW: '(מזרחי (מערב-דרום המזרח התיכון',
+      Maghrebi: 'מגרבי',
+      Sephardi: 'ספרדי',
+      Yemenite: 'תימני',
+      Byzantine: 'ביזאנטי',
+      Ashkenazi: 'אשכנזי',
+      Italian: 'איטלקי',
+      Square: 'מרובע',
+      Miniscule: 'בינוני',
+      Cursive: 'רהוט'
     },
     sendScript: 'הצג כתב זה במקלדת',
     currentScript: 'סוג הכתב הנוכחי',
@@ -219,17 +222,14 @@ export default {
   },
   specialThanks: {
     main: `
-      In addition, special thanks and credit to Dr. Jean Bauer, Hal Blackburn, Jessica
-      Dummer, Timothy Dungate, Scott Enderle, Dr. Jessica Goldberg, Rebecca Hill,
-      Amey Hutchins, Dr. David Kraemer, Dr. Nita Krevans, Kate Lynch, Gayatri B. Oruganti,
-      Dr. Ben Outhwaite, Dr. Craig Perry, Besan Radwan, Jasmine Shinohara, Dr. Smadar Shtuhl,
-      Emma Stanford, and Dr. Oded Zinger for their contributions.
+      תודתנו שלוחה גם לד"ר ג'יין באואר, האל בלקברן, טייב שריף, ג'סיקה דאמר, טימות'י דנגייט, סקוט אנדרל, ד"ר
+      ג'סיקה גולדברג, רבקה היל, אמיי האצ'ינס, ד"ר דוד קרמר, ד"ר ניטה קרוונס, קייט לינץ', גייטרי ב. אורוגנטי, ד"ר
+      בן אות'וויט, ד"ר קרייג פרי, בסאן רדוואן, ד"ר סיני רוסינק, ג'סמין שינוהרה, ד"ר סמדר שטהל, אמה סטנפורד וד"ר
+      .עודד זינגר, על תרומתם לפרויקט
     `,
     additional: `
-      Additionally, thank you to the following institutions for providing
-      supplementary images for this project: The Berlin State Library, The
-      Bodleian Libraries at the University of Oxford, The British Library, and The
-      National Library of Israel.
+      תודה גם למוסדות הבאים שתרמו סריקות נוספות לפרויקט: ספריית המדינה בברלין, ספריות הבודליאנה
+      .באוניברסיטת אוקספורד, הספריה הבריטית בלונדון, הספריה הלאומית בירושלים
     `
   }
 };

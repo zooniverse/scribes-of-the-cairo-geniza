@@ -14,6 +14,7 @@ import login from './login';
 import project from './project';
 import subject from './subject';
 import subjectViewer from './subject-viewer';
+import translations from './translations';
 import tutorial from './tutorial';
 import workflow from './workflow';
 import workInProgress from './work-in-progress';
@@ -33,6 +34,7 @@ export default combineReducers({
   project,
   subject,
   subjectViewer,
+  translations,
   tutorial,
   workflow,
   workInProgress,

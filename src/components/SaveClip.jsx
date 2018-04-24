@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { getSubjectLocation } from '../lib/get-subject-location';
 import { toggleDialog } from '../ducks/dialog';
 import CribSheet from './CribSheet';
@@ -92,13 +93,13 @@ class SaveClip extends React.Component {
         />
 
         <div className="save-snippet__buttons">
-          <button className="button" onClick={this.onClose}>Cancel</button>
+          <button className="button" onClick={this.onClose}>{this.props.translate('transcribeBox.cancel')}</button>
           <button
             className="button button__dark"
             disabled={this.state.disableSave}
             onClick={this.saveClip}
           >
-            Save
+            {this.props.translate('cribSheet.save')}
           </button>
         </div>
 
@@ -113,7 +114,8 @@ SaveClip.defaultProps = {
   preferences: null,
   points: null,
   subject: null,
-  subjectID: ''
+  subjectID: '',
+  translate: () => {}
 };
 
 SaveClip.propTypes = {
@@ -131,15 +133,18 @@ SaveClip.propTypes = {
   subject: PropTypes.shape({
     locations: PropTypes.array
   }),
-  subjectID: PropTypes.string
+  subjectID: PropTypes.string,
+  translate: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
+    currentLanguage: getActiveLanguage(state.locale).code,
     subject: state.subject.currentSubject,
     frame: state.subjectViewer.frame,
     preferences: state.project.userPreferences,
-    subjectID: state.subject.id
+    subjectID: state.subject.id,
+    translate: getTranslate(state.locale)
   };
 };
 

@@ -13,8 +13,10 @@ import {
   deleteSelectedAnnotation,
   unselectAnnotation, updateText
 } from '../ducks/annotations';
+
 import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
+import FlippedBtn from './styled/FlippedBtn';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
 import { Utility, KEY_VALUES } from '../lib/Utility';
 
@@ -235,22 +237,31 @@ class SelectedAnnotation extends React.Component {
 
   scriptOption(script, i) {
     const isActive = this.props.activeScript === script ? 'active-script-option' : '';
+    const scriptName = this.scriptTranslate(script.name, script.type);
     return (
       <button
         key={`SCRIPT_OPTION_${i}`}
         className={isActive}
         onClick={this.activateScript.bind(this, i)}
       >
-        {script.name} {script.type}
+        {scriptName}
       </button>
     );
   }
 
+  scriptTranslate(name, type) {
+    const removeSpace = name.replace(/\s/g, '');
+    const script = `${this.props.translate(`scriptReferences.types.${removeSpace}`)}`;
+    const style = `${this.props.translate(`scriptReferences.types.${type}`)}`;
+    return `${script} ${style}`;
+  }
+
   render() {
-    const keyboardToggleText = this.props.showKeyboard ? this.props.translate('transcribeBox.closeKeyboard') : this.props.translate('transcribeBox.openKeyboard');
+    const keyboardToggleText = this.props.showKeyboard ? this.props.translate('transcribeBox.closeKeyboard')
+      : this.props.translate('transcribeBox.openKeyboard');
     let currentScript = 'Current Script';
     if (this.props.activeScript && this.props.activeScript.name && this.props.activeScript.type) {
-      currentScript = `${this.props.activeScript.name} ${this.props.activeScript.type}`;
+      currentScript = this.scriptTranslate(this.props.activeScript.name, this.props.activeScript.type);
     }
     return (
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
@@ -308,14 +319,14 @@ class SelectedAnnotation extends React.Component {
                 <div className="selected-annotation__script-select">
                   <span className="secondary-label">{this.props.translate('scriptReferences.currentScript')}</span>
                   <div>
-                    <button onClick={this.previousScript}>&#9664;</button>
+                    <FlippedBtn rtl={this.props.rtl} onClick={this.previousScript}>&#9668;</FlippedBtn>
                     <button className="text-link" onClick={this.toggleScriptOptions}>{currentScript}</button>
                     {this.state.showScriptOptions && (
                       <div className="script-options" ref={(c) => { this.dropdown = c; }}>
                         {KeyboardOptions.map((script, i) => this.scriptOption(script, i))}
                       </div>
                     )}
-                    <button onClick={this.nextScript}>&#9658;</button>
+                    <FlippedBtn rtl={this.props.rtl} onClick={this.nextScript}>&#9658;</FlippedBtn>
                   </div>
                 </div>
                 <div className="round-toggle">
@@ -350,6 +361,7 @@ SelectedAnnotation.propTypes = {
   }),
   dispatch: PropTypes.func,
   keyboardIndex: PropTypes.number,
+  rtl: PropTypes.bool,
   keyboardLanguage: PropTypes.string,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
@@ -365,6 +377,7 @@ SelectedAnnotation.defaultProps = {
   activeScript: KeyboardOptions[0],
   dispatch: () => {},
   keyboardIndex: 0,
+  rtl: false,
   keyboardLanguage: LANGUAGES.HEBREW,
   selectedAnnotation: null,
   showKeyboard: true,
@@ -378,6 +391,7 @@ const mapStateToProps = state => ({
   activeScript: state.keyboard.activeScript,
   currentLanguage: getActiveLanguage(state.locale).code,
   keyboardIndex: state.keyboard.index,
+  rtl: state.languages.rtl,
   keyboardLanguage: state.keyboard.activeLanguage,
   showKeyboard: state.keyboard.showKeyboard,
   showModernKeyboard: state.keyboard.modern,

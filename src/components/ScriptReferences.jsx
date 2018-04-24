@@ -101,6 +101,13 @@ class ScriptReferences extends React.Component {
     );
   }
 
+  scriptTranslate() {
+    const removeSpace = this.props.activeScript.name.replace(/\s/g, '');
+    const script = `${this.props.translate(`scriptReferences.types.${removeSpace}`)}`;
+    const style = `${this.props.translate(`scriptReferences.types.${this.props.activeScript.type}`)}`;
+    return `${script} ${style}`;
+  }
+
   renderLetters() {
     const text = !this.state.keyboardSent ? `${this.props.translate('scriptReferences.sendScript')} \u2192` : 'Sent'
 
@@ -120,7 +127,7 @@ class ScriptReferences extends React.Component {
           </button>
           {this.state.keyboardSent && (
             <span>
-              {this.props.activeScript.name} {this.props.activeScript.type} is now active in your transcription keyboard
+              {this.scriptTranslate()} is now active in your transcription keyboard
             </span>
           )}
         </div>
@@ -139,7 +146,7 @@ class ScriptReferences extends React.Component {
         <span>One sentence about where {type} is found.</span>
         <div className="script-references__scripts">
           {collection.map((script, i) => {
-            const scriptTitle = script.name.toLowerCase().replace(/\s+/g, '');
+            const scriptTitle = script.name.replace(/\s/g, '');
             const styles = {};
             styles.backgroundImage = `url('${script.img}')`;
             return (
@@ -185,7 +192,7 @@ class ScriptReferences extends React.Component {
           <div>
             <span className="secondary-label">{this.props.translate('scriptReferences.currentScript')}</span>
             <div>
-              <span className="h1-font">{this.props.activeScript.name} {this.props.activeScript.type}</span>
+              <span className="h1-font">{this.scriptTranslate()}</span>
               <button className="text-link" onClick={this.toggleSelection}>{toggleText}</button>
             </div>
           </div>

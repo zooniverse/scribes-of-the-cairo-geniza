@@ -38,6 +38,9 @@ export default {
     startNewWork: 'New Page',
     resumeWorkInProgress: 'Resume Work',
   },
+  tutorial: {
+    title: 'Tutorial'
+  },
   transcribeBox: {
     title: 'Transcribe',
     instructions: 'The Hebrew language reads from right to left, so start on the right side.',
@@ -70,17 +73,17 @@ export default {
     scriptTypes: 'Hebrew Script Types',
     yourSheet: 'Your Crib Sheet',
     types: {
-      orientalne: 'Oriental NE',
-      orientalsw: 'Oriental SW',
-      maghrebi: 'Maghrebi',
-      sephardi: 'Sephardi',
-      yemenite: 'Yemenite',
-      byzantine: 'Byzantine',
-      ashkenazi: 'Ashkenazi',
-      italian: 'Italian',
-      square: 'Square',
-      miniscule: 'Miniscule',
-      cursive: 'Cursive'
+      OrientalNE: 'Oriental NE',
+      OrientalSW: 'Oriental SW',
+      Maghrebi: 'Maghrebi',
+      Sephardi: 'Sephardi',
+      Yemenite: 'Yemenite',
+      Byzantine: 'Byzantine',
+      Ashkenazi: 'Ashkenazi',
+      Italian: 'Italian',
+      Square: 'Square',
+      Miniscule: 'Miniscule',
+      Cursive: 'Cursive'
     },
     sendScript: 'Send Script to Keyboard',
     currentScript: 'Current Script Type',
