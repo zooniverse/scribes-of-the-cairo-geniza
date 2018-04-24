@@ -38,7 +38,7 @@
     direction: rtl
     font-size: 1.12rem
     font-weight: 600
-    margin: 1rem 0
+    margin-top: 1rem
     min-height: 2.5rem
     padding: 0 0.5rem
     width: 100%
@@ -51,6 +51,10 @@
       height: 2.75rem
       margin-left: 0.75rem
       width: 11rem
+
+      &:disabled
+        background-image: url('../images/bg-disabled.png')
+        cursor: default
 
     div:nth-child(2)
       display: flex
@@ -66,6 +70,16 @@
 
   hr
     margin: 1rem 0
+
+  &__text-modifiers
+    display: flex
+    margin: 0.75rem 0
+    justify-content: flex-end
+
+    button
+      @extend .text-link
+      background: none
+      border: none
 
   &__keyboard-div
     > div:first-of-type

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+import { getTranslate, getActiveLanguage, Translate } from 'react-localize-redux';
 
 import { toggleDialog, togglePopup } from '../ducks/dialog';
 import {
@@ -18,6 +18,7 @@ import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
 import FlippedBtn from './styled/FlippedBtn';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
+import cleanText from '../lib/clean-text';
 import { Utility, KEY_VALUES } from '../lib/Utility';
 
 const ENABLE_DRAG = 'selected-annotation handle';
@@ -43,8 +44,10 @@ class SelectedAnnotation extends React.Component {
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
+    this.addTextModifier = this.addTextModifier.bind(this);
 
     this.state = {
+      disableSubmit: true,
       showScriptOptions: false
     };
   }
@@ -67,6 +70,9 @@ class SelectedAnnotation extends React.Component {
     if (this.props.activeKey) {
       this.props.dispatch(pressedKey(null));
     }
+
+    const disableSubmit = !this.inputText.value.length;
+    this.setState({ disableSubmit });
   }
 
   onKeyDown(e) {
@@ -111,6 +117,9 @@ class SelectedAnnotation extends React.Component {
     this.inputText.value = startText + character + endText;
     this.inputText.focus();
     this.inputText.setSelectionRange(startIndex + 1, startIndex + 1);
+
+    const disableSubmit = !this.inputText.value.length;
+    this.setState({ disableSubmit });
   }
 
   toggleKeyboardView() {
@@ -189,6 +198,39 @@ class SelectedAnnotation extends React.Component {
         question="Are you sure you want to close without saving?"
         title="Close Annotation"
       />));
+  }
+
+  addTextModifier(type) {
+    const tag = this.props.translate(`textModifiers.${type}`, null, { defaultLanguage: this.props.keyboardLocale });
+    let value;
+    let textAfter;
+    let textInBetween;
+    const wrapperTags = ['insertion', 'deletion', 'grid'];
+
+    const startTag = `[${tag}/]`;
+    const endTag = `[${tag}]`;
+    const text = this.inputText;
+    const textAreaValue = text.value;
+    const selectionStart = text.selectionStart;
+    const selectionEnd = text.selectionEnd;
+    const textBefore = textAreaValue.substring(0, selectionStart);
+    if (selectionStart === selectionEnd) {
+      textAfter = textAreaValue.substring(selectionStart, textAreaValue.length);
+      if (wrapperTags.indexOf(type) < 0) {
+        value = textBefore + endTag + textAfter;
+      } else {
+        value = textBefore + startTag + endTag + textAfter;
+      }
+    } else {
+      textInBetween = textAreaValue.substring(selectionStart, selectionEnd);
+      textAfter = textAreaValue.substring(selectionEnd, textAreaValue.length);
+      if (wrapperTags.indexOf(type) < 0) {
+        value = textBefore + endTag + textInBetween + textAfter;
+      } else {
+        value = textBefore + startTag + textInBetween + endTag + textAfter;
+      }
+    }
+    this.inputText.value = cleanText(value, tag, type);
   }
 
   toggleScriptOptions() {
@@ -286,6 +328,16 @@ class SelectedAnnotation extends React.Component {
           onMouseUp={() => { this.annotationBox.className = ENABLE_DRAG; }}
           placeholder={this.props.translate('transcribeBox.textArea')}
         />
+        <div className="selected-annotation__text-modifiers">
+          <button onClick={this.addTextModifier.bind(this, 'insertion')}>{this.props.translate('textModifiers.insertion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'deletion')}>{this.props.translate('textModifiers.deletion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'damaged')}>{this.props.translate('textModifiers.damaged')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'drawing')}>{this.props.translate('textModifiers.drawing')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'grid')}>{this.props.translate('textModifiers.grid')}</button>
+          {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
+            <button onClick={this.addTextModifier.bind(this, 'divine')}>{this.props.translate('textModifiers.divineName')}</button>
+          )}
+        </div>
         <div className="selected-annotation__controls">
           <div>
             <div className="round-toggle">
@@ -308,7 +360,7 @@ class SelectedAnnotation extends React.Component {
           </div>
           <div>
             <button className="button" onClick={this.deletePrompt}>{this.props.translate('cribSheet.delete')}</button>
-            <button className="button button__dark" onClick={this.saveText}>{this.props.translate('transcribeBox.done')}</button>
+            <button className="button button__dark" disabled={this.state.disableSubmit} onClick={this.saveText}>{this.props.translate('transcribeBox.done')}</button>
           </div>
         </div>
         {this.props.showKeyboard && (
@@ -363,6 +415,7 @@ SelectedAnnotation.propTypes = {
   keyboardIndex: PropTypes.number,
   rtl: PropTypes.bool,
   keyboardLanguage: PropTypes.string,
+  keyboardLocale: PropTypes.string,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
@@ -379,6 +432,7 @@ SelectedAnnotation.defaultProps = {
   keyboardIndex: 0,
   rtl: false,
   keyboardLanguage: LANGUAGES.HEBREW,
+  keyboardLocale: 'he',
   selectedAnnotation: null,
   showKeyboard: true,
   showModernKeyboard: true,
@@ -393,6 +447,7 @@ const mapStateToProps = state => ({
   keyboardIndex: state.keyboard.index,
   rtl: state.languages.rtl,
   keyboardLanguage: state.keyboard.activeLanguage,
+  keyboardLocale: state.keyboard.locale,
   showKeyboard: state.keyboard.showKeyboard,
   showModernKeyboard: state.keyboard.modern,
   selectedAnnotation: state.annotations.selectedAnnotation,
