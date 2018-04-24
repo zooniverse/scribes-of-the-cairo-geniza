@@ -219,14 +219,18 @@ const load = () => {
       }
       
       //First, load the Workflow, then the Subject, then the Annotations.
-      //Finally, clear all saved WIP data.
       dispatch(fetchWorkflow(workflowId)).then(() => {
         return dispatch(fetchSubject(subjectId));
       }).then(() => {
         return dispatch(loadAnnotations(annotations));
       }).then(() => {
         console.log('WorkInProgress.load() success');
-        return dispatch(clear());
+        
+        //If we want to remove all saved progress when a user successfully
+        //loads their data, enable this following line:
+        //  return dispatch(clear());
+        
+        return null;
       });
     } catch (err) {
       console.error('WorkInProgress.load() error: ', err);
