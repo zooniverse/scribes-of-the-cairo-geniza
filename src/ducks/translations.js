@@ -55,22 +55,24 @@ const loadTranslations = (translated_type, translated_id) => {
       translated_type,
       translated_id
     });
-    languages.map((language) => {
-      apiClient.type('translations')
-        .get({ translated_type, translated_id, language })
-        .then(([translations]) => {
-          if (translations) {
-            const resource = getState().translations.strings[translated_type];
-            resource[language] = translations.strings;
-            dispatch({
-              type: SET_STRINGS,
-              payload: {
-                [translated_type]: resource
-              }
-            });
-          }
-        });
-    });
+    Promise.all(
+      languages.map((language) => {
+        return apiClient.type('translations')
+          .get({ translated_type, translated_id, language })
+          .then(([translations]) => {
+            if (translations) {
+              const resource = getState().translations.strings[translated_type];
+              resource[language] = translations.strings;
+              dispatch({
+                type: SET_STRINGS,
+                payload: {
+                  [translated_type]: resource
+                }
+              });
+            }
+          });
+      })
+    );
   };
 };
 

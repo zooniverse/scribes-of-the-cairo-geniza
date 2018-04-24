@@ -66,11 +66,14 @@ class FieldGuide extends React.Component {
     const items = this.props.guide.items.slice();
 
     if (this.props.translationStatus === TRANSLATION_STATUS.READY) {
-      const translated = this.props.translatedGuide[language];
-      items.map((item, i) => {
-        item.title = translated[`items.${i}.title`];
-        item.content = translated[`items.${i}.content`];
-      });
+      const translations = (this.props.translatedGuide && this.props.translatedGuide[language])
+        ? this.props.translatedGuide[language] : null;
+      if (translations) {
+        items.map((item, i) => {
+          item.title = translations[`items.${i}.title`];
+          item.content = translations[`items.${i}.content`];
+        });
+      }
     }
     return items;
   }

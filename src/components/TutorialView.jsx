@@ -84,7 +84,8 @@ class TutorialView extends React.Component {
       return null;
     }
     const language = this.props.currentLanguage;
-    const translation = this.props.translatedTutorial[language];
+    const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
+      ? this.props.translatedTutorial[language] : null;
 
     return (
       <div className="tutorial-container">
@@ -99,6 +100,7 @@ class TutorialView extends React.Component {
           </div>
           <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
             {this.props.tutorial.steps.map((step, i) => {
+              const content = translations ? translations[`steps.${i}.content`] : step.content;
               if (!step._key) {
                 step._key = Math.random();
               }
@@ -109,8 +111,10 @@ class TutorialView extends React.Component {
 
               return (
                 <div key={step._key} className="tutorial-step">
-                  <img alt="Tutorial" src={source} />
-                  <Markdown>{translation[`steps.${i}.content`]}</Markdown>
+                  {source && (
+                    <img alt="Tutorial" src={source} />
+                  )}
+                  <Markdown>{content}</Markdown>
                 </div>
               );
             })}
