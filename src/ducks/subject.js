@@ -1,9 +1,11 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
-import { createClassification } from './classification';
+
 import { resetAnnotations } from './annotations';
+import { createClassification } from './classification';
 
 // Action Types
+const RESET_SUBJECT = 'FETCH_SUBJECT';
 const FETCH_SUBJECT = 'FETCH_SUBJECT';
 const FETCH_SUBJECT_SUCCESS = 'FETCH_SUBJECT_SUCCESS';
 const FETCH_SUBJECT_ERROR = 'FETCH_SUBJECT_ERROR';
@@ -19,6 +21,7 @@ const SUBJECT_STATUS = {
 
 const initialState = {
   currentSubject: null,
+  id: null,
   favorite: false,
   queue: [],
   status: SUBJECT_STATUS.IDLE
@@ -26,13 +29,20 @@ const initialState = {
 
 const subjectReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RESET_SUBJECT:
+      return initialState;
+
     case FETCH_SUBJECT:
       return Object.assign({}, state, {
+        currentSubject: null,
+        id: action.id,
+        favorite: false,
         status: SUBJECT_STATUS.FETCHING
       });
 
     case FETCH_SUBJECT_SUCCESS:
       return Object.assign({}, state, {
+        id: action.id,
         queue: action.queue,
         currentSubject: action.currentSubject,
         favorite: action.favorite,
@@ -41,6 +51,9 @@ const subjectReducer = (state = initialState, action) => {
 
     case FETCH_SUBJECT_ERROR:
       return Object.assign({}, state, {
+        currentSubject: null,
+        id: null,
+        favorite: false,
         status: SUBJECT_STATUS.ERROR
       });
 
@@ -54,55 +67,116 @@ const subjectReducer = (state = initialState, action) => {
   }
 };
 
-const prepareForNewSubject = (dispatch, subject) => {
-  dispatch(resetAnnotations());
-  dispatch(createClassification(subject));
-};
-
-const fetchSubject = (initialFetch = false) => {
+/*  Fetches a Zooniverse subject from Panoptes.
+    - subjectId: OPTIONAL. ID of the subject, as a string. e.g.: "1234"
+        If unspecified (undefined), fetches from list of queued subjects.
+   */
+const fetchSubject = (subjectId = null) => {
   return (dispatch, getState) => {
-    if (initialFetch && getState().subject.status !== SUBJECT_STATUS.IDLE) return;
     const workflow_id = getState().workflow.id;
+    
+    if (!workflow_id) {
+      console.error('ducks/subjects.js fetchSubject() error: no Workflow ID');
+      return;
+    }
 
-    dispatch({ type: FETCH_SUBJECT });
+    //Fetch Specific Subject
+    if (subjectId) {
+      
+      //Store update: enter "fetching" state.
+      dispatch({ type: FETCH_SUBJECT, id: subjectId });
 
-    const subjectQuery = { workflow_id };
-
-    const fetchQueue = () => {
-      apiClient.type('subjects/queued').get(subjectQuery)
-        .then((queue) => {
-          const currentSubject = queue.shift();
+      //Asynchronous action
+      return apiClient.type('subjects').get(subjectId)
+        .then((currentSubject) => {
+          //Store update: enter "success" state and save fetched data.
           dispatch({
             currentSubject,
             id: currentSubject.id,
-            queue,
+            queue: [],
             type: FETCH_SUBJECT_SUCCESS,
             favorite: currentSubject.favorite || false
           });
 
-          prepareForNewSubject(dispatch, currentSubject);
+          //onSuccess(), prepare for a new subject.
+          dispatch(prepareForNewSubject(currentSubject));
         })
-        .catch((err) => {
-          console.error('ducks/subject.js fetchSubject() error: ', err);
+
+        .catch((err)=>{
+          //Store update: enter "error" state.
           dispatch({ type: FETCH_SUBJECT_ERROR });
         });
-    };
-
-    if (!getState().subject.queue.length) {
-      fetchQueue();
+    
+    //Fetch Next Subject In Queue
     } else {
-      const currentSubject = getState().subject.queue.shift();
-      dispatch({
-        currentSubject,
-        id: currentSubject.id,
-        queue: getState().subject.queue,
-        type: FETCH_SUBJECT_SUCCESS,
-        favorite: currentSubject.favorite || false
-      });
+      
+      const subjectQuery = { workflow_id };
 
-      prepareForNewSubject(dispatch, currentSubject);
+      // TODO What if the fetched queue is empty?
+      // Is there a queue and are there subjects in the queue?
+      
+      //If there's an empty queue, fetch a new one.
+      if (!getState().subject.queue.length) {
+
+        return apiClient.type('subjects/queued').get(subjectQuery)
+          .then((queue) => {
+            const updatedQueue = queue.slice();  //Make a copy of the queue
+            const currentSubject = updatedQueue.shift();
+
+            //Store update: enter "success" state and save fetched data.
+            dispatch({
+              currentSubject,
+              id: currentSubject.id,
+              queue: updatedQueue,
+              type: FETCH_SUBJECT_SUCCESS,
+              favorite: currentSubject.favorite || false
+            });
+
+            //onSuccess(), prepare for a new subject.
+            dispatch(prepareForNewSubject(currentSubject));
+          })
+          .catch((err) => {
+            console.error('ducks/subject.js fetchSubject() error: ', err);
+            dispatch({ type: FETCH_SUBJECT_ERROR });
+          });
+      
+      //If there's a queue, fetch the next item.
+      } else {
+        const updatedQueue = getState().subject.queue.slice();  //Make a copy of the queue
+        const currentSubject = updatedQueue.shift();
+        
+        //Store update: enter "success" state and save fetched data.
+        dispatch({
+          currentSubject,
+          id: currentSubject.id,
+          queue: getState().subject.queue,
+          type: FETCH_SUBJECT_SUCCESS,
+          favorite: currentSubject.favorite || false
+        });
+
+        //onSuccess(), prepare for a new subject.
+        dispatch(prepareForNewSubject(currentSubject));
+      }
+      
     }
   };
+};
+
+/*  Resets Subject to its initial values.
+ */
+const resetSubject = () => {
+  return (dispatch) => {
+    dispatch({ type: RESET_SUBJECT });
+  }
+};
+
+/*  Resets all the dependencies that rely on the Subject.
+ */
+const prepareForNewSubject = (subject) => {
+  return (dispatch) => {
+    dispatch(resetAnnotations());
+    dispatch(createClassification(subject));
+  }
 };
 
 const subjectError = () => {
@@ -123,7 +197,7 @@ const createFavorites = (project) => {
     display_name,
     links
   };
-  apiClient.type('collections')
+  return apiClient.type('collections')
     .create(collection)
     .save()
     .catch(err => Promise.reject(err));
@@ -138,7 +212,7 @@ const toggleFavorite = () => {
     dispatch({ type: TOGGLE_FAVORITE, favorite: !favorite });
 
     if (user) {
-      apiClient.type('collections').get({
+      return apiClient.type('collections').get({
         project_ids: projectID,
         favorite: true,
         owner: user
@@ -158,6 +232,7 @@ const toggleFavorite = () => {
 export default subjectReducer;
 
 export {
+  resetSubject,
   fetchSubject,
   subjectError,
   toggleFavorite,
