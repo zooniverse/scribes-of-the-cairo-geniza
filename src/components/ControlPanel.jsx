@@ -13,17 +13,11 @@ import {
 } from '../ducks/work-in-progress';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
 
-import FieldGuide from '../components/FieldGuide';
-import CribSheet from '../components/CribSheet';
-import TutorialView from '../components/TutorialView';
-import FinishedPrompt from '../components/FinishedPrompt';
-
-import FlippedControlPanel from './styled/FlippedControlPanel';
-
 import FieldGuide from './FieldGuide';
 import CribSheet from './CribSheet';
 import TutorialView from './TutorialView';
 import FinishedPrompt from './FinishedPrompt';
+import FlippedControlPanel from './styled/FlippedControlPanel';
 import WorkInProgressPopup from './WorkInProgressPopup';
 
 class ControlPanel extends React.Component {
