@@ -29,7 +29,14 @@ export default {
     showTutorial: 'Show Tutorial',
     hideTutorial: 'Hide Tutorial',
     saveProgress: 'Save Progress',
-    finished: 'Finished'
+    finished: 'Finished',
+    lastSave: 'Last save'
+  },
+  workInProgress: {
+    header: 'Resume Work In Progress?',
+    message: 'We detected that you have some work in progress saved. You can continue your saved work, or start with a new page.',
+    startNewWork: 'New Page',
+    resumeWorkInProgress: 'Resume Work',
   },
   transcribeBox: {
     title: 'Transcribe',

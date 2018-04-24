@@ -8,11 +8,17 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
-import FieldGuide from '../components/FieldGuide';
-import CribSheet from '../components/CribSheet';
-import TutorialView from '../components/TutorialView';
-import FinishedPrompt from '../components/FinishedPrompt';
+import {
+  WorkInProgress, WORKINPROGRESS_INITIAL_STATE, WORKINPROGRESS_PROPTYPES,
+  getWorkInProgressStateValues
+} from '../ducks/work-in-progress';
 import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
+
+import FieldGuide from './FieldGuide';
+import CribSheet from './CribSheet';
+import TutorialView from './TutorialView';
+import FinishedPrompt from './FinishedPrompt';
+import WorkInProgressPopup from './WorkInProgressPopup';
 
 class ControlPanel extends React.Component {
   constructor(props) {
@@ -41,16 +47,31 @@ class ControlPanel extends React.Component {
 
   componentDidMount() {
     this.fetchTutorial(this.props);
+    
+    //Check if the user has any work in progress.
+    //componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page. 
+    if (this.props.user && WorkInProgress.check(this.props.user)) {
+      this.props.dispatch(togglePopup(<WorkInProgressPopup />));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     this.fetchTutorial(nextProps);
 
-    if (nextProps.tutorial !== this.props.tutorial) {
+    //If there's new tutorial data, show it...
+    //...unless there's a WorkInProgress prompt in the way.
+    if (nextProps.tutorial !== this.props.tutorial && !WorkInProgress.check(this.props.user)) {
       Tutorial.checkIfCompleted(nextProps.tutorial, nextProps.user, nextProps.preferences).then((completed) => {
         if (!completed) { this.toggleTutorial(); }
       });
     }
+    
+    //Check if the user has any work in progress.
+    //componentWillReceiveProps() checks when the user accesses the Classifier page directly. 
+    if (this.props.user !== nextProps.user && nextProps.user && WorkInProgress.check(nextProps.user)) {
+      this.props.dispatch(togglePopup(<WorkInProgressPopup />));
+    }
+    
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
   }
@@ -77,14 +98,11 @@ class ControlPanel extends React.Component {
 
   toggleTutorial() {
     if (this.props.dialogComponent === 'Tutorial') {
-      return this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(togglePopup(null));
     }
 
     if (this.props.tutorial) {
-      const dimensions = { height: 515, width: 400 };
-      this.props.dispatch(togglePopup(
-        <TutorialView />, 'Tutorial', dimensions, 'Tutorial'
-      ));
+      this.props.dispatch(togglePopup(<TutorialView />));
     }
   }
 
@@ -196,9 +214,15 @@ class ControlPanel extends React.Component {
 
           <div>
             <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
-            <button className="button">{this.props.translate('infoBox.saveProgress')}</button>
+            {this.props.user && (  //Show the Save Progress button to logged-in users only.
+              <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
+                {this.props.translate('infoBox.saveProgress')}
+              </button>
+            )}
             <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
+            {this.props.wipTimestamp && (<div className="workinprogress-timestamp body-font">{this.props.translate('infoBox.lastSave') + ': ' + this.props.wipTimestamp.toString()}</div>)}
           </div>
+
         </div>
       </Section>
     );
@@ -249,7 +273,8 @@ ControlPanel.propTypes = {
   }),
   workflow: PropTypes.shape({
     id: PropTypes.string
-  })
+  }),
+  ...WORKINPROGRESS_PROPTYPES
 };
 
 ControlPanel.defaultProps = {
@@ -264,7 +289,8 @@ ControlPanel.defaultProps = {
   tutorial: null,
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
-  workflow: null
+  workflow: null,
+  ...WORKINPROGRESS_INITIAL_STATE,
 };
 
 const mapStateToProps = (state) => {
@@ -280,7 +306,8 @@ const mapStateToProps = (state) => {
     tutorial: state.tutorial.data,
     tutorialStatus: state.tutorial.status,
     user: state.login.user,
-    workflow: state.workflow.data
+    workflow: state.workflow.data,
+    ...getWorkInProgressStateValues(state),
   };
 };
 

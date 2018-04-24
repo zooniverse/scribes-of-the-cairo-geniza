@@ -7,6 +7,7 @@ const SELECT_ANNOTATION = 'SELECT_ANNOTATION';
 const UNSELECT_ANNOTATION = 'UNSELECT_ANNOTATION';
 const DELETE_SELECTED_ANNOTATION = 'DELETE_SELECTED_ANNOTATION';
 const RESET_ANNOTATIONS = 'RESET_ANNOTATIONS';
+const LOAD_ANNOTATIONS = 'LOAD_ANNOTATIONS';
 
 const ANNOTATION_STATUS = {
   IDLE: 'annotation_status_idle',
@@ -26,6 +27,16 @@ const annotationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_ANNOTATIONS:
       return initialState;
+    
+    case LOAD_ANNOTATIONS:
+      return {
+        annotationInProgress: null,
+        annotationBoxPosition: null,
+        annotations: action.annotations,
+        selectedAnnotation: null,
+        selectedAnnotationIndex: null,
+        status: ANNOTATION_STATUS.IDLE
+      };
 
     case ADD_ANNOTATION_POINT: {
       const annotationInProgress = (state.annotationInProgress)
@@ -164,6 +175,14 @@ const deleteSelectedAnnotation = () => {
   };
 };
 
+/*  Loads existing annotations data, usually via the WorkInProgress library.
+ */
+const loadAnnotations = (annotations) => {
+  return (dispatch) => {
+    dispatch({ type: LOAD_ANNOTATIONS, annotations });
+  };
+};
+
 const resetAnnotations = () => {
   return (dispatch) => {
     dispatch({ type: RESET_ANNOTATIONS });
@@ -174,6 +193,6 @@ export default annotationsReducer;
 
 export {
   addAnnotationPoint, completeAnnotation,
-  deleteSelectedAnnotation, resetAnnotations,
+  deleteSelectedAnnotation, loadAnnotations, resetAnnotations,
   selectAnnotation, updateText, unselectAnnotation
 };
