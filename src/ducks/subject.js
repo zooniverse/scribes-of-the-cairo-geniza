@@ -3,6 +3,7 @@ import { config } from '../config';
 
 import { resetAnnotations } from './annotations';
 import { createClassification } from './classification';
+import { changeFrame } from './subject-viewer';
 
 // Action Types
 const RESET_SUBJECT = 'FETCH_SUBJECT';
@@ -176,6 +177,7 @@ const prepareForNewSubject = (subject) => {
   return (dispatch) => {
     dispatch(resetAnnotations());
     dispatch(createClassification(subject));
+    dispatch(changeFrame(0));
   }
 };
 
