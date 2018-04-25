@@ -11,10 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Belleza|Merriweather:300,700|Work+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <%= htmlWebpackPlugin.options.googleAnalytics %>
+
+    <meta name="google-site-verification" content="k5HGFzHxciKSJySNjb7_IfMVlJ-m1g0QwB_yD2i8qVU" /><!--Identifier for Google Webmasters tools-->
   </head>
   <body>
     <div id="root"></div>
-    <%= htmlWebpackPlugin.options.gtm %>
     <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=default,es6,Array.prototype.includes,Array.prototype.keys"></script>
   </body>
 </html>

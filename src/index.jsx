@@ -11,6 +11,10 @@ import configureStore from './store';
 
 import './styles/main.styl';
 
+//Import non-core files, so they'll be packaged properly by Webpack.
+import { favicon } from './images/favicon.ico';
+import { robots } from './robots.txt';
+
 const store = configureStore();
 const history = createHistory();
 
