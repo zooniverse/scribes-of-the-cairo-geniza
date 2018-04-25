@@ -1,0 +1,10 @@
+# Scribes of the Cairo Geniza - robots.txt for managing how web bots crawl and index the website.
+
+# For the Beta launch, we intend to hide Scribes of the Cairo Geniza from Google (and any other web search engine).
+# The following tells ALL web crawlers to "please don't notice us"
+User-agent: *
+Disallow: /
+
+# Free for all version, to be used for full launch:
+#   User-agent: *
+#   Allow: /
