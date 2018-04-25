@@ -93,9 +93,10 @@ module.exports = {
         loader: 'image-webpack-loader',
       }],
     }, {
-      test: /\.(ico|txt\d?)$/,
-      loader: 'file-loader?name=[name].[ext]',
-
+      test: /\.(txt|ico)$/,
+      use: [{
+        loader: 'file-loader?name=[name].[ext]',
+      }],
     }],
   },
   node: {
