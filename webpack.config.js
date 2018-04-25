@@ -39,7 +39,7 @@ module.exports = {
       template: 'src/index.tpl.html',
       inject: 'body',
       filename: 'index.html',
-      gtm: ''
+      googleAnalytics: ''
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
