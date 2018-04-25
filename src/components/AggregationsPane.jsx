@@ -68,8 +68,8 @@ class AggregationsPane extends React.Component {
     let keywordTable = [];
     const workflow = this.props.keywordWorkflow;
 
-    if (workflow.tasks && workflow.tasks.T0 && workflow.tasks.T0 && workflow.tasks.T0.tools) {
-      keywordTable = workflow.tasks.T0.tools;
+    if (workflow.tasks) {
+      keywordTable = workflow.tasks;
     }
     if (!this.props.data) return null;
 

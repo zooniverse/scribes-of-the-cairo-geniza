@@ -22,6 +22,7 @@ import workflow from './workflow';
 import workInProgress from './work-in-progress';
 
 export default combineReducers({
+  aggregations,
   annotations,
   classification,
   collections,
@@ -33,7 +34,6 @@ export default combineReducers({
   keyboard,
   languages,
   login,
-  aggregations,
   project,
   reminder,
   subject,

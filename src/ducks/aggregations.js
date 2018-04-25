@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import apiClient from 'panoptes-client/lib/api-client';
+import merge from 'lodash/merge';
 import { request } from 'graphql-request';
 import { config } from '../config';
 
@@ -71,6 +72,18 @@ const aggregationsReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
   }
 };
 
+const explodeKey = (key, value) => {
+  const keys = key.split('_');
+  const fullObject = {};
+  let temp = fullObject;
+  while (keys.length) {
+    temp[keys[0]] = (keys.length === 1) ? value : {};
+    temp = temp[keys[0]];
+    keys.shift();
+  }
+  return fullObject;
+};
+
 const toggleHints = () => {
   return (dispatch, getState) => {
     const showHints = !getState().aggregations.showHints;
@@ -86,11 +99,10 @@ const fetchAggregations = (subjectId) => {
   if (!subjectId) return () => {};
   return (dispatch) => {
     const workflowId = config.keywordWorkflow;
-    const reducerKey = 'hebrew_word';
 
     const query = `{
       workflow(id: ${workflowId}) {
-        subject_reductions(subjectId: ${subjectId}, reducerKey:"${reducerKey}") {
+        subject_reductions(subjectId: ${subjectId}) {
           data
         }
       }
@@ -99,11 +111,20 @@ const fetchAggregations = (subjectId) => {
 
     const fetchData = request(config.caesarHost, query)
       .then((data) => {
-        const aggregationData = (data && data.workflow &&
-          data.workflow.subject_reductions && data.workflow.subject_reductions[0] &&
-          data.workflow.subject_reductions[0].data && data.workflow.subject_reductions[0].data.frame0)
-          ? data.workflow.subject_reductions[0].data.frame0 : {};
-        dispatch({ type: FETCH_AGGREGATIONS_SUCCESS, aggregationData });
+        // const aggregationData = (data && data.workflow &&
+        //   data.workflow.subject_reductions && data.workflow.subject_reductions[0] &&
+        //   data.workflow.subject_reductions[0].data && data.workflow.subject_reductions[0].data.frame0)
+        //   ? data.workflow.subject_reductions[0].data.frame0 : {};
+        let newData = {};
+        data.workflow.subject_reductions.map((reduction) => {
+          let item = {};
+          Object.keys(reduction.data.frame0).map((key) => {
+            const stuff = explodeKey(key, reduction.data.frame0[key]);
+            item = merge(item, stuff)
+          });
+          newData = merge(item, newData);
+        });
+        dispatch({ type: FETCH_AGGREGATIONS_SUCCESS, aggregationData: newData });
       });
 
     const fetchWorkflow = apiClient.type('workflows').get({ id: config.keywordWorkflow })
