@@ -28,6 +28,7 @@ const TOGGLE_CONTRAST = 'TOGGLE_CONTRAST';
 const SET_VIEWER_STATE = 'SET_VIEWER_STATE';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
 const UPDATE_VIEWER_SIZE = 'UPDATE_VIEWER_SIZE';
+const CHANGE_FRAME = 'CHANGE_FRAME';
 
 const subjectViewerReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -117,6 +118,11 @@ const subjectViewerReducer = (state = initialState, action) => {
       });
     }
 
+    case CHANGE_FRAME:
+      return Object.assign({}, state, {
+        frame: action.frame
+      });
+
     default: {
       return state;
     }
@@ -195,9 +201,19 @@ const toggleContrast = () => {
   };
 };
 
+const changeFrame = (frame) => {
+  return (dispatch) => {
+    dispatch({
+      type: CHANGE_FRAME,
+      frame
+    });
+  }
+};
+
 export default subjectViewerReducer;
 
 export {
+  changeFrame,
   resetView,
   setRotation,
   setScaling,

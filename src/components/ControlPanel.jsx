@@ -7,6 +7,7 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { fetchGuide } from '../ducks/field-guide';
 import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { changeFrame } from '../ducks/subject-viewer';
 import {
   WorkInProgress, WORKINPROGRESS_INITIAL_STATE, WORKINPROGRESS_PROPTYPES,
   getWorkInProgressStateValues
@@ -208,7 +209,10 @@ class ControlPanel extends React.Component {
           <hr className="white-line" />
 
           <div>
-            <button className="button">{this.props.translate('infoBox.transcribeReverse')}</button>
+            {(this.props.frame === 0)
+              ? <button className="button" onClick={()=>{this.props.dispatch(changeFrame(1))}}>{this.props.translate('infoBox.transcribeReverse')}</button>
+              : <button className="button" onClick={()=>{this.props.dispatch(changeFrame(0))}}>{this.props.translate('infoBox.transcribeFront')}</button>
+            }
             {this.props.user && (  //Show the Save Progress button to logged-in users only.
               <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
                 {this.props.translate('infoBox.saveProgress')}
@@ -276,6 +280,7 @@ ControlPanel.defaultProps = {
   dialog: null,
   dialogComponent: null,
   dispatch: () => {},
+  frame: 0,
   guide: null,
   icons: null,
   preferences: null,
@@ -293,6 +298,7 @@ const mapStateToProps = (state) => {
     currentLanguage: getActiveLanguage(state.locale).code,
     dialog: state.dialog.data,
     dialogComponent: state.dialog.component,
+    frame: state.subjectViewer.frame,
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
     preferences: state.project.userPreferences,
