@@ -33,10 +33,17 @@
 
     div
       display: flex
+      position: relative
 
     a
       display: block
       padding: 1rem
+
+    button
+      background: transparent
+      border: none
+      color: $plum
+      cursor: pointer
 
   &__rtl
     flex-direction: row-reverse
@@ -55,7 +62,7 @@
       border: none
       margin-top: 0
 
-  button
+  button:not(.project-header__link)
     background-color: transparent
     border: 1px solid transparent
     border-radius: 50%

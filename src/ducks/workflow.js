@@ -1,9 +1,8 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 
-import { resetSubject } from './subject';
+import { fetchSubject, resetSubject } from './subject';
 import { resetAnnotations } from './annotations';
-import { createClassification } from './classification';
 
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
@@ -48,11 +47,21 @@ const workflowReducer = (state = initialState, action) => {
   }
 };
 
-const fetchWorkflow = (workflowId = config.workflowId) => {
+/*  Resets all the dependencies that rely on the Workflow.
+ */
+const prepareForNewWorkflow = () => {
+  return (dispatch) => {
+    dispatch(resetSubject());
+    dispatch(resetAnnotations());
+    dispatch(fetchSubject());
+  };
+};
+
+const fetchWorkflow = (workflowId = config.easyHebrew) => {
   return (dispatch) => {
     dispatch({
       type: FETCH_WORKFLOW,
-      id: workflowId,
+      id: workflowId
     });
 
     return apiClient.type('workflows').get(workflowId)
@@ -62,23 +71,13 @@ const fetchWorkflow = (workflowId = config.workflowId) => {
           data: workflow
         });
 
-        //onSuccess(), prepare for a new workflow.
+        // onSuccess(), prepare for a new workflow.
         dispatch(prepareForNewWorkflow());
       })
       .catch(() => {
         dispatch({ type: FETCH_WORKFLOW_ERROR });
       });
   };
-};
-
-/*  Resets all the dependencies that rely on the Workflow.
- */
-const prepareForNewWorkflow = () => {
-  return (dispatch) => {
-    dispatch(resetSubject());
-    dispatch(resetAnnotations());
-    dispatch(createClassification(subject));
-  }
 };
 
 export default workflowReducer;

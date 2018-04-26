@@ -4,12 +4,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+import WorkflowDropdown from './WorkflowDropdown';
 
 import { setLanguage, LANGUAGES } from '../ducks/languages';
 
 class ProjectHeader extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      workflowSelect: false
+    };
+
+    this.toggleWorkflowSelect = this.toggleWorkflowSelect.bind(this);
+  }
+
   changeLanguage(language) {
     this.props.dispatch(setLanguage(language));
+  }
+
+  toggleWorkflowSelect() {
+    this.setState({ workflowSelect: !this.state.workflowSelect });
   }
 
   render() {
@@ -41,13 +56,15 @@ class ProjectHeader extends React.Component {
               >
                 {this.props.translate('topNav.about')}
               </NavLink>
-              <NavLink
-                activeClassName="project-header__active"
+              <button
                 className="project-header__link"
-                to="/classify"
+                onClick={this.toggleWorkflowSelect}
               >
                 {this.props.translate('topNav.transcribe')}
-              </NavLink>
+              </button>
+              {this.state.workflowSelect && (
+                <WorkflowDropdown />
+              )}
               <a
                 className="project-header__link"
                 href="/"
