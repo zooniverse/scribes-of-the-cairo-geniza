@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleReminder } from '../ducks/reminder';
 
+const QUARTER_OF_PAGE = 0.25;
+
 class HelperMessage extends React.Component {
   constructor() {
     super();
@@ -15,10 +17,10 @@ class HelperMessage extends React.Component {
   }
 
   render() {
-    const y = this.props.viewerSize.height * 0.25;
+    const y = this.props.viewerSize.height * QUARTER_OF_PAGE;
 
     return (
-      <g>
+      <g style={{ direction: 'ltr' }}>
         <rect
           x={-(this.props.width / 2)}
           y={y}
@@ -75,7 +77,7 @@ HelperMessage.defaultProps = {
   width: 0
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   viewerSize: state.subjectViewer.viewerSize
 });
 

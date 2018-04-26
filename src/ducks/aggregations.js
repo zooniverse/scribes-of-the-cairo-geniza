@@ -111,16 +111,12 @@ const fetchAggregations = (subjectId) => {
 
     const fetchData = request(config.caesarHost, query)
       .then((data) => {
-        // const aggregationData = (data && data.workflow &&
-        //   data.workflow.subject_reductions && data.workflow.subject_reductions[0] &&
-        //   data.workflow.subject_reductions[0].data && data.workflow.subject_reductions[0].data.frame0)
-        //   ? data.workflow.subject_reductions[0].data.frame0 : {};
         let newData = {};
         data.workflow.subject_reductions.map((reduction) => {
           let item = {};
           Object.keys(reduction.data.frame0).map((key) => {
             const stuff = explodeKey(key, reduction.data.frame0[key]);
-            item = merge(item, stuff)
+            item = merge(item, stuff);
           });
           newData = merge(item, newData);
         });

@@ -115,7 +115,8 @@ class Toolbar extends React.Component {
     const expanded = this.state.showPanel;
     const toolbarClass = expanded ? 'toolbar toolbar__expanded' : 'toolbar';
     const hintsIcon = this.props.showHints ? 'fa fa-eye-slash' : 'fa fa-eye';
-    const hintsText = this.props.showHints ? 'hide' : 'show';
+    const hintsText = this.props.showHints ? this.props.translate('toolbar.showHints')
+      : this.props.translate('toolbar.hideHints');
 
     return (
       <section className={toolbarClass}>
@@ -158,7 +159,7 @@ class Toolbar extends React.Component {
         </button>
         <button onClick={this.toggleShowHints}>
           <i className={hintsIcon} />
-          {expanded && (<span>{this.props.translate('toolbar.showHints')}</span>)}
+          {expanded && (<span>{hintsText}</span>)}
         </button>
         <button onClick={this.resetView}>
           <i className="fa fa-refresh" />

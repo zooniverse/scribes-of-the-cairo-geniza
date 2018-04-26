@@ -10,10 +10,10 @@ By default, this is the development environment, but this can be changed either 
 
  */
 
-var DEFAULT_ENV = 'development';
-var envFromBrowser = locationMatch(/\W?env=(\w+)/);
-var envFromShell = process.env.NODE_ENV;
-var env = envFromBrowser || envFromShell || DEFAULT_ENV;
+const DEFAULT_ENV = 'development';
+const envFromBrowser = locationMatch(/\W?env=(\w+)/);
+const envFromShell = process.env.NODE_ENV;
+const env = envFromBrowser || envFromShell || DEFAULT_ENV;
 
 if (!env.match(/^(production|staging|development)$/)) {
   throw new Error(`Error: Invalid Environment - ${env}`);
@@ -21,7 +21,7 @@ if (!env.match(/^(production|staging|development)$/)) {
 
 const baseConfig = {
   development: {
-    panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',  //Scribes of the Cairo Geniza on Staging
+    panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',
     caesarHost: 'https://caesar-staging.zooniverse.org/graphql',
     host: 'https://master.pfe-preview.zooniverse.org/',
     keywordWorkflow: '3156',
