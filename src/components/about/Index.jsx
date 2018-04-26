@@ -49,9 +49,10 @@ function AboutLayout({ translate }) {
             <p className="text">Before we could ask our volunteers to transcribe, we needed more information about the fragments themselves. We created Phase I to gather this information. In the first phase of the project we asked our community of volunteer humanists and historians to sort Cairo Geniza fragments into groups based on whether they were in Hebrew, Arabic, or both types of scripts. We also asked whether the scripts were written in an informal or formal style and about a few other visual characteristics that hinted at whether the fragment was religious or non-religious in genre.</p>
             <div className="diagram">
               <img src={imgPhase1Workflow_en} />
+              <span className="caption">Phase One Workflow</span>
             </div>
             <p className="text">Now we are at the point of the transcription phase, or Phase II.The goal of phase II is to:</p>
-            <ol>
+            <ol className="text">
               <li>Provide our community of volunteer humanists and historians opportunities to view and decipher Cairo Geniza fragments;</li>
               <li>Contribute to the classification of fragments by script-type and content;</li>
               <li>Produce transcriptions of the material that will help in the work of historians, linguists and other scholars of this material. This material will be available in the future through OPenn and as open data through other sources.</li>

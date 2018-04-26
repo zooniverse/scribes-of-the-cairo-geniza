@@ -17,15 +17,17 @@
     @extend .text-link
   
   .left-column
-    max-width: 20em
+    max-width: 60%
     
     @media(max-width: 750px)
       max-width: auto
     
   .right-column
+    max-width: 35%
     float: right
     
     @media(max-width: 750px)
+      max-width: auto
       float: none
 
   p.text
@@ -39,7 +41,11 @@
       background: #fff
       border: 2px solid $dark-grey
     
-    
+    .caption
+      display: block
+      text-align: center
+      text-transform: uppercase
+
   /*
   --------------------------------
    */
@@ -77,6 +83,9 @@
       
       a
         display: block
+    
+    .content
+      margin-top: 3em
 
   /*
   --------------------------------
