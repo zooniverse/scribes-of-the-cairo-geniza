@@ -67,10 +67,17 @@
     
     h2
       @extend .h2-font
+    
+    .item
+     margin: 4rem 0 
+      
+    .item h3
+      @extend .about-page .left-column
+      @extend .primary-label
 
     hr.small
-      
-      width: 10em
+      margin-left: -1em
+      width: 4em
 
     hr.big
       margin: 0 auto
@@ -117,6 +124,19 @@
     .content
       margin-top: 4em
 
+  /*
+  --------------------------------
+   */
+   
+  &__partners
+    .right-column
+      img
+        display: block
+        width: 12rem
+        max-width: 100%rem
+    
+    
+    
   /*
   --------------------------------
    */

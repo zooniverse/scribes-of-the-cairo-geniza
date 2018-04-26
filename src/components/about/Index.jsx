@@ -90,38 +90,46 @@ function AboutLayout({ translate }) {
         --------------------------------
         */}
         <div className="about-page__partners subsection">
-          <h2>Institutional Partners</h2>
-          <div className="about-page__logos">
-            <div>
-              <img alt="Penn Libraries Logo" src={Penn} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
+          <h2>About the research partners</h2>
+          <div className="content">
+            <hr className="small plum-line" />
+            
+            <div className="item">
+              <div className="right-column">
+                <img alt="Penn Libraries Logo" src={Penn} />
+              </div>
+              <h3>Penn</h3>
+              <p  className="text">The Penn Libraries serve the world-class faculty and students of Penn’s 12 schools. The Libraries’ collections comprise more than 7 million volumes, over 100,000 journals, some 2 million digitized images, and extraordinary rare and unique materials that document the intellectual and cultural experience of ancient and modern civilizations. Through our collaborative relationships, we supplement Penn’s great local collections with physical access to the Center for Research Libraries (approximately 5 million items), the combined holdings of the Ivies (more than 70 million volumes), and exclusive electronic access to some 2 million public domain titles in the HathiTrust. Today, the Libraries play an instrumental role in developing new technologies for information discovery and dissemination and are noted for groundbreaking work in digital library design. To learn more about the Penn Libraries, visit http://www.library.upenn.edu.</p>
             </div>
-            <div>
-              <img alt="The Jewish Theological Seminary Logo" src={JTSLogo} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
+            
+            <div className="item">
+              <div className="right-column">
+                <img alt="Princeton Geniza Project" src={Princeton} />
+              </div>
+              <h3>Princeton</h3>
+              <p className="text">The Princeton Geniza Lab is a collaborative space devoted to making the documentary texts of the Cairo Geniza — letters, legal documents, lists, accounts and other ephemera — accessible to scholars and the wider public. We organize teams of undergraduates, graduate students, post-docs, faculty and international researchers to describe, transcribe and translate the documents, and run workshops, conferences and meetings to discuss documentary history across Eurasia, digital humanities, laboratory-style learning in the humanities and the history of the medieval Middle East. Our main online database is the Princeton Geniza Project (http://geniza.princeton.edu/newpgp/princetongenizaproject).</p>
             </div>
-            <div>
-              <img alt="Genizah Research Unit, Cambridge University Library" src={Genizah} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
+            
+            <div className="item">
+              <div className="right-column">
+                <img alt="e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={null} />
+              </div>
+              <h3>e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa</h3>
+              <p className="text">e-Lijah (eLearning in Jewish studies at Haifa) is a Digital Humanities lab aimed at developing and implementing citizen science and crowdsourcing projects in the Humanities. The lab covers along chronological span from Antiquity to the modern era and a variety of medias and disciplines including historical, spatial, textual, literary and visual sources.</p>
+              <p className="text">The lab follows a triple elements model for citizen science. Each project in the lab is committed to the development of a web platform, the establishing of educational or other public activity for assuring a vital community of contributors and exercising research based on the fruits of public contributions.</p>
+              <p className="text">The Lab was founded as an extension of the Haifa Genizah Research Center, devoted to multidisciplinary research in field of the Genizah, and to the wider application of Genizah Research, namely outreach for new circles of Genizah users : scholars in adjacent fields, various strands of education and the wider public as a whole. Visit our website: http://genizah.haifa.ac.il/index.php?lang=en</p>
             </div>
-            <div>
-              <img alt="Princeton Geniza Project" src={Princeton} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
+            
+            <div className="item">
+              <div className="right-column">
+                <img alt="Zooniverse" src={null} />
+              </div>
+              <h3>The Zooniverse</h3>
+              <p className="text">The Zooniverse is the world’s largest and most popular platform for people-powered research. In 2016, the Zooniverse received a National Leadership Grant to fund the “Transforming Libraries and Archives through Crowdsourcing” project, a partnership between Zooniverse team members based at the Adler Planetarium in Chicago and at the University of Oxford. This effort will greatly expand the capacity for libraries and archives across the country to use crowdsourcing techniques to engage with audiences and improve access to digital collections through the Zooniverse. For more information about the research project, please click <a href="http://www.dlib.org/dlib/may17/vanhyning/05vanhyning.html">here.</a> For more information about the Zooniverse, please click <a href="https://www.zooniverse.org/about">here.</a></p>
             </div>
-
           </div>
+          
+          
         </div>
         {/*
         --------------------------------
