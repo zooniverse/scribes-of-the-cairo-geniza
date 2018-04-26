@@ -209,10 +209,11 @@ class ControlPanel extends React.Component {
           <hr className="white-line" />
 
           <div>
-            {(this.props.frame === 0)
-              ? <button className="button" onClick={()=>{this.props.dispatch(changeFrame(1))}}>{this.props.translate('infoBox.transcribeReverse')}</button>
-              : <button className="button" onClick={()=>{this.props.dispatch(changeFrame(0))}}>{this.props.translate('infoBox.transcribeFront')}</button>
-            }
+            {(!(this.props.currentSubject && this.props.currentSubject.locations && this.props.currentSubject.locations.length >= 2)) ? null : (
+              (this.props.frame === 0)
+                ? <button className="button" onClick={()=>{this.props.dispatch(changeFrame(1))}}>{this.props.translate('infoBox.transcribeReverse')}</button>
+                : <button className="button" onClick={()=>{this.props.dispatch(changeFrame(0))}}>{this.props.translate('infoBox.transcribeFront')}</button>
+            )}
             {this.props.user && (  //Show the Save Progress button to logged-in users only.
               <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
                 {this.props.translate('infoBox.saveProgress')}
@@ -252,6 +253,7 @@ class ControlPanel extends React.Component {
 }
 
 ControlPanel.propTypes = {
+  currentSubject: PropTypes.object,
   dialog: PropTypes.node,
   dialogComponent: PropTypes.string,
   dispatch: PropTypes.func,
@@ -277,6 +279,7 @@ ControlPanel.propTypes = {
 };
 
 ControlPanel.defaultProps = {
+  currentSubject: null,
   dialog: null,
   dialogComponent: null,
   dispatch: () => {},
@@ -296,6 +299,7 @@ ControlPanel.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     currentLanguage: getActiveLanguage(state.locale).code,
+    currentSubject: state.subject.currentSubject,
     dialog: state.dialog.data,
     dialogComponent: state.dialog.component,
     frame: state.subjectViewer.frame,
