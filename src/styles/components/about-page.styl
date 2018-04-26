@@ -5,9 +5,44 @@
   width: 100%
   overflow: auto
 
+  /*
+  --------------------------------
+   */
+
   section
     background-color: $bisque
     margin-top: 38vw !important
+    
+  a
+    @extend .text-link
+  
+  .left-column
+    max-width: 20em
+    
+    @media(max-width: 750px)
+      max-width: auto
+    
+  .right-column
+    float: right
+    
+    @media(max-width: 750px)
+      float: none
+
+  p.text
+  ol.text
+    @extend .body-font
+    @extend .about-page .left-column
+  
+  .diagram
+    img
+      width: 100%
+      background: #fff
+      border: 2px solid $dark-grey
+    
+    
+  /*
+  --------------------------------
+   */
 
   &__intro
     overflow: auto
@@ -23,73 +58,29 @@
       margin-top: -2rem
       padding: 2rem 3rem
       position: absolute
+    
+    nav
+      float: right
+      
+      @media(max-width: 750px)
+        float: none
+        margin: 5em 0
+      
+      ul
+        list-style: none
+        margin: 0
+        padding: 0
+        
+      li
+        padding: 0
+        margin: 0 0 1em 0
+      
+      a
+        display: block
 
-    div
-      display: block
-      margin: 4rem 1rem
-
-    span
-      @extend .body-font
-      column-count: 2
-      display: block
-      margin: 0 2rem
-
-      @media(max-width: 600px)
-        column-count: 1
-
-    a
-      @extend .text-link
-      display: block
-      margin: 0.5rem 0 0 51%
-
-      &:hover, &:focus
-        color: $dust
-
-  &__logos
-    display: flex
-    flex-direction: row
-    flex-wrap: wrap
-
-  &__partners
-    display: flex
-    flex-wrap: wrap
-    margin: 4rem 0
-    padding: 0 6rem
-
-    h2
-      align-self: flex-end
-      font-family: $belleza
-      letter-spacing: 0.25em
-      color: $thistle
-      text-transform: uppercase
-      transform: rotate(-90deg)
-      transform-origin: 3rem 0
-      white-space: nowrap
-      width: 4em
-
-      @media(max-width: 600px)
-        align-self: flex-start
-        font-size: 1rem
-        transform: none
-        width: inherit
-
-      @media(min-width: 1230px)
-        font-size: 1rem
-
-    div
-      flex: 1
-      margin: 1rem
-      min-width: 12rem
-
-    img
-      width: 8rem
-
-    span
-      @extend .body-font
-      display: block
-      font-size: 0.7rem
-      margin: 1rem 0 0 2rem
-      max-width: 12rem
+  /*
+  --------------------------------
+   */
 
   &__team
     background-color: $sand
@@ -100,6 +91,10 @@
 
     hr
       width: 66%
+
+  /*
+  --------------------------------
+   */
 
   &__members
     display: flex
