@@ -30,12 +30,9 @@
       max-width: auto
       float: none
 
-  p.text
-  ol.text
+  .text
     @extend .body-font
     @extend .about-page .left-column
-  
-  .text
     font-size: 0.875em
     line-height: 1.875em
   
@@ -64,7 +61,19 @@
 
   nav
     font-size: 0.9375em
+  
+  .subsection
+    padding: 4rem 8rem
     
+    h2
+      @extend .h2-font
+
+    hr.small
+      width: 10em
+
+    hr.big
+      margin: 0 auto
+      width: 66%
 
   /*
   --------------------------------
@@ -113,13 +122,6 @@
 
   &__team
     background-color: $sand
-    padding: 4rem 8rem
-
-    h2
-      @extend .h2-font
-
-    hr
-      width: 66%
 
   /*
   --------------------------------
