@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AGGREGATIONS_STATUS, AGGREGATIONS_PROP_TYPES, AGGREGATIONS_INITIAL_STATE } from '../ducks/aggregations'
+import { AGGREGATIONS_STATUS, AGGREGATIONS_PROP_TYPES, AGGREGATIONS_INITIAL_STATE } from '../ducks/aggregations';
 import { toggleReminder } from '../ducks/reminder';
 import HelperMessage from './HelperMessage';
 
 const BUFFER = 8;
+const ICON_WIDTH = 40;
+const PADDING = 20;
 
 class AggregationsPane extends React.Component {
   constructor() {
@@ -19,14 +21,14 @@ class AggregationsPane extends React.Component {
     };
   }
 
-  showHelpMsg(index) {
+  showHelpMsg(key) {
     const range = document.createRange();
-    const node = document.querySelector(`#keyword_index${index}`);
+    const node = document.getElementById(`${key}_word`);
     range.selectNode(node);
     const selection = window.getSelection();
-    selection.removeAllRanges();
     selection.addRange(range);
     document.execCommand('copy');
+    selection.removeAllRanges();
 
     const message = 'Text copied to your clipboard! Paste into your text transcription box.';
 
@@ -36,21 +38,26 @@ class AggregationsPane extends React.Component {
   }
 
   componentWillReceiveProps(next) {
-    if (next.aggregationStatus === AGGREGATIONS_STATUS.READY && this.state.resizedBoxes === false) {
+    if (next.status === AGGREGATIONS_STATUS.READY && this.state.resizedBoxes === false) {
       this.setState({ resizedBoxes: true });
       this.resizeBoundingBox();
     }
   }
 
   resizeBoundingBox() {
-    const boxes = document.getElementsByClassName('aggregated-boxes');
+    const boxes = document.getElementsByClassName('aggregated-box');
     Array.prototype.forEach.call(boxes, (box) => {
-      const bounds = box.getBBox();
-      const index = box.id.substr(box.id.length - 1);
-      const label = document.getElementById(`keyword_label${index}`);
-      const dimensions = label.getBBox();
-      console.log(dimensions.width);
-      console.log(bounds.width);
+      const header = document.getElementById(`${box.id}_header`);
+      const word = document.getElementById(`${box.id}_word`);
+      const icon = document.getElementById(`${box.id}_icon`);
+      const headerWidth = header.getBBox().width;
+      const wordWidth = word.getBBox().width;
+      if ((wordWidth + ICON_WIDTH) > (headerWidth)) {
+        const difference = wordWidth - headerWidth;
+        header.style.width = (wordWidth + PADDING + ICON_WIDTH);
+        header.x.baseVal.value -= (difference + PADDING + ICON_WIDTH);
+        icon.x.baseVal[0].value -= (difference + PADDING + ICON_WIDTH);
+      }
     });
   }
 
@@ -64,50 +71,67 @@ class AggregationsPane extends React.Component {
     if (workflow.tasks && workflow.tasks.T0 && workflow.tasks.T0 && workflow.tasks.T0.tools) {
       keywordTable = workflow.tasks.T0.tools;
     }
+    if (!this.props.data) return null;
 
-    keywordTable.map((keyword, index) => {
-      if (!this.props.data) return null;
+    Object.keys(keywordTable).map((key) => {
+      if (!this.props.data[key]) return null;
+      const rectangleData = this.props.data[key];
+      Object.keys(rectangleData).map((keys, index) => {
+        const data = rectangleData[keys];
+        const toolIndex = keys.replace(/\D/g, '');
+        const tools = keywordTable[key].tools;
+        const keyword = tools[toolIndex].label;
+        const rectXs = data.clusters.x;
+        const rectYs = data.clusters.y;
+        const rectWidths = data.clusters.width;
+        const rectHeights = data.clusters.height;
 
-      const rectXs = this.props.data[`T0_tool${index}_clusters_x`];
-      const rectYs = this.props.data[`T0_tool${index}_clusters_y`];
-      const rectWidths = this.props.data[`T0_tool${index}_clusters_width`];
-      const rectHeights = this.props.data[`T0_tool${index}_clusters_height`];
+        if (!rectXs || !rectYs || !rectWidths || !rectHeights) return null;
+        if (rectXs.length !== rectYs.length || rectXs.length !== rectWidths.length ||
+          rectXs.length !== rectHeights.length) return null;
 
-      if (!rectXs || !rectYs || !rectWidths || !rectHeights) return;  // No data
-      if (rectXs.length !== rectYs.length || rectXs.length !== rectWidths.length || rectXs.length !== rectHeights.length) return;  //Invalid data
+        for (let i = 0; i < rectXs.length && i < rectYs.length && i < rectWidths.length && i < rectHeights.length; i++) {
+          const x = rectXs[i];
+          const y = rectYs[i];
+          const w = rectWidths[i];
+          const h = rectHeights[i];
+          const keyed = `${key}_${keys}_${index}_${i}`;
 
-      for (let i = 0; i < rectXs.length && i < rectYs.length && i < rectWidths.length && i < rectHeights.length; i++) {
-        const x = rectXs[i];
-        const y = rectYs[i];
-        const w = rectWidths[i];
-        const h = rectHeights[i];
-
-        rectangles.push(
-          <g key={`keyword_${index}_${i}`} className="aggregated-box" onClick={this.showHelpMsg.bind(this, index)}>
-            <rect
-              id={`keyword_label${index}`} // there could be multiple of this
-              x={x}
-              y={y - 45}
-              width={w}
-              height={45}
-              fill={'rgba(32,254,203,0.9)'}
-            />
-            <rect x={x} y={y} width={w} height={h} fill="#472B36" opacity="0.47" />
-            <text
-              id={`keyword_index${index}`} // there could be multiple of this
-              className="aggregated-boxes"
-              fontFamily="Rubik"
-              fontSize="2.5em"
-              x={(x + w) - BUFFER}
-              y={y - BUFFER}
-              textAnchor="end"
-            >
-              {keyword.label}
-            </text>
-            <text fontFamily="FontAwesome" fontSize="2.5em" x={x + BUFFER} y={y - BUFFER}>&#xf0c5;</text>
-          </g>
-        );
-      }
+          rectangles.push(
+            <g key={keyed} id={keyed} className="aggregated-box" onClick={this.showHelpMsg.bind(this, keyed)}>
+              <rect
+                id={`${keyed}_header`}
+                x={x}
+                y={y - 45}
+                width={w}
+                height={45}
+                fill={'rgba(32,254,203,0.9)'}
+              />
+              <rect x={x} y={y} width={w} height={h} fill="#472B36" opacity="0.47" />
+              <text
+                id={`${keyed}_word`}
+                className="aggregated-boxes"
+                fontFamily="Rubik"
+                fontSize="2.5em"
+                x={(x + w) - BUFFER}
+                y={y - BUFFER}
+                textAnchor="end"
+              >
+                {keyword}
+              </text>
+              <text
+                id={`${keyed}_icon`}
+                fontFamily="FontAwesome"
+                fontSize="2.5em"
+                x={x + BUFFER}
+                y={y - BUFFER}
+              >
+                &#xf0c5;
+              </text>
+            </g>
+          );
+        }
+      });
     });
 
     return (
@@ -119,32 +143,22 @@ class AggregationsPane extends React.Component {
 }
 
 AggregationsPane.propTypes = {
-  aggregationStatus: PropTypes.string,
-  data: PropTypes.object,
   dispatch: PropTypes.func,
   imageSize: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number
   }),
-  keywordWorkflow: PropTypes.shape({
-    id: PropTypes.string
-  }),
-  showHints: PropTypes.bool
-  //...AGGREGATIONS_PROP_TYPES  //EDIT: This isn't working, need to check our Babel setup.
+  ...AGGREGATIONS_PROP_TYPES
 };
 
 AggregationsPane.defaultProps = {
-  aggregationStatus: AGGREGATIONS_STATUS.IDLE,
-  data: null,
   dispatch: () => {},
   imageSize: {},
-  keywordWorkflow: null,
-  showHints: true,
-  // ...AGGREGATIONS_INITIAL_STATE,
+  ...AGGREGATIONS_INITIAL_STATE
 };
 
 const mapStateToProps = (state) => ({
-  aggregationStatus: state.aggregations.status,
+  status: state.aggregations.status,
   data: state.aggregations.data,
   keywordWorkflow: state.aggregations.keywordWorkflow,
   showHints: state.aggregations.showHints
