@@ -149,7 +149,7 @@ const fetchSubject = (subjectId = null) => {
         dispatch({
           currentSubject,
           id: currentSubject.id,
-          queue: getState().subject.queue,
+          queue: updatedQueue,
           type: FETCH_SUBJECT_SUCCESS,
           favorite: currentSubject.favorite || false
         });
