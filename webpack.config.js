@@ -80,6 +80,11 @@ module.exports = {
           use: [nib()]
         }
       }]
+    }, {
+      test: /\.(txt|ico)$/,
+      use: [{
+        loader: 'file-loader?name=[name].[ext]',
+      }],
     }]
   },
   node: {
