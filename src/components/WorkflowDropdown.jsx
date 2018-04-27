@@ -28,7 +28,7 @@ const WorkflowDropdown = ({ dispatch, history }) => {
       </div>
       <div>
         <span className="h1-font">Hebrew</span>
-        <span className="primary-label">Full Transcription</span>
+        <span className="primary-label">Phase Two: Full Text Transcription</span>
         <button
           className="tertiary-label"
           onClick={selectWorkflow.bind(null, c.easyHebrew)}
@@ -55,7 +55,7 @@ const WorkflowDropdown = ({ dispatch, history }) => {
       </div>
       <div>
         <span className="h1-font">Arabic</span>
-        <span className="primary-label">Full Transcription</span>
+        <span className="primary-label">Phase Two: Full Text Transcription</span>
         <button
           className="tertiary-label"
           onClick={selectWorkflow.bind(null, c.easyArabic)}
