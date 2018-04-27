@@ -152,22 +152,25 @@
     .content
       display: flex
       flex-wrap: wrap
-      margin: 4rem 0
+      justify-content: flex-start
+      align-items: center
+      align-content: center
 
       .item
-        max-width: 33%
-        margin: 0 auto
+        width: 25%
+        overflow: hidden
+        margin: 2rem
 
         @media(max-width: 750px)
-          max-width: 50%
-
-        @media(max-width: 550px)
-          max-width: 100%
+          width: 100%
+          margin: 2rem 0
 
         img
-          max-height: 6rem
-          object-fit: cover
-          width: 10rem
+          display: block
+          height: 6rem
+          object-fit: contain
+          width: 100%
+          max-width: 16rem
     
   /*
   --------------------------------

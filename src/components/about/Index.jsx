@@ -96,6 +96,7 @@ function AboutLayout({ translate }) {
         --------------------------------
         */}
         <div className="about-page__research-partners subsection">
+          <a id="partners" />
           <h2>About the research partners</h2>
           <hr className="small plum-line" />
           <div className="content">
@@ -172,7 +173,8 @@ function AboutLayout({ translate }) {
         --------------------------------
         */}
         <div className="about-page__research-partners subsection">
-          <h2>About the research partners</h2>
+          <a id="provenance" />
+          <h2>Provenance</h2>
           <hr className="small plum-line" />
           <div className="content">
             <div className="item">
@@ -220,6 +222,7 @@ function AboutLayout({ translate }) {
         --------------------------------
         */}
         <div className="about-page__team subsection">
+          <a id="team" />
           <h2>The team</h2>
           <div className="about-page__members">
             {Object.keys(members).map((key, i) => {
