@@ -17,26 +17,36 @@ function Content() {
         <div className="right-column">
           <img alt="Penn" src={ImgPenn} />
         </div>
-        <h3>Penn</h3>
-        <p className="text">The Penn Libraries’ collection of more than 600 medieval manuscript fragments from the Cairo Genizah are based on two sources. The largest part comes from the Library of Dropsie College, the first institution in the world accredited to confer doctoral degrees in Judaic Studies.  According to the internal library records of the College as well as Ben Zion Halper’s Descriptive Catalogue of Genizah Fragments in Philadelphia (1924), the Dropsie holdings derive from gifts made by Cyrus Adler, David W.  Amram, Herbert Friedenwald, Ephraim Lederer, and Mayer Sulzberger, and from a purchase from the widow of Camden M. Cobern, who died in 1920.  Halper classified the fragments into seven subject areas: Bible, Midrash and Talmud, Liturgy, Secular Poetry, Documents and Letters, Philosophy and Kabbalah, and Miscellaneous items.  In 1986, Dropsie was transformed into a post-doctoral research institute called the Annenberg Research Institute (ARI) and later merged with Penn in 1993. In September of 1986, shortly after the establishment of the ARI, an additional small group of fragments were donated to the ARI by Jack Lunzer on behalf of the Board of the Valmadonna Trust.  In 1994, the Dropsie Genizah collection came under the management of the Penn Libraries, joining a second, pre-existing collection of Cairo genizah fragments held at the University of Pennsylvania Libraries’ Rare Book and Manuscript Library, today known as the Kislak Center for Special Collections, Rare Books and Manuscripts. <a href="http://openn.library.upenn.edu/html/genizah_contents.html" target="_blank">http://openn.library.upenn.edu/html/genizah_contents.html</a></p>
+        <h3>المصدر: جامعة بنسلفانيا (Penn)</h3>
+        <p className="text">
+          تعود مجموعة مكتبات جامعة بنسلفانيا المتكونة من أكثر من 600 قطعة مخطوطة قروسطية لجنيزا القاهرة إلى مصدرين. يتأتى الجزء الأكبر منها من مكتية جامعة دروبسي (Dropsie College) وهي أول مؤسسة معتمدة في العالم لإسناد شهائد الدكتوراه في العلوم اليهودية. وفقا للسجلات الداخلية للجامعة والقائمة الوصفية لقطع الجنيزا في فيلادلفيا (1924)، تتأتى حيازات دروبسي (Dropsie) من هدايا مقدمة من سايرس أدلر (Cyrus Adler) ودافيد و. أمرام (David W. Amram) وهربرت فريدنفالد (Herbert Friedenwald) وإفرايم لدرر (Ephraim Lederer) وماير سلزبرغر (Mayer Sulzberger) ومن شراء من طرف أرملة كامدن م. كوبرن (Camden M. Cobern) الذي توفي في سنة 1920. صنف هالبر (Halper) القطع ضمن سبعة مجالات  موضوعية هي الكتاب المقدس والمدراش والتلمود والليتورجيا والشعر العلماني والوثائق والرسائل والفلسفة والكابالا ومواد أخرى متنوعة. في سنة 1986 حول دروبسي إلى معهد لبحوث ما بعد الدكتوراه سمي معهد أننبرغ للبحوث (Annenberg Research Institute / ARI) وتم دمجه فيما بعد في جامعة بنسلفانيا سنة 1993. في سبتمبر من سنة 1986 وبعد فترة وجيزة من  إنشاء المعهد تم التبرع بمجموعة صغيرة إضافية لمعهد أننبرغ للبحوث من طرف جاك لونزر (Jack Lunzer) بالنيابة عن مجلس صندوق فالمادونا (Valmadonna). في سنة 1994 وضعت جنيزا دروبسي تحت إدارة مكتبات بنسلفانيا لتنضاف إلى المجموعة الموجودة من جنيزا القاهرة والمحفوظة في مكتبة الكتب النادرة والمخطوطات لمكتبات جامعة بنسلفانيا المعروفة اليوم باسم مركز كسلاك (Kislak) للمجموعات الخاصة والكتب النادرة والمخطوطات.
+          <a href="http://openn.library.upenn.edu/html/genizah_contents.html" target="_blank">http://openn.library.upenn.edu/html/genizah_contents.html</a></p>
       </div>
 
       <div className="item">
         <div className="right-column">
           <img alt="JTS" src={ImgJTS} />
         </div>
-        <h3>JTS</h3>
-        <p className="text">The Library of the Jewish Theological Seminary’s holdings of approximately 43,000 Cairo Genizah fragment leaves mainly derived from the acquisition of the collection of Elkan Nathan Adler in 1923.    Adler, in his description of his Hebrew manuscript collections, states that he obtained them in Cairo on trips he made there between 1888 and 1901. Additional fragments were acquired after his death in 1946. The collection was digitally photographed by Ardon bar-Hama and Dwight Primiano, with the philanthropic support of George Blumenthal and a grant from NEH. The collection is temporarily on loan to Princeton University for study while the Seminary builds a new library at its home in New York City.</p>
+        <h3>المصدر: مدرسة اللاهوت اليهودية (JTS)</h3>
+        <p className="text">
+          تتأتى حيازات مكتبة مدرسة اللاهوت اليهودية المتكونة من حوالي 43,000 قطعة لجنيزا القاهرة أساسا من اقناء مجموعة الكان ناتان أدلر (Elkan Nathan Adler) سنة 1923. يذكر ادلر ضمن وصفه لمجموعاته من المخطوطات العبرية أنه تحصل عليها من القاهرة في إطار رحلات أجراها هناك بين سنتي 1888 و1901 و تم اقتناء قطع إضافية بعد وفاته سنة 1946. صورت المجموعة رقميا من طرف اردون بارهاما (Ardon bar-Hama) ودوايت بريميانو (Dwight Primiano) بدعم خيري من جورج بلومنتال (George Blumenthal) ومنحة من NEH. المجوعة في إعارة وقتية لجامعة برنستن قصد الدرس إلى أن تبني مدرسة اللاهوت مكتية جديدة في مقرها في مدينة نيويورك.
+        </p>
       </div>
 
       <div className="item">
         <div className="right-column">
           <img alt="Cambridge" src={ImgCambridge} />
         </div>
-        <h3>Cambridge</h3>
-        <p className="text">In 1896–97 the Cambridge scholar, Dr. Solomon Schechter, with financial help from the Master of St. John’s College, Charles Taylor, arrived in Fustat to examine the Genizah. He received permission from the Jewish community of Egypt to take away what he liked (explaining later, ‘I liked it all’), and he brought 193,000 manuscripts back to Cambridge, where they form the Taylor-Schechter Cairo Genizah Collection (T-S Collection).</p>
-        <p className="text">Alongside the T-S Collection, Cambridge University Library is also now the home of the Jacques Mosseri Genizah Collection. Assembled by the successful Cairene businessman, Jacques (Jack) Mosseri in the first decade of the twentieth century, these manuscripts were intended to remain in Egypt as part of the Jewish community’s cultural heritage. However, after Mosseri’s premature death in 1934 and his family’s subsequent departure from Egypt, his eponymous collection disappeared from scholarly view until the 1970s, when it was microfilmed by a team from the Jewish National and University Library. Following recent discussions with members of the Mosseri family, in 2006 this 7000-fragment collection came to Cambridge University Library on a 20-year loan. During its stay in Cambridge, the Mosseri Collection will be conserved and digitised, and a new, detailed catalogue produced.</p>
-        <p className="text">At the moment, over 18,000 manuscripts from across the Taylor-Schechter, CUL Or. and Jacques Mosseri Collections are available online, including a substantial number of documents (letters and legal deeds) and liturgical texts (the fruits of a joint project with Ben Gurion University). More manuscripts will be added on a regular basis, until the entire Cambridge Genizah Collection is online.</p>
+        <h3>المصدر: جامعة كامبردج</h3>
+        <p className="text">
+          في سنة 1896-1897 وصل الباحث في جامعة كامبردج الدكتور سلمون ششتر  (Dr. Solomon Schechter) إلى الفسطاط لدراسة الجنيزا بفض دعم مادي مقدم من صاحب جامعة القديس يوحنا شارلز تايلر (Charles Taylor). تحصل على الإذن من  يهود القاهرة ليأخذ معه ما يحب (فسر فيما بعد أنه أحب  كل شيء) وجلب معه إلى كامبردح 193,000 مخطوطة تمثل مجموعة تايلر-ششتر لجنيزا القاهرة (مجموعة T-S).
+        </p>
+        <p className="text">
+          إلى جانب مجموعة T-S تحوي مكتبة جامعة كامبردج الآن مجموعة جنيزا جاك موسري  (Jacques Mosseri) المجمعة من طرف رجل الأعمال الناجح في القاهرة جاك موسري في العشرية الأولى من القرن العشرين. كان من المقرر أن تبقى هذه المخطوطات في مصر كجزء من الموروث الثقافي اليهودي إلاّ أنه بعد الوفاة المبكرة لموسري سنة 1934 وبعد مغادرة عائلته للقاهرة اختفت المجموعة الحاملة لاسمه عن أعين البحث العلمي إلى حدود السبعينات حيث تم تصويرها مجهريا من طرف فريق من المكتبة اليهودية الوطنية ومكتبة الجامعة. تبعا لمحادثات حصلت مؤخرا مع أفراد من عائلة موسري وصلت سنة 2006 المجموعة المكونة من 7000 قطعة إلى مكتبة جامعة كامبردج في شكل إعارة لمدة 20 سنة. أثناء تواجدها في كامبردج سيتم حفظ ورقمنة مجموعة موسري كما سيتم إصدار قائمة مفصلة جديدة.
+        </p>
+        <p className="text">
+          في الوقت الراهن يوجد على شبكة الإنترنت أكثر من 18,000 مخطوطة بين مجموعات تايلر-ششتر وCUL Or. وجاك موسري علاوة على عدد مهم من وثائق أعمال أدبية وقانونية ونصوص دينية تمثل ثمرة مشروع مشترك مع جامعة بن غريون. سيقع إضافة مخطوطات أخرى بشكل منتظم حتى يتم تحميل كامل مجموعة جينيزا جامعة كامبردج على شبكة الإنترنت.
+        </p>
         <p className="text"><a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a></p>
       </div>
 
@@ -45,7 +55,10 @@ function Content() {
           <img alt="Manchester" src={ImgManchester} />
         </div>
         <h3>Manchester</h3>
-        <p className="text">The University of Manchester Library holds a collection of nearly 15,000 fragments, mostly written in Hebrew and Judeo-Arabic, from the Genizah of the Ben Ezra Synagogue in Old Cairo, purchased from the estate of Dr. Moses Gaster in 1954. About 90% of the items are on paper, the remainder on parchment. The vast majority are very small fragments. They date from the 10th to the 19th century AD and include religious and literary texts, documentary sources, letters, and material relating to grammar, philosophy, medicine, astrology and astronomy. Please visit: <a href="http://www.rylandsgenizah.org" target="_blank">http://www.rylandsgenizah.org</a> for further information about the University of Manchester Genizah Collection.</p>
+        <p className="text">
+          تحتفظ مكتبة جامعة مانشستر بمجموعة تتكون من حوالي 15،000 قطعة، معظمها مكتوبة باللغتين العبرية والعربية اليهودية من جنيزا كنيس ابن عزرا في القاهرة القديمة وتم شراؤها من ممتلكات  الدكتور موسى غاستر(Moses Gaster) في عام 1954. حوالي %90 من القطع مدونة على ورق، والباقي على رقوق . الغالبية العظمى هي قطع صغيرة جدا تعود إلى الفترة الممتدة بين القرن العاشر والقرن التاسع عشر ميلادي وتشتمل على نصوص دينية وأدبية ومصادر وثائقية ورسائل ومواد متعلقة بالنحو والفلسفة والطب والتنجيم وعلم الفلك. لمزيد من المعلومات يرجى زيارة الموقع التالي حول مجموعة جينيزا جامعة مانشست
+          <a href="http://www.rylandsgenizah.org" target="_blank">http://www.rylandsgenizah.org</a>
+        </p>
       </div>
     </div>
   );
