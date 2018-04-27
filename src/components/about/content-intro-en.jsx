@@ -2,7 +2,7 @@ import React from 'react';
 
 const imgPhase1Workflow = require('../../images/about-phase-1-workflow-en.png');
 
-function ContentIntroEn() {
+function Content() {
   return (
     <div className="content">
       <nav>
@@ -31,4 +31,4 @@ function ContentIntroEn() {
   );
 };
 
-export default ContentIntroEn;
+export default Content;
