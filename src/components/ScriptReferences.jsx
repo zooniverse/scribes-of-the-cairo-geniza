@@ -143,7 +143,6 @@ class ScriptReferences extends React.Component {
     return (
       <div className="script-references__groups" key={`${type}_KEYBOARDS`}>
         <span>{this.props.translate(`scriptReferences.${type.toLowerCase()}`)}</span>
-        <span>One sentence about where {type} is found.</span>
         <div className="script-references__scripts">
           {collection.map((script, i) => {
             const scriptTitle = script.name.replace(/\s/g, '');

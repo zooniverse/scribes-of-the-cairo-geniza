@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage, Translate } from 'react-localize-redux';
+import classnames from 'classnames';
 
 import { toggleDialog, togglePopup } from '../ducks/dialog';
 import {
@@ -353,9 +354,23 @@ class SelectedAnnotation extends React.Component {
             </div>
             <div>
               <button className="text-link" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
-              {/* This div is only used until we get workflow selection set up by language */}
-              <button className="tmp-btn" onClick={this.changeLanguage.bind(this, 'Arabic')}>Arabic</button>
-              <button className="tmp-btn" onClick={this.changeLanguage.bind(this, 'Hebrew')}>Hebrew</button>
+              {/* These buttons will always be visible as some manuscripts have both Arabic and Hebrew */}
+              <button
+                className={classnames('lang-btn', {
+                  'active-btn': this.props.keyboardLocale === 'ar'
+                })}
+                onClick={this.changeLanguage.bind(this, 'Arabic')}
+              >
+                Arabic
+              </button>
+              <button
+                className={classnames('lang-btn', {
+                  'active-btn': this.props.keyboardLocale === 'he'
+                })}
+                onClick={this.changeLanguage.bind(this, 'Hebrew')}
+              >
+                Hebrew
+              </button>
             </div>
           </div>
           <div>

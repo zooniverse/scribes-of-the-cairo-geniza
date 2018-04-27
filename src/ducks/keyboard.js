@@ -106,7 +106,7 @@ const pressedKey = (character) => {
 const toggleLanguage = (language) => {
   return (dispatch, getState) => {
     let locale = DEFAULT_LOCALE;
-    let modern = !getState().keyboard.modern;
+    let modern = getState().keyboard.modern;
     if (language === LANGUAGES.ARABIC) {
       modern = true;
       locale = 'ar';

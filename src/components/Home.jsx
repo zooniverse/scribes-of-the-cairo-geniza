@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import Penn from '../images/partners/penn.png';
-import JTSLogo from '../images/partners/jts.png';
-import Princeton from '../images/partners/princeton.png';
-import Genizah from '../images/partners/genizah.png';
+import classnames from 'classnames';
+import Penn from '../images/penn.png';
+import JTSLogo from '../images/jts_logo.png';
+import Princeton from '../images/princeton_geniza.png';
+import Genizah from '../images/genizah_research.png';
 import Library from '../images/schechter-geniza.png';
 import Scroll from '../images/hebrew-fragment.png';
 import Arabic from '../images/arabic-big.png';
@@ -88,7 +89,9 @@ const Home = ({ dispatch, history, rtl, translate }) => {
       </div>
       <div className="offset-image">
         <img alt="Scholar in Library Studying" src={Library} />
-        <span>Solomon Schechter</span>
+        <span className={classnames({ 'flipped-solomon': rtl })}>
+          Solomon Schechter
+        </span>
       </div>
       <div className="home-page__about">
         <hr className="plum-line" />

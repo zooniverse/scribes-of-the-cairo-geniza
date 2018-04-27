@@ -2,6 +2,7 @@ import React from 'react';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Connect from '../Connect';
 
 import ImgBodleian from '../../images/partners/bodleian.png';
@@ -65,7 +66,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: About the Geniza
         --------------------------------
@@ -83,7 +84,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Research Partners
         --------------------------------
@@ -101,7 +102,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Image Partners
         --------------------------------
@@ -112,7 +113,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
           <div className="content">
             <div className="item">
               <img alt="Cambridge" src={ImgCambridge} />
-            </div>            
+            </div>
             <div className="item">
               <img alt="JTS" src={ImgJTS} />
             </div>
@@ -130,7 +131,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Provenance
         --------------------------------
@@ -148,7 +149,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Team
         --------------------------------
