@@ -133,19 +133,45 @@
   --------------------------------
    */
    
-  &__partners
+  &__research-partners
+  &__provenance
     .right-column
       img
         display: block
         width: 12rem
         max-width: 100%rem
-    
-    
-    
+
   /*
   --------------------------------
    */
 
+  &__image-partners
+    background-color: $sand
+    padding: 4rem 8rem
+
+    .content
+      display: flex
+      flex-wrap: wrap
+      margin: 4rem 0
+
+      .item
+        max-width: 33%
+        margin: 0 auto
+
+        @media(max-width: 750px)
+          max-width: 50%
+
+        @media(max-width: 550px)
+          max-width: 100%
+
+        img
+          max-height: 6rem
+          object-fit: cover
+          width: 10rem
+    
+  /*
+  --------------------------------
+   */
   &__team
     background-color: $sand
     padding: 4rem 8rem
