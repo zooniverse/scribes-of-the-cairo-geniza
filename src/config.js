@@ -28,7 +28,10 @@ const baseConfig = {
     easyArabic: '3202',
     easyHebrew: '3203',
     challengingArabic: '3204',
-    challengingHebrew: '3205'
+    challengingHebrew: '3205',
+    phaseOne: '3157',
+    arabicKeyword: '3201',
+    hebrewKeyword: '3156'
   },
   production: {
     panoptesAppId: '',
@@ -38,7 +41,10 @@ const baseConfig = {
     easyArabic: '6654',
     easyHebrew: '6652',
     challengingArabic: '6655',
-    challengingHebrew: '6653'
+    challengingHebrew: '6653',
+    phaseOne: '4712',
+    arabicKeyword: '6600',
+    hebrewKeyword: '6529'
   }
 };
 

@@ -8,6 +8,7 @@ import { resetAnnotations } from './annotations';
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
 const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
 const FETCH_WORKFLOW_ERROR = 'FETCH_WORKFLOW_ERROR';
+const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
 
 const WORKFLOW_STATUS = {
   IDLE: 'workflow_status_idle',
@@ -20,6 +21,7 @@ const WORKFLOW_STATUS = {
 const initialState = {
   data: null,
   id: null,
+  showSelection: false,
   status: WORKFLOW_STATUS.IDLE
 };
 
@@ -40,6 +42,11 @@ const workflowReducer = (state = initialState, action) => {
     case FETCH_WORKFLOW_ERROR:
       return Object.assign({}, state, {
         status: WORKFLOW_STATUS.ERROR
+      });
+
+    case TOGGLE_SELECTION:
+      return Object.assign({}, state, {
+        showSelection: action.show
       });
 
     default:
@@ -80,9 +87,19 @@ const fetchWorkflow = (workflowId = config.easyHebrew) => {
   };
 };
 
+const toggleSelection = (show) => {
+  return (dispatch) => {
+    dispatch({
+      type: TOGGLE_SELECTION,
+      show
+    });
+  };
+};
+
 export default workflowReducer;
 
 export {
   fetchWorkflow,
+  toggleSelection,
   WORKFLOW_STATUS
 };
