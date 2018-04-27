@@ -31,9 +31,9 @@ const members = {
   Marina: require('../../images/team/MarinaRustow.jpg')
 };
 
-function AboutLayout({ translate }) {
+function AboutLayout({ translate, currentLanguage, rtl }) {
   return (
-    <div className="about-page">
+    <div className={(rtl) ? 'about-page rtl' : 'about-page'}>
       <section>
         {/*
         Section: Intro
@@ -257,16 +257,21 @@ function AboutLayout({ translate }) {
 }
 
 AboutLayout.propTypes = {
-  translate: PropTypes.func
+  currentLanguage: PropTypes.string,
+  translate: PropTypes.func,
+  rtl: PropTypes.bool,
 };
 
 AboutLayout.defaultProps = {
-  translate: () => {}
+  currentLanguage: '',
+  translate: () => {},
+  rtl: false,
 };
 
 const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
-  translate: getTranslate(state.locale)
+  translate: getTranslate(state.locale),
+  rtl: state.languages.rtl,
 });
 
 export default connect(mapStateToProps)(AboutLayout);

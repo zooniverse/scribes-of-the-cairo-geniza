@@ -234,3 +234,30 @@
       @extend .body-font
       display: block
       margin-bottom: 1rem
+
+.rtl.about-page
+  .left-column
+    padding-left: 0
+    padding-right: 1rem
+
+  .right-column
+    float: left
+
+    @media(max-width: 750px)
+      padding-left: 0
+      padding-right: 1rem
+
+  .subsection
+    h2
+      padding-left: 0
+      padding-right: 1rem
+
+  .about-page__intro
+    nav
+      float: left
+
+  .about-page__members
+    > div
+      img
+        margin-left: 0
+        maright-right: 1rem
