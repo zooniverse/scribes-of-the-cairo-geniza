@@ -37,7 +37,6 @@ const members = {
   Doug: require('../../images/team/DougEmery.jpg'),
   Mitch: require('../../images/team/MitchFraas.jpg'),
   Arthur: require('../../images/team/ArthurKiron.jpg'),
-  Raha: null,
   Moshe: require('../../images/team/MosheLavee.png'),
   Vered: require('../../images/team/VeredKretzmer.png'),
   Eve: require('../../images/team/EveKrakowski.jpg'),
