@@ -1,14 +1,14 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 
-import { resetSubject } from './subject';
+import { fetchSubject, resetSubject } from './subject';
 import { resetAnnotations } from './annotations';
-import { createClassification } from './classification';
 
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
 const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
 const FETCH_WORKFLOW_ERROR = 'FETCH_WORKFLOW_ERROR';
+const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
 
 const WORKFLOW_STATUS = {
   IDLE: 'workflow_status_idle',
@@ -21,6 +21,7 @@ const WORKFLOW_STATUS = {
 const initialState = {
   data: null,
   id: null,
+  showSelection: false,
   status: WORKFLOW_STATUS.IDLE
 };
 
@@ -43,16 +44,31 @@ const workflowReducer = (state = initialState, action) => {
         status: WORKFLOW_STATUS.ERROR
       });
 
+    case TOGGLE_SELECTION:
+      return Object.assign({}, state, {
+        showSelection: action.show
+      });
+
     default:
       return state;
   }
 };
 
-const fetchWorkflow = (workflowId = config.workflowId) => {
+/*  Resets all the dependencies that rely on the Workflow.
+ */
+const prepareForNewWorkflow = () => {
+  return (dispatch) => {
+    dispatch(resetSubject());
+    dispatch(resetAnnotations());
+    dispatch(fetchSubject());
+  };
+};
+
+const fetchWorkflow = (workflowId = config.easyHebrew) => {
   return (dispatch) => {
     dispatch({
       type: FETCH_WORKFLOW,
-      id: workflowId,
+      id: workflowId
     });
 
     return apiClient.type('workflows').get(workflowId)
@@ -62,7 +78,7 @@ const fetchWorkflow = (workflowId = config.workflowId) => {
           data: workflow
         });
 
-        //onSuccess(), prepare for a new workflow.
+        // onSuccess(), prepare for a new workflow.
         dispatch(prepareForNewWorkflow());
       })
       .catch(() => {
@@ -71,19 +87,19 @@ const fetchWorkflow = (workflowId = config.workflowId) => {
   };
 };
 
-/*  Resets all the dependencies that rely on the Workflow.
- */
-const prepareForNewWorkflow = () => {
+const toggleSelection = (show) => {
   return (dispatch) => {
-    dispatch(resetSubject());
-    dispatch(resetAnnotations());
-    dispatch(createClassification(subject));
-  }
+    dispatch({
+      type: TOGGLE_SELECTION,
+      show
+    });
+  };
 };
 
 export default workflowReducer;
 
 export {
   fetchWorkflow,
+  toggleSelection,
   WORKFLOW_STATUS
 };

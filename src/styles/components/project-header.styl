@@ -31,12 +31,19 @@
     padding-right: 0.5rem
     pointer-events: all
 
-    div
+    > div:first-child
       display: flex
+      position: relative
 
     a
       display: block
       padding: 1rem
+
+    button
+      background: transparent
+      border: none
+      color: $plum
+      cursor: pointer
 
   &__rtl
     flex-direction: row-reverse
@@ -55,11 +62,17 @@
       border: none
       margin-top: 0
 
-  button
-    background-color: transparent
-    border: 1px solid transparent
-    border-radius: 50%
-    cursor: pointer
-    height: 1.5rem
+  &__buttons
+    direction: ltr
     margin: auto
-    width: 1.5rem
+
+    button
+      background-color: transparent
+      border: 1px solid transparent
+      border-radius: 50%
+      cursor: pointer
+      height: 1.5rem
+      width: 1.5rem
+
+      &:hover, &:focus
+        background-color: $sand

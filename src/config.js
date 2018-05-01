@@ -25,14 +25,26 @@ const baseConfig = {
     host: 'https://master.pfe-preview.zooniverse.org/',
     projectId: '1814',
     projectSlug: 'wgranger-test/scribes-of-the-cairo-geniza-testing',
-    workflowId: '3157'
+    easyArabic: '3202',
+    easyHebrew: '3203',
+    challengingArabic: '3204',
+    challengingHebrew: '3205',
+    phaseOne: '3157',
+    arabicKeyword: '3201',
+    hebrewKeyword: '3156'
   },
   production: {
     panoptesAppId: '',
     host: 'https://www.zooniverse.org/',
     projectId: '5042',
     projectSlug: 'judaicadh/scribes-of-the-cairo-geniza',
-    workflowId: ''
+    easyArabic: '6654',
+    easyHebrew: '6652',
+    challengingArabic: '6655',
+    challengingHebrew: '6653',
+    phaseOne: '4712',
+    arabicKeyword: '6600',
+    hebrewKeyword: '6529'
   }
 };
 
