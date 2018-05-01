@@ -3,6 +3,7 @@ import { ZooniverseLogo, ZooniverseLogotype } from 'zooniverse-react-components'
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import Penn from '../images/penn.png';
 import JTSLogo from '../images/jts_logo.png';
 import Princeton from '../images/princeton_geniza.png';
@@ -12,8 +13,16 @@ import Scroll from '../images/hebrew-fragment.png';
 import Arabic from '../images/arabic-big.png';
 import HomeStatistics from './HomeStatistics';
 import FlippedImg from './styled/FlippedImg';
+import { config } from '../config';
+import { fetchWorkflow } from '../ducks/workflow';
 
-const Home = ({ rtl, translate }) => {
+const Home = ({ dispatch, history, rtl, translate }) => {
+  const selectWorkflow = (workflow) => {
+    dispatch(fetchWorkflow(workflow));
+    history.push('/classify');
+    window.scrollTo(0, 0);
+  };
+
   return (
     <section className="home-page">
       <div className="home-page__introduction">
@@ -46,8 +55,8 @@ const Home = ({ rtl, translate }) => {
               Challenging when one is not familiar with the language.
             </span>
             <div className="home-page__buttons">
-              <button className="button">Easy Hebrew</button>
-              <button className="button">Challenging Hebrew</button>
+              <button className="button" onClick={selectWorkflow.bind(null, config.easyHebrew)}>Easy Hebrew</button>
+              <button className="button" onClick={selectWorkflow.bind(null, config.challengingHebrew)}>Challenging Hebrew</button>
             </div>
           </div>
         </div>
@@ -61,8 +70,8 @@ const Home = ({ rtl, translate }) => {
               Challenging when one is not familiar with the language.
             </span>
             <div className="home-page__buttons">
-              <button className="button">Easy Arabic</button>
-              <button className="button">Challenging Arabic</button>
+              <button className="button" onClick={selectWorkflow.bind(null, config.easyArabic)}>Easy Arabic</button>
+              <button className="button" onClick={selectWorkflow.bind(null, config.challengingArabic)}>Challenging Arabic</button>
             </div>
           </div>
         </div>
@@ -125,11 +134,17 @@ const Home = ({ rtl, translate }) => {
 };
 
 Home.propTypes = {
+  dispatch: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
   rtl: PropTypes.bool,
   translate: PropTypes.func
 };
 
 Home.defaultProps = {
+  dispatch: () => {},
+  history: null,
   rtl: false,
   translate: () => {}
 };
@@ -140,4 +155,4 @@ const mapStateToProps = state => ({
   translate: getTranslate(state.locale)
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(withRouter(Home));

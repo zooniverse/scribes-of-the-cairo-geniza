@@ -1,0 +1,43 @@
+.selection-container
+  background-color: $bisque
+  display: flex
+  flex-direction: column
+  padding: 1rem 0
+  position: absolute
+  top: 2.75rem
+  left: 9rem
+  width: 11rem
+  box-shadow: 2px 2px 5px -1px rgba(180,180,180,1)
+  -webkit-box-shadow: 2px 2px 5px -1px rgba(180,180,180,1)
+  -moz-box-shadow: 2px 2px 5px -1px rgba(180,180,180,1)
+
+  div
+    display: flex
+    flex-direction: column
+    margin-bottom: 0.5rem
+
+    button, a
+      cursor: pointer
+      margin: 0
+      padding: 0.2rem 1rem
+      text-align: left
+      text-decoration: none
+
+      &:hover, &:focus
+        background-color: $sand
+
+    div
+      margin-top: 0.5rem
+
+    .h1-font
+      font-size: 1rem
+      padding: 0 1rem
+
+    .primary-label
+      font-size: 0.65rem
+      line-height: 0.75rem
+      margin-bottom: 0.25rem
+      padding: 0 1rem
+
+    .tertiary-label
+      font-size: 0.7rem
