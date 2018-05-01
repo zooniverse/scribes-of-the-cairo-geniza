@@ -34,8 +34,8 @@ const baseConfig = {
     hebrewKeyword: '3156'
   },
   production: {
-    panoptesAppId: '',
-    host: 'https://www.zooniverse.org/',
+    panoptesAppId: '68db6a8181e26483a9f82b66b511ca849ef170b10c0e997bdcc277003d779ac6',
+    host: 'https://www.scribesofthecairogeniza.org/',
     projectId: '5042',
     projectSlug: 'judaicadh/scribes-of-the-cairo-geniza',
     easyArabic: '6654',
