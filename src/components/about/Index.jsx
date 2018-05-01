@@ -3,10 +3,32 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Connect from '../Connect';
-import Penn from '../../images/penn.png';
-import JTSLogo from '../../images/jts_logo.png';
-import Princeton from '../../images/princeton_geniza.png';
-import Genizah from '../../images/genizah_research.png';
+
+import ImgBodleian from '../../images/partners/bodleian.png';
+import ImgCambridge from '../../images/partners/cambridge.png';
+import ImgElijah from '../../images/partners/Elijah.png';
+import ImgGenizah from '../../images/partners/genizah.png';
+import ImgJTS from '../../images/partners/jts.png';
+import ImgManchester from '../../images/partners/manchester.png';
+import ImgPenn from '../../images/partners/penn.png';
+import ImgPrinceton from '../../images/partners/princeton.png';
+import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
+
+import ContentIntroEn from './content-intro-en.jsx';
+import ContentIntroHe from './content-intro-he.jsx';
+import ContentIntroAr from './content-intro-ar.jsx';
+
+import ContentGenizaEn from './content-geniza-en.jsx';
+import ContentGenizaHe from './content-geniza-he.jsx';
+import ContentGenizaAr from './content-geniza-ar.jsx';
+
+import ContentResearchEn from './content-research-en.jsx';
+import ContentResearchHe from './content-research-he.jsx';
+import ContentResearchAr from './content-research-ar.jsx';
+
+import ContentProvenanceEn from './content-provenance-en.jsx';
+import ContentProvenanceHe from './content-provenance-he.jsx';
+import ContentProvenanceAr from './content-provenance-ar.jsx';
 
 const members = {
   Laurie: require('../../images/team/LaurieAllen.jpg'),
@@ -15,7 +37,6 @@ const members = {
   Doug: require('../../images/team/DougEmery.jpg'),
   Mitch: require('../../images/team/MitchFraas.jpg'),
   Arthur: require('../../images/team/ArthurKiron.jpg'),
-  Raha: null,
   Moshe: require('../../images/team/MosheLavee.png'),
   Vered: require('../../images/team/VeredKretzmer.png'),
   Eve: require('../../images/team/EveKrakowski.jpg'),
@@ -24,62 +45,116 @@ const members = {
   Marina: require('../../images/team/MarinaRustow.jpg')
 };
 
-function AboutLayout({ translate }) {
+function AboutLayout({ translate, currentLanguage, rtl }) {
   return (
-    <div className="about-page">
+    <div className={(rtl) ? 'about-page rtl' : 'about-page'}>
       <section>
+        {/*
+        Section: Intro
+        --------------------------------
+        */}
         <div className="about-page__intro">
           <h2>{translate('topNav.about')}</h2>
-          <div>
-            <hr className="plum-line" />
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo consequat.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo consequat.
-            </span>
-            <a href="/">Learn about transcription</a>
+          <hr className="plum-line" />
+          {(() => { switch (currentLanguage) {
+            case 'he': return (<ContentIntroHe />);
+            case 'ar': return (<ContentIntroAr />);
+            default: return (<ContentIntroEn />);
+          }})()}
+        </div>
+        {/*
+        --------------------------------
+        */}
+        
+        {/*
+        Section: About the Geniza
+        --------------------------------
+        */}
+        <div className="about-page__geniza subsection">
+          <a id="geniza" />
+          <h2>About the Geniza</h2>
+          <hr className="small plum-line" />
+          {(() => { switch (currentLanguage) {
+            case 'he': return (<ContentGenizaHe />);
+            case 'ar': return (<ContentGenizaAr />);
+            default: return (<ContentGenizaEn />);
+          }})()}
+        </div>
+        {/*
+        --------------------------------
+        */}
+        
+        {/*
+        Section: Research Partners
+        --------------------------------
+        */}
+        <div className="about-page__research-partners subsection">
+          <a id="partners" />
+          <h2>About the research partners</h2>
+          <hr className="small plum-line" />
+          {(() => { switch (currentLanguage) {
+            case 'he': return (<ContentResearchHe />);
+            case 'ar': return (<ContentResearchAr />);
+            default: return (<ContentResearchEn />);
+          }})()}
+        </div>
+        {/*
+        --------------------------------
+        */}
+        
+        {/*
+        Section: Image Partners
+        --------------------------------
+        */}
+        <div className="about-page__image-partners subsection">
+          <h2>Image Partners</h2>
+          <hr className="small plum-line" />
+          <div className="content">
+            <div className="item">
+              <img alt="Cambridge" src={ImgCambridge} />
+            </div>            
+            <div className="item">
+              <img alt="JTS" src={ImgJTS} />
+            </div>
+            <div className="item">
+              <img alt="Penn" src={ImgPenn} />
+            </div>
+            <div className="item">
+              <img alt="Manchester" src={ImgManchester} />
+            </div>
+            <div className="item">
+              <img alt="Bodleian" src={ImgBodleian} />
+            </div>
           </div>
         </div>
-        <div className="about-page__partners">
-          <h2>Institutional Partners</h2>
-          <div className="about-page__logos">
-            <div>
-              <img alt="Penn Libraries Logo" src={Penn} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
-            </div>
-            <div>
-              <img alt="The Jewish Theological Seminary Logo" src={JTSLogo} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
-            </div>
-            <div>
-              <img alt="Genizah Research Unit, Cambridge University Library" src={Genizah} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
-            </div>
-            <div>
-              <img alt="Princeton Geniza Project" src={Princeton} />
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              </span>
-            </div>
-
-          </div>
+        {/*
+        --------------------------------
+        */}
+        
+        {/*
+        Section: Provenance
+        --------------------------------
+        */}
+        <div className="about-page__provenance subsection">
+          <a id="provenance" />
+          <h2>Provenance</h2>
+          <hr className="small plum-line" />
+          {(() => { switch (currentLanguage) {
+            case 'he': return (<ContentProvenanceHe />);
+            case 'ar': return (<ContentProvenanceAr />);
+            default: return (<ContentProvenanceEn />);
+          }})()}
         </div>
-        <div className="about-page__team">
+        {/*
+        --------------------------------
+        */}
+        
+        {/*
+        Section: Team
+        --------------------------------
+        */}
+        <div className="about-page__team subsection">
+          <a id="team" />
           <h2>The team</h2>
           <div className="about-page__members">
             {Object.keys(members).map((key, i) => {
@@ -97,13 +172,16 @@ function AboutLayout({ translate }) {
               );
             })}
           </div>
-          <hr className="plum-line" />
+          <hr className="big plum-line" />
           <div className="about-page__thanks">
             <h3>Special thanks</h3>
             <span>{translate('specialThanks.main')}</span>
             <span>{translate('specialThanks.additional')}</span>
           </div>
         </div>
+        {/*
+        --------------------------------
+        */}
         <Connect />
       </section>
     </div>
@@ -111,16 +189,21 @@ function AboutLayout({ translate }) {
 }
 
 AboutLayout.propTypes = {
-  translate: PropTypes.func
+  currentLanguage: PropTypes.string,
+  translate: PropTypes.func,
+  rtl: PropTypes.bool,
 };
 
 AboutLayout.defaultProps = {
-  translate: () => {}
+  currentLanguage: '',
+  translate: () => {},
+  rtl: false,
 };
 
 const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
-  translate: getTranslate(state.locale)
+  translate: getTranslate(state.locale),
+  rtl: state.languages.rtl,
 });
 
 export default connect(mapStateToProps)(AboutLayout);
