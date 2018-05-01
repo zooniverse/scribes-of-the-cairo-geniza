@@ -1,15 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+import WorkflowDropdown from './WorkflowDropdown';
 
 import { setLanguage, LANGUAGES } from '../ducks/languages';
+import { toggleSelection } from '../ducks/workflow';
 
 class ProjectHeader extends React.Component {
+  constructor() {
+    super();
+
+    this.toggleDropdown = this.toggleDropdown.bind(this);
+  }
+
   changeLanguage(language) {
     this.props.dispatch(setLanguage(language));
+  }
+
+  toggleDropdown() {
+    const nextState = !this.props.showWorkflows;
+    this.props.dispatch(toggleSelection(nextState));
   }
 
   render() {
@@ -41,13 +54,15 @@ class ProjectHeader extends React.Component {
               >
                 {this.props.translate('topNav.about')}
               </NavLink>
-              <NavLink
-                activeClassName="project-header__active"
+              <button
                 className="project-header__link"
-                to="/classify"
+                onClick={this.toggleDropdown}
               >
                 {this.props.translate('topNav.transcribe')}
-              </NavLink>
+              </button>
+              {this.props.showWorkflows && (
+                <WorkflowDropdown />
+              )}
               <a
                 className="project-header__link"
                 href="/"
@@ -61,7 +76,7 @@ class ProjectHeader extends React.Component {
                 {this.props.translate('topNav.collect')}
               </a>
             </div>
-            <div>
+            <div className="project-header__buttons">
               <button
                 className={classnames({ 'active-language': this.props.language === LANGUAGES.ARABIC })}
                 onClick={this.changeLanguage.bind(this, LANGUAGES.ARABIC)}
@@ -95,6 +110,7 @@ ProjectHeader.propTypes = {
     pathname: PropTypes.string
   }),
   rtl: PropTypes.bool,
+  showWorkflows: PropTypes.bool,
   translate: PropTypes.func
 };
 
@@ -103,6 +119,7 @@ ProjectHeader.defaultProps = {
   language: LANGUAGES.ENGLISH,
   location: {},
   rtl: false,
+  showWorkflows: false,
   translate: () => {}
 };
 
@@ -110,6 +127,7 @@ const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
   language: state.languages.language,
   rtl: state.languages.rtl,
+  showWorkflows: state.workflow.showSelection,
   translate: getTranslate(state.locale)
 });
 
