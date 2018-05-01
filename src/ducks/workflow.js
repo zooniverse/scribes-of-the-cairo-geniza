@@ -3,6 +3,7 @@ import { config } from '../config';
 
 import { fetchSubject, resetSubject } from './subject';
 import { resetAnnotations } from './annotations';
+import { fetchTutorial } from './tutorial';
 
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
@@ -61,6 +62,7 @@ const prepareForNewWorkflow = () => {
     dispatch(resetSubject());
     dispatch(resetAnnotations());
     dispatch(fetchSubject());
+    dispatch(fetchTutorial());
   };
 };
 

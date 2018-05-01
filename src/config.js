@@ -31,7 +31,8 @@ const baseConfig = {
     challengingHebrew: '3205',
     phaseOne: '3157',
     arabicKeyword: '3201',
-    hebrewKeyword: '3156'
+    hebrewKeyword: '3156',
+    fieldGuide: '40'
   },
   production: {
     panoptesAppId: '68db6a8181e26483a9f82b66b511ca849ef170b10c0e997bdcc277003d779ac6',
@@ -44,7 +45,8 @@ const baseConfig = {
     challengingHebrew: '6653',
     phaseOne: '4712',
     arabicKeyword: '6600',
-    hebrewKeyword: '6529'
+    hebrewKeyword: '6529',
+    fieldGuide: '385'
   }
 };
 

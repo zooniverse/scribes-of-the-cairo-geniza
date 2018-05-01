@@ -1,4 +1,5 @@
 import { Tutorial } from 'zooniverse-react-components';
+import { loadTranslations } from './translations';
 
 const FETCH_TUTORIAL = 'FETCH_TUTORIAL';
 const FETCH_TUTORIAL_SUCCESS = 'FETCH_TUTORIAL_SUCCESS';
@@ -39,13 +40,16 @@ const tutorialReducer = (state = initialState, action) => {
   }
 };
 
-const fetchTutorial = (workflow) => {
-  return (dispatch) => {
+const fetchTutorial = () => {
+  return (dispatch, getState) => {
+    const workflow = getState().workflow.data;
+
     dispatch({
       type: FETCH_TUTORIAL
     });
     Tutorial.find(workflow)
       .then((tutorial) => {
+        dispatch(loadTranslations('tutorial', tutorial.id));
         dispatch({
           type: FETCH_TUTORIAL_SUCCESS,
           data: tutorial

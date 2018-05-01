@@ -76,23 +76,9 @@ const loadTranslations = (translated_type, translated_id) => {
   };
 };
 
-const loadResources = () => {
-  return (dispatch) => {
-    Promise.all([
-      dispatch(loadTranslations('field_guide', '40')),
-      dispatch(loadTranslations('tutorial', '207'))
-    ]).then(() => {
-      dispatch({ type: FETCH_TRANSLATIONS_SUCCESS });
-    }).catch(() => {
-      dispatch({ type: FETCH_TRANSLATIONS_ERROR });
-    });
-  };
-};
-
 export default translationsReducer;
 
 export {
-  loadResources,
   loadTranslations,
   TRANSLATION_STATUS
 };
