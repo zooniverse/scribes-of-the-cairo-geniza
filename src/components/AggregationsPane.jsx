@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { AGGREGATIONS_STATUS, AGGREGATIONS_PROP_TYPES, AGGREGATIONS_INITIAL_STATE } from '../ducks/aggregations';
 import { toggleReminder } from '../ducks/reminder';
 import HelperMessage from './HelperMessage';
-import { Utility } from '../lib/Utility';
 
 const BUFFER = 8;
 const ICON_WIDTH = 40;
