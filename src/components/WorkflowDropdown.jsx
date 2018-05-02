@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { fetchWorkflow, toggleSelection } from '../ducks/workflow';
 import { config } from '../config';
 
-const WorkflowDropdown = ({ dispatch, history }) => {
+const WorkflowDropdown = ({ className, dispatch, history }) => {
   const selectWorkflow = (workflow) => {
     dispatch(fetchWorkflow(workflow));
     dispatch(toggleSelection(false));
@@ -16,7 +16,7 @@ const WorkflowDropdown = ({ dispatch, history }) => {
   const classifyPath = `${c.host}projects/${c.projectSlug}/classify?workflow=`;
 
   return (
-    <div className="selection-container">
+    <div className={`selection-container ${className}`}>
       <div>
         <a
           className="tertiary-label"
@@ -85,6 +85,7 @@ const WorkflowDropdown = ({ dispatch, history }) => {
 };
 
 WorkflowDropdown.propTypes = {
+  className: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func

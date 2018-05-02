@@ -1,5 +1,6 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
+import { loadTranslations } from './translations';
 
 const FETCH_GUIDE = 'FETCH_GUIDE';
 const FETCH_GUIDE_SUCCESS = 'FETCH_GUIDE_SUCCESS';
@@ -49,8 +50,8 @@ const fetchGuide = () => {
     });
 
     return apiClient.type('field_guides').get({ project_id: `${config.projectId}` }).then(([guide]) => {
+      dispatch(loadTranslations('field_guide', guide.id));
       const icons = {};
-
       if (guide) {
         guide.get('attached_images', { page_size: 100 }).then((images) => {
           images.map((image) => {

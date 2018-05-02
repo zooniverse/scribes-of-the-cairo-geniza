@@ -45,7 +45,6 @@ const fetchResources = () => {
 
     Promise.all([
       dispatch(fetchProject()),
-      dispatch(fetchWorkflow()),
       dispatch(fetchGuide())
     ]).then(() => {
       dispatch({ type: FETCH_RESOURCES_SUCCESS });

@@ -16,12 +16,17 @@ class ProjectHeader extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
+  componentWillReceiveProps(next) {
+    if (this.props.location.pathname !== next.location.pathname && this.props.showWorkflows) {
+      this.toggleDropdown(false);
+    }
+  }
+
   changeLanguage(language) {
     this.props.dispatch(setLanguage(language));
   }
 
-  toggleDropdown() {
-    const nextState = !this.props.showWorkflows;
+  toggleDropdown(e, nextState = !this.props.showWorkflows) {
     this.props.dispatch(toggleSelection(nextState));
   }
 

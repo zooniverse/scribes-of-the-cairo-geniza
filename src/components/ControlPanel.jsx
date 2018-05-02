@@ -12,7 +12,7 @@ import {
   WorkInProgress, WORKINPROGRESS_INITIAL_STATE, WORKINPROGRESS_PROPTYPES,
   getWorkInProgressStateValues
 } from '../ducks/work-in-progress';
-import { fetchTutorial, TUTORIAL_STATUS } from '../ducks/tutorial';
+import { TUTORIAL_STATUS } from '../ducks/tutorial';
 
 import FieldGuide from './FieldGuide';
 import CribSheet from './CribSheet';
@@ -29,7 +29,6 @@ class ControlPanel extends React.Component {
     this.toggleButton = this.toggleButton.bind(this);
     this.toggleIcon = this.toggleIcon.bind(this);
     this.toggleFieldGuide = this.toggleFieldGuide.bind(this);
-    this.fetchTutorial = this.fetchTutorial.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePanel = this.togglePanel.bind(this);
     this.toggleCribSheet = this.toggleCribSheet.bind(this);
@@ -47,8 +46,6 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchTutorial(this.props);
-
     //Check if the user has any work in progress.
     //componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page.
     if (this.props.user && WorkInProgress.check(this.props.user)) {
@@ -56,20 +53,18 @@ class ControlPanel extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.fetchTutorial(nextProps);
-
+  componentWillReceiveProps(next) {
     //If there's new tutorial data, show it...
     //...unless there's a WorkInProgress prompt in the way.
-    if (nextProps.tutorial !== this.props.tutorial && !WorkInProgress.check(this.props.user)) {
-      Tutorial.checkIfCompleted(nextProps.tutorial, nextProps.user, nextProps.preferences).then((completed) => {
+    if (next.tutorial && next.tutorial !== this.props.tutorial && !WorkInProgress.check(this.props.user)) {
+      Tutorial.checkIfCompleted(next.tutorial, next.user, next.preferences).then((completed) => {
         if (!completed) { this.toggleTutorial(); }
       });
     }
 
     //Check if the user has any work in progress.
     //componentWillReceiveProps() checks when the user accesses the Classifier page directly.
-    if (this.props.user !== nextProps.user && nextProps.user && WorkInProgress.check(nextProps.user)) {
+    if (this.props.user !== next.user && next.user && WorkInProgress.check(next.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
 
@@ -104,12 +99,6 @@ class ControlPanel extends React.Component {
 
     if (this.props.tutorial) {
       this.props.dispatch(togglePopup(<TutorialView />));
-    }
-  }
-
-  fetchTutorial(props) {
-    if (props.workflow && props.preferences && props.tutorialStatus === TUTORIAL_STATUS.IDLE) {
-      this.props.dispatch(fetchTutorial(props.workflow));
     }
   }
 

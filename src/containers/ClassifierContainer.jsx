@@ -1,27 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { loadResources } from '../ducks/translations';
-import {
-  fetchSubject, SUBJECT_STATUS,
-} from '../ducks/subject';
+import { togglePopup } from '../ducks/dialog';
+import { WORKFLOW_STATUS } from '../ducks/workflow';
+import { WorkInProgress } from '../ducks/work-in-progress';
 
 import ControlPanel from '../components/ControlPanel';
+import WorkflowPrompt from '../components/WorkflowPrompt';
 import Toolbar from '../components/Toolbar';
 import SubjectViewer from './SubjectViewer';
 
 class ClassifierContainer extends React.Component {
   componentWillMount() {
-    this.props.dispatch(loadResources());
+    if (this.props.workflowStatus === WORKFLOW_STATUS.IDLE && !WorkInProgress.check(this.props.user)) {
+      this.props.dispatch(togglePopup(<WorkflowPrompt />));
+    }
+  }
 
-    //TODO: check if a Workflow has been selected. Prompt the user to select
-    //one if there's none.
-  
-    //Initial Subject fetch!
-    //If we didn't check that a Subject already exists, we'd always fetch
-    //a new subject every time the user accesses the Classifier. 
-    if (this.props.subjectStatus === SUBJECT_STATUS.IDLE) {
-      this.props.dispatch(fetchSubject());
+  componentWillReceiveProps(next) {
+    if (this.props.workflowStatus !== next.workflowStatus) {
+      this.props.dispatch(togglePopup(null));
     }
   }
 
@@ -36,10 +35,22 @@ class ClassifierContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    subjectStatus: state.subject.status,
-  };
+ClassifierContainer.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string
+  }),
+  workflowStatus: PropTypes.string.isRequired
 };
+
+ClassifierContainer.defaultProps = {
+  user: null
+};
+
+const mapStateToProps = state => ({
+  subjectStatus: state.subject.status,
+  user: state.login.user,
+  workflowStatus: state.workflow.status
+});
 
 export default connect(mapStateToProps)(ClassifierContainer);
