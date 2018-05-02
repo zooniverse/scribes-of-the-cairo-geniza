@@ -24,7 +24,6 @@ const baseConfig = {
     panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',
     caesarHost: 'https://caesar-staging.zooniverse.org/graphql',
     host: 'https://master.pfe-preview.zooniverse.org/',
-    keywordWorkflow: '3156',
     projectId: '1814',
     projectSlug: 'wgranger-test/scribes-of-the-cairo-geniza-testing',
     easyArabic: '3202',
@@ -38,7 +37,6 @@ const baseConfig = {
   production: {
     panoptesAppId: '68db6a8181e26483a9f82b66b511ca849ef170b10c0e997bdcc277003d779ac6',
     caesarHost: 'https://caesar.zooniverse.org/graphql',
-    keywordWorkflow: '5894',
     host: 'https://www.zooniverse.org/',
     projectId: '5042',
     projectSlug: 'judaicadh/scribes-of-the-cairo-geniza',

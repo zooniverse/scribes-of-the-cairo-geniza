@@ -182,7 +182,7 @@ const prepareForNewSubject = (subject) => {
     dispatch(createClassification(subject));
     dispatch(changeFrame(0));
     if (aggregationWorkflows.indexOf(activeWorkflowID) >= 0) {
-      subject && dispatch(fetchAggregations(subject.id));
+      subject && dispatch(fetchAggregations(subject.id, activeWorkflowID));
     } else {
       dispatch(clearAggregations());
     }
