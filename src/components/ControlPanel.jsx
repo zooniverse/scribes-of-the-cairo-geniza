@@ -48,9 +48,9 @@ class ControlPanel extends React.Component {
 
   componentDidMount() {
     this.fetchTutorial(this.props);
-    
+
     //Check if the user has any work in progress.
-    //componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page. 
+    //componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page.
     if (this.props.user && WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
@@ -66,13 +66,13 @@ class ControlPanel extends React.Component {
         if (!completed) { this.toggleTutorial(); }
       });
     }
-    
+
     //Check if the user has any work in progress.
-    //componentWillReceiveProps() checks when the user accesses the Classifier page directly. 
+    //componentWillReceiveProps() checks when the user accesses the Classifier page directly.
     if (this.props.user !== nextProps.user && nextProps.user && WorkInProgress.check(nextProps.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
-    
+
     window.addEventListener('resize', this.handleResize);
     this.handleResize();
   }
@@ -142,7 +142,10 @@ class ControlPanel extends React.Component {
   }
 
   togglePanel() {
-    this.setState({ showPanel: !this.state.showPanel });
+    this.setState({
+      showInfo: false,
+      showPanel: !this.state.showPanel
+    });
   }
 
   finishedPrompt() {

@@ -294,6 +294,7 @@ export default {
     deletion: 'حذف',
     damaged: 'عطل',
     drawing: '‏رسمة',
-    grid: 'شبكة'
+    grid: 'شبكة',
+    divineName: 'Divine Name'
   }
 };
