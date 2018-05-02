@@ -240,5 +240,65 @@ export default {
     grid: 'גריד',
     divine: 'ה’',
     divineName: 'ה’'
+  },
+  transcribeHebrew: {
+    title: 'תעתוק קטעים בכתב עברי',
+    content: `
+      .העתיקו קטעי גניזה הכתובים באותיות עבריות
+      למטה, בחרו בין העתקה של קטעים בכתב פורמלי (משימה קלה
+      יותר ומתאימה למתחילים) ובין העתקה של קטעים
+      .הכתובים בסגנון בלתי פורמלי (משימה מאתגרת יותר)
+    `,
+    exercises: 'תרגול העתקה מלאה',
+    easy: 'עברית בכתב פורמלי',
+    challenging: 'עברית בכתב לא פורמלי'
+  },
+  transcribeArabic: {
+    title: 'תעתוק קטעים בכתב ערבי',
+    content: `
+      .העתיקו קטעי גניזה הכתובים באותיות ערביות
+      למטה, בחרו בין העתקה של קטעים בכתב פורמלי (משימה קלה
+      יותר ומתאימה למתחילים) ובין העתקה של קטעים הכתובים בסגנון בלתי פורמלי
+      .(משימה מאתגרת יותר)
+    `,
+    exercises: 'תרגול העתקה מלאה',
+    keywords: 'חיפוש מילות מפתח בקטעי גניזה הכתובים בעברית',
+    keywordContent: `
+      .עזרו לנו לאתר מילות מפתח בקטעים הכתובים עברית
+      זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת קטעים
+      .העשויים להיות מאתגרים יותר לקריאה
+      במקום לנסות לתעתק את המסמך כולו, אתרו בו ביטויים ומלים שיעזרו
+      !לנו להתחיל את התהליך. הכון, החל, חפש
+    `,
+    easy: 'ערבית בכתב פורמלי',
+    challenging: 'ערבית בכתב לא פורמלי'
+  },
+  keywordsHebrew: {
+    title: 'חיפוש מילות מפתח בקטעי גניזה הכתובים בעברית',
+    content: `
+      .עזרו לנו לאתר מילות מפתח בקטעים הכתובים עברית
+      זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת קטעים
+      .העשויים להיות מאתגרים יותר לקריאה
+      במקום לנסות לתעתק את המסמך כולו, אתרו בו ביטויים ומלים שיעזרו
+      !לנו להתחיל את התהליך. הכון, החל, חפש
+    `,
+    button: 'Hebrew Keywords'
+  },
+  keywordsArabic: {
+    title: 'Keyword Search',
+    content: `
+      Help us search for specific keywords in Arabic Script. Your work will begin
+      the process of transcription for fragments that are likely to be especially
+      difficult. Instead of trying to transcribe the whole document, start by
+      looking for specific words to help get the process started. Ready, set, search!
+    `,
+    button: 'Arabic Keywords'
+  },
+  classifyFragments: {
+    title: 'Classify Fragments',
+    button: 'Classify Fragments'
+  },
+  home: {
+    institutions: 'שותפים למחקר'
   }
 };

@@ -268,5 +268,56 @@ export default {
     grid: 'Grid',
     divine: 'Divine Name',
     divineName: 'Divine Name'
+  },
+  transcribeHebrew: {
+    title: 'Transcribe Hebrew Script Fragments',
+    content: `
+      Transcribe fragments in Hebrew Script from the Cairo Geniza. Below,
+      choose whether you’d like to transcribe a formal Hebrew script fragment
+      (usually better for beginners) or an informal Hebrew script fragment
+      (usually recommended for those wanting more of a challenge).
+    `,
+    exercises: 'Full Transcription Exercises',
+    easy: 'Easy Hebrew',
+    challenging: 'Challenging Hebrew'
+  },
+  transcribeArabic: {
+    title: 'Transcribe Arabic Script Fragments',
+    content: `
+      Transcribe fragments in Arabic Script from the Cairo Geniza. Below, choose
+      whether you’d like to transcribe a formal Arabic script fragment (usually
+      better for beginners) or an informal Arabic script fragment (usually
+      recommended for those wanting more of a challenge).
+    `,
+    exercises: 'Full Transcription Exercises',
+    easy: 'Easy Arabic',
+    challenging: 'Challenging Arabic'
+  },
+  keywordsHebrew: {
+    title: 'Search for Hebrew Keywords',
+    content: `
+      Help us search for specific keywords in Hebrew Script. Your work will begin
+      the process of transcription for fragments that are likely to be especially
+      difficult. Instead of trying to transcribe the whole document, start by
+      looking for specific words to help get the process started. Ready, set, search!
+    `,
+    button: 'Hebrew Keywords'
+  },
+  keywordsArabic: {
+    title: 'Search for Arabic Keywords',
+    content: `
+      Help us search for specific keywords in Arabic Script. Your work will begin
+      the process of transcription for fragments that are likely to be especially
+      difficult. Instead of trying to transcribe the whole document, start by looking
+      for specific words to help get the process started. Ready, set, search!
+    `,
+    button: 'Arabic Keywords'
+  },
+  classifyFragments: {
+    title: 'Classify Fragments',
+    button: 'Classify Fragments'
+  },
+  home: {
+    institutions: 'Institutional Partners'
   }
 };

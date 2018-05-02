@@ -37,9 +37,9 @@ const baseConfig = {
   },
   production: {
     panoptesAppId: '68db6a8181e26483a9f82b66b511ca849ef170b10c0e997bdcc277003d779ac6',
-    host: 'https://www.scribesofthecairogeniza.org/',
     caesarHost: 'https://caesar.zooniverse.org/graphql',
     keywordWorkflow: '5894',
+    host: 'https://www.zooniverse.org/',
     projectId: '5042',
     projectSlug: 'judaicadh/scribes-of-the-cairo-geniza',
     easyArabic: '6654',

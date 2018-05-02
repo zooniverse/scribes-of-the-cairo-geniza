@@ -78,13 +78,24 @@
       white-space: nowrap
       width: 4em
 
+  &__exercises
+    @extend .primary-label
+    display: block
+    font-family $work-sans !important
+    font-size: 0.8rem !important
+    font-weight: 600 !important
+    letter-spacing: 0.1rem !important
+    margin-top: 1rem
+
   &__buttons
     display: flex
     justify-content: space-between
-    margin: 1.5rem 0
+    margin: 1.5rem 0 3rem 0
 
-    button
+    button, a
       margin-right: 1rem
+      text-align: center
+      text-decoration: none
 
       &:hover, &:focus
         background-color: $plum
@@ -120,6 +131,10 @@
     @media(max-width: 850px)
       padding-top: 12rem
 
+    span
+      display: block
+      margin-bottom: 1rem
+
     hr
       width: 4rem
 
@@ -129,9 +144,8 @@
     div
       margin-left: 4rem
 
-      a
-        display: block
-        margin: 2rem 0
+    a
+      cursor: pointer
 
   &__zooniverse
     background-color: rgba(175, 221, 223, 0.35)
