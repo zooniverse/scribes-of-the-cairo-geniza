@@ -12,6 +12,7 @@ const FETCH_AGGREGATIONS_SUCCESS = 'FETCH_AGGREGATIONS_SUCCESS';
 const FETCH_KEYWORD_WORKFLOW_SUCCESS = 'FETCH_KEYWORD_WORKFLOW_SUCCESS';
 
 const TOGGLE_HINTS = 'TOGGLE_HINTS';
+const CLEAR_AGGREGATIONS = 'CLEAR_AGGREGATIONS';
 
 const AGGREGATIONS_STATUS = {
   IDLE: 'aggregations_status_idle',
@@ -66,6 +67,9 @@ const aggregationsReducer = (state = AGGREGATIONS_INITIAL_STATE, action) => {
       return Object.assign({}, state, {
         showHints: action.showHints
       });
+
+    case CLEAR_AGGREGATIONS:
+      return AGGREGATIONS_INITIAL_STATE;
 
     default:
       return state;
@@ -136,9 +140,16 @@ const fetchAggregations = (subjectId) => {
   };
 };
 
+const clearAggregations = () => {
+  return (dispatch) => {
+    dispatch({ type: CLEAR_AGGREGATIONS });
+  };
+};
+
 export default aggregationsReducer;
 
 export {
+  clearAggregations,
   fetchAggregations,
   toggleHints,
   AGGREGATIONS_INITIAL_STATE,

@@ -17,8 +17,6 @@ import { setScaling, resetView,
   SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
 
-
-
 const ROTATION_STEP = 90;
 const ZOOM_STEP = 0.1;
 
@@ -157,10 +155,12 @@ class Toolbar extends React.Component {
           <i className="fa fa-adjust" />
           {expanded && (<span>{this.props.translate('toolbar.invertColors')}</span>)}
         </button>
-        <button onClick={this.toggleShowHints}>
-          <i className={hintsIcon} />
-          {expanded && (<span>{hintsText}</span>)}
-        </button>
+        {this.props.aggregations && Object.keys(this.props.aggregations).length ? (
+          <button onClick={this.toggleShowHints}>
+            <i className={hintsIcon} />
+            {expanded && (<span>{hintsText}</span>)}
+          </button>
+        ) : false}
         <button onClick={this.resetView}>
           <i className="fa fa-refresh" />
           {expanded && (<span>{this.props.translate('toolbar.resetImage')}</span>)}
@@ -190,6 +190,7 @@ class Toolbar extends React.Component {
 
 
 Toolbar.propTypes = {
+  aggregations: PropTypes.object,
   dispatch: PropTypes.func,
   favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
@@ -204,6 +205,7 @@ Toolbar.propTypes = {
 };
 
 Toolbar.defaultProps = {
+  aggregations: null,
   dispatch: () => {},
   favoriteSubject: false,
   rotation: 0,
@@ -218,6 +220,8 @@ Toolbar.defaultProps = {
 const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
+    aggregations: state.aggregations.data,
+    aggStatus: state.aggregations.status,
     currentLanguage: getActiveLanguage(state.locale).code,
     favoriteSubject: state.subject.favorite,
     rotation: sv.rotation,

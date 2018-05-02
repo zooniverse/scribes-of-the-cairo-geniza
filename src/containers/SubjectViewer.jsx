@@ -216,6 +216,9 @@ class SubjectViewer extends React.Component {
       this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
       this.tmpTransform = false;
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
+      if (e.target.parentNode.className.baseVal.indexOf('block-transcription') >= 0) {
+        return;
+      }
       const pointerXYOnImage = this.getPointerXYOnImage(e);
       this.props.dispatch(addAnnotationPoint(pointerXYOnImage.x, pointerXYOnImage.y, this.props.frame));
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&

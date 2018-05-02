@@ -1,10 +1,10 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 
+import { clearAggregations, fetchAggregations } from './aggregations';
 import { resetAnnotations } from './annotations';
 import { createClassification } from './classification';
 import { changeFrame } from './subject-viewer';
-import { fetchAggregations } from './aggregations';
 
 // Action Types
 const RESET_SUBJECT = 'FETCH_SUBJECT';
@@ -175,12 +175,18 @@ const resetSubject = () => {
 /*  Resets all the dependencies that rely on the Subject.
  */
 const prepareForNewSubject = (subject) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const activeWorkflowID = getState().workflow.data.id;
+    const aggregationWorkflows = [config.challengingArabic, config.challengingHebrew];
     dispatch(resetAnnotations());
     dispatch(createClassification(subject));
     dispatch(changeFrame(0));
-    subject && dispatch(fetchAggregations(subject.id));
-  }
+    if (aggregationWorkflows.indexOf(activeWorkflowID) >= 0) {
+      subject && dispatch(fetchAggregations(subject.id));
+    } else {
+      dispatch(clearAggregations());
+    }
+  };
 };
 
 const subjectError = () => {

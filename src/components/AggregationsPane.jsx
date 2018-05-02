@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { AGGREGATIONS_STATUS, AGGREGATIONS_PROP_TYPES, AGGREGATIONS_INITIAL_STATE } from '../ducks/aggregations';
 import { toggleReminder } from '../ducks/reminder';
 import HelperMessage from './HelperMessage';
+import { Utility } from '../lib/Utility';
 
 const BUFFER = 8;
 const ICON_WIDTH = 40;
@@ -100,7 +101,7 @@ class AggregationsPane extends React.Component {
           const uniqueKey = `${key}_${task}_${index}_${i}`;
 
           rectangles.push(
-            <g key={uniqueKey} id={uniqueKey} style={{ direction: 'ltr' }} visibility={visibility} className="aggregated-box" onClick={this.showHelpMsg.bind(this, uniqueKey)}>
+            <g key={uniqueKey} id={uniqueKey} style={{ direction: 'ltr' }} visibility={visibility} className="aggregated-box block-transcription" onClick={this.showHelpMsg.bind(this, uniqueKey)}>
               <rect
                 id={`${uniqueKey}_header`}
                 x={x}

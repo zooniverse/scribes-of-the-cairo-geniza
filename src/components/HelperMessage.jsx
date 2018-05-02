@@ -20,7 +20,7 @@ class HelperMessage extends React.Component {
     const y = this.props.viewerSize.height * QUARTER_OF_PAGE;
 
     return (
-      <g style={{ direction: 'ltr' }}>
+      <g className="block-transcription" style={{ direction: 'ltr' }}>
         <rect
           x={-(this.props.width / 2)}
           y={y}
