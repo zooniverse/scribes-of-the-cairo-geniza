@@ -238,7 +238,7 @@ export default {
     damaged: 'פגום',
     drawing: 'ציור',
     grid: 'גריד',
-    divine: '’ה',
-    divineName: '’ה'
+    divine: 'ה’',
+    divineName: 'ה’'
   }
 };

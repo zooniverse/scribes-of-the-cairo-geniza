@@ -6,12 +6,9 @@ import Connect from '../Connect';
 
 import ImgBodleian from '../../images/partners/bodleian.png';
 import ImgCambridge from '../../images/partners/cambridge.png';
-import ImgElijah from '../../images/partners/Elijah.png';
-import ImgGenizah from '../../images/partners/genizah.png';
 import ImgJTS from '../../images/partners/jts.png';
 import ImgManchester from '../../images/partners/manchester.png';
 import ImgPenn from '../../images/partners/penn.png';
-import ImgPrinceton from '../../images/partners/princeton.png';
 import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
 
 import ContentIntroEn from './content-intro-en.jsx';
@@ -65,7 +62,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: About the Geniza
         --------------------------------
@@ -83,7 +80,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Research Partners
         --------------------------------
@@ -101,7 +98,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Image Partners
         --------------------------------
@@ -112,7 +109,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
           <div className="content">
             <div className="item">
               <img alt="Cambridge" src={ImgCambridge} />
-            </div>            
+            </div>
             <div className="item">
               <img alt="JTS" src={ImgJTS} />
             </div>
@@ -130,7 +127,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Provenance
         --------------------------------
@@ -148,7 +145,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        
+
         {/*
         Section: Team
         --------------------------------

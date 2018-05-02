@@ -131,7 +131,10 @@ class ControlPanel extends React.Component {
   }
 
   togglePanel() {
-    this.setState({ showPanel: !this.state.showPanel });
+    this.setState({
+      showInfo: false,
+      showPanel: !this.state.showPanel
+    });
   }
 
   finishedPrompt() {
