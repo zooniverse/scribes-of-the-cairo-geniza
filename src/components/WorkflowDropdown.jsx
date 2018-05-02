@@ -36,12 +36,16 @@ const WorkflowDropdown = ({ className, dispatch, history, translate }) => {
         >
           {translate('transcribeHebrew.easy')}
         </button>
-        {/* <button
-          className="tertiary-label"
-          onClick={selectWorkflow.bind(null, c.challengingHebrew)}
-        >
-          {translate('transcribeHebrew.challenging')}
-        </button> */}
+        <div className="disabled-workflow">
+          <button
+            className="tertiary-label disabled-workflow"
+            disabled
+            onClick={selectWorkflow.bind(null, c.challengingHebrew)}
+          >
+            {translate('transcribeHebrew.challenging')}
+          </button>
+          <span>Coming Soon!</span>
+        </div>
 
         <div>
           <span className="primary-label">Keyword Search</span>
@@ -63,12 +67,16 @@ const WorkflowDropdown = ({ className, dispatch, history, translate }) => {
         >
           {translate('transcribeArabic.easy')}
         </button>
-        {/* <button
-          className="tertiary-label"
-          onClick={selectWorkflow.bind(null, c.challengingArabic)}
-        >
-          {translate('transcribeArabic.challenging')}
-        </button> */}
+        <div className="disabled-workflow">
+          <button
+            className="tertiary-label"
+            disabled
+            onClick={selectWorkflow.bind(null, c.challengingArabic)}
+          >
+            {translate('transcribeArabic.challenging')}
+          </button>
+          <span>Coming Soon!</span>
+        </div>
 
         <div>
           <span className="primary-label">Keyword Search</span>

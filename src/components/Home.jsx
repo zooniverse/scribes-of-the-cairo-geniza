@@ -65,12 +65,16 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
               >
                 {translate('transcribeHebrew.easy')}
               </button>
-              {/* <button
-                className="button"
-                onClick={selectWorkflow.bind(null, config.challengingHebrew)}
-              >
-                {translate('transcribeHebrew.challenging')}
-              </button> */}
+              <div>
+                <button
+                  className="button button__dark-disabled"
+                  disabled
+                  onClick={selectWorkflow.bind(null, config.challengingHebrew)}
+                >
+                  {translate('transcribeHebrew.challenging')}
+                </button>
+                <span className="body-font">Coming Soon!</span>
+              </div>
             </div>
             <span className="home-page__exercises">{translate('keywordsHebrew.title')}</span>
             <span>{translate('keywordsHebrew.content')}</span>
@@ -108,12 +112,16 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
               >
                 {translate('transcribeArabic.easy')}
               </button>
-              {/* <button
-                className="button"
-                onClick={selectWorkflow.bind(null, config.challengingArabic)}
-              >
-                {translate('transcribeArabic.challenging')}
-              </button> */}
+              <div>
+                <button
+                  className="button button__dark-disabled"
+                  disabled
+                  onClick={selectWorkflow.bind(null, config.challengingArabic)}
+                >
+                  {translate('transcribeArabic.challenging')}
+                </button>
+                <span className="body-font">Coming Soon!</span>
+              </div>
             </div>
             <span className="home-page__exercises">{translate('keywordsArabic.title')}</span>
             <span>{translate('keywordsArabic.content')}</span>
@@ -148,11 +156,12 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
       <div className="home-page__about">
         <hr className="plum-line" />
         <h2 className="h2-font">About Scribes of the Cairo Geniza</h2>
-        {(() => { switch (currentLanguage) {
-          case 'he': return (<AboutGenizaHe />);
-          case 'ar': return (<AboutGenizaAr />);
-          default: return (<AboutGenizaEn />);
-        }})()}
+        {(() => {
+          switch (currentLanguage) {
+            case 'he': return (<AboutGenizaHe />);
+            case 'ar': return (<AboutGenizaAr />);
+            default: return (<AboutGenizaEn />);
+          }})()}
       </div>
       <HomeStatistics />
       <div className="home-page__zooniverse">
@@ -174,6 +183,7 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
 };
 
 Home.propTypes = {
+  currentLanguage: PropTypes.string.isRequired,
   dispatch: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func
