@@ -10,10 +10,10 @@ By default, this is the development environment, but this can be changed either 
 
  */
 
-var DEFAULT_ENV = 'development';
-var envFromBrowser = locationMatch(/\W?env=(\w+)/);
-var envFromShell = process.env.NODE_ENV;
-var env = envFromBrowser || envFromShell || DEFAULT_ENV;
+const DEFAULT_ENV = 'development';
+const envFromBrowser = locationMatch(/\W?env=(\w+)/);
+const envFromShell = process.env.NODE_ENV;
+const env = envFromBrowser || envFromShell || DEFAULT_ENV;
 
 if (!env.match(/^(production|staging|development)$/)) {
   throw new Error(`Error: Invalid Environment - ${env}`);
@@ -21,8 +21,10 @@ if (!env.match(/^(production|staging|development)$/)) {
 
 const baseConfig = {
   development: {
-    panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',  //Scribes of the Cairo Geniza on Staging
+    panoptesAppId: 'c71ef0db12dde9e5d8852e7bbc239ef868990d0893cd52c7d47370f90d3992b0',
+    caesarHost: 'https://caesar-staging.zooniverse.org/graphql',
     host: 'https://master.pfe-preview.zooniverse.org/',
+    keywordWorkflow: '3156',
     projectId: '1814',
     projectSlug: 'wgranger-test/scribes-of-the-cairo-geniza-testing',
     easyArabic: '3202',
@@ -36,6 +38,8 @@ const baseConfig = {
   production: {
     panoptesAppId: '68db6a8181e26483a9f82b66b511ca849ef170b10c0e997bdcc277003d779ac6',
     host: 'https://www.scribesofthecairogeniza.org/',
+    caesarHost: 'https://caesar.zooniverse.org/graphql',
+    keywordWorkflow: '5894',
     projectId: '5042',
     projectSlug: 'judaicadh/scribes-of-the-cairo-geniza',
     easyArabic: '6654',

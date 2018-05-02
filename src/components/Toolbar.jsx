@@ -7,6 +7,7 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import CollectionsContainer from '../containers/CollectionsContainer';
 import { toggleDialog } from '../ducks/dialog';
 import { toggleFavorite } from '../ducks/subject';
+import { toggleHints } from '../ducks/aggregations';
 import FavoritesButton from './FavoritesButton';
 
 import { setScaling, resetView,
@@ -15,8 +16,6 @@ import { setScaling, resetView,
   // setTranslation, updateViewerSize, updateImageSize,
   SUBJECTVIEWER_STATE
 } from '../ducks/subject-viewer';
-
-
 
 const ROTATION_STEP = 90;
 const ZOOM_STEP = 0.1;
@@ -37,6 +36,7 @@ class Toolbar extends React.Component {
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.showCollections = this.showCollections.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
+    this.toggleShowHints = this.toggleShowHints.bind(this);
 
     this.state = {
       showPanel: false
@@ -79,6 +79,10 @@ class Toolbar extends React.Component {
     this.setState({ showPanel: !this.state.showPanel });
   }
 
+  toggleShowHints() {
+    this.props.dispatch(toggleHints());
+  }
+
   toggleIcon() {
     return (
       <button className="button-header" onClick={this.togglePanel}>
@@ -108,6 +112,9 @@ class Toolbar extends React.Component {
   render() {
     const expanded = this.state.showPanel;
     const toolbarClass = expanded ? 'toolbar toolbar__expanded' : 'toolbar';
+    const hintsIcon = this.props.showHints ? 'fa fa-eye-slash' : 'fa fa-eye';
+    const hintsText = this.props.showHints ? this.props.translate('toolbar.showHints')
+      : this.props.translate('toolbar.hideHints');
 
     return (
       <section className={toolbarClass}>
@@ -148,10 +155,12 @@ class Toolbar extends React.Component {
           <i className="fa fa-adjust" />
           {expanded && (<span>{this.props.translate('toolbar.invertColors')}</span>)}
         </button>
-        <button>
-          <i className="fa fa-eye" />
-          {expanded && (<span>{this.props.translate('toolbar.showHints')}</span>)}
-        </button>
+        {this.props.aggregations && Object.keys(this.props.aggregations).length ? (
+          <button onClick={this.toggleShowHints}>
+            <i className={hintsIcon} />
+            {expanded && (<span>{hintsText}</span>)}
+          </button>
+        ) : false}
         <button onClick={this.resetView}>
           <i className="fa fa-refresh" />
           {expanded && (<span>{this.props.translate('toolbar.resetImage')}</span>)}
@@ -181,11 +190,13 @@ class Toolbar extends React.Component {
 
 
 Toolbar.propTypes = {
+  aggregations: PropTypes.object,
   dispatch: PropTypes.func,
   favoriteSubject: PropTypes.bool,
   rotation: PropTypes.number,
   rtl: PropTypes.bool,
   scaling: PropTypes.number,
+  showHints: PropTypes.bool,
   translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -194,11 +205,13 @@ Toolbar.propTypes = {
 };
 
 Toolbar.defaultProps = {
+  aggregations: null,
   dispatch: () => {},
   favoriteSubject: false,
   rotation: 0,
   rtl: false,
   scaling: 0,
+  showHints: true,
   translate: () => {},
   user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
@@ -207,11 +220,14 @@ Toolbar.defaultProps = {
 const mapStateToProps = (state) => {
   const sv = state.subjectViewer;
   return {
+    aggregations: state.aggregations.data,
+    aggStatus: state.aggregations.status,
     currentLanguage: getActiveLanguage(state.locale).code,
     favoriteSubject: state.subject.favorite,
     rotation: sv.rotation,
     rtl: state.languages.rtl,
     scaling: sv.scaling,
+    showHints: state.aggregations.showHints,
     translate: getTranslate(state.locale),
     user: state.login.user,
     viewerState: sv.viewerState
