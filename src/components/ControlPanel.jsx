@@ -143,25 +143,56 @@ class ControlPanel extends React.Component {
     ));
   }
 
+  findKey(metadata, match) {
+    return Object.keys(metadata).find((key) => {
+      if (key.indexOf(match) >= 0) {
+        return metadata[key];
+      }
+    });
+  }
+
   showSubjectInfo() {
+    let attribution;
+    let name;
+    let url;
+    if (this.props.currentSubject && this.props.currentSubject.metadata) {
+      attribution = this.props.currentSubject.metadata.Attribution;
+      name = this.findKey(this.props.currentSubject.metadata, 'Name');
+      url = this.findKey(this.props.currentSubject, 'Link to Collection');
+    }
+    const showToggle = !!attribution || !!name || !!url;
+
     return (
       <div className="control-panel__info">
-        <div>
-          <span className="primary-label">{this.props.translate('infoBox.name')}</span>
-          <span className="body-font">ENA NS 78 0117</span>
-        </div>
-        <div>
-          <span className="primary-label">{this.props.translate('infoBox.attribution')}</span>
-          <span
-            className={classnames('body-font ellipsis', {
-              'ellipsis__left': this.props.rtl,
-              'ellipsis__right': !this.props.rtl
-            })}
-          >
-            Library of the Jewish Theological Seminary
-          </span>
-        </div>
-        <a href="/" className="text-link">{this.props.translate('infoBox.libraryCatalog')}</a>
+        {this.state.showInfo && (
+          <div>
+            {name && (
+              <div>
+                <span className="primary-label">{this.props.translate('infoBox.name')}</span>
+                <span className="body-font">{name}</span>
+              </div>
+            )}
+            {attribution && (
+              <div>
+                <span className="primary-label">{this.props.translate('infoBox.attribution')}</span>
+                <span
+                  className={classnames('body-font ellipsis', {
+                    'ellipsis__left': this.props.rtl,
+                    'ellipsis__right': !this.props.rtl
+                  })}
+                >
+                  {attribution}
+                </span>
+              </div>
+            )}
+            {url && (
+              <a className="text-link" href={url} target="_blank">{this.props.translate('infoBox.libraryCatalog')}</a>
+            )}
+          </div>
+        )}
+        {showToggle && (
+          this.toggleButton()
+        )}
       </div>
     );
   }
@@ -169,7 +200,6 @@ class ControlPanel extends React.Component {
   render() {
     const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? this.props.translate('infoBox.hideGuide') : this.props.translate('infoBox.showGuide');
     const cribSheetText = this.props.dialogComponent === 'CribSheet' ? this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
-    const tutorialText = this.props.dialogComponent === 'Tutorial' ? 'Hide Tutorial' : 'Show Tutorial';
 
     const panel = (
       <FlippedControlPanel
@@ -186,10 +216,7 @@ class ControlPanel extends React.Component {
         <hr className="plum-line" />
         <div className="control-panel__buttons">
 
-          {this.state.showInfo && (
-            this.showSubjectInfo()
-          )}
-          {this.toggleButton()}
+          {this.showSubjectInfo()}
 
           <button className="button" onClick={this.toggleCribSheet}>{cribSheetText}</button>
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
