@@ -2,17 +2,13 @@ import React from 'react';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import Connect from '../Connect';
 
 import ImgBodleian from '../../images/partners/bodleian.png';
 import ImgCambridge from '../../images/partners/cambridge.png';
-import ImgElijah from '../../images/partners/Elijah.png';
-import ImgGenizah from '../../images/partners/genizah.png';
 import ImgJTS from '../../images/partners/jts.png';
 import ImgManchester from '../../images/partners/manchester.png';
 import ImgPenn from '../../images/partners/penn.png';
-import ImgPrinceton from '../../images/partners/princeton.png';
 import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
 
 import ContentIntroEn from './content-intro-en.jsx';
