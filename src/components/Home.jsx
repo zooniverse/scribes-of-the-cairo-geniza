@@ -65,12 +65,12 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
               >
                 {translate('transcribeHebrew.easy')}
               </button>
-              <button
+              {/* <button
                 className="button"
                 onClick={selectWorkflow.bind(null, config.challengingHebrew)}
               >
                 {translate('transcribeHebrew.challenging')}
-              </button>
+              </button> */}
             </div>
             <span className="home-page__exercises">{translate('keywordsHebrew.title')}</span>
             <span>{translate('keywordsHebrew.content')}</span>
@@ -108,12 +108,12 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
               >
                 {translate('transcribeArabic.easy')}
               </button>
-              <button
+              {/* <button
                 className="button"
                 onClick={selectWorkflow.bind(null, config.challengingArabic)}
               >
                 {translate('transcribeArabic.challenging')}
-              </button>
+              </button> */}
             </div>
             <span className="home-page__exercises">{translate('keywordsArabic.title')}</span>
             <span>{translate('keywordsArabic.content')}</span>

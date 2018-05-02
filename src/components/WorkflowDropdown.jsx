@@ -36,12 +36,12 @@ const WorkflowDropdown = ({ className, dispatch, history, translate }) => {
         >
           {translate('transcribeHebrew.easy')}
         </button>
-        <button
+        {/* <button
           className="tertiary-label"
           onClick={selectWorkflow.bind(null, c.challengingHebrew)}
         >
           {translate('transcribeHebrew.challenging')}
-        </button>
+        </button> */}
 
         <div>
           <span className="primary-label">Keyword Search</span>
@@ -63,12 +63,12 @@ const WorkflowDropdown = ({ className, dispatch, history, translate }) => {
         >
           {translate('transcribeArabic.easy')}
         </button>
-        <button
+        {/* <button
           className="tertiary-label"
           onClick={selectWorkflow.bind(null, c.challengingArabic)}
         >
           {translate('transcribeArabic.challenging')}
-        </button>
+        </button> */}
 
         <div>
           <span className="primary-label">Keyword Search</span>
