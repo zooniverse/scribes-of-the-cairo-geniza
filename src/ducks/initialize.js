@@ -1,5 +1,4 @@
 import { fetchProject } from './project';
-import { fetchWorkflow } from './workflow';
 import { fetchGuide } from './field-guide';
 import { initializeLanguages } from './languages';
 

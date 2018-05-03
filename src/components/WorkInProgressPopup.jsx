@@ -27,6 +27,12 @@ class WorkInProgressPopup extends React.Component {
   startNewWork() {
     this.props.dispatch(WorkInProgress.clear());
     this.closePopup();
+    
+    //HACK  //TODO
+    //Due to the new workflow selection feature, we need to trigger a series of
+    //refreshes to allow the Classifier page to show the WorkflowDropdown
+    //module. This requires a more elegant solution.
+    window.location.reload();
   }
 
   render() {

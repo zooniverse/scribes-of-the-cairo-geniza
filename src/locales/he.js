@@ -38,6 +38,17 @@ export default {
     startNewWork: 'New Page',
     resumeWorkInProgress: 'Resume Work',
   },
+  general: {
+    hebrew: 'Hebrew',
+    arabic: 'Arabic',
+    comingSoon: 'Coming Soon!',
+  },
+  workflowSelection: {
+    phaseOne: 'Phase One: Classify Fragments',
+    phaseTwo: 'Phase Two: Full Text Transcription',
+    keywordSearch: 'Keyword Search',
+    continue: 'Continue work in progress',
+  },
   tutorial: {
     title: 'הדרכה'
   },
