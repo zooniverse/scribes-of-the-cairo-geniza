@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { fetchWorkflow, toggleSelection } from '../ducks/workflow';
 import { config } from '../config';
 
-const WorkflowDropdown = ({ className, dispatch, history }) => {
+const WorkflowDropdown = ({ className, dispatch, history, translate }) => {
   const selectWorkflow = (workflow) => {
     dispatch(fetchWorkflow(workflow));
     dispatch(toggleSelection(false));
@@ -23,7 +24,7 @@ const WorkflowDropdown = ({ className, dispatch, history }) => {
           href={`${classifyPath}${c.phaseOne}`}
           target="_blank"
         >
-          Phase One: Classify Fragments
+          Phase One: Classify Fragments <i className="fa fa-external-link" />
         </a>
       </div>
       <div>
@@ -33,14 +34,18 @@ const WorkflowDropdown = ({ className, dispatch, history }) => {
           className="tertiary-label"
           onClick={selectWorkflow.bind(null, c.easyHebrew)}
         >
-          Easy Hebrew
+          {translate('transcribeHebrew.easy')}
         </button>
-        <button
-          className="tertiary-label"
-          onClick={selectWorkflow.bind(null, c.challengingHebrew)}
-        >
-          Challenging Hebrew
-        </button>
+        <div className="disabled-workflow">
+          <button
+            className="tertiary-label disabled-workflow"
+            disabled
+            onClick={selectWorkflow.bind(null, c.challengingHebrew)}
+          >
+            {translate('transcribeHebrew.challenging')}
+          </button>
+          <span>Coming Soon!</span>
+        </div>
 
         <div>
           <span className="primary-label">Keyword Search</span>
@@ -49,7 +54,7 @@ const WorkflowDropdown = ({ className, dispatch, history }) => {
             href={`${classifyPath}${c.hebrewKeyword}`}
             target="_blank"
           >
-            Hebrew Keywords
+            {translate('keywordsHebrew.button')} <i className="fa fa-external-link" />
           </a>
         </div>
       </div>
@@ -60,14 +65,18 @@ const WorkflowDropdown = ({ className, dispatch, history }) => {
           className="tertiary-label"
           onClick={selectWorkflow.bind(null, c.easyArabic)}
         >
-          Easy Arabic
+          {translate('transcribeArabic.easy')}
         </button>
-        <button
-          className="tertiary-label"
-          onClick={selectWorkflow.bind(null, c.challengingArabic)}
-        >
-          Challenging Arabic
-        </button>
+        <div className="disabled-workflow">
+          <button
+            className="tertiary-label"
+            disabled
+            onClick={selectWorkflow.bind(null, c.challengingArabic)}
+          >
+            {translate('transcribeArabic.challenging')}
+          </button>
+          <span>Coming Soon!</span>
+        </div>
 
         <div>
           <span className="primary-label">Keyword Search</span>
@@ -76,7 +85,7 @@ const WorkflowDropdown = ({ className, dispatch, history }) => {
             href={`${classifyPath}${c.arabicKeyword}`}
             target="_blank"
           >
-            Arabic Keywords
+            {translate('keywordsArabic.button')} <i className="fa fa-external-link" />
           </a>
         </div>
       </div>
@@ -89,7 +98,13 @@ WorkflowDropdown.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func
-  }).isRequired
+  }).isRequired,
+  translate: PropTypes.func.isRequired
 };
 
-export default connect()(withRouter(WorkflowDropdown));
+const mapStateToProps = state => ({
+  currentLanguage: getActiveLanguage(state.locale).code,
+  translate: getTranslate(state.locale)
+});
+
+export default connect(mapStateToProps)(withRouter(WorkflowDropdown));

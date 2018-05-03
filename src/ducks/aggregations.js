@@ -99,10 +99,9 @@ const toggleHints = () => {
   };
 };
 
-const fetchAggregations = (subjectId) => {
+const fetchAggregations = (subjectId, workflowId) => {
   if (!subjectId) return () => {};
   return (dispatch) => {
-    const workflowId = config.keywordWorkflow;
 
     const query = `{
       workflow(id: ${workflowId}) {

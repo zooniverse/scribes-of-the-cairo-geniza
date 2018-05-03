@@ -17,12 +17,19 @@ import FlippedImg from './styled/FlippedImg';
 import { config } from '../config';
 import { fetchWorkflow } from '../ducks/workflow';
 
-const Home = ({ dispatch, history, rtl, translate }) => {
+import AboutGenizaAr from './about/about-geniza-ar';
+import AboutGenizaEn from './about/about-geniza-en';
+import AboutGenizaHe from './about/about-geniza-he';
+
+const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
   const selectWorkflow = (workflow) => {
     dispatch(fetchWorkflow(workflow));
     history.push('/classify');
     window.scrollTo(0, 0);
   };
+
+  const c = config;
+  const classifyPath = `${c.host}projects/${c.projectSlug}/classify?workflow=`;
 
   return (
     <section className="home-page">
@@ -41,7 +48,6 @@ const Home = ({ dispatch, history, rtl, translate }) => {
             and the Genizah Research Unit at Cambridge University Library share
             Cairo Geniza fragments with the Zooniverse community for the first time!
           </span>
-          <a href="/">Scroll down to start transcribing</a>
         </div>
       </div>
       <div className="home-page__get-started">
@@ -49,36 +55,90 @@ const Home = ({ dispatch, history, rtl, translate }) => {
         <div>
           <hr className="plum-line" />
           <div>
-            <h2 className="h2-font">Transcribe Hebrew fragments</h2>
-            <span>
-              This paragraph describes the types of fragments one can expect to
-              find in this collection. Perhaps advises against starting with
-              Challenging when one is not familiar with the language.
-            </span>
+            <h2 className="h2-font">{translate('transcribeHebrew.title')}</h2>
+            <span>{translate('transcribeHebrew.content')}</span>
+            <span className="home-page__exercises">{translate('transcribeHebrew.exercises')}</span>
             <div className="home-page__buttons">
-              <button className="button" onClick={selectWorkflow.bind(null, config.easyHebrew)}>Easy Hebrew</button>
-              <button className="button" onClick={selectWorkflow.bind(null, config.challengingHebrew)}>Challenging Hebrew</button>
+              <button
+                className="button"
+                onClick={selectWorkflow.bind(null, config.easyHebrew)}
+              >
+                {translate('transcribeHebrew.easy')}
+              </button>
+              <div>
+                <button
+                  className="button button__dark-disabled"
+                  disabled
+                  onClick={selectWorkflow.bind(null, config.challengingHebrew)}
+                >
+                  {translate('transcribeHebrew.challenging')}
+                </button>
+                <span className="body-font">Coming Soon!</span>
+              </div>
+            </div>
+            <span className="home-page__exercises">{translate('keywordsHebrew.title')}</span>
+            <span>{translate('keywordsHebrew.content')}</span>
+            <div className="home-page__buttons">
+              <a
+                className="button"
+                href={`${classifyPath}${c.hebrewKeyword}`}
+                target="_blank"
+              >
+                {translate('keywordsHebrew.button')} <i className="fa fa-external-link" />
+              </a>
+            </div>
+            <span className="home-page__exercises">{translate('classifyFragments.title')}</span>
+            <div className="home-page__buttons">
+              <a
+                className="button"
+                href={`${classifyPath}${c.phaseOne}`}
+                target="_blank"
+              >
+                {translate('classifyFragments.button')} <i className="fa fa-external-link" />
+              </a>
             </div>
           </div>
         </div>
         <div>
           <hr className="plum-line" />
           <div>
-            <h2 className="h2-font">Transcribe Arabic fragments</h2>
-            <span>
-              This paragraph describes the types of fragments one can expect to
-              find in this collection. Perhaps advises against starting with
-              Challenging when one is not familiar with the language.
-            </span>
+            <h2 className="h2-font">{translate('transcribeArabic.title')}</h2>
+            <span>{translate('transcribeArabic.content')}</span>
+            <span className="home-page__exercises">{translate('transcribeArabic.exercises')}</span>
             <div className="home-page__buttons">
-              <button className="button" onClick={selectWorkflow.bind(null, config.easyArabic)}>Easy Arabic</button>
-              <button className="button" onClick={selectWorkflow.bind(null, config.challengingArabic)}>Challenging Arabic</button>
+              <button
+                className="button"
+                onClick={selectWorkflow.bind(null, config.easyArabic)}
+              >
+                {translate('transcribeArabic.easy')}
+              </button>
+              <div>
+                <button
+                  className="button button__dark-disabled"
+                  disabled
+                  onClick={selectWorkflow.bind(null, config.challengingArabic)}
+                >
+                  {translate('transcribeArabic.challenging')}
+                </button>
+                <span className="body-font">Coming Soon!</span>
+              </div>
+            </div>
+            <span className="home-page__exercises">{translate('keywordsArabic.title')}</span>
+            <span>{translate('keywordsArabic.content')}</span>
+            <div className="home-page__buttons">
+              <a
+                className="button"
+                href={`${classifyPath}${c.arabicKeyword}`}
+                target="_blank"
+              >
+                {translate('keywordsArabic.button')} <i className="fa fa-external-link" />
+              </a>
             </div>
           </div>
         </div>
       </div>
       <div className="home-page__partners">
-        <h2>Partner Institutions</h2>
+        <h2>{translate('home.institutions')}</h2>
         <div>
           <ZooniverseLogotype />
           <img alt="Penn Libraries" src={Penn} />
@@ -96,26 +156,12 @@ const Home = ({ dispatch, history, rtl, translate }) => {
       <div className="home-page__about">
         <hr className="plum-line" />
         <h2 className="h2-font">About Scribes of the Cairo Geniza</h2>
-        <div>
-          <span>
-            The results from Scribes of the Cairo Geniza have the potential to
-            rewrite the history of the premodern Middle East, Mediterranean and
-            Indian Ocean trade, and the Jewish diaspora. Until now, most of the
-            information has remained locked away in undeciphered manuscript
-            fragments; less than one&#8208;third of the 350,000 items have been
-            catalogued in the 120 years that the cache has been known to exist.
-            Virtually all scholars who have studied these texts have come away with
-            a transformed sense of the history of the region and the long ties of
-            intimacy among its people. Students and the general public will have the
-            opportunity to benefit from encountering these fragments online and from
-            learning how to sort and eventually transcribe them as members of this
-            citizen scientist community. We see this project as a way for people
-            with shared interests and different skill levels from around the world
-            to meet in a common endeavor and unlock this storage chamber of ancient
-            fragments.
-          </span>
-          <a href="/">Learn More</a>
-        </div>
+        {(() => {
+          switch (currentLanguage) {
+            case 'he': return (<AboutGenizaHe />);
+            case 'ar': return (<AboutGenizaAr />);
+            default: return (<AboutGenizaEn />);
+          }})()}
       </div>
       <HomeStatistics />
       <div className="home-page__zooniverse">
@@ -137,6 +183,7 @@ const Home = ({ dispatch, history, rtl, translate }) => {
 };
 
 Home.propTypes = {
+  currentLanguage: PropTypes.string.isRequired,
   dispatch: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func
