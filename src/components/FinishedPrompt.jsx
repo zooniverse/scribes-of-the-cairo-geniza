@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { config } from '../config';
 import { toggleDialog } from '../ducks/dialog';
@@ -34,8 +35,8 @@ class FinishedPrompt extends React.Component {
     }
     window.open(talkUrl, '_blank');
 
-    // this.props.dispatch(submitClassification());
-    // this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(submitClassification());
+    this.props.dispatch(toggleDialog(null));
   }
 
   answersMatchQuestions() {
@@ -52,6 +53,7 @@ class FinishedPrompt extends React.Component {
   }
 
   render() {
+    const translate = this.props.translate;
     const answersMatchQuestions = this.answersMatchQuestions();
     const tasks = (this.props.workflow.tasks)
       ? Object.keys(this.props.workflow.tasks).map(taskId =>
@@ -61,16 +63,13 @@ class FinishedPrompt extends React.Component {
       : [];
     return (
       <div className="finished-prompt handle">
-        <h2 className="h1-font">Has everything been transcribed?</h2>
+        <h2 className="h1-font">{translate('finished.allTranscribed')}</h2>
         <div className="finished-prompt__content">
           <span className="body-font">
-            Has every line in this document been transcribed? Don&apos;t worry if
-            some lines remain; your contributions are appreciated!
+            {translate('finished.instructions')}
           </span>
           <span className="body-font">
-            When you&apos;re ready, click <b>Done & Talk</b> to discuss this document
-            with the Cairo Geniza research team and your fellow volunteers, or
-            <b> Done</b> to go to the next document.
+            {translate('finished.whenReady')}
           </span>
         </div>
         {tasks.map((task, taskIndex) => {
@@ -107,14 +106,14 @@ class FinishedPrompt extends React.Component {
           );
         })}
         <div className="finished-prompt__buttons">
-          <button className="button" onClick={this.onCancel}>Cancel</button>
-          <button className="button" disabled={!answersMatchQuestions} onClick={this.onDone}>Done</button>
+          <button className="button" onClick={this.onCancel}>{translate('finished.cancel')}</button>
+          <button className="button" disabled={!answersMatchQuestions} onClick={this.onDone}>{translate('finished.done')}</button>
           <button
             className="button button__dark"
             disabled={!answersMatchQuestions}
             onClick={this.onDoneAndTalk}
           >
-            Done & Talk
+            {translate('finished.doneAndTalk')}
           </button>
         </div>
       </div>
@@ -136,6 +135,7 @@ FinishedPrompt.propTypes = {
   }),
   dispatch: PropTypes.func,
   subjectCompletionAnswers: PropTypes.object,
+  translate: PropTypes.func,
   workflow: PropTypes.shape({
     tasks: PropTypes.object
   })
@@ -145,12 +145,15 @@ FinishedPrompt.defaultProps = {
   currentSubject: null,
   dispatch: () => {},
   subjectCompletionAnswers: null,
+  translate: () => {},
   workflow: null
 };
 
 const mapStateToProps = state => ({
+  currentLanguage: getActiveLanguage(state.locale).code,
   currentSubject: state.subject.currentSubject,
   subjectCompletionAnswers: state.classification.subjectCompletionAnswers,
+  translate: getTranslate(state.locale),
   workflow: state.workflow.data
 });
 

@@ -16,7 +16,7 @@ class TutorialView extends React.Component {
   constructor() {
     super();
 
-    this.previousActiveElement = document.activeElement;
+    this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
     this.closeTutorial = this.closeTutorial.bind(this);
     this.advanceTutorial = this.advanceTutorial.bind(this);
 
@@ -59,7 +59,7 @@ class TutorialView extends React.Component {
   }
 
   handleUnmount() {
-    if (this.previousActiveElement.focus) {
+    if (this.previousActiveElement && this.previousActiveElement.focus) {
       this.previousActiveElement.focus();
     }
     const now = new Date().toISOString();
