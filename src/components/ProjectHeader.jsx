@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
+
+import { config } from '../config.js';
 import WorkflowDropdown from './WorkflowDropdown';
 
 import { setLanguage, LANGUAGES } from '../ducks/languages';
@@ -70,13 +72,15 @@ class ProjectHeader extends React.Component {
               )}
               <a
                 className="project-header__link"
-                href="/"
+                href={`${config.host}projects/${config.projectSlug}/talk`}
+                target="_blank"
               >
                 {this.props.translate('topNav.talk')}
               </a>
               <a
                 className="project-header__link"
-                href="/"
+                href={`${config.host}projects/${config.projectSlug}/collections`}
+                target="_blank"
               >
                 {this.props.translate('topNav.collect')}
               </a>
