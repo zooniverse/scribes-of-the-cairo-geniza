@@ -143,12 +143,20 @@ class ControlPanel extends React.Component {
     ));
   }
 
-  findKey(metadata, match) {
-    return Object.keys(metadata).find((key) => {
-      if (key.indexOf(match) >= 0) {
-        return metadata[key];
+  findMetadataValueByKey(metadata, match) {
+    if (!match || !metadata) return null;
+
+    const key = Object.keys(metadata).find((key) => {
+      if (key.toLowerCase().indexOf(match.toLowerCase()) >= 0) {
+        return true;
       }
     });
+
+    if (key) {
+      return metadata[key];
+    } else {
+      return null;
+    }
   }
 
   showSubjectInfo() {
@@ -156,9 +164,9 @@ class ControlPanel extends React.Component {
     let name;
     let url;
     if (this.props.currentSubject && this.props.currentSubject.metadata) {
-      attribution = this.props.currentSubject.metadata.Attribution;
-      name = this.findKey(this.props.currentSubject.metadata, 'Name');
-      url = this.findKey(this.props.currentSubject, 'Link to Collection');
+      attribution = this.findMetadataValueByKey(this.props.currentSubject.metadata, 'Attribution');
+      name = this.findMetadataValueByKey(this.props.currentSubject.metadata, 'Name');
+      url = this.findMetadataValueByKey(this.props.currentSubject.metadata, 'Link to Collection');
     }
     const showToggle = !!attribution || !!name || !!url;
 
