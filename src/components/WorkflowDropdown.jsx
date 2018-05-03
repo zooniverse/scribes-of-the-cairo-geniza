@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { fetchWorkflow, toggleSelection } from '../ducks/workflow';
 import { fetchSubject } from '../ducks/subject';
+import { WorkInProgress } from '../ducks/work-in-progress';
 import { config } from '../config';
 
 const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, activeAnnotationExists }) => {
@@ -133,10 +134,19 @@ WorkflowDropdown.defaultProps = {
   translate: () => {},
 };
 
-const mapStateToProps = state => ({
-  activeAnnotationExists: !!state.workflow.data && !!state.subject.currentSubject,
-  currentLanguage: getActiveLanguage(state.locale).code,
-  translate: getTranslate(state.locale)
-});
+const mapStateToProps = state => {
+  const user = state.login.user;
+  const userHasWorkInProgress = user && WorkInProgress.check(user);
+  
+  return {
+    //Does the user currently have a page being actively annotated (e.g. user
+    //navigated away from the Classifier page), or saved work in progress?
+    //(e.g. user reloaded the website)
+    activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
+    currentLanguage: getActiveLanguage(state.locale).code,
+    translate: getTranslate(state.locale),
+    user: state.login.user,  //Needed, otherwise component won't update when it detects a user login.
+  };
+};
 
 export default connect(mapStateToProps)(withRouter(WorkflowDropdown));
