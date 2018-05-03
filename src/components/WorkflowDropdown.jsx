@@ -139,9 +139,11 @@ const mapStateToProps = state => {
   const userHasWorkInProgress = user && WorkInProgress.check(user);
   
   return {
-    //Does the user currently have a page being actively annotated (e.g. user
-    //navigated away from the Classifier page), or saved work in progress?
-    //(e.g. user reloaded the website)
+    //Does the user currently have a page being actively annotated, (e.g. user
+    //navigated away from the Classifier page and wants to return), or have
+    //saved work in progress? (e.g. user reloaded the website after a crash)
+    //We need to know if the user has any work that can be retrieved (either
+    //from the Redux store of local storage) so we can prompt them to continue.
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
     currentLanguage: getActiveLanguage(state.locale).code,
     translate: getTranslate(state.locale),
