@@ -34,8 +34,8 @@ class FinishedPrompt extends React.Component {
     }
     window.open(talkUrl, '_blank');
 
-    // this.props.dispatch(submitClassification());
-    // this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(submitClassification());
+    this.props.dispatch(toggleDialog(null));
   }
 
   answersMatchQuestions() {
@@ -114,7 +114,7 @@ class FinishedPrompt extends React.Component {
             disabled={!answersMatchQuestions}
             onClick={this.onDoneAndTalk}
           >
-            Done & Talk
+            Done &amp; Talk
           </button>
         </div>
       </div>
