@@ -126,12 +126,12 @@ const fetchAggregations = (subjectId, workflowId) => {
         dispatch({ type: FETCH_AGGREGATIONS_SUCCESS, aggregationData: newData });
       });
 
-    const fetchWorkflow = apiClient.type('workflows').get({ id: config.keywordWorkflow })
+    const fetchKeywordWorkflow = apiClient.type('workflows').get({ id: config.keywordWorkflow })
       .then(([keywordWorkflow]) => {
         dispatch({ type: FETCH_KEYWORD_WORKFLOW_SUCCESS, keywordWorkflow });
       });
 
-    Promise.all([fetchData, fetchWorkflow]).then(() => {
+    Promise.all([fetchData, fetchKeywordWorkflow]).then(() => {
       dispatch({ type: FETCH_AGGREGATION_RESOURCES_SUCCESS });
     }).catch(() => {
       dispatch({ type: FETCH_AGGREGATION_RESOURCES_ERROR });

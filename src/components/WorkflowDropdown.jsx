@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { fetchWorkflow, toggleSelection } from '../ducks/workflow';
+import { fetchSubject } from '../ducks/subject';
 import { config } from '../config';
 
 const WorkflowDropdown = ({ className, dispatch, history, translate }) => {
   const selectWorkflow = (workflow) => {
-    dispatch(fetchWorkflow(workflow));
+    dispatch(fetchWorkflow(workflow)).then(()=>{
+      return dispatch(fetchSubject());
+    });
     dispatch(toggleSelection(false));
     history.push('/classify');
     window.scrollTo(0, 0);

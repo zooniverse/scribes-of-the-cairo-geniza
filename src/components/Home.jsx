@@ -16,6 +16,7 @@ import HomeStatistics from './HomeStatistics';
 import FlippedImg from './styled/FlippedImg';
 import { config } from '../config';
 import { fetchWorkflow } from '../ducks/workflow';
+import { fetchSubject } from '../ducks/subject';
 
 import AboutGenizaAr from './about/about-geniza-ar';
 import AboutGenizaEn from './about/about-geniza-en';
@@ -23,7 +24,9 @@ import AboutGenizaHe from './about/about-geniza-he';
 
 const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
   const selectWorkflow = (workflow) => {
-    dispatch(fetchWorkflow(workflow));
+    dispatch(fetchWorkflow(workflow)).then(()=>{
+      return dispatch(fetchSubject());
+    });
     history.push('/classify');
     window.scrollTo(0, 0);
   };
