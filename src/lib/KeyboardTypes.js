@@ -1,3 +1,24 @@
+import imgAshkenaziCursive from '../images/keyboards/ashkenazi-cursive.jpg';
+import imgAshkenaziMiniscule from '../images/keyboards/ashkenazi-miniscule.jpg';
+import imgAshkenaziSquare from '../images/keyboards/ashkenazi-square.jpg';
+import imgByzantineCursive from '../images/keyboards/byzantine-cursive.jpg';
+import imgByzantineMiniscule from '../images/keyboards/byzantine-miniscule.jpg';
+import imgByzantineSquare from '../images/keyboards/byzantine-square.jpg';
+import imgItalianCursive from '../images/keyboards/italian-cursive.jpg';
+import imgItalianMiniscule from '../images/keyboards/italian-miniscule.jpg';
+import imgItalianSquare from '../images/keyboards/italian-square.jpg';
+import imgMaghrebiCursive from '../images/keyboards/maghrebi-cursive.jpg';
+import imgMaghrebiSquare from '../images/keyboards/maghrebi-square.jpg';
+import imgOrientalNEMiniscule from '../images/keyboards/oriental-ne-miniscule.jpg';
+import imgOrientalNESquare from '../images/keyboards/oriental-ne-square.jpg';
+import imgOrientalSWCursive from '../images/keyboards/oriental-sw-cursive.jpg';
+import imgOrientalSWSquare from '../images/keyboards/oriental-sw-square.jpg';
+import imgSephardiCursive from '../images/keyboards/sephardi-cursive.jpg';
+import imgSephardiMiniscule from '../images/keyboards/sephardi-miniscule.jpg';
+import imgSephardiSquare from '../images/keyboards/sephardi-square.jpg';
+import imgYemeniteMiniscule from '../images/keyboards/yemenite-miniscule.jpg';
+import imgYemeniteSquare from '../images/keyboards/yemenite-square.jpg';
+
 const KEYBOARD_TYPES = {
   CURSIVE: 'Cursive',
   MINISCULE: 'Miniscule',
@@ -9,7 +30,7 @@ const KeyboardOptions = [
     name: 'Ashkenazi',
     class: 'ashkenaziCursive',
     type: KEYBOARD_TYPES.CURSIVE,
-    img: '../images/keyboards/ashkenazi-cursive.jpg',
+    img: imgAshkenaziCursive,
     letters: [
       'alef', 'bet', 'betTwo', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
       'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
@@ -21,7 +42,7 @@ const KeyboardOptions = [
     name: 'Ashkenazi',
     class: 'ashkenaziMiniscule',
     type: KEYBOARD_TYPES.MINISCULE,
-    img: '../images/keyboards/ashkenazi-miniscule.jpg',
+    img: imgAshkenaziMiniscule,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav',
       'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit',
@@ -33,7 +54,7 @@ const KeyboardOptions = [
     name: 'Ashkenazi',
     class: 'ashkenaziSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/ashkenazi-square.jpg',
+    img: imgAshkenaziSquare,
     letters: [
       'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey',
       'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed',
@@ -46,7 +67,7 @@ const KeyboardOptions = [
     name: 'Byzantine',
     class: 'byzantineCursive',
     type: KEYBOARD_TYPES.CURSIVE,
-    img: '../images/keyboards/byzantine-cursive.jpg',
+    img: imgByzantineCursive,
     letters: [
       'alef', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav', 'zaylin',
       'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit',
@@ -58,7 +79,7 @@ const KeyboardOptions = [
     name: 'Byzantine',
     class: 'byzantineMiniscule',
     type: KEYBOARD_TYPES.MINISCULE,
-    img: '../images/keyboards/byzantine-miniscule.jpg',
+    img: imgByzantineMiniscule,
     letters: [
       'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey',
       'elongatedHey', 'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit',
@@ -71,7 +92,7 @@ const KeyboardOptions = [
     name: 'Byzantine',
     class: 'byzantineSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/byzantine-square.jpg',
+    img: imgByzantineSquare,
     letters: [
       'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
       'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'elongatedMemSofit',
@@ -83,7 +104,7 @@ const KeyboardOptions = [
     name: 'Italian',
     class: 'italianCursive',
     type: KEYBOARD_TYPES.CURSIVE,
-    img: '../images/keyboards/italian-cursive.jpg',
+    img: imgItalianCursive,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
       'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
@@ -95,7 +116,7 @@ const KeyboardOptions = [
     name: 'Italian',
     class: 'italianMiniscule',
     type: KEYBOARD_TYPES.MINISCULE,
-    img: '../images/keyboards/italian-miniscule.jpg',
+    img: imgItalianMiniscule,
     letters: [
       'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
       'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
@@ -107,7 +128,7 @@ const KeyboardOptions = [
     name: 'Italian',
     class: 'italianSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/italian-square.jpg',
+    img: imgItalianSquare,
     letters: [
       'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
       'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
@@ -119,7 +140,7 @@ const KeyboardOptions = [
     name: 'Maghrebi',
     class: 'maghrebiCursive',
     type: KEYBOARD_TYPES.CURSIVE,
-    img: '../images/keyboards/maghrebi-cursive.jpg',
+    img: imgMaghrebiCursive,
     letters: [
       'alef', 'alefTwo', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'heyTwo', 'vav',
       'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'khafSofitTwo', 'lamed',
@@ -131,7 +152,7 @@ const KeyboardOptions = [
     name: 'Maghrebi',
     class: 'maghrebiSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/maghrebi-square.jpg',
+    img: imgMaghrebiSquare,
     letters: [
       'alef', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey', 'elongatedHey',
       'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem',
@@ -144,7 +165,7 @@ const KeyboardOptions = [
     name: 'Oriental NE',
     class: 'orientalNeMiniscule',
     type: KEYBOARD_TYPES.MINISCULE,
-    img: '../images/keyboards/oriental-ne-miniscule.jpg',
+    img: imgOrientalNEMiniscule,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
       'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'elongatedMemSofit',
@@ -156,7 +177,7 @@ const KeyboardOptions = [
     name: 'Oriental NE',
     class: 'orientalNeSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/oriental-ne-square.jpg',
+    img: imgOrientalNESquare,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
       'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
@@ -168,7 +189,7 @@ const KeyboardOptions = [
     name: 'Oriental SW',
     class: 'orientalSwCursive',
     type: KEYBOARD_TYPES.CURSIVE,
-    img: '../images/keyboards/oriental-sw-cursive.jpg',
+    img: imgOrientalSWCursive,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
       'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
@@ -180,7 +201,7 @@ const KeyboardOptions = [
     name: 'Oriental SW',
     class: 'orientalSwSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/oriental-sw-square.jpg',
+    img: imgOrientalSWSquare,
     letters: [
       'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
       'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
@@ -192,7 +213,7 @@ const KeyboardOptions = [
     name: 'Sephardi',
     class: 'sephardiCursive',
     type: KEYBOARD_TYPES.CURSIVE,
-    img: '../images/keyboards/sephardi-cursive.jpg',
+    img: imgSephardiCursive,
     letters: [
       'alef', 'alefTwo', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'heyTwo', 'vav',
       'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memTwo',
@@ -204,7 +225,7 @@ const KeyboardOptions = [
     name: 'Sephardi',
     class: 'sephardiMiniscule',
     type: KEYBOARD_TYPES.MINISCULE,
-    img: '../images/keyboards/sephardi-miniscule.jpg',
+    img: imgSephardiMiniscule,
     letters: [
       'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
       'yud', 'khaf', 'khafSofit', 'lamed', 'elongatedLamed', 'mem', 'memSofit',
@@ -216,7 +237,7 @@ const KeyboardOptions = [
     name: 'Sephardi',
     class: 'sephardiSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/sephardi-square.jpg',
+    img: imgSephardiSquare,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav',
       'zaylin', 'het', 'tet', 'yud', 'khaf', 'elongatedKhaf', 'khafSofit', 'lamed',
@@ -228,7 +249,7 @@ const KeyboardOptions = [
     name: 'Yemenite',
     class: 'yemeniteMiniscule',
     type: KEYBOARD_TYPES.MINISCULE,
-    img: '../images/keyboards/yemenite-miniscule.jpg',
+    img: imgYemeniteMiniscule,
     letters: [
       'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey',
       'elongatedHey', 'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'elongatedKhaf',
@@ -241,7 +262,7 @@ const KeyboardOptions = [
     name: 'Yemenite',
     class: 'yemeniteSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: '../images/keyboards/yemenite-square.jpg',
+    img: imgYemeniteSquare,
     letters: [
       'alef', 'alefLamed', 'elongatedAlef', 'bet', 'gimmel', 'dalet',
       'elongatedDalet', 'hey', 'elongatedHey', 'vav', 'zaylin', 'het', 'tet',
