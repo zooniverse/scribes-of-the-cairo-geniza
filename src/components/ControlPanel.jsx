@@ -46,9 +46,9 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    //Check if the user has any work in progress.
+    //If there's no Subject loaded, check if the user has any work in progress.
     //componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page.
-    if (this.props.user && WorkInProgress.check(this.props.user)) {
+    if (!this.props.currentSubject && this.props.user && WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
   }
@@ -62,9 +62,10 @@ class ControlPanel extends React.Component {
       });
     }
 
-    //Check if the user has any work in progress.
+    //If there's no Subject loaded, check if the user has any work in progress.
     //componentWillReceiveProps() checks when the user accesses the Classifier page directly.
-    if (this.props.user !== next.user && next.user && WorkInProgress.check(next.user)) {
+    if (!this.props.currentSubject && !next.currentSubject &&
+        this.props.user !== next.user && next.user && WorkInProgress.check(next.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
 
