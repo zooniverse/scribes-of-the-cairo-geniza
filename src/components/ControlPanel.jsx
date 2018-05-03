@@ -140,7 +140,7 @@ class ControlPanel extends React.Component {
 
   finishedPrompt() {
     this.props.dispatch(toggleDialog(
-      <FinishedPrompt />, 'Finished'
+      <FinishedPrompt />, this.props.translate('finished.title')
     ));
   }
 
