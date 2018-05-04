@@ -259,7 +259,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   deletePrompt(emptyText = false) {
-    const notes = emptyText ? 'You cannot save an empty transcription.' : '';
+    const notes = '';
     this.props.dispatch(togglePopup(
       <QuestionPrompt
         confirm={this.props.translate('cribSheet.confirm')}
