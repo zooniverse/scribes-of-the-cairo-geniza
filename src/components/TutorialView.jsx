@@ -96,7 +96,7 @@ class TutorialView extends React.Component {
         >
           <div className="tutorial__header">
             <span>{this.props.translate('tutorial.title')}</span>
-            <button onClick={this.closeTutorial}>X</button>
+            <button className="close-button" onClick={this.closeTutorial}>X</button>
           </div>
           <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
             {this.props.tutorial.steps.map((step, i) => {
