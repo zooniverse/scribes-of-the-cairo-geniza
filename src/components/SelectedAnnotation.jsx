@@ -208,8 +208,8 @@ class SelectedAnnotation extends React.Component {
     let textInBetween;
     const wrapperTags = ['insertion', 'deletion', 'grid'];
 
-    const startTag = `[${tag}/]`;
-    const endTag = `[${tag}]`;
+    const startTag = `[${tag}]`;
+    const endTag = `[/${tag}]`;
     const text = this.inputText;
     const textAreaValue = text.value;
     const selectionStart = text.selectionStart;
