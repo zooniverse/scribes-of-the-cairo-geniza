@@ -5,10 +5,17 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
-import Penn from '../images/partners/penn.png';
-import JTSLogo from '../images/partners/jts.png';
-import Princeton from '../images/partners/princeton.png';
-import Genizah from '../images/partners/genizah.png';
+
+import ImgBodleian from '../images/partners/bodleian.png';
+import ImgCambridge from '../images/partners/cambridge.png';
+import ImgElijah from '../images/partners/Elijah.png';
+import ImgGenizah from '../images/partners/genizah.png';
+import ImgJTS from '../images/partners/jts.png';
+import ImgManchester from '../images/partners/manchester.png';
+import ImgPenn from '../images/partners/penn.png';
+import ImgPrinceton from '../images/partners/princeton.png';
+import ImgZooniverse from '../images/partners/zooniverse-word-black.png';
+
 import Library from '../images/schechter-geniza.png';
 import Scroll from '../images/hebrew-fragment.png';
 import Arabic from '../images/arabic-big.png';
@@ -144,10 +151,16 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
         <h2>{translate('home.institutions')}</h2>
         <div>
           <ZooniverseLogotype />
-          <img alt="Penn Libraries" src={Penn} />
-          <img alt="The Jewish Theological Seminary" src={JTSLogo} />
-          <img alt="Princeton Geniza Project" src={Princeton} />
-          <img alt="Genizah Research Unit Cambridge University Library" src={Genizah} />
+          
+          <img alt="Penn" src={ImgPenn} />
+          <img alt="The Jewish Theological Seminary" src={ImgJTS} />
+          <img alt="Princeton Geniza Project" src={ImgPrinceton} />
+          <img alt="Genizah Research Unit Cambridge University Library" src={ImgGenizah} />
+          
+          <img alt="Cambridge" src={ImgCambridge} />
+          <img alt="Manchester" src={ImgManchester} />
+          <img alt="Bodleian" src={ImgBodleian} />
+          <img alt="e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={ImgElijah} />
         </div>
       </div>
       <div className="offset-image">
