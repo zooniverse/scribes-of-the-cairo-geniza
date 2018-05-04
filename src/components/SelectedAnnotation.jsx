@@ -218,7 +218,7 @@ class SelectedAnnotation extends React.Component {
     if (selectionStart === selectionEnd) {
       textAfter = textAreaValue.substring(selectionStart, textAreaValue.length);
       if (wrapperTags.indexOf(type) < 0) {
-        value = textBefore + endTag + textAfter;
+        value = textBefore + startTag + textAfter;
       } else {
         value = textBefore + startTag + endTag + textAfter;
       }
