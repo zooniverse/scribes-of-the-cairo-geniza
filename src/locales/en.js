@@ -190,6 +190,12 @@ export default {
         Special Collections, Rare Books and Manuscripts at the University of Pennsylvania.
       `
     },
+    WillGranger: {
+      name: 'Will Granger',
+      description: `
+        Will Granger is a frontend developer with the Zooniverse, based at the Adler Planetarium.
+      `
+    },
     Arthur: {
       name: 'Arthur Kiron',
       description: `
@@ -222,6 +228,13 @@ export default {
         William Noel is the Director of The Kislak Center for Special Collections,
         Rare Books and Manuscripts and The Schoenberg Institute for Manuscript Studies
         at the University of Pennsylvania.
+      `
+    },
+    Shaun: {
+      name: 'Shaun A. Noordin',
+      description: `
+        Shaun A. Noordin is a Zooniverse web developer in Oxford who writes code
+        for fun and solves puzzles for a living.
       `
     },
     Vered: {
