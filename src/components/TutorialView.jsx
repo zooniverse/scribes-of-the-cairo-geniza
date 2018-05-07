@@ -54,7 +54,16 @@ class TutorialView extends React.Component {
     const swiper = this.stepThrough && this.stepThrough.swiper;
 
     if (swiper) {
-      this.stepThrough.goNext();
+      const currentStep = (this.stepThrough.state && this.stepThrough.state.step)
+        ? this.stepThrough.state.step + 1 : 0;
+      const maxSteps = (this.stepThrough.props && this.stepThrough.props.children)
+        ? React.Children.count(this.stepThrough.props.children) : 0;
+      
+      if (currentStep >= maxSteps) {
+        this.closeTutorial();
+      } else {
+        this.stepThrough.goNext();
+      }
     }
   }
 
@@ -96,7 +105,7 @@ class TutorialView extends React.Component {
         >
           <div className="tutorial__header">
             <span>{this.props.translate('tutorial.title')}</span>
-            <button onClick={this.closeTutorial}>X</button>
+            <button className="close-button" onClick={this.closeTutorial}>X</button>
           </div>
           <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
             {this.props.tutorial.steps.map((step, i) => {

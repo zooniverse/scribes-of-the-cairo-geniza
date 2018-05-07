@@ -33,11 +33,13 @@ const members = {
   Laura: require('../../images/team/LauraNewmanEckstein.jpg'),
   Doug: require('../../images/team/DougEmery.jpg'),
   Mitch: require('../../images/team/MitchFraas.jpg'),
+  WillGranger: require('../../images/team/WillGranger.jpg'),
   Arthur: require('../../images/team/ArthurKiron.jpg'),
   Moshe: require('../../images/team/MosheLavee.png'),
   Vered: require('../../images/team/VeredKretzmer.png'),
   Eve: require('../../images/team/EveKrakowski.jpg'),
   William: require('../../images/team/WilliamNoel.jpg'),
+  Shaun: require('../../images/team/ShaunANoordin.jpg'),
   Becky: require('../../images/team/BeckyRother.jpg'),
   Marina: require('../../images/team/MarinaRustow.jpg')
 };

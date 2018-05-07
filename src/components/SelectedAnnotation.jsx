@@ -208,8 +208,8 @@ class SelectedAnnotation extends React.Component {
     let textInBetween;
     const wrapperTags = ['insertion', 'deletion', 'grid'];
 
-    const startTag = `[${tag}/]`;
-    const endTag = `[${tag}]`;
+    const startTag = `[${tag}]`;
+    const endTag = `[/${tag}]`;
     const text = this.inputText;
     const textAreaValue = text.value;
     const selectionStart = text.selectionStart;
@@ -218,7 +218,7 @@ class SelectedAnnotation extends React.Component {
     if (selectionStart === selectionEnd) {
       textAfter = textAreaValue.substring(selectionStart, textAreaValue.length);
       if (wrapperTags.indexOf(type) < 0) {
-        value = textBefore + endTag + textAfter;
+        value = textBefore + startTag + textAfter;
       } else {
         value = textBefore + startTag + endTag + textAfter;
       }
@@ -259,7 +259,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   deletePrompt(emptyText = false) {
-    const notes = emptyText ? 'You cannot save an empty transcription.' : '';
+    const notes = '';
     this.props.dispatch(togglePopup(
       <QuestionPrompt
         confirm={this.props.translate('cribSheet.confirm')}

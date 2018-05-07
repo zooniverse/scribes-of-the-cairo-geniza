@@ -19,7 +19,7 @@ function Content() {
         <img src={imgPhase1Workflow} />
         <span className="caption">Phase One Workflow</span>
       </div>
-      <p className="text">Now we are at the point of the transcription phase, or Phase II.The goal of phase II is to:</p>
+      <p className="text">Now we are at the point of the transcription phase, or Phase II. The goal of phase II is to:</p>
       <ol className="text">
         <li>Provide our community of volunteer humanists and historians opportunities to view and decipher Cairo Geniza fragments;</li>
         <li>Contribute to the classification of fragments by script-type and content;</li>

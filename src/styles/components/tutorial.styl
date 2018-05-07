@@ -14,12 +14,16 @@
   margin: auto
   width: 25rem
   height: 32rem
-  box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
-  -webkit-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
-  -moz-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
+  box-shadow: 0px 10px 24px -10px rgba(0,0,0,0.29)
+  -webkit-box-shadow: 0px 10px 24px -10px rgba(0,0,0,0.29)
+  -moz-box-shadow: 0px 10px 24px -10px rgba(0,0,0,0.29)
 
-  button
+  button:not(.close-button)
     width: 10.5rem
+    
+  .close-button
+    margin-top: 0
+    margin-right: 0
 
   &__header
     border-top: 8px solid $sand
@@ -27,10 +31,13 @@
     justify-content: space-between
     padding: 0.5rem 1rem 1rem 1rem
 
-    span, button
+    span, button:not(.close-button)
       @extend .primary-label
+    
+    span
+      line-height: 2em
 
-    button
+    button:not(.close-button)
       background: none
       border: none
       cursor: pointer
@@ -72,8 +79,10 @@
   width: 100%
 
 .tutorial-step
+  @extend .body-font
   height: 22rem
   padding: 0 1rem
+  overflow: auto
 
   &::-webkit-scrollbar, &::-webkit-scrollbar-corner
     background-color: $bisque
@@ -83,9 +92,6 @@
     border: 4px solid transparent
     border-radius: 1rem
     background-clip: content-box
-
-  p
-    margin: 0
 
   span
     @extend .body-font

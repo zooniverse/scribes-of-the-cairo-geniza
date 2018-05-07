@@ -226,6 +226,12 @@ export default {
         .الكتب و المخطوطات النادرة بجامعة بنسلفانيا
       `
     },
+    WillGranger: {
+      name: 'Will Granger',
+      description: `
+        ويل جرانجر هو مطور واجهات استخدام لدى الزونيفرس متواجد بالقبة الفلكية أدلر
+      `
+    },
     Arthur: {
       name: 'Arthur Kiron',
       description: `
@@ -254,6 +260,12 @@ export default {
       description: `
         ويليام نويل (William Noel) مدير مركز كيسلاك (Kislak) للمجموعات الخاصة والمخطوطات النادرة
         .ومعهد شونبرغ (Schoenberg) لدراسات المخطوطات في جامعة بنسلفانيا
+      `
+    },
+    Shaun: {
+      name: 'Shaun A. Noordin',
+      description: `
+        شون أ. نوردين هو مطور ويب بزونيفرس في أكسفورد يكتب الأوامر البرمجية للتسلية ويحل الألغاز من أجل لقمة العيش.
       `
     },
     Vered: {
