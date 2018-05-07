@@ -47,6 +47,15 @@ function Content() {
         <h3>Manchester</h3>
         <p className="text">The University of Manchester Library holds a collection of nearly 15,000 fragments, mostly written in Hebrew and Judeo-Arabic, from the Genizah of the Ben Ezra Synagogue in Old Cairo, purchased from the estate of Dr. Moses Gaster in 1954. About 90% of the items are on paper, the remainder on parchment. The vast majority are very small fragments. They date from the 10th to the 19th century AD and include religious and literary texts, documentary sources, letters, and material relating to grammar, philosophy, medicine, astrology and astronomy. Please visit: <a href="http://www.rylandsgenizah.org" target="_blank">http://www.rylandsgenizah.org</a> for further information about the University of Manchester Genizah Collection.</p>
       </div>
+      
+      <div className="item">
+        <div className="right-column">
+          <img alt="The Bodleian Libraries, University of Oxford" src={ImgBodleian} />
+        </div>
+        <h3>The Bodleian Libraries, University of Oxford</h3>
+        <p className="text">The collection of Cairo Genizah fragments held at the Bodleian Libraries is one of major collections of its kind. Acquired over the years since 1890 it consists of about 4,000 fragments. Skilful selection ensured that the Bodleian Genizah holdings became one of the most important collections worldwide, featuring Bible, Early Rabbinic literature (Midrash, Mishnah and Talmud), numerous liturgical fragments (Piyyutim and Selichot), many legal documents and letters, both personal and commercial. Its significance lies particularly in the remarkable size of many of the documents. The 4000 fragments comprise about 25,000 pages, amounting to over six pages per fragment, an average unparalleled elsewhere. Some items consist of whole quires, thus deserving the designation manuscripts rather than fragments. Talmud fragments of ten pages or more are no exception in this collection: Tractate Berakhot is represented with a manuscript of 18 leaves (MS. Heb. c. 17/32); of tractate Sukkah 83 leaves (MS. Heb. e 51) are preserved and for tractate Sotah we have 38 leaves (MS. Heb. d. 20/2) at our disposal. An exceptionally exciting example are the twenty pages of Maimonides’s draft manuscript of his Mishneh Torah with corrections in 4 consecutive stages in his own hand (MS. Heb. d 32, fols.47a-56b).</p>
+      </div>
+
     </div>
   );
 };
