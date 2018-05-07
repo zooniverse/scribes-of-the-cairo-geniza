@@ -54,7 +54,16 @@ class TutorialView extends React.Component {
     const swiper = this.stepThrough && this.stepThrough.swiper;
 
     if (swiper) {
-      this.stepThrough.goNext();
+      const currentStep = (this.stepThrough.state && this.stepThrough.state.step)
+        ? this.stepThrough.state.step + 1 : 0;
+      const maxSteps = (this.stepThrough.props && this.stepThrough.props.children)
+        ? React.Children.count(this.stepThrough.props.children) : 0;
+      
+      if (currentStep >= maxSteps) {
+        this.closeTutorial();
+      } else {
+        this.stepThrough.goNext();
+      }
     }
   }
 
