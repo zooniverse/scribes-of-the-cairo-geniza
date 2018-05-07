@@ -39,7 +39,7 @@ class Toolbar extends React.Component {
     this.toggleShowHints = this.toggleShowHints.bind(this);
 
     this.state = {
-      showPanel: false
+      showPanel: true
     };
   }
 
