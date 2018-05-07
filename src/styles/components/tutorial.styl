@@ -79,8 +79,10 @@
   width: 100%
 
 .tutorial-step
+  @extend .body-font
   height: 22rem
   padding: 0 1rem
+  overflow: auto
 
   &::-webkit-scrollbar, &::-webkit-scrollbar-corner
     background-color: $bisque
@@ -90,9 +92,6 @@
     border: 4px solid transparent
     border-radius: 1rem
     background-clip: content-box
-
-  p
-    margin: 0
 
   span
     @extend .body-font
