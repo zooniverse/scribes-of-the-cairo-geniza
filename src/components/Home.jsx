@@ -83,7 +83,7 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
                 >
                   {translate('transcribeHebrew.challenging')}
                 </button>
-                <span className="body-font">Coming Soon!</span>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
               </div>
             </div>
             <span className="home-page__exercises">{translate('keywordsHebrew.title')}</span>
@@ -130,7 +130,7 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
                 >
                   {translate('transcribeArabic.challenging')}
                 </button>
-                <span className="body-font">Coming Soon!</span>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
               </div>
             </div>
             <span className="home-page__exercises">{translate('keywordsArabic.title')}</span>
