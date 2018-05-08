@@ -302,7 +302,7 @@ export default {
       (usually better for beginners) or an informal Hebrew script fragment
       (usually recommended for those wanting more of a challenge).
     `,
-    exercises: 'Full Transcription Exercises',
+    exercises: 'Transcribe Text',
     easy: 'Easy Hebrew',
     challenging: 'Challenging Hebrew'
   },
@@ -314,7 +314,7 @@ export default {
       better for beginners) or an informal Arabic script fragment (usually
       recommended for those wanting more of a challenge).
     `,
-    exercises: 'Full Transcription Exercises',
+    exercises: 'Transcribe Text',
     easy: 'Easy Arabic',
     challenging: 'Challenging Arabic'
   },
