@@ -32,8 +32,14 @@ class ClassifierContainer extends React.Component {
         <SubjectViewer />
         <Toolbar />
 
+        {(this.props.annotationPane === null) ? null :
+          <Dialog component={this.props.component} size={this.props.annotationPaneSize}>
+            {this.props.annotationPane}
+          </Dialog>
+        }
+
         {(this.props.dialog === null) ? null :
-          <Dialog>
+          <Dialog component={'Annotation'} isAnnotation={false} size={this.props.size}>
             {this.props.dialog}
           </Dialog>
         }
@@ -43,8 +49,18 @@ class ClassifierContainer extends React.Component {
 }
 
 ClassifierContainer.propTypes = {
+  annotationPane: PropTypes.node,
+  annotationPaneSize: PropTypes.shape({
+    height: PropTypes.number,
+    width: PropTypes.number
+  }),
+  component: PropTypes.string,
   dialog: PropTypes.node,
   dispatch: PropTypes.func.isRequired,
+  size: PropTypes.shape({
+    height: PropTypes.number,
+    width: PropTypes.number
+  }),
   user: PropTypes.shape({
     id: PropTypes.string
   }),
@@ -52,12 +68,20 @@ ClassifierContainer.propTypes = {
 };
 
 ClassifierContainer.defaultProps = {
+  annotationPane: null,
+  annotationPaneSize: { height: 200, width: 200 },
+  component: '',
   dialog: null,
+  size: { height: 200, width: 200 },
   user: null
 };
 
 const mapStateToProps = state => ({
+  annotationPane: state.dialog.annotationPane,
+  annotationPaneSize: state.dialog.annotationPaneSize,
+  component: state.dialog.component,
   dialog: state.dialog.data,
+  size: state.dialog.size,
   subjectStatus: state.subject.status,
   user: state.login.user,
   workflowStatus: state.workflow.status

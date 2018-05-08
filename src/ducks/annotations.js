@@ -27,7 +27,7 @@ const annotationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case RESET_ANNOTATIONS:
       return initialState;
-    
+
     case LOAD_ANNOTATIONS:
       return {
         annotationInProgress: null,

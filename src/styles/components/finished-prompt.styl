@@ -15,7 +15,7 @@
 
     .round-toggle
       margin: 0.75rem 0
-      
+
       span
         position: relative
         top: -0.2rem
@@ -24,6 +24,13 @@
     span
       @extend .primary-label
       width: 20rem
+
+  &__disable-submit
+    span
+      @extend .primary-label
+      display: block
+      color: $warning
+      margin: 1rem
 
   &__buttons
     display: flex

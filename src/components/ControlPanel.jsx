@@ -140,7 +140,7 @@ class ControlPanel extends React.Component {
 
   finishedPrompt() {
     this.props.dispatch(toggleDialog(
-      <FinishedPrompt />, this.props.translate('finished.title')
+      <FinishedPrompt />, this.props.translate('finished.title'), undefined, 'Finished'
     ));
   }
 
@@ -340,7 +340,7 @@ const mapStateToProps = (state) => {
     tutorialStatus: state.tutorial.status,
     user: state.login.user,
     workflow: state.workflow.data,
-    ...getWorkInProgressStateValues(state),
+    ...getWorkInProgressStateValues(state)
   };
 };
 

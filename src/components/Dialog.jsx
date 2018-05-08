@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Rnd from 'react-rnd';
 import { connect } from 'react-redux';
-import { toggleDialog } from '../ducks/dialog';
+import { toggleAnnotation, toggleDialog, toggleFocus } from '../ducks/dialog';
 import { Utility } from '../lib/Utility';
 
 class Dialog extends React.Component {
@@ -10,10 +10,19 @@ class Dialog extends React.Component {
     super(props);
     this.close = this.close.bind(this);
     this.updateSize = this.updateSize.bind(this);
+    this.moveToFront = this.moveToFront.bind(this);
   }
 
   onClose() {
-    this.props.dispatch(toggleDialog(null));
+    if (this.props.isAnnotation) {
+      this.props.dispatch(toggleAnnotation(null));
+    } else {
+      this.props.dispatch(toggleDialog(null));
+    }
+  }
+
+  moveToFront() {
+    this.props.dispatch(toggleFocus(this.props.component));
   }
 
   close(e) {
@@ -26,6 +35,7 @@ class Dialog extends React.Component {
   }
 
   render() {
+    const zInd = this.props.component === this.props.focusedDialog ? '100' : '0';
     const height = this.props.size.height;
     const width = this.props.size.width;
     const x = (window.innerWidth / 2) - (width / 2);
@@ -43,11 +53,13 @@ class Dialog extends React.Component {
         enableResizing={false}
         minHeight={400}
         minWidth={400}
+        z={zInd}
       >
         <div
           className="popup dialog"
-          tabIndex="0"
+          onMouseDown={this.moveToFront}
           role="button"
+          tabIndex="0"
         >
           <hr className="handle drag-bar" />
           <div className="dialog-content">
@@ -69,14 +81,20 @@ class Dialog extends React.Component {
 }
 
 Dialog.defaultProps = {
+  component: '',
   dispatch: () => {},
+  focusedDialog: '',
+  isAnnotation: true,
   size: { height: 200, width: 200 },
   title: ''
 };
 
 Dialog.propTypes = {
   children: PropTypes.node,
+  component: PropTypes.string,
   dispatch: PropTypes.func,
+  focusedDialog: PropTypes.string,
+  isAnnotation: PropTypes.bool,
   size: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number
@@ -84,8 +102,8 @@ Dialog.propTypes = {
   title: PropTypes.string
 };
 
-const mapStateToProps = (state) => ({
-  size: state.dialog.size,
+const mapStateToProps = state => ({
+  focusedDialog: state.dialog.focus,
   title: state.dialog.title
 });
 

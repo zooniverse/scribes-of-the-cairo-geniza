@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import classnames from 'classnames';
 
-import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { toggleAnnotation, togglePopup } from '../ducks/dialog';
 import {
   pressedKey, setKeyboard,
   toggleLanguage, toggleKeyboard,
@@ -134,7 +134,7 @@ class SelectedAnnotation extends React.Component {
 
   deleteAnnotation() {
     this.props.dispatch(deleteSelectedAnnotation());
-    this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(toggleAnnotation(null));
     this.props.dispatch(togglePopup(null));
   }
 
@@ -143,7 +143,7 @@ class SelectedAnnotation extends React.Component {
       ? this.inputText.value.trim() : '';
     if (text !== '') {
       this.props.dispatch(updateText(text));
-      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(toggleAnnotation(null));
       this.props.dispatch(unselectAnnotation());
     } else {
       this.deletePrompt(true);
@@ -159,7 +159,7 @@ class SelectedAnnotation extends React.Component {
       this.deleteAnnotation();
     } else {
       this.props.dispatch(unselectAnnotation());
-      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(toggleAnnotation(null));
     }
   }
 
@@ -180,7 +180,7 @@ class SelectedAnnotation extends React.Component {
       this.deletePrompt(true);
     } else {
       this.props.dispatch(unselectAnnotation());
-      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(toggleAnnotation(null));
       this.props.dispatch(togglePopup(null));
     }
   }

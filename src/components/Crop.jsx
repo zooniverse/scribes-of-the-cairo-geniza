@@ -27,7 +27,8 @@ class Crop extends React.Component {
     const dimensions = { height: 350, width: 400 };
     if (points.width > MINIMUM_SIZE && points.height > MINIMUM_SIZE &&
       this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
-      this.props.dispatch(toggleDialog(<SaveClip points={points} />, 'Save Snippet to Cribsheet', dimensions));
+      this.props.dispatch(toggleDialog(
+        <SaveClip points={points} />, 'Save Snippet to Cribsheet', dimensions, 'Save Clip'));
     }
     document.removeEventListener('mousemove', this.handleMouseMove);
   }

@@ -15,7 +15,7 @@ import {
 } from '../ducks/subject-viewer';
 
 import { addAnnotationPoint, completeAnnotation, selectAnnotation } from '../ducks/annotations';
-import { toggleDialog } from '../ducks/dialog';
+import { toggleAnnotation } from '../ducks/dialog';
 
 import AnnotationsPane from '../components/AnnotationsPane';
 import AggregationsPane from '../components/AggregationsPane';
@@ -209,13 +209,13 @@ class SubjectViewer extends React.Component {
   }
 
   onMouseUp(e) {
-    if (this.props.selectedAnnotation) { return; }
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
       const pointerXY = this.getPointerXY(e);
       this.pointer.state = INPUT_STATE.IDLE;
       this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
       this.tmpTransform = false;
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
+      if (this.props.selectedAnnotation) { return; }
       if (e.target.parentNode.className.baseVal.indexOf('block-transcription') >= 0) {
         return;
       }
@@ -224,7 +224,7 @@ class SubjectViewer extends React.Component {
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
         const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-        this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', dimensions));
+        this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions));
         this.props.dispatch(completeAnnotation());
       }
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
@@ -272,7 +272,7 @@ class SubjectViewer extends React.Component {
   onSelectAnnotation(indexOfAnnotation) {
     this.props.dispatch(selectAnnotation(indexOfAnnotation));
     const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-    this.props.dispatch(toggleDialog(<SelectedAnnotation />, '', dimensions));
+    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions));
   }
 
   render() {
