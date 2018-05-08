@@ -9,7 +9,6 @@ import { generateSessionID } from '../lib/get-session-id';
 import AboutLayout from './about';
 import AuthContainer from '../containers/AuthContainer';
 import ClassifierContainer from '../containers/ClassifierContainer';
-import Dialog from './Dialog';
 import Home from './Home';
 import ProjectHeader from './ProjectHeader';
 
@@ -39,12 +38,6 @@ class App extends React.Component {
           </Switch>
         </section>
 
-        {(this.props.dialog === null) ? null :
-          <Dialog>
-            {this.props.dialog}
-          </Dialog>
-        }
-
         <div className="grommet">
           <ZooFooter />
         </div>
@@ -54,7 +47,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  dialog: PropTypes.node,
+  dispatch: PropTypes.func.isRequired,
   initializerReady: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string
@@ -62,13 +55,11 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  dialog: null,
   initializerReady: false,
   location: {}
 };
 
-const mapStateToProps = (state) => ({
-  dialog: state.dialog.data,
+const mapStateToProps = state => ({
   initializerReady: state.initialize.ready
 });
 

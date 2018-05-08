@@ -10,6 +10,7 @@ import ControlPanel from '../components/ControlPanel';
 import WorkflowPrompt from '../components/WorkflowPrompt';
 import Toolbar from '../components/Toolbar';
 import SubjectViewer from './SubjectViewer';
+import Dialog from '../components/Dialog';
 
 class ClassifierContainer extends React.Component {
   componentWillMount() {
@@ -30,12 +31,19 @@ class ClassifierContainer extends React.Component {
         <ControlPanel />
         <SubjectViewer />
         <Toolbar />
+
+        {(this.props.dialog === null) ? null :
+          <Dialog>
+            {this.props.dialog}
+          </Dialog>
+        }
       </main>
     );
   }
 }
 
 ClassifierContainer.propTypes = {
+  dialog: PropTypes.node,
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -44,10 +52,12 @@ ClassifierContainer.propTypes = {
 };
 
 ClassifierContainer.defaultProps = {
+  dialog: null,
   user: null
 };
 
 const mapStateToProps = state => ({
+  dialog: state.dialog.data,
   subjectStatus: state.subject.status,
   user: state.login.user,
   workflowStatus: state.workflow.status
