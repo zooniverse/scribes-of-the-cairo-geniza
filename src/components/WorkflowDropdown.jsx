@@ -27,7 +27,7 @@ const WorkflowDropdown = ({ className, dispatch, history, translate, activeAnnot
 
   return (
     <div className={`selection-container ${className}`}>
-      {(!activeAnnotationExists) ? null :(
+      {(!activeAnnotationExists) ? null : (
         <div>
           <button
             className="tertiary-label"

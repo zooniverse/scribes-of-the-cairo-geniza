@@ -115,7 +115,13 @@ class FinishedPrompt extends React.Component {
 
         <div className="finished-prompt__buttons">
           <button className="button" onClick={this.onCancel}>{translate('finished.cancel')}</button>
-          <button className="button" disabled={!answersMatchQuestions || disableSubmit} onClick={this.onDone}>{translate('finished.done')}</button>
+          <button
+            className="button"
+            disabled={!answersMatchQuestions || disableSubmit}
+            onClick={this.onDone}
+          >
+            {translate('finished.done')}
+          </button>
           <button
             className="button button__dark"
             disabled={!answersMatchQuestions || disableSubmit}

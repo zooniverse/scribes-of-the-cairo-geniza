@@ -46,24 +46,24 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    //If there's no Subject loaded, check if the user has any work in progress.
-    //componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page.
+    // If there's no Subject loaded, check if the user has any work in progress.
+    // componentDidMount() checks when the user accesses the Classifier page from another page, e.g. the Home page.
     if (!this.props.currentSubject && this.props.user && WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
     }
   }
 
   componentWillReceiveProps(next) {
-    //If there's new tutorial data, show it...
-    //...unless there's a WorkInProgress prompt in the way.
+    // If there's new tutorial data, show it...
+    // ...unless there's a WorkInProgress prompt in the way.
     if (next.tutorial && next.tutorial !== this.props.tutorial && !WorkInProgress.check(this.props.user)) {
       Tutorial.checkIfCompleted(next.tutorial, next.user, next.preferences).then((completed) => {
         if (!completed) { this.toggleTutorial(); }
       });
     }
 
-    //If there's no Subject loaded, check if the user has any work in progress.
-    //componentWillReceiveProps() checks when the user accesses the Classifier page directly.
+    // If there's no Subject loaded, check if the user has any work in progress.
+    // componentWillReceiveProps() checks when the user accesses the Classifier page directly.
     if (!this.props.currentSubject && !next.currentSubject &&
         this.props.user !== next.user && next.user && WorkInProgress.check(next.user)) {
       this.props.dispatch(togglePopup(<WorkInProgressPopup />));
@@ -110,7 +110,8 @@ class ControlPanel extends React.Component {
   }
 
   toggleButton() {
-    const text = this.state.showInfo ? this.props.translate('infoBox.collapseName') : this.props.translate('infoBox.expandName');
+    const text = this.state.showInfo ? this.props.translate('infoBox.collapseName')
+      : this.props.translate('infoBox.expandName');
     return <button className="control-panel__toggle" onClick={this.toggleInfo}>{text}</button>;
   }
 
@@ -155,9 +156,9 @@ class ControlPanel extends React.Component {
 
     if (key) {
       return metadata[key];
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   showSubjectInfo() {
@@ -207,8 +208,10 @@ class ControlPanel extends React.Component {
   }
 
   render() {
-    const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ? this.props.translate('infoBox.hideGuide') : this.props.translate('infoBox.showGuide');
-    const cribSheetText = this.props.dialogComponent === 'CribSheet' ? this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
+    const fieldGuideText = this.props.dialogComponent === 'FieldGuide' ?
+      this.props.translate('infoBox.hideGuide') : this.props.translate('infoBox.showGuide');
+    const cribSheetText = this.props.dialogComponent === 'CribSheet' ?
+      this.props.translate('infoBox.hideCrib') : this.props.translate('infoBox.showCrib');
 
     const panel = (
       <FlippedControlPanel
@@ -237,17 +240,23 @@ class ControlPanel extends React.Component {
           <hr className="white-line" />
 
           <div>
-            {(!(this.props.currentSubject && this.props.currentSubject.locations && this.props.currentSubject.locations.length >= 2)) ? null : (
-              (this.props.frame === 0)
-                ? <button className="button" onClick={()=>{this.props.dispatch(changeFrame(1))}}>{this.props.translate('infoBox.transcribeReverse')}</button>
-                : <button className="button" onClick={()=>{this.props.dispatch(changeFrame(0))}}>{this.props.translate('infoBox.transcribeFront')}</button>
-            )}
+            {(!(this.props.currentSubject && this.props.currentSubject.locations
+              && this.props.currentSubject.locations.length >= 2)) ? null : (
+                (this.props.frame === 0)
+                  ? <button className="button" onClick={()=>{this.props.dispatch(changeFrame(1))}}>{this.props.translate('infoBox.transcribeReverse')}</button>
+                  : <button className="button" onClick={()=>{this.props.dispatch(changeFrame(0))}}>{this.props.translate('infoBox.transcribeFront')}</button>
+              )}
             {this.props.user && (  //Show the Save Progress button to logged-in users only.
               <button className="button" onClick={()=>{this.props.dispatch(WorkInProgress.save())}}>
                 {this.props.translate('infoBox.saveProgress')}
               </button>
             )}
-            <button className="button button__dark" onClick={this.finishedPrompt}>{this.props.translate('infoBox.finished')}</button>
+            <button
+              className="button button__dark"
+              onClick={this.finishedPrompt}
+            >
+              {this.props.translate('infoBox.finished')}
+            </button>
             {this.props.wipTimestamp && (<div className="workinprogress-timestamp body-font">{this.props.translate('infoBox.lastSave') + ': ' + this.props.wipTimestamp.toString()}</div>)}
           </div>
 
@@ -321,7 +330,7 @@ ControlPanel.defaultProps = {
   tutorialStatus: TUTORIAL_STATUS.IDLE,
   user: null,
   workflow: null,
-  ...WORKINPROGRESS_INITIAL_STATE,
+  ...WORKINPROGRESS_INITIAL_STATE
 };
 
 const mapStateToProps = (state) => {

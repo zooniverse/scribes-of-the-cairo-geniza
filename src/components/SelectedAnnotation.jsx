@@ -385,7 +385,13 @@ class SelectedAnnotation extends React.Component {
           </div>
           <div>
             <button className="button" onClick={this.deletePrompt}>{translate('cribSheet.delete')}</button>
-            <button className="button button__dark" disabled={this.state.disableSubmit} onClick={this.saveText}>{translate('transcribeBox.done')}</button>
+            <button
+              className="button button__dark"
+              disabled={this.state.disableSubmit}
+              onClick={this.saveText}
+            >
+              {translate('transcribeBox.done')}
+            </button>
           </div>
         </div>
         {this.props.showKeyboard && (

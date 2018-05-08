@@ -90,10 +90,8 @@ Crop.defaultProps = {
   viewerState: SUBJECTVIEWER_STATE.CROPPING
 };
 
-const mapStateToProps = (state) => {
-  return {
-    viewerState: state.subjectViewer.viewerState
-  };
-};
+const mapStateToProps = state => ({
+  viewerState: state.subjectViewer.viewerState
+});
 
 export default connect(mapStateToProps)(Crop);
