@@ -14,6 +14,7 @@ import {
   deleteSelectedAnnotation,
   unselectAnnotation, updateText
 } from '../ducks/annotations';
+import { toggleMarks } from '../ducks/subject-viewer';
 
 import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
@@ -29,23 +30,24 @@ class SelectedAnnotation extends React.Component {
   constructor() {
     super();
 
-    this.closeAnnotation = this.closeAnnotation.bind(this);
-    this.deleteAnnotation = this.deleteAnnotation.bind(this);
-    this.saveText = this.saveText.bind(this);
-    this.toggleKeyboardView = this.toggleKeyboardView.bind(this);
-    this.closePrompt = this.closePrompt.bind(this);
-    this.deletePrompt = this.deletePrompt.bind(this);
-    this.closePopup = this.closePopup.bind(this);
-    this.setModern = this.setModern.bind(this);
-    this.toggleScriptOptions = this.toggleScriptOptions.bind(this);
-    this.closeDropdown = this.closeDropdown.bind(this);
-    this.previousScript = this.previousScript.bind(this);
-    this.nextScript = this.nextScript.bind(this);
     this.addLetterChar = this.addLetterChar.bind(this);
+    this.addTextModifier = this.addTextModifier.bind(this);
+    this.changeLanguage = this.changeLanguage.bind(this);
+    this.closeAnnotation = this.closeAnnotation.bind(this);
+    this.closeDropdown = this.closeDropdown.bind(this);
+    this.closePopup = this.closePopup.bind(this);
+    this.closePrompt = this.closePrompt.bind(this);
+    this.deleteAnnotation = this.deleteAnnotation.bind(this);
+    this.deletePrompt = this.deletePrompt.bind(this);
+    this.nextScript = this.nextScript.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
-    this.changeLanguage = this.changeLanguage.bind(this);
-    this.addTextModifier = this.addTextModifier.bind(this);
+    this.previousScript = this.previousScript.bind(this);
+    this.saveText = this.saveText.bind(this);
+    this.setModern = this.setModern.bind(this);
+    this.toggleKeyboardView = this.toggleKeyboardView.bind(this);
+    this.toggleMarks = this.toggleMarks.bind(this);
+    this.toggleScriptOptions = this.toggleScriptOptions.bind(this);
 
     this.state = {
       disableSubmit: true,
@@ -103,6 +105,10 @@ class SelectedAnnotation extends React.Component {
 
   setModern() {
     this.props.dispatch(toggleModern());
+  }
+
+  toggleMarks() {
+    this.props.dispatch(toggleMarks());
   }
 
   addLetterChar(letter = null) {
@@ -351,7 +357,8 @@ class SelectedAnnotation extends React.Component {
                 id="showMarks"
                 type="checkbox"
                 ref={(el) => { this.showMarks = el; }}
-                defaultChecked={false}
+                checked={this.props.showMarks}
+                onChange={this.toggleMarks}
               />
               <label className="primary-label" htmlFor="showMarks">
                 <span>Show Previous Marks</span>
@@ -440,6 +447,7 @@ SelectedAnnotation.propTypes = {
     details: PropTypes.array
   }),
   showKeyboard: PropTypes.bool,
+  showMarks: PropTypes.bool.isRequired,
   showModernKeyboard: PropTypes.bool,
   translate: PropTypes.func,
   updateSize: PropTypes.func
@@ -469,6 +477,7 @@ const mapStateToProps = state => ({
   keyboardLanguage: state.keyboard.activeLanguage,
   keyboardLocale: state.keyboard.locale,
   showKeyboard: state.keyboard.showKeyboard,
+  showMarks: state.subjectViewer.showMarks,
   showModernKeyboard: state.keyboard.modern,
   selectedAnnotation: state.annotations.selectedAnnotation,
   translate: getTranslate(state.locale)

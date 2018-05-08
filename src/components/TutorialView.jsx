@@ -58,8 +58,9 @@ class TutorialView extends React.Component {
         ? this.stepThrough.state.step + 1 : 0;
       const maxSteps = (this.stepThrough.props && this.stepThrough.props.children)
         ? React.Children.count(this.stepThrough.props.children) : 0;
-      
+
       if (currentStep >= maxSteps) {
+        console.log('here we are');
         this.closeTutorial();
       } else {
         this.stepThrough.goNext();

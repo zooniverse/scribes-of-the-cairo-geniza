@@ -31,6 +31,7 @@ class AnnotationsPane extends React.Component {
 
   renderAnnotations() {
     if (!this.props.annotations.length) return null;
+    if (!this.props.showMarks) return null;
 
     const annotationPrefix = 'ANNOTATION_';
 
@@ -101,7 +102,8 @@ AnnotationsPane.propTypes = {
     width: PropTypes.number
   }),
   frame: PropTypes.number,
-  onSelectAnnotation: PropTypes.func
+  onSelectAnnotation: PropTypes.func,
+  showMarks: PropTypes.bool.isRequired
 };
 
 AnnotationsPane.defaultProps = {
@@ -112,4 +114,8 @@ AnnotationsPane.defaultProps = {
   onSelectAnnotation: () => {}
 };
 
-export default connect()(AnnotationsPane);
+const mapStateToProps = state => ({
+  showMarks: state.subjectViewer.showMarks
+});
+
+export default connect(mapStateToProps)(AnnotationsPane);
