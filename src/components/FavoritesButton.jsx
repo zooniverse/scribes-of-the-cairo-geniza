@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 const FavoritesButton = ({ expanded, favorite, translate, toggleFavorite }) => {
-  const heart = favorite ? 'fa fa-heart' : 'fa fa-heart-o';
+  const heart = favorite ? 'fas fa-heart' : 'far fa-heart';
   return (
     <button onClick={toggleFavorite}>
       <i className={heart} />

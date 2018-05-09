@@ -122,12 +122,10 @@
       padding: 0.25rem
 
       &:hover, &:focus
+        @extend .div-shadow
         background-color: $sand
         border: 1px solid $plum
         cursor: pointer
-        box-shadow: 0px 10px 24px -10px $dark-grey
-        -webkit-box-shadow: 0px 10px 24px -10px $dark-grey
-        -moz-box-shadow: 0px 10px 24px -10px $dark-grey
 
   &__script-preview
     display: flex

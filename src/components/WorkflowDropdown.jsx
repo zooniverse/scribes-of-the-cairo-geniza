@@ -17,13 +17,13 @@ const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, a
     history.push('/classify');
     window.scrollTo(0, 0);
   };
-  
+
   const continueActiveAnnotation = () => {
     dispatch(toggleSelection(false));
     history.push('/classify');
     window.scrollTo(0, 0);
   };
-  
+
   const c = config;
   const classifyPath = `${c.host}projects/${c.projectSlug}/classify?workflow=`;
 
@@ -45,7 +45,7 @@ const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, a
           href={`${classifyPath}${c.phaseOne}`}
           target="_blank"
         >
-          {translate('workflowSelection.phaseOne')} <i className="fa fa-external-link" />
+          {translate('workflowSelection.phaseOne')} <i className="fa fa-external-link-alt" />
         </a>
       </div>
       <div>
@@ -75,7 +75,7 @@ const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, a
             href={`${classifyPath}${c.hebrewKeyword}`}
             target="_blank"
           >
-            {translate('keywordsHebrew.button')} <i className="fa fa-external-link" />
+            {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
           </a>
         </div>
       </div>
@@ -106,7 +106,7 @@ const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, a
             href={`${classifyPath}${c.arabicKeyword}`}
             target="_blank"
           >
-            {translate('keywordsArabic.button')} <i className="fa fa-external-link" />
+            {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
           </a>
         </div>
       </div>
@@ -137,7 +137,7 @@ WorkflowDropdown.defaultProps = {
 const mapStateToProps = state => {
   const user = state.login.user;
   const userHasWorkInProgress = user && WorkInProgress.check(user);
-  
+
   return {
     //Does the user currently have a page being actively annotated, (e.g. user
     //navigated away from the Classifier page and wants to return), or have

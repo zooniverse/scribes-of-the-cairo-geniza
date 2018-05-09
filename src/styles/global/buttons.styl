@@ -2,6 +2,7 @@
 @import "font-styles.styl"
 
 .button
+  @extend .div-shadow
   @extend .tertiary-label
   background: $bisque
   border: 3px solid $plum
@@ -11,9 +12,6 @@
   padding: 0.75rem 1rem
   text-decoration: none
   width: 12rem
-  box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
-  -webkit-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
-  -moz-box-shadow: 0px 10px 24px -10px rgba(180,180,180,1)
 
   &:hover, &:focus
     background-color: $dust
@@ -56,6 +54,6 @@
   margin: 0.5rem 0.25rem 0.25rem 0.25rem
   padding: 0.25rem 0.75em
   border-radius: 1rem
-  
+
   &:hover
     background: $sand !important

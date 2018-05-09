@@ -112,7 +112,7 @@ class Toolbar extends React.Component {
   render() {
     const expanded = this.state.showPanel;
     const toolbarClass = expanded ? 'toolbar toolbar__expanded' : 'toolbar';
-    const hintsIcon = this.props.showHints ? 'fa fa-eye-slash' : 'fa fa-eye';
+    const hintsIcon = this.props.showHints ? 'far fa-eye-slash' : 'far fa-eye';
     const hintsText = this.props.showHints ? this.props.translate('toolbar.showHints')
       : this.props.translate('toolbar.hideHints');
 
@@ -133,7 +133,7 @@ class Toolbar extends React.Component {
           className={(this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) ? 'active' : ''}
           onClick={this.useNavigationTool}
         >
-          <i className="fa fa-arrows" />
+          <i className="fa fa-arrows-alt" />
           {expanded && (<span>{this.props.translate('toolbar.pan')}</span>)}
         </button>
 
@@ -148,7 +148,7 @@ class Toolbar extends React.Component {
           {expanded && (<span>{this.props.translate('toolbar.zoomOut')}</span>)}
         </button>
         <button onClick={this.rotateSubject}>
-          <i className="fa fa-repeat" />
+          <i className="fa fa-redo-alt" />
           {expanded && (<span>{this.props.translate('toolbar.rotate')}</span>)}
         </button>
         <button onClick={this.invertColors}>
@@ -162,7 +162,7 @@ class Toolbar extends React.Component {
           </button>
         ) : false}
         <button onClick={this.resetView}>
-          <i className="fa fa-refresh" />
+          <i className="fa fa-sync-alt" />
           {expanded && (<span>{this.props.translate('toolbar.resetImage')}</span>)}
         </button>
 

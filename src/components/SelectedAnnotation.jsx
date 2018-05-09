@@ -16,9 +16,10 @@ import {
 } from '../ducks/annotations';
 import { toggleMarks } from '../ducks/subject-viewer';
 
-import QuestionPrompt from './QuestionPrompt';
 import AnnotationKeyboard from './AnnotationKeyboard';
 import FlippedBtn from './styled/FlippedBtn';
+import QuestionPrompt from './QuestionPrompt';
+import TextModifierHelp from './TextModifierHelp';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
 import cleanText from '../lib/clean-text';
 import { Utility, KEY_VALUES } from '../lib/Utility';
@@ -34,7 +35,7 @@ class SelectedAnnotation extends React.Component {
     this.addTextModifier = this.addTextModifier.bind(this);
     this.changeLanguage = this.changeLanguage.bind(this);
     this.closeAnnotation = this.closeAnnotation.bind(this);
-    this.closeDropdown = this.closeDropdown.bind(this);
+    this.closePopups = this.closePopups.bind(this);
     this.closePopup = this.closePopup.bind(this);
     this.closePrompt = this.closePrompt.bind(this);
     this.deleteAnnotation = this.deleteAnnotation.bind(this);
@@ -48,9 +49,11 @@ class SelectedAnnotation extends React.Component {
     this.toggleKeyboardView = this.toggleKeyboardView.bind(this);
     this.toggleMarks = this.toggleMarks.bind(this);
     this.toggleScriptOptions = this.toggleScriptOptions.bind(this);
+    this.toggleWhatsThis = this.toggleWhatsThis.bind(this);
 
     this.state = {
       disableSubmit: true,
+      showHelp: false,
       showScriptOptions: false
     };
   }
@@ -62,11 +65,11 @@ class SelectedAnnotation extends React.Component {
     }
     this.inputText.value = text;
     this.inputText.focus();
-    document.addEventListener('mousedown', this.closeDropdown, false);
+    document.addEventListener('mousedown', this.closePopups, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.closeDropdown, false);
+    document.removeEventListener('mousedown', this.closePopups, false);
   }
 
   onKeyUp() {
@@ -169,11 +172,17 @@ class SelectedAnnotation extends React.Component {
     }
   }
 
-  closeDropdown(e) {
-    if (this.dropdown && this.dropdown.contains(e.target)) {
+  closePopups(e) {
+    if ((this.dropdown && this.dropdown.contains(e.target)) || this.scriptToggle.contains(e.target)) {
       return;
     }
-    this.setState({ showScriptOptions: false });
+    if ((this.helpBox && this.helpBox.contains(e.target)) || this.questionMark.contains(e.target)) {
+      return;
+    }
+    if (this.state.showHelp || this.state.showScriptOptions) {
+      this.setState({ showHelp: false });
+      this.setState({ showScriptOptions: false });
+    }
   }
 
   changeLanguage(language) {
@@ -287,6 +296,10 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(setKeyboard(i));
   }
 
+  toggleWhatsThis() {
+    this.setState({ showHelp: !this.state.showHelp });
+  }
+
   scriptOption(script, i) {
     const isActive = this.props.activeScript === script ? 'active-script-option' : '';
     const scriptName = this.scriptTranslate(script.name, script.type);
@@ -341,11 +354,19 @@ class SelectedAnnotation extends React.Component {
           placeholder={translate('transcribeBox.textArea')}
         />
         <div className="selected-annotation__text-modifiers">
-          <button onClick={this.addTextModifier.bind(this, 'insertion')}>{translate('textModifiers.insertion')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'deletion')}>{translate('textModifiers.deletion')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'damaged')}>{translate('textModifiers.damaged')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'drawing')}>{translate('textModifiers.drawing')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'grid')}>{translate('textModifiers.grid')}</button>
+          <button onClick={this.toggleWhatsThis} ref={(c) => { this.questionMark = c; }}><i className="far fa-question-circle" /></button>
+          {this.state.showHelp && (
+            <TextModifierHelp
+              helpBox={(c) => { this.helpBox = c; }}
+              questionMark={this.questionMark}
+              togglePopup={this.toggleWhatsThis}
+            />
+          )}
+          <button onClick={this.addTextModifier.bind(this, 'insertion')}>{this.props.translate('textModifiers.insertion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'deletion')}>{this.props.translate('textModifiers.deletion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'damaged')}>{this.props.translate('textModifiers.damaged')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'drawing')}>{this.props.translate('textModifiers.drawing')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'grid')}>{this.props.translate('textModifiers.grid')}</button>
           {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
             <button onClick={this.addTextModifier.bind(this, 'divine')}>{translate('textModifiers.divineName')}</button>
           )}
@@ -399,7 +420,7 @@ class SelectedAnnotation extends React.Component {
                   <span className="secondary-label">{translate('scriptReferences.currentScript')}</span>
                   <div>
                     <FlippedBtn rtl={this.props.rtl} onClick={this.previousScript}>&#9668;</FlippedBtn>
-                    <button className="text-link" onClick={this.toggleScriptOptions}>{currentScript}</button>
+                    <button className="text-link" ref={(c) => { this.scriptToggle = c; }} onClick={this.toggleScriptOptions}>{currentScript}</button>
                     {this.state.showScriptOptions && (
                       <div className="script-options" ref={(c) => { this.dropdown = c; }}>
                         {KeyboardOptions.map((script, i) => this.scriptOption(script, i))}
