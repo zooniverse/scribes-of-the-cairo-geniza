@@ -94,7 +94,7 @@ const WORKINPROGRESS_INITIAL_STATE = {
       };
  */
 const WORKINPROGRESS_PROPTYPES = {
-  wipTimestamp: PropTypes.object,
+  wipTimestamp: PropTypes.object
 };
 
 /*  Used as a convenience feature in mapStateToProps() functions in
@@ -110,7 +110,7 @@ const WORKINPROGRESS_PROPTYPES = {
  */
 const getWorkInProgressStateValues = (state) => {
   return {
-    wipTimestamp: state[REDUX_STORE_NAME].wipTimestamp,
+    wipTimestamp: state[REDUX_STORE_NAME].wipTimestamp
   };
 };
 
@@ -125,17 +125,17 @@ const wipReducer = (state = WORKINPROGRESS_INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_TIMESTAMP:
       return Object.assign({}, state, {
-        wipTimestamp: action.timestamp,
+        wipTimestamp: action.timestamp
       });
 
     case CLEAR_TIMESTAMP:
       return Object.assign({}, state, {
-        wipTimestamp: null,
+        wipTimestamp: null
       });
 
     default:
       return state;
-  };
+  }
 };
 
 /*
@@ -251,7 +251,7 @@ const WorkInProgress = {
   check,
   save,
   load,
-  clear,
+  clear
 };
 
 /*
@@ -267,5 +267,5 @@ export {
   WorkInProgress,
   WORKINPROGRESS_INITIAL_STATE,
   WORKINPROGRESS_PROPTYPES,
-  getWorkInProgressStateValues,
+  getWorkInProgressStateValues
 };

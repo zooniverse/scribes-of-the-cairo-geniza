@@ -10,7 +10,7 @@ import { togglePopup } from '../ducks/dialog';
 import { config } from '../config';
 import StartNewWorkConfirmation from './StartNewWorkConfirmation';
 
-const WorkflowSelection = ({ className, dispatch, history, translate, showAllWorkflows, activeAnnotationExists }) => {
+const WorkflowSelection = ({ className, dispatch, location, history, translate, showAllWorkflows, activeAnnotationExists }) => {
   const proceedToClassifier = () => {
     dispatch(toggleSelection(false));
     dispatch(togglePopup(null));
@@ -43,7 +43,7 @@ const WorkflowSelection = ({ className, dispatch, history, translate, showAllWor
   const classifyPath = `${c.host}projects/${c.projectSlug}/classify?workflow=`;
   return (
     <div className={`selection-container ${className}`}>
-      {(!activeAnnotationExists) ? null : (
+      {(!activeAnnotationExists || location.pathname === '/classify') ? null : (
         <div>
           <button
             className="tertiary-label"
@@ -151,6 +151,9 @@ WorkflowSelection.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string
+  }),
   showAllWorkflows: PropTypes.bool,
   translate: PropTypes.func.isRequired
 };
@@ -162,6 +165,7 @@ WorkflowSelection.defaultProps = {
   history: {
     push: () => {}
   },
+  location: {},
   showAllWorkflows: true,
   translate: () => {},
   user: null

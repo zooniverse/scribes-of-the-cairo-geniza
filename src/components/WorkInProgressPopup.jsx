@@ -40,8 +40,18 @@ class WorkInProgressPopup extends React.Component {
               </p>
             </div>
             <div className="work-in-progress-popup__controls">
-              <button className="button" onClick={this.newWorkPrompt}>{this.props.translate('workInProgress.startNewWork')}</button>
-              <button className="button button__dark" onClick={this.resumeWorkInProgress}>{this.props.translate('workInProgress.resumeWorkInProgress')}</button>
+              <button
+                className="button"
+                onClick={this.newWorkPrompt}
+              >
+                {this.props.translate('workInProgress.startNewWork')}
+              </button>
+              <button
+                className="button button__dark"
+                onClick={this.resumeWorkInProgress}
+              >
+                {this.props.translate('workInProgress.resumeWorkInProgress')}
+              </button>
             </div>
           </div>
         </div>
