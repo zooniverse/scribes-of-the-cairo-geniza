@@ -50,7 +50,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
           <ZooniverseLogotype width="100px" />
           <h1>{translate('topNav.site')}</h1>
           {language !== LANGUAGES.ENGLISH && (
-            <h1>Scribes of the Cairo Geniza</h1>
+            <h2 className="h2-font">Scribes of the Cairo Geniza</h2>
           )}
         </div>
         <hr className="plum-line" />
