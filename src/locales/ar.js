@@ -94,14 +94,15 @@ export default {
   transcribeBox: {
     title: 'نسخ',
     instructions: `
-      .تقرأ اللغة العبرية من اليمين إلى اليسار فابدأ من الجانب الأيمن
+      تقرأ اللغة العبرية من اليمين إلى اليسار فابدأ من الجانب الأيمن.
     `,
-    instructions2: '.اطلع على أمثلة عن الأبجديات المختلفة في الورقة المرجعية',
+    instructions2: 'اطلع على أمثلة عن الأبجديات المختلفة في الورقة المرجعية.',
     textArea: 'محتوى مربع الكتابة',
     openKeyboard: 'إظهار لوحة المفاتيح',
     closeKeyboard: 'إخفاء لوحة المفاتيح',
     cancel: 'إلغاء',
-    done: 'تم'
+    done: 'تم',
+    showModern: 'Show Modern Characters'
   },
   collection: {
     title: 'إضافة إلى مجموعة',
@@ -370,5 +371,11 @@ export default {
   },
   home: {
     institutions: 'المؤسسات الشريكة'
+  },
+  closeAnnotation: {
+    title: 'Close Annotation',
+    question: 'Are you sure you want to close without saving?',
+    confirm: 'Yes, close without saving',
+    deny: 'No, continue transcribing'
   }
 };

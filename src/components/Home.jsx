@@ -14,7 +14,6 @@ import ImgJTS from '../images/partners/jts.png';
 import ImgManchester from '../images/partners/manchester.png';
 import ImgPenn from '../images/partners/penn.png';
 import ImgPrinceton from '../images/partners/princeton.png';
-import ImgZooniverse from '../images/partners/zooniverse-word-black.png';
 
 import Library from '../images/schechter-geniza.png';
 import Scroll from '../images/hebrew-fragment.png';
@@ -24,12 +23,13 @@ import FlippedImg from './styled/FlippedImg';
 import { config } from '../config';
 import { fetchWorkflow } from '../ducks/workflow';
 import { fetchSubject } from '../ducks/subject';
+import { LANGUAGES } from '../ducks/languages';
 
 import AboutGenizaAr from './about/about-geniza-ar';
 import AboutGenizaEn from './about/about-geniza-en';
 import AboutGenizaHe from './about/about-geniza-he';
 
-const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
+const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) => {
   const selectWorkflow = (workflow) => {
     dispatch(fetchWorkflow(workflow)).then(()=>{
       return dispatch(fetchSubject());
@@ -49,6 +49,9 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
         <div>
           <ZooniverseLogotype width="100px" />
           <h1>{translate('topNav.site')}</h1>
+          {language !== LANGUAGES.ENGLISH && (
+            <h2 className="h2-font">Scribes of the Cairo Geniza</h2>
+          )}
         </div>
         <hr className="plum-line" />
         <div>
@@ -151,12 +154,12 @@ const Home = ({ currentLanguage, dispatch, history, rtl, translate }) => {
         <h2>{translate('home.institutions')}</h2>
         <div>
           <ZooniverseLogotype />
-          
+
           <img alt="Penn" src={ImgPenn} />
           <img alt="The Jewish Theological Seminary" src={ImgJTS} />
           <img alt="Princeton Geniza Project" src={ImgPrinceton} />
           <img alt="Genizah Research Unit Cambridge University Library" src={ImgGenizah} />
-          
+
           <img alt="Cambridge" src={ImgCambridge} />
           <img alt="Manchester" src={ImgManchester} />
           <img alt="Bodleian" src={ImgBodleian} />
@@ -204,6 +207,7 @@ Home.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   }),
+  language: PropTypes.string.isRequired,
   rtl: PropTypes.bool,
   translate: PropTypes.func
 };
@@ -217,6 +221,7 @@ Home.defaultProps = {
 
 const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
+  language: state.languages.language,
   rtl: state.languages.rtl,
   translate: getTranslate(state.locale)
 });

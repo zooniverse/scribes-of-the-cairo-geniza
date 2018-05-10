@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTranslate, getActiveLanguage, Translate } from 'react-localize-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import classnames from 'classnames';
 
 import { toggleDialog, togglePopup } from '../ducks/dialog';
@@ -190,19 +190,21 @@ class SelectedAnnotation extends React.Component {
   }
 
   closePrompt() {
+    const { translate } = this.props;
     this.props.dispatch(togglePopup(
       <QuestionPrompt
-        confirm="Yes, close without saving"
-        deny="No, continue transcribing"
+        confirm={translate('closeAnnotation.confirm')}
+        deny={translate('closeAnnotation.deny')}
         onConfirm={this.closeAnnotation}
         onDeny={this.closePopup}
-        question="Are you sure you want to close without saving?"
-        title="Close Annotation"
+        question={translate('closeAnnotation.question')}
+        title={translate('closeAnnotation.title')}
       />));
   }
 
   addTextModifier(type) {
-    const tag = this.props.translate(`textModifiers.${type}`, null, { defaultLanguage: this.props.keyboardLocale });
+    const { translate } = this.props;
+    const tag = translate(`textModifiers.${type}`, null, { defaultLanguage: this.props.keyboardLocale });
     let value;
     let textAfter;
     let textInBetween;
@@ -258,17 +260,18 @@ class SelectedAnnotation extends React.Component {
     this.props.dispatch(setKeyboard(index));
   }
 
-  deletePrompt(emptyText = false) {
+  deletePrompt() {
+    const { translate } = this.props;
     const notes = '';
     this.props.dispatch(togglePopup(
       <QuestionPrompt
-        confirm={this.props.translate('cribSheet.confirm')}
-        deny={this.props.translate('cribSheet.deny')}
+        confirm={translate('cribSheet.confirm')}
+        deny={translate('cribSheet.deny')}
         notes={notes}
         onConfirm={this.deleteAnnotation}
         onDeny={this.closePopup}
         question="Are you sure you want to delete this transcription?"
-        title="Close Annotation"
+        title={translate('closeAnnotation.title')}
       />));
   }
 
@@ -293,15 +296,17 @@ class SelectedAnnotation extends React.Component {
   }
 
   scriptTranslate(name, type) {
+    const { translate } = this.props;
     const removeSpace = name.replace(/\s/g, '');
-    const script = `${this.props.translate(`scriptReferences.types.${removeSpace}`)}`;
-    const style = `${this.props.translate(`scriptReferences.types.${type}`)}`;
+    const script = `${translate(`scriptReferences.types.${removeSpace}`)}`;
+    const style = `${translate(`scriptReferences.types.${type}`)}`;
     return `${script} ${style}`;
   }
 
   render() {
-    const keyboardToggleText = this.props.showKeyboard ? this.props.translate('transcribeBox.closeKeyboard')
-      : this.props.translate('transcribeBox.openKeyboard');
+    const { translate } = this.props;
+    const keyboardToggleText = this.props.showKeyboard ? translate('transcribeBox.closeKeyboard')
+      : translate('transcribeBox.openKeyboard');
     let currentScript = 'Current Script';
     if (this.props.activeScript && this.props.activeScript.name && this.props.activeScript.type) {
       currentScript = this.scriptTranslate(this.props.activeScript.name, this.props.activeScript.type);
@@ -310,14 +315,14 @@ class SelectedAnnotation extends React.Component {
       <div className={ENABLE_DRAG} ref={(c) => { this.annotationBox = c; }}>
         <div className="selected-annotation__header">
           <div>
-            <h2 className="primary-label">{this.props.translate('transcribeBox.title')}</h2>
+            <h2 className="primary-label">{translate('transcribeBox.title')}</h2>
             <hr className="plum-line" />
           </div>
           <button className="close-button" onClick={this.closePrompt}>X</button>
         </div>
         <div className="selected-annotation__instructions">
-          <span>{this.props.translate('transcribeBox.instructions')}</span>
-          <span>{this.props.translate('transcribeBox.instructions2')}</span>
+          <span>{translate('transcribeBox.instructions')}</span>
+          <span>{translate('transcribeBox.instructions2')}</span>
         </div>
         <input
           type="text"
@@ -327,16 +332,16 @@ class SelectedAnnotation extends React.Component {
           onKeyUp={this.onKeyUp}
           onMouseDown={() => { this.annotationBox.className = DISABLE_DRAG; }}
           onMouseUp={() => { this.annotationBox.className = ENABLE_DRAG; }}
-          placeholder={this.props.translate('transcribeBox.textArea')}
+          placeholder={translate('transcribeBox.textArea')}
         />
         <div className="selected-annotation__text-modifiers">
-          <button onClick={this.addTextModifier.bind(this, 'insertion')}>{this.props.translate('textModifiers.insertion')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'deletion')}>{this.props.translate('textModifiers.deletion')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'damaged')}>{this.props.translate('textModifiers.damaged')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'drawing')}>{this.props.translate('textModifiers.drawing')}</button>
-          <button onClick={this.addTextModifier.bind(this, 'grid')}>{this.props.translate('textModifiers.grid')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'insertion')}>{translate('textModifiers.insertion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'deletion')}>{translate('textModifiers.deletion')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'damaged')}>{translate('textModifiers.damaged')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'drawing')}>{translate('textModifiers.drawing')}</button>
+          <button onClick={this.addTextModifier.bind(this, 'grid')}>{translate('textModifiers.grid')}</button>
           {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
-            <button onClick={this.addTextModifier.bind(this, 'divine')}>{this.props.translate('textModifiers.divineName')}</button>
+            <button onClick={this.addTextModifier.bind(this, 'divine')}>{translate('textModifiers.divineName')}</button>
           )}
         </div>
         <div className="selected-annotation__controls">
@@ -374,8 +379,8 @@ class SelectedAnnotation extends React.Component {
             </div>
           </div>
           <div>
-            <button className="button" onClick={this.deletePrompt}>{this.props.translate('cribSheet.delete')}</button>
-            <button className="button button__dark" disabled={this.state.disableSubmit} onClick={this.saveText}>{this.props.translate('transcribeBox.done')}</button>
+            <button className="button" onClick={this.deletePrompt}>{translate('cribSheet.delete')}</button>
+            <button className="button button__dark" disabled={this.state.disableSubmit} onClick={this.saveText}>{translate('transcribeBox.done')}</button>
           </div>
         </div>
         {this.props.showKeyboard && (
@@ -384,7 +389,7 @@ class SelectedAnnotation extends React.Component {
             {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
               <div>
                 <div className="selected-annotation__script-select">
-                  <span className="secondary-label">{this.props.translate('scriptReferences.currentScript')}</span>
+                  <span className="secondary-label">{translate('scriptReferences.currentScript')}</span>
                   <div>
                     <FlippedBtn rtl={this.props.rtl} onClick={this.previousScript}>&#9668;</FlippedBtn>
                     <button className="text-link" onClick={this.toggleScriptOptions}>{currentScript}</button>
@@ -405,7 +410,7 @@ class SelectedAnnotation extends React.Component {
                     ref={(el) => { this.modern = el; }}
                   />
                   <label className="primary-label" htmlFor="modern">
-                    <span>Show Modern Characters</span>
+                    <span>{translate('transcribeBox.showModern')}</span>
                   </label>
                 </div>
               </div>
