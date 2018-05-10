@@ -51,12 +51,14 @@ App.propTypes = {
   initializerReady: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string
-  })
+  }),
+  popup: PropTypes.node
 };
 
 App.defaultProps = {
   initializerReady: false,
-  location: {}
+  location: {},
+  popup: null
 };
 
 const mapStateToProps = state => ({

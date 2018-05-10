@@ -6,33 +6,25 @@ import { getTranslate } from 'react-localize-redux';
 import { togglePopup } from '../ducks/dialog';
 import { WorkInProgress } from '../ducks/work-in-progress';
 
+import StartNewWorkConfirmation from './StartNewWorkConfirmation';
+
 class WorkInProgressPopup extends React.Component {
   constructor() {
     super();
 
-    this.closePopup = this.closePopup.bind(this);
     this.resumeWorkInProgress = this.resumeWorkInProgress.bind(this);
-    this.startNewWork = this.startNewWork.bind(this);
+    this.newWorkPrompt = this.newWorkPrompt.bind(this);
   }
 
-  closePopup() {
-    this.props.dispatch(togglePopup(null));
-  }
-  
   resumeWorkInProgress() {
     this.props.dispatch(WorkInProgress.load());
-    this.closePopup();
+    this.props.dispatch(togglePopup(null));
   }
-  
-  startNewWork() {
-    this.props.dispatch(WorkInProgress.clear());
-    this.closePopup();
-    
-    //HACK  //TODO
-    //Due to the new workflow selection feature, we need to trigger a series of
-    //refreshes to allow the Classifier page to show the WorkflowDropdown
-    //module. This requires a more elegant solution.
-    window.location.reload();
+
+  newWorkPrompt() {
+    this.props.dispatch(togglePopup(
+      <StartNewWorkConfirmation />
+    ));
   }
 
   render() {
@@ -48,7 +40,7 @@ class WorkInProgressPopup extends React.Component {
               </p>
             </div>
             <div className="work-in-progress-popup__controls">
-              <button className="button" onClick={this.startNewWork}>{this.props.translate('workInProgress.startNewWork')}</button>
+              <button className="button" onClick={this.newWorkPrompt}>{this.props.translate('workInProgress.startNewWork')}</button>
               <button className="button button__dark" onClick={this.resumeWorkInProgress}>{this.props.translate('workInProgress.resumeWorkInProgress')}</button>
             </div>
           </div>
@@ -59,13 +51,12 @@ class WorkInProgressPopup extends React.Component {
 }
 
 WorkInProgressPopup.propTypes = {
-  dispatch: PropTypes.func,
-  translate: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
+  translate: PropTypes.func
 };
 
 WorkInProgressPopup.defaultProps = {
-  dispatch: () => {},
-  translate: () => {},
+  translate: () => {}
 };
 
 const mapStateToProps = (state) => {

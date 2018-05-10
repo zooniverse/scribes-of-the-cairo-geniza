@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { config } from '../config.js';
-import WorkflowDropdown from './WorkflowDropdown';
+import WorkflowSelection from './WorkflowSelection';
 
 import { setLanguage, LANGUAGES } from '../ducks/languages';
 import { toggleSelection } from '../ducks/workflow';
@@ -68,7 +68,7 @@ class ProjectHeader extends React.Component {
                 {this.props.translate('topNav.transcribe')}
               </button>
               {this.props.showWorkflows && (
-                <WorkflowDropdown />
+                <WorkflowSelection showAllWorkflows={false} />
               )}
               <a
                 className="project-header__link"

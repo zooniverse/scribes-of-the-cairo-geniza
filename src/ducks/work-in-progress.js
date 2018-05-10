@@ -25,10 +25,10 @@ class ReduxConnectedReactComponent {
 
     //Deletes any work in progress
     this.props.dispatch(WorkInProgress.clear());
-    
+
     //Saves any work in progress
     this.props.dispatch(WorkInProgress.clear());
-    
+
     //Loads any work in progress
     this.props.dispatch(WorkInProgress.clear());
   }
@@ -127,7 +127,7 @@ const wipReducer = (state = WORKINPROGRESS_INITIAL_STATE, action) => {
       return Object.assign({}, state, {
         wipTimestamp: action.timestamp,
       });
-    
+
     case CLEAR_TIMESTAMP:
       return Object.assign({}, state, {
         wipTimestamp: null,
@@ -154,9 +154,8 @@ const check = (user) => {
   const workflowId = localStorage.getItem(`${userId}.${WORKFLOW_ID_KEY}`);
   const subjectId = localStorage.getItem(`${userId}.${SUBJECT_ID_KEY}`);
   const annotations = localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`);
-
   return !!workflowId && !!subjectId && !!annotations;
-}
+};
 
 /*  Clears any work in progress the user has.
     Needs to be called via Redux's dispatch().
@@ -167,11 +166,11 @@ const clear = () => {
     localStorage.removeItem(`${userId}.${WORKFLOW_ID_KEY}`);
     localStorage.removeItem(`${userId}.${SUBJECT_ID_KEY}`);
     localStorage.removeItem(`${userId}.${ANNOTATIONS_KEY}`);
-    
+
     //Store update
     dispatch({ type: CLEAR_TIMESTAMP });
     console.log('WorkInProgress.clear()');
-  }
+  };
 };
 
 /*  Saves any work in progress the user has.
@@ -183,7 +182,7 @@ const save = () => {
     const workflowId = getState().workflow.id;
     const subjectId = getState().subject.id;
     const annotations = getState().annotations.annotations;
-    
+
     //Sanity check: make sure we have something to load.
     if (!workflowId || !subjectId || !annotations) {
       console.error('WorkInProgress.save() error: nothing to save.');
@@ -193,7 +192,7 @@ const save = () => {
     localStorage.setItem(`${userId}.${WORKFLOW_ID_KEY}`, workflowId);
     localStorage.setItem(`${userId}.${SUBJECT_ID_KEY}`, subjectId);
     localStorage.setItem(`${userId}.${ANNOTATIONS_KEY}`, JSON.stringify(annotations));
-    
+
     //Store update
     dispatch({ type: SET_TIMESTAMP, timestamp: new Date(Date.now()) });
     console.log('WorkInProgress.save() success');
@@ -211,13 +210,13 @@ const load = () => {
       const workflowId = localStorage.getItem(`${userId}.${WORKFLOW_ID_KEY}`);
       const subjectId = localStorage.getItem(`${userId}.${SUBJECT_ID_KEY}`);  //TODO: Check if a type conversion is required.
       const annotations = JSON.parse(localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`));
-      
+
       //Sanity check: make sure we have something to load.
       if (!workflowId || !subjectId || !annotations) {
         console.error('WorkInProgress.save() error: nothing to load.');
         return;
       }
-      
+
       //First, load the Workflow, then the Subject, then the Annotations.
       dispatch(fetchWorkflow(workflowId)).then(() => {
         return dispatch(fetchSubject(subjectId));
@@ -225,11 +224,11 @@ const load = () => {
         return dispatch(loadAnnotations(annotations));
       }).then(() => {
         console.log('WorkInProgress.load() success');
-        
+
         //If we want to remove all saved progress when a user successfully
         //loads their data, enable this following line:
         //  return dispatch(clear());
-        
+
         return null;
       });
     } catch (err) {
@@ -252,7 +251,7 @@ const WorkInProgress = {
   check,
   save,
   load,
-  clear,  
+  clear,
 };
 
 /*

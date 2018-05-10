@@ -366,7 +366,6 @@ class SubjectViewer extends React.Component {
       >
         {renderedItem}
 
-        {this.props.popup}
       </section>
     );
   }
@@ -391,7 +390,6 @@ SubjectViewer.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number
   }),
-  popup: PropTypes.node,
   reminder: PropTypes.node,
   rotation: PropTypes.number,
   translationX: PropTypes.number,
@@ -418,7 +416,6 @@ SubjectViewer.defaultProps = {
   dispatch: () => {},
   frame: 0,
   imageSize: { width: 0, height: 0 },
-  popup: null,
   reminder: null,
   rotation: 0,
   scaling: 1,
@@ -444,7 +441,6 @@ const mapStateToProps = (state) => {
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
     imageSize: sv.imageSize,
-    popup: state.dialog.popup,
     reminder: state.reminder.node,
     rotation: sv.rotation,
     scaling: sv.scaling,
