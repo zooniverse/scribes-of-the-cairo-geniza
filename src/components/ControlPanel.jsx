@@ -13,6 +13,7 @@ import {
   getWorkInProgressStateValues
 } from '../ducks/work-in-progress';
 import { TUTORIAL_STATUS } from '../ducks/tutorial';
+import { LANGUAGES } from '../ducks/languages';
 
 import FieldGuide from './FieldGuide';
 import CribSheet from './CribSheet';
@@ -230,7 +231,9 @@ class ControlPanel extends React.Component {
 
           {this.showSubjectInfo()}
 
-          <button className="button" onClick={this.toggleCribSheet}>{cribSheetText}</button>
+          {!(!this.props.user && this.props.manuscriptLanguage === LANGUAGES.ARABIC) && (
+            <button className="button" onClick={this.toggleCribSheet}>{cribSheetText}</button>
+          )}
           <button className="button" onClick={this.toggleFieldGuide}>{fieldGuideText}</button>
 
           {this.props.tutorial && this.props.tutorialStatus === TUTORIAL_STATUS.READY && (
@@ -297,6 +300,7 @@ ControlPanel.propTypes = {
   guide: PropTypes.shape({
     id: PropTypes.string
   }),
+  manuscriptLanguage: PropTypes.string,
   icons: PropTypes.object,
   preferences: PropTypes.object,
   rtl: PropTypes.bool,
@@ -323,6 +327,7 @@ ControlPanel.defaultProps = {
   frame: 0,
   guide: null,
   icons: null,
+  manuscriptLanguage: LANGUAGES.HEBREW,
   preferences: null,
   rtl: false,
   translate: () => {},
@@ -342,6 +347,7 @@ const mapStateToProps = (state) => {
     frame: state.subjectViewer.frame,
     guide: state.fieldGuide.guide,
     icons: state.fieldGuide.icons,
+    manuscriptLanguage: state.workflow.manuscriptLanguage,
     preferences: state.project.userPreferences,
     rtl: state.languages.rtl,
     translate: getTranslate(state.locale),
