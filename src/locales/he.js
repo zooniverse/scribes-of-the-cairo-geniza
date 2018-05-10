@@ -18,15 +18,15 @@ export default {
     name: 'קטע הגניזה',
     attribution: 'ספריית מקור',
     libraryCatalog: 'הפריט בקטלוג הספריה',
-    collapseName: 'הצג פרטי קטע הגניזה',
-    expandName: 'סגור פרטי קטע הגניזה',
+    collapseName: 'סגור פרטי קטע הגניזה',
+    expandName: 'הצג פרטי קטע הגניזה',
     showCrib: 'הצג סוגי כתב',
     hideCrib: 'סגור סוגי כתב',
     transcribeReverse: 'עבור לעמוד השני של הדף',
     transcribeFront: 'חזור לעמוד הראשון',
     showGuide: 'למידע נוסף',
     hideGuide: 'סגור מידע נוסף',
-    showTutorial: 'הצג מדריך לעבודה באתר',
+    showTutorial: 'הדרכה למשימת התעתוק',
     hideTutorial: 'סגור הדרכה',
     saveProgress: 'שמור התקדמות',
     finished: 'סיום',
@@ -54,13 +54,14 @@ export default {
   },
   transcribeBox: {
     title: 'תעתוק',
-    instructions: '.הקלד את הטקסט שלפניך',
-    instructions2: '.ניתן להיעזר בדוגמאות סוגי כתב לשם זיהוי האותיות',
+    instructions: 'הקלד את הטקסט שלפניך.',
+    instructions2: 'ניתן להיעזר בדוגמאות סוגי כתב לשם זיהוי האותיות.',
     textArea: 'הקלד טקסט כאן',
     openKeyboard: 'פתח מקלדת',
     closeKeyboard: 'סגור מקלדת',
     cancel: 'ביטול',
-    done: 'סיום'
+    done: 'סיום',
+    showModern: 'הצג מקלדת רגילה'
   },
   collection: {
     title: 'הוסף לאוסף',
@@ -256,13 +257,13 @@ export default {
     `
   },
   textModifiers: {
-    insertion: 'נוסף',
-    deletion: 'מחוק',
+    insertion: 'תוספת',
+    deletion: 'מחיקה',
     damaged: 'פגום',
     drawing: 'ציור',
-    grid: 'גריד',
+    grid: 'טבלה/שרטוט',
     divine: 'ה’',
-    divineName: 'ה’'
+    divineName: 'שם האל'
   },
   transcribeHebrew: {
     title: 'תעתוק קטעים בכתב עברי',
@@ -273,8 +274,8 @@ export default {
       .הכתובים בסגנון בלתי פורמלי (משימה מאתגרת יותר)
     `,
     exercises: 'תרגול העתקה מלאה',
-    easy: 'עברית בכתב פורמלי',
-    challenging: 'עברית בכתב לא פורמלי'
+    easy: 'עברית קלה',
+    challenging: 'עברית – דרגת קושי גבוהה'
   },
   transcribeArabic: {
     title: 'תעתוק קטעים בכתב ערבי',
@@ -293,8 +294,8 @@ export default {
       במקום לנסות לתעתק את המסמך כולו, אתרו בו ביטויים ומלים שיעזרו
       !לנו להתחיל את התהליך. הכון, החל, חפש
     `,
-    easy: 'ערבית בכתב פורמלי',
-    challenging: 'ערבית בכתב לא פורמלי'
+    easy: 'ערבית קלה',
+    challenging: 'ערבית – דרגת קושי גבוהה'
   },
   keywordsHebrew: {
     title: 'חיפוש מילות מפתח בקטעי גניזה הכתובים בעברית',
@@ -323,5 +324,11 @@ export default {
   },
   home: {
     institutions: 'שותפים למחקר'
+  },
+  closeAnnotation: {
+    title: 'סגור תעתוק',
+    question: '?בטוחים שאתם רוצים לסגור בלי לשמור',
+    confirm: 'כן, סגור בלי לשמור',
+    deny: 'לא, המשך לתעתק'
   }
 };

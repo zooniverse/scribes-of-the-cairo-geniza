@@ -192,12 +192,12 @@ class SelectedAnnotation extends React.Component {
   closePrompt() {
     this.props.dispatch(togglePopup(
       <QuestionPrompt
-        confirm="Yes, close without saving"
-        deny="No, continue transcribing"
+        confirm={this.props.translate('closeAnnotation.confirm')}
+        deny={this.props.translate('closeAnnotation.deny')}
         onConfirm={this.closeAnnotation}
         onDeny={this.closePopup}
-        question="Are you sure you want to close without saving?"
-        title="Close Annotation"
+        question={this.props.translate('closeAnnotation.question')}
+        title={this.props.translate('closeAnnotation.title')}
       />));
   }
 
@@ -268,7 +268,7 @@ class SelectedAnnotation extends React.Component {
         onConfirm={this.deleteAnnotation}
         onDeny={this.closePopup}
         question="Are you sure you want to delete this transcription?"
-        title="Close Annotation"
+        title={this.props.translate('closeAnnotation.title')}
       />));
   }
 
@@ -405,7 +405,7 @@ class SelectedAnnotation extends React.Component {
                     ref={(el) => { this.modern = el; }}
                   />
                   <label className="primary-label" htmlFor="modern">
-                    <span>Show Modern Characters</span>
+                    <span>{this.props.translate('transcribeBox.showModern')}</span>
                   </label>
                 </div>
               </div>

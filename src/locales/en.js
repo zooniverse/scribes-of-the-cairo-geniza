@@ -60,7 +60,8 @@ export default {
     openKeyboard: 'Open Keyboard',
     closeKeyboard: 'Close Keyboard',
     cancel: 'Cancel',
-    done: 'Done'
+    done: 'Done',
+    showModern: 'Show Modern Characters'
   },
   collection: {
     title: 'Add to Collection',
@@ -343,5 +344,11 @@ export default {
   },
   home: {
     institutions: 'Institutional Partners'
+  },
+  closeAnnotation: {
+    title: 'Close Annotation',
+    question: 'Are you sure you want to close without saving?',
+    confirm: 'Yes, close without saving',
+    deny: 'No, continue transcribing'
   }
 };
