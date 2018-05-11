@@ -76,7 +76,6 @@ const prepareForNewWorkflow = () => {
   return (dispatch) => {
     dispatch(resetSubject());
     dispatch(resetAnnotations());
-    // dispatch(fetchSubject());  //Don't fetch Subject immediately. use dispatch(prepareForNewWorkflow()).then(()=>{ return dispatch(fetchSubject()) })
     dispatch(fetchTutorial());
   };
 };

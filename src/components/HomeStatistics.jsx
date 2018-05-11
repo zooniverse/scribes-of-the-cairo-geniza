@@ -17,23 +17,19 @@ class HomeStatistics extends React.Component {
   }
 
   render() {
-    const project = this.props.project;
-    const workflows = this.props.allWorkflows;
-    if (!project) return null;
+    const { project, allWorkflows } = this.props;
+    if (!project || !allWorkflows) return null;
     let classificationsCount = 0;
+    let percentComplete = 0;
     let retiredSubjects = 0;
     let subjectsCount = 0;
-    let percentComplete = 0;
 
-    Object.keys(workflows).map((id) => {
-      if (workflows[id] && workflows[id].classifications_count) {
-        classificationsCount += workflows[id].classifications_count;
-      }
-      if (workflows[id] && workflows[id].retired_set_member_subjects_count) {
-        retiredSubjects += workflows[id].retired_set_member_subjects_count;
-      }
-      if (workflows[id] && workflows[id].subjects_count) {
-        subjectsCount += workflows[id].subjects_count;
+    Object.keys(allWorkflows).map((id) => {
+      const workflow = allWorkflows[id];
+      if (workflow) {
+        classificationsCount += workflow.classifications_count;
+        retiredSubjects += workflow.retired_set_member_subjects_count;
+        subjectsCount += workflow.subjects_count;
       }
     });
 
@@ -63,12 +59,12 @@ class HomeStatistics extends React.Component {
                 <hr className="plum-line" />
               </div>
               <div>
-                <span>{classificationsCount.toLocaleString()}</span>
+                <span>{classificationsCount.toLocaleString() || 0}</span>
                 <span>Classifications</span>
                 <hr className="plum-line" />
               </div>
               <div>
-                <span>{retiredSubjects.toLocaleString()}</span>
+                <span>{retiredSubjects.toLocaleString() || 0}</span>
                 <span>Completed Subjects</span>
                 <hr className="plum-line" />
               </div>
