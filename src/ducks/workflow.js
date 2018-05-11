@@ -13,6 +13,7 @@ const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
 const FETCH_WORKFLOW_ERROR = 'FETCH_WORKFLOW_ERROR';
 const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
 const CLEAR_WORKFLOW = 'CLEAR_WORKFLOW';
+const FETCH_ALL_WORKFLOWS = 'FETCH_ALL_WORKFLOWS';
 
 const WORKFLOW_STATUS = {
   IDLE: 'workflow_status_idle',
@@ -23,6 +24,7 @@ const WORKFLOW_STATUS = {
 
 // Reducer
 const initialState = {
+  allWorkflows: {},
   data: null,
   id: null,
   manuscriptLanguage: LANGUAGES.HEBREW,
@@ -57,6 +59,11 @@ const workflowReducer = (state = initialState, action) => {
 
     case CLEAR_WORKFLOW:
       return initialState;
+
+    case FETCH_ALL_WORKFLOWS:
+      return Object.assign({}, state, {
+        allWorkflows: action.allWorkflows
+      });
 
     default:
       return state;
@@ -111,9 +118,40 @@ const toggleSelection = (show) => {
   };
 };
 
+
 const clearWorkflow = () => {
   return (dispatch) => {
     dispatch({ type: CLEAR_WORKFLOW });
+  };
+};
+
+const fetchPhaseTwoWorkflows = () => {
+  return (dispatch) => {
+    const c = config;
+    const allWorkflows = {
+      [c.easyHebrew]: null,
+      [c.challengingHebrew]: null,
+      [c.easyArabic]: null,
+      [c.challengingArabic]: null
+    };
+    const calls = [];
+
+    Object.keys(allWorkflows).map(id =>
+      calls.push(
+        apiClient.type('workflows').get(id)
+          .then((workflow) => {
+            if (workflow) {
+              allWorkflows[id] = workflow;
+            }
+          }))
+    );
+
+    Promise.all(calls).then(() => {
+      dispatch({
+        type: FETCH_ALL_WORKFLOWS,
+        allWorkflows
+      });
+    });
   };
 };
 
@@ -121,6 +159,7 @@ export default workflowReducer;
 
 export {
   clearWorkflow,
+  fetchPhaseTwoWorkflows,
   fetchWorkflow,
   toggleSelection,
   WORKFLOW_STATUS
