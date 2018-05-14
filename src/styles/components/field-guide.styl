@@ -36,6 +36,7 @@
 
 .active-card
   margin: 4rem 0.5rem
+  overflow: auto
 
   i
     margin: 0 0.5rem
@@ -50,6 +51,9 @@
   &__content
     display: flex
     padding: 0 1em
+    width: 100%
+    max-height: 21rem  //HACK: height to fit known size of .active-card. 
+    overflow: auto  //With known height, fixes issue where incredibly large Field Guide content exceeds the bounds of the .active-card element
 
     div
       h2

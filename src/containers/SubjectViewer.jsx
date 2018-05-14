@@ -318,6 +318,8 @@ class SubjectViewer extends React.Component {
               imageSize={this.props.imageSize}
               annotationInProgress={this.props.annotationInProgress}
               annotations={this.props.annotations}
+              selectedAnnotation={this.props.selectedAnnotation}
+              showMarks={this.props.showMarks}
               frame={this.props.frame}
               getPointerXY={this.getPointerXYOnImage}
               onSelectAnnotation={this.onSelectAnnotation}
@@ -399,6 +401,7 @@ SubjectViewer.propTypes = {
     details: PropTypes.array
   }),
   showKeyboard: PropTypes.bool,
+  showMarks: PropTypes.bool,
   subjectStatus: PropTypes.string,
   viewerSize: PropTypes.shape({
     width: PropTypes.number,
@@ -421,6 +424,7 @@ SubjectViewer.defaultProps = {
   scaling: 1,
   selectedAnnotation: null,
   showKeyboard: true,
+  showMarks: true,
   subjectStatus: '',
   translationX: 0,
   translationY: 0,
@@ -446,6 +450,7 @@ const mapStateToProps = (state) => {
     scaling: sv.scaling,
     selectedAnnotation: state.annotations.selectedAnnotation,
     showKeyboard: state.keyboard.showKeyboard,
+    showMarks: state.subjectViewer.showMarks,
     subjectStatus: state.subject.status,
     translationX: sv.translationX,
     translationY: sv.translationY,

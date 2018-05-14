@@ -14,21 +14,23 @@ const initialState = {
   imageSize: { width: 0, height: 0 },
   rotation: 0,
   scaling: 1,
+  showMarks: true,
   translationX: 0,
   translationY: 0,
   viewerSize: { width: 0, height: 0 },
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
 };
 
+const CHANGE_FRAME = 'CHANGE_FRAME';
 const RESET_VIEW = 'RESET_VIEW';
 const SET_ROTATION = 'SET_ROTATION';
 const SET_SCALING = 'SET_SCALING';
 const SET_TRANSLATION = 'SET_TRANSLATION';
-const TOGGLE_CONTRAST = 'TOGGLE_CONTRAST';
 const SET_VIEWER_STATE = 'SET_VIEWER_STATE';
+const TOGGLE_CONTRAST = 'TOGGLE_CONTRAST';
+const TOGGLE_MARKS = 'TOGGLE_MARKS';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
 const UPDATE_VIEWER_SIZE = 'UPDATE_VIEWER_SIZE';
-const CHANGE_FRAME = 'CHANGE_FRAME';
 
 const subjectViewerReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -57,6 +59,12 @@ const subjectViewerReducer = (state = initialState, action) => {
     case TOGGLE_CONTRAST: {
       return Object.assign({}, state, {
         contrast: !state.contrast
+      });
+    }
+
+    case TOGGLE_MARKS: {
+      return Object.assign({}, state, {
+        showMarks: !state.showMarks
       });
     }
 
@@ -207,7 +215,13 @@ const changeFrame = (frame) => {
       type: CHANGE_FRAME,
       frame
     });
-  }
+  };
+};
+
+const toggleMarks = () => {
+  return (dispatch) => {
+    dispatch({ type: TOGGLE_MARKS });
+  };
 };
 
 export default subjectViewerReducer;
@@ -218,8 +232,9 @@ export {
   setRotation,
   setScaling,
   setTranslation,
-  toggleContrast,
   setViewerState,
+  toggleContrast,
+  toggleMarks,
   updateImageSize,
   updateViewerSize,
   SUBJECTVIEWER_STATE

@@ -15,6 +15,8 @@ export default {
       إخفاء مساعدة للكلمة
       الرئيسية
     `,
+    showingMarks: 'Showing Previous Marks',
+    hidingMarks: 'Hiding Previous Marks',
     resetImage: 'إعادة تعيين الصورة',
     addFavorites: 'إضافة إلى المفضلة',
     addCollection: 'إضافة إلى مجموعة'

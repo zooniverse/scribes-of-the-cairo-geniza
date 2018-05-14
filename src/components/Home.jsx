@@ -97,7 +97,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
                 href={`${classifyPath}${c.hebrewKeyword}`}
                 target="_blank"
               >
-                {translate('keywordsHebrew.button')} <i className="fa fa-external-link" />
+                {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
               </a>
             </div>
             <span className="home-page__exercises">{translate('classifyFragments.title')}</span>
@@ -107,7 +107,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
                 href={`${classifyPath}${c.phaseOne}`}
                 target="_blank"
               >
-                {translate('classifyFragments.button')} <i className="fa fa-external-link" />
+                {translate('classifyFragments.button')} <i className="fa fa-external-link-alt" />
               </a>
             </div>
           </div>
@@ -144,7 +144,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
                 href={`${classifyPath}${c.arabicKeyword}`}
                 target="_blank"
               >
-                {translate('keywordsArabic.button')} <i className="fa fa-external-link" />
+                {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
               </a>
             </div>
           </div>

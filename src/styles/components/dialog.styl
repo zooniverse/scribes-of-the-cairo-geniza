@@ -2,14 +2,14 @@
   z-index: 100
 
 .dialog
+  @extend .div-shadow
   align-items: stretch
   background-color: $bisque
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.29)
   display: flex
   flex-direction: column
   justify-content: center
   height: 100%
-  overflow: hidden
+  overflow: visible
 
   .drag-bar
     background-color: $sand
@@ -29,7 +29,7 @@
   .dialog-content
     min-height: 100%
     flex: 0 1 auto
-    overflow: auto
+    overflow: visible
 
     &__header
       background: $bisque  //Prevent scrolling content from appearing behind the header. TODO: Perhaps a better solution is to not make this position:absolute.

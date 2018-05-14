@@ -9,6 +9,8 @@ export default {
     invertColors: 'Invert Colors',
     showHints: 'Show Keyword Hints',
     hideHints: 'Hide Keyword Hints',
+    showingMarks: 'Showing Previous Marks',
+    hidingMarks: 'Hiding Previous Marks',
     resetImage: 'Reset Image',
     addFavorites: 'Add to Favorites',
     addCollection: 'Add to Collection'
@@ -302,7 +304,7 @@ export default {
       (usually better for beginners) or an informal Hebrew script fragment
       (usually recommended for those wanting more of a challenge).
     `,
-    exercises: 'Full Transcription Exercises',
+    exercises: 'Transcribe Text',
     easy: 'Easy Hebrew',
     challenging: 'Challenging Hebrew'
   },
@@ -314,7 +316,7 @@ export default {
       better for beginners) or an informal Arabic script fragment (usually
       recommended for those wanting more of a challenge).
     `,
-    exercises: 'Full Transcription Exercises',
+    exercises: 'Transcribe Text',
     easy: 'Easy Arabic',
     challenging: 'Challenging Arabic'
   },

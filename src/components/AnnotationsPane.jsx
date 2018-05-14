@@ -36,6 +36,9 @@ class AnnotationsPane extends React.Component {
 
     return this.props.annotations.map((annotation, index) => {
       if (annotation.frame !== this.props.frame) return null;
+      
+      //If Show Previous Marks is disabled, show nothing EXCEPT for the selected annotation.
+      if (!this.props.showMarks && annotation !== this.props.selectedAnnotation) return;
 
       const onSelectAnnotation = this.props.onSelectAnnotation;
       const svgPointPrefix = `ANNOTATION_${index}_POINT_`;
@@ -101,7 +104,11 @@ AnnotationsPane.propTypes = {
     width: PropTypes.number
   }),
   frame: PropTypes.number,
-  onSelectAnnotation: PropTypes.func
+  onSelectAnnotation: PropTypes.func,
+  selectedAnnotation: PropTypes.shape({
+    details: PropTypes.array
+  }),
+  showMarks: PropTypes.bool.isRequired
 };
 
 AnnotationsPane.defaultProps = {
@@ -109,7 +116,9 @@ AnnotationsPane.defaultProps = {
   annotations: [],
   imageSize: {},
   frame: 0,
-  onSelectAnnotation: () => {}
+  onSelectAnnotation: () => {},
+  selectedAnnotation: null,
+  showMarks: true,
 };
 
-export default connect()(AnnotationsPane);
+export default AnnotationsPane;
