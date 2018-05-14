@@ -158,7 +158,6 @@ class ControlPanel extends React.Component {
     if (key) {
       return metadata[key];
     }
-
     return null;
   }
 
@@ -180,18 +179,13 @@ class ControlPanel extends React.Component {
             {name && (
               <div>
                 <span className="primary-label">{this.props.translate('infoBox.name')}</span>
-                <span className="body-font">{name}</span>
+                <span className="body-font control-panel__ellipsis">{name}</span>
               </div>
             )}
             {attribution && (
               <div>
                 <span className="primary-label">{this.props.translate('infoBox.attribution')}</span>
-                <span
-                  className={classnames('body-font ellipsis', {
-                    'ellipsis__left': this.props.rtl,
-                    'ellipsis__right': !this.props.rtl
-                  })}
-                >
+                <span className="body-font">
                   {attribution}
                 </span>
               </div>
