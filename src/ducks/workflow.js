@@ -81,30 +81,41 @@ const prepareForNewWorkflow = () => {
 };
 
 const fetchWorkflow = (workflowId = config.easyHebrew) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: FETCH_WORKFLOW,
       id: workflowId
     });
 
-    return apiClient.type('workflows').get(workflowId)
-      .then((workflow) => {
-        const arabicWorkflows = [config.easyArabic, config.challengingArabic];
-        const manuscriptLanguage = arabicWorkflows.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
+    const allWorkflows = getState().workflow.allWorkflows;
 
+    if (allWorkflows[workflowId]) {
+      return Promise.resolve(
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,
-          data: workflow,
-          manuscriptLanguage
-        });
+          data: allWorkflows[workflowId]
+        }),
+        dispatch(prepareForNewWorkflow())
+      );
+    } else {
+      return apiClient.type('workflows').get(workflowId)
+        .then((workflow) => {
+          const arabicWorkflows = [config.easyArabic, config.challengingArabic];
+          const manuscriptLanguage = arabicWorkflows.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
 
-        // onSuccess(), prepare for a new workflow.
-        dispatch(toggleLanguage(manuscriptLanguage));
-        dispatch(prepareForNewWorkflow());
-      })
-      .catch(() => {
-        dispatch({ type: FETCH_WORKFLOW_ERROR });
-      });
+          dispatch({
+            type: FETCH_WORKFLOW_SUCCESS,
+            data: workflow,
+            manuscriptLanguage
+          });
+          dispatch(toggleLanguage(manuscriptLanguage));
+          dispatch(prepareForNewWorkflow());
+        })
+        .catch(() => {
+          dispatch({ type: FETCH_WORKFLOW_ERROR });
+        });
+    }
+>>>>>>> Adjust Data
   };
 };
 
@@ -126,12 +137,11 @@ const clearWorkflow = () => {
 
 const fetchPhaseTwoWorkflows = () => {
   return (dispatch) => {
-    const c = config;
     const allWorkflows = {
-      [c.easyHebrew]: null,
-      [c.challengingHebrew]: null,
-      [c.easyArabic]: null,
-      [c.challengingArabic]: null
+      [config.easyHebrew]: null,
+      [config.challengingHebrew]: null,
+      [config.easyArabic]: null,
+      [config.challengingArabic]: null
     };
     const calls = [];
 
