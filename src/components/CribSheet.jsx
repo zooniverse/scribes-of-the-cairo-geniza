@@ -52,7 +52,7 @@ class CribSheet extends React.Component {
         {this.props.user && (
           <button className={!reference ? 'active-button' : ''} onClick={this.personalMode}>{this.props.translate('scriptReferences.yourSheet')}</button>
         )}
-        {this.props.keyboardLanguage === LANGUAGES.HEBREW && (
+        {this.props.manuscriptLanguage === LANGUAGES.HEBREW && (
           <button className={reference ? 'active-button' : ''} onClick={this.referenceMode}>{this.props.translate('scriptReferences.title')}</button>
         )}
         <button className="close-button" onClick={this.close}>X</button>
@@ -165,6 +165,7 @@ CribSheet.propTypes = {
   }),
   dispatch: PropTypes.func,
   keyboardLanguage: PropTypes.string,
+  manuscriptLanguage: PropTypes.string,
   preferences: PropTypes.shape({
     preferences: PropTypes.object,
     update: PropTypes.func
@@ -180,6 +181,7 @@ CribSheet.defaultProps = {
   activeCard: null,
   dispatch: () => {},
   keyboardLanguage: LANGUAGES.HEBREW,
+  manuscriptLanguage: LANGUAGES.HEBREW,
   preferences: {},
   referenceMode: true,
   translate: () => {},
@@ -191,6 +193,7 @@ const mapStateToProps = (state) => {
     activeCard: state.cribSheet.activeCard,
     currentLanguage: getActiveLanguage(state.locale).code,
     keyboardLanguage: state.keyboard.activeLanguage,
+    manuscriptLanguage: state.workflow.manuscriptLanguage,
     preferences: state.project.userPreferences,
     referenceMode: state.cribSheet.referenceMode,
     translate: getTranslate(state.locale),
