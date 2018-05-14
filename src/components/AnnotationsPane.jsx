@@ -103,6 +103,9 @@ AnnotationsPane.propTypes = {
   }),
   frame: PropTypes.number,
   onSelectAnnotation: PropTypes.func,
+  selectedAnnotation: PropTypes.shape({
+    details: PropTypes.array
+  }),
   showMarks: PropTypes.bool.isRequired
 };
 
@@ -111,11 +114,9 @@ AnnotationsPane.defaultProps = {
   annotations: [],
   imageSize: {},
   frame: 0,
-  onSelectAnnotation: () => {}
+  onSelectAnnotation: () => {},
+  selectedAnnotation: null,
+  showMarks: true,
 };
 
-const mapStateToProps = state => ({
-  showMarks: state.subjectViewer.showMarks
-});
-
-export default connect(mapStateToProps)(AnnotationsPane);
+export default AnnotationsPane;
