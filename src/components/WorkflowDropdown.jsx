@@ -8,11 +8,9 @@ import { fetchSubject } from '../ducks/subject';
 import { WorkInProgress } from '../ducks/work-in-progress';
 import { config } from '../config';
 
-const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, activeAnnotationExists }) => {
+const WorkflowDropdown = ({ className, dispatch, history, translate, activeAnnotationExists }) => {
   const selectWorkflow = (workflow) => {
-    dispatch(fetchWorkflow(workflow)).then(()=>{
-      return dispatch(fetchSubject());
-    });
+    dispatch(fetchWorkflow(workflow)).then(() => dispatch(fetchSubject()));
     dispatch(toggleSelection(false));
     history.push('/classify');
     window.scrollTo(0, 0);
@@ -29,7 +27,7 @@ const WorkflowDropdown = ({ className, dispatch, history, translate, workflow, a
 
   return (
     <div className={`selection-container ${className}`}>
-      {(!activeAnnotationExists) ? null :(
+      {(!activeAnnotationExists) ? null : (
         <div>
           <button
             className="tertiary-label"
@@ -121,7 +119,7 @@ WorkflowDropdown.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired,
-  translate: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired
 };
 
 WorkflowDropdown.defaultProps = {
@@ -131,7 +129,7 @@ WorkflowDropdown.defaultProps = {
   history: {
     push: () => {}
   },
-  translate: () => {},
+  translate: () => {}
 };
 
 const mapStateToProps = state => {
@@ -139,15 +137,15 @@ const mapStateToProps = state => {
   const userHasWorkInProgress = user && WorkInProgress.check(user);
 
   return {
-    //Does the user currently have a page being actively annotated, (e.g. user
-    //navigated away from the Classifier page and wants to return), or have
-    //saved work in progress? (e.g. user reloaded the website after a crash)
-    //We need to know if the user has any work that can be retrieved (either
-    //from the Redux store of local storage) so we can prompt them to continue.
+    // Does the user currently have a page being actively annotated, (e.g. user
+    // navigated away from the Classifier page and wants to return), or have
+    // saved work in progress? (e.g. user reloaded the website after a crash)
+    // We need to know if the user has any work that can be retrieved (either
+    // from the Redux store of local storage) so we can prompt them to continue.
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
     currentLanguage: getActiveLanguage(state.locale).code,
     translate: getTranslate(state.locale),
-    user: state.login.user,  //Needed, otherwise component won't update when it detects a user login.
+    user: state.login.user // Needed, otherwise component won't update when it detects a user login.
   };
 };
 

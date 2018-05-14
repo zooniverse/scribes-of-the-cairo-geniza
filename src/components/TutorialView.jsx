@@ -12,6 +12,11 @@ if (window.tutorialsCompletedThisSession) {
   window.tutorialsCompletedThisSession = completedThisSession;
 }
 
+const ADVANCE_TEXT = {
+  next: 'Next',
+  go: 'Let\'s Go'
+};
+
 class TutorialView extends React.Component {
   constructor() {
     super();
@@ -19,10 +24,12 @@ class TutorialView extends React.Component {
     this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
     this.closeTutorial = this.closeTutorial.bind(this);
     this.advanceTutorial = this.advanceTutorial.bind(this);
+    this.isFinalStep = this.isFinalStep.bind(this);
 
     this.state = {
       loaded: false,
-      media: {}
+      media: {},
+      nextStep: ADVANCE_TEXT.next
     };
   }
 
@@ -42,7 +49,12 @@ class TutorialView extends React.Component {
     }
   }
 
+  componentDidMount() {
+    document.addEventListener('click', this.isFinalStep);
+  }
+
   componentWillUnmount() {
+    document.removeEventListener('click', this.isFinalStep);
     this.handleUnmount();
   }
 
@@ -54,13 +66,7 @@ class TutorialView extends React.Component {
     const swiper = this.stepThrough && this.stepThrough.swiper;
 
     if (swiper) {
-      const currentStep = (this.stepThrough.state && this.stepThrough.state.step)
-        ? this.stepThrough.state.step + 1 : 0;
-      const maxSteps = (this.stepThrough.props && this.stepThrough.props.children)
-        ? React.Children.count(this.stepThrough.props.children) : 0;
-
-      if (currentStep >= maxSteps) {
-        console.log('here we are');
+      if (this.isFinalStep()) {
         this.closeTutorial();
       } else {
         this.stepThrough.goNext();
@@ -87,6 +93,19 @@ class TutorialView extends React.Component {
       projectPreferences.update(changes);
       projectPreferences.save();
     }
+  }
+
+  isFinalStep() {
+    const currentStep = (this.stepThrough && this.stepThrough.state && this.stepThrough.state.step)
+      ? this.stepThrough.state.step + 1 : 0;
+    const maxSteps = (this.stepThrough && this.stepThrough.props && this.stepThrough.props.children)
+      ? React.Children.count(this.stepThrough.props.children) : 0;
+    if (currentStep >= maxSteps) {
+      this.setState({ nextStep: ADVANCE_TEXT.go });
+    } else if (this.state.nextStep === ADVANCE_TEXT.go) {
+      this.setState({ nextStep: ADVANCE_TEXT.next });
+    }
+    return currentStep >= maxSteps;
   }
 
   render() {
@@ -131,7 +150,7 @@ class TutorialView extends React.Component {
           </StepThrough>
           <div>
             <button className="button" onClick={this.closeTutorial}>Close</button>
-            <button className="button button__dark" onClick={this.advanceTutorial}>Next</button>
+            <button className="button button__dark" onClick={this.advanceTutorial}>{this.state.nextStep}</button>
           </div>
         </div>
       </div>

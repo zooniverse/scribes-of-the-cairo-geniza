@@ -53,6 +53,7 @@ class FinishedPrompt extends React.Component {
   }
 
   render() {
+    const disableSubmit = this.props.selectedAnnotation;
     const translate = this.props.translate;
     const answersMatchQuestions = this.answersMatchQuestions();
     const tasks = (this.props.workflow.tasks)
@@ -105,12 +106,25 @@ class FinishedPrompt extends React.Component {
             </div>
           );
         })}
+
+        {disableSubmit && (
+          <div className="finished-prompt__disable-submit">
+            <span>You cannot submit a classification with an annotation in progress.</span>
+          </div>
+        )}
+
         <div className="finished-prompt__buttons">
           <button className="button" onClick={this.onCancel}>{translate('finished.cancel')}</button>
-          <button className="button" disabled={!answersMatchQuestions} onClick={this.onDone}>{translate('finished.done')}</button>
+          <button
+            className="button"
+            disabled={!answersMatchQuestions || disableSubmit}
+            onClick={this.onDone}
+          >
+            {translate('finished.done')}
+          </button>
           <button
             className="button button__dark"
-            disabled={!answersMatchQuestions}
+            disabled={!answersMatchQuestions || disableSubmit}
             onClick={this.onDoneAndTalk}
           >
             {translate('finished.doneAndTalk')}
@@ -134,6 +148,7 @@ FinishedPrompt.propTypes = {
     id: PropTypes.string
   }),
   dispatch: PropTypes.func,
+  selectedAnnotation: PropTypes.object,
   subjectCompletionAnswers: PropTypes.object,
   translate: PropTypes.func,
   workflow: PropTypes.shape({
@@ -144,6 +159,7 @@ FinishedPrompt.propTypes = {
 FinishedPrompt.defaultProps = {
   currentSubject: null,
   dispatch: () => {},
+  selectedAnnotation: null,
   subjectCompletionAnswers: null,
   translate: () => {},
   workflow: null
@@ -152,6 +168,7 @@ FinishedPrompt.defaultProps = {
 const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
   currentSubject: state.subject.currentSubject,
+  selectedAnnotation: state.annotations.selectedAnnotation,
   subjectCompletionAnswers: state.classification.subjectCompletionAnswers,
   translate: getTranslate(state.locale),
   workflow: state.workflow.data

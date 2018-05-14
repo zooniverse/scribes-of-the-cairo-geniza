@@ -1,7 +1,10 @@
 const DEFAULT_SIZE = { height: 450, width: 600 };
 
 const initialState = {
+  annotationPane: null,
+  annotationPaneSize: DEFAULT_SIZE,
   data: null,
+  focus: null,
   isPrompt: false,
   popup: null,
   size: DEFAULT_SIZE,
@@ -11,6 +14,8 @@ const initialState = {
 
 const SET_DIALOG = 'SET_DIALOG';
 const SET_POPUP = 'SET_POPUP';
+const SET_ANNOTATION_PANE = 'SET_ANNOTATION_PANE';
+const SET_FOCUS = 'SET_FOCUS';
 
 const dialogReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -25,6 +30,17 @@ const dialogReducer = (state = initialState, action) => {
     case SET_POPUP:
       return Object.assign({}, state, {
         popup: action.popup
+      });
+
+    case SET_ANNOTATION_PANE:
+      return Object.assign({}, state, {
+        annotationPane: action.dialog,
+        annotationPaneSize: action.annotationPaneSize
+      });
+
+    case SET_FOCUS:
+      return Object.assign({}, state, {
+        focus: action.component
       });
 
     default:
@@ -53,9 +69,30 @@ const togglePopup = (popup) => {
   };
 };
 
+const toggleAnnotation = (dialog, annotationPaneSize = DEFAULT_SIZE) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_ANNOTATION_PANE,
+      dialog,
+      annotationPaneSize
+    });
+  };
+};
+
+const toggleFocus = (component) => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_FOCUS,
+      component
+    });
+  };
+};
+
 export default dialogReducer;
 
 export {
+  toggleFocus,
+  toggleAnnotation,
   toggleDialog,
   togglePopup
 };

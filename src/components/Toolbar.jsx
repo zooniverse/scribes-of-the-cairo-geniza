@@ -101,8 +101,8 @@ class Toolbar extends React.Component {
 
   showCollections() {
     const PANE_SIZE = { height: 300, width: 500 };
-    this.props.dispatch(
-      toggleDialog(<CollectionsContainer closePopup={this.closeDialog} />, this.props.translate('collection.title'), PANE_SIZE));
+    this.props.dispatch(toggleDialog(
+      <CollectionsContainer closePopup={this.closeDialog} />, this.props.translate('collection.title'), PANE_SIZE, 'Collections'));
   }
 
   closeDialog() {

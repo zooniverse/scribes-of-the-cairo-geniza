@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import classnames from 'classnames';
 
-import { toggleDialog, togglePopup } from '../ducks/dialog';
+import { toggleAnnotation, togglePopup } from '../ducks/dialog';
 import {
   pressedKey, setKeyboard,
   toggleLanguage, toggleKeyboard,
@@ -133,7 +133,7 @@ class SelectedAnnotation extends React.Component {
   }
 
   toggleKeyboardView() {
-    const dimensions = { height: 250, width: 760 };
+    const dimensions = { height: 275, width: 760 };
     if (!this.props.showKeyboard) {
       dimensions.height = 600;
     }
@@ -143,7 +143,7 @@ class SelectedAnnotation extends React.Component {
 
   deleteAnnotation() {
     this.props.dispatch(deleteSelectedAnnotation());
-    this.props.dispatch(toggleDialog(null));
+    this.props.dispatch(toggleAnnotation(null));
     this.props.dispatch(togglePopup(null));
   }
 
@@ -152,7 +152,7 @@ class SelectedAnnotation extends React.Component {
       ? this.inputText.value.trim() : '';
     if (text !== '') {
       this.props.dispatch(updateText(text));
-      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(toggleAnnotation(null));
       this.props.dispatch(unselectAnnotation());
     } else {
       this.deletePrompt(true);
@@ -168,7 +168,7 @@ class SelectedAnnotation extends React.Component {
       this.deleteAnnotation();
     } else {
       this.props.dispatch(unselectAnnotation());
-      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(toggleAnnotation(null));
     }
   }
 
@@ -195,7 +195,7 @@ class SelectedAnnotation extends React.Component {
       this.deletePrompt(true);
     } else {
       this.props.dispatch(unselectAnnotation());
-      this.props.dispatch(toggleDialog(null));
+      this.props.dispatch(toggleAnnotation(null));
       this.props.dispatch(togglePopup(null));
     }
   }
@@ -387,28 +387,39 @@ class SelectedAnnotation extends React.Component {
             </div>
             <div>
               <button className="text-link" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
-              {/* These buttons will always be visible as some manuscripts have both Arabic and Hebrew */}
-              <button
-                className={classnames('lang-btn', {
-                  'active-btn': this.props.keyboardLocale === 'ar'
-                })}
-                onClick={this.changeLanguage.bind(this, 'Arabic')}
-              >
-                Arabic
-              </button>
-              <button
-                className={classnames('lang-btn', {
-                  'active-btn': this.props.keyboardLocale === 'he'
-                })}
-                onClick={this.changeLanguage.bind(this, 'Hebrew')}
-              >
-                Hebrew
-              </button>
+
+              {/* These buttons will be visible in Hebrew workflows as some manuscripts have both Arabic and Hebrew */}
+              {this.props.manuscriptLanguage === LANGUAGES.HEBREW && (
+                <div>
+                  <button
+                    className={classnames('lang-btn', {
+                      'active-btn': this.props.keyboardLocale === 'ar'
+                    })}
+                    onClick={this.changeLanguage.bind(this, 'Arabic')}
+                  >
+                    Arabic
+                  </button>
+                  <button
+                    className={classnames('lang-btn', {
+                      'active-btn': this.props.keyboardLocale === 'he'
+                    })}
+                    onClick={this.changeLanguage.bind(this, 'Hebrew')}
+                  >
+                    Hebrew
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <div>
             <button className="button" onClick={this.deletePrompt}>{translate('cribSheet.delete')}</button>
-            <button className="button button__dark" disabled={this.state.disableSubmit} onClick={this.saveText}>{translate('transcribeBox.done')}</button>
+            <button
+              className="button button__dark"
+              disabled={this.state.disableSubmit}
+              onClick={this.saveText}
+            >
+              {translate('transcribeBox.done')}
+            </button>
           </div>
         </div>
         {this.props.showKeyboard && (
@@ -464,6 +475,7 @@ SelectedAnnotation.propTypes = {
   rtl: PropTypes.bool,
   keyboardLanguage: PropTypes.string,
   keyboardLocale: PropTypes.string,
+  manuscriptLanguage: PropTypes.string,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
@@ -482,6 +494,7 @@ SelectedAnnotation.defaultProps = {
   rtl: false,
   keyboardLanguage: LANGUAGES.HEBREW,
   keyboardLocale: 'he',
+  manuscriptLanguage: LANGUAGES.HEBREW,
   selectedAnnotation: null,
   showKeyboard: true,
   showModernKeyboard: true,
@@ -497,6 +510,7 @@ const mapStateToProps = state => ({
   rtl: state.languages.rtl,
   keyboardLanguage: state.keyboard.activeLanguage,
   keyboardLocale: state.keyboard.locale,
+  manuscriptLanguage: state.workflow.manuscriptLanguage,
   showKeyboard: state.keyboard.showKeyboard,
   showMarks: state.subjectViewer.showMarks,
   showModernKeyboard: state.keyboard.modern,

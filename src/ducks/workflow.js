@@ -1,9 +1,11 @@
 import apiClient from 'panoptes-client/lib/api-client';
 import { config } from '../config';
 
-import { fetchSubject, resetSubject } from './subject';
+import { LANGUAGES } from './languages';
+import { resetSubject } from './subject';
 import { resetAnnotations } from './annotations';
 import { fetchTutorial } from './tutorial';
+import { toggleLanguage } from './keyboard';
 
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
@@ -22,6 +24,7 @@ const WORKFLOW_STATUS = {
 const initialState = {
   data: null,
   id: null,
+  manuscriptLanguage: LANGUAGES.HEBREW,
   showSelection: false,
   status: WORKFLOW_STATUS.IDLE
 };
@@ -37,7 +40,8 @@ const workflowReducer = (state = initialState, action) => {
     case FETCH_WORKFLOW_SUCCESS:
       return Object.assign({}, state, {
         status: WORKFLOW_STATUS.READY,
-        data: action.data
+        data: action.data,
+        manuscriptLanguage: action.manuscriptLanguage
       });
 
     case FETCH_WORKFLOW_ERROR:
@@ -61,7 +65,7 @@ const prepareForNewWorkflow = () => {
   return (dispatch) => {
     dispatch(resetSubject());
     dispatch(resetAnnotations());
-    //dispatch(fetchSubject());  //Don't fetch Subject immediately. use dispatch(prepareForNewWorkflow()).then(()=>{ return dispatch(fetchSubject()) })
+    // dispatch(fetchSubject());  //Don't fetch Subject immediately. use dispatch(prepareForNewWorkflow()).then(()=>{ return dispatch(fetchSubject()) })
     dispatch(fetchTutorial());
   };
 };
@@ -75,12 +79,17 @@ const fetchWorkflow = (workflowId = config.easyHebrew) => {
 
     return apiClient.type('workflows').get(workflowId)
       .then((workflow) => {
+        const arabicWorkflows = [config.easyArabic, config.challengingArabic];
+        const manuscriptLanguage = arabicWorkflows.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
+
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,
-          data: workflow
+          data: workflow,
+          manuscriptLanguage
         });
 
         // onSuccess(), prepare for a new workflow.
+        dispatch(toggleLanguage(manuscriptLanguage));
         dispatch(prepareForNewWorkflow());
       })
       .catch(() => {
