@@ -173,10 +173,10 @@ class SelectedAnnotation extends React.Component {
   }
 
   closePopups(e) {
-    if ((this.dropdown && this.dropdown.contains(e.target)) || this.scriptToggle.contains(e.target)) {
+    if ((this.dropdown && this.dropdown.contains(e.target)) || (this.scriptToggle && this.scriptToggle.contains(e.target))) {
       return;
     }
-    if ((this.helpBox && this.helpBox.contains(e.target)) || this.questionMark.contains(e.target)) {
+    if ((this.helpBox && this.helpBox.contains(e.target)) || (this.questionMark && this.questionMark.contains(e.target))) {
       return;
     }
     if (this.state.showHelp || this.state.showScriptOptions) {
