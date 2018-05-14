@@ -33,7 +33,7 @@ const TextModifierHelp = ({ helpBox, questionMark, togglePopup }) => {
 };
 
 TextModifierHelp.propTypes = {
-  helpBox: PropTypes.object.isRequired,
+  //helpBox: PropTypes.object.isRequired,  //WARNING: helpBox is a reference to a component, but it's not actually an object. We'll remove this until we can figure out what's wrong here.
   questionMark: PropTypes.shape({
     innerHeight: PropTypes.number
   }).isRequired,
