@@ -145,7 +145,7 @@ const fetchPhaseTwoWorkflows = () => {
     };
     const calls = [];
 
-    Object.keys(allWorkflows).map(id =>
+    Object.keys(allWorkflows).forEach(id =>
       calls.push(
         apiClient.type('workflows').get(id)
           .then((workflow) => {
