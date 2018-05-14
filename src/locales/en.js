@@ -9,6 +9,8 @@ export default {
     invertColors: 'Invert Colors',
     showHints: 'Show Keyword Hints',
     hideHints: 'Hide Keyword Hints',
+    showingMarks: 'Showing Previous Marks',
+    hidingMarks: 'Hiding Previous Marks',
     resetImage: 'Reset Image',
     addFavorites: 'Add to Favorites',
     addCollection: 'Add to Collection'

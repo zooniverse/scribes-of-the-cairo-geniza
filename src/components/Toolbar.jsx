@@ -8,6 +8,7 @@ import CollectionsContainer from '../containers/CollectionsContainer';
 import { toggleDialog } from '../ducks/dialog';
 import { toggleFavorite } from '../ducks/subject';
 import { toggleHints } from '../ducks/aggregations';
+import { toggleMarks } from '../ducks/subject-viewer';
 import FavoritesButton from './FavoritesButton';
 
 import { setScaling, resetView,
@@ -37,6 +38,7 @@ class Toolbar extends React.Component {
     this.showCollections = this.showCollections.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.toggleShowHints = this.toggleShowHints.bind(this);
+    this.toggleShowMarks = this.toggleShowMarks.bind(this);
 
     this.state = {
       showPanel: true
@@ -82,6 +84,10 @@ class Toolbar extends React.Component {
   toggleShowHints() {
     this.props.dispatch(toggleHints());
   }
+  
+  toggleShowMarks() {
+    this.props.dispatch(toggleMarks());
+  }
 
   toggleIcon() {
     return (
@@ -115,6 +121,10 @@ class Toolbar extends React.Component {
     const hintsIcon = this.props.showHints ? 'far fa-eye-slash' : 'far fa-eye';
     const hintsText = this.props.showHints ? this.props.translate('toolbar.showHints')
       : this.props.translate('toolbar.hideHints');
+    const marksIcon = this.props.showMarks ? 'fas fa-comment-dots' : 'fas fa-comment-slash';
+    const marksText = this.props.showMarks ? this.props.translate('toolbar.showingMarks')
+      : this.props.translate('toolbar.hidingMarks');
+    
 
     return (
       <section className={toolbarClass}>
@@ -155,6 +165,12 @@ class Toolbar extends React.Component {
           <i className="fa fa-adjust" />
           {expanded && (<span>{this.props.translate('toolbar.invertColors')}</span>)}
         </button>
+        
+        <button onClick={this.toggleShowMarks}>
+          <i className={marksIcon} />
+          {expanded && (<span>{marksText}</span>)}
+        </button>
+        
         {this.props.aggregations && Object.keys(this.props.aggregations).length ? (
           <button onClick={this.toggleShowHints}>
             <i className={hintsIcon} />
@@ -197,6 +213,7 @@ Toolbar.propTypes = {
   rtl: PropTypes.bool,
   scaling: PropTypes.number,
   showHints: PropTypes.bool,
+  showMarks: PropTypes.bool,
   translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -212,6 +229,7 @@ Toolbar.defaultProps = {
   rtl: false,
   scaling: 0,
   showHints: true,
+  showMarks: true,
   translate: () => {},
   user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
@@ -228,6 +246,7 @@ const mapStateToProps = (state) => {
     rtl: state.languages.rtl,
     scaling: sv.scaling,
     showHints: state.aggregations.showHints,
+    showMarks: sv.showMarks,
     translate: getTranslate(state.locale),
     user: state.login.user,
     viewerState: sv.viewerState

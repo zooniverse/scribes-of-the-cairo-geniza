@@ -9,6 +9,8 @@ export default {
     invertColors: 'נגטיב',
     showHints: 'הצג מילות מפתח',
     hideHints: 'הסתר מילות מפתח',
+    showingMarks: 'Showing Previous Marks',
+    hidingMarks: 'Hiding Previous Marks',
     resetImage: 'אפס תמונה',
     addFavorites: 'הוסף למועדפים',
     addCollection: 'הוסף לאוסף'
