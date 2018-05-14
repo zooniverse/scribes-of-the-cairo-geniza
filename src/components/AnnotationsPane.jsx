@@ -37,9 +37,6 @@ class AnnotationsPane extends React.Component {
     return this.props.annotations.map((annotation, index) => {
       if (annotation.frame !== this.props.frame) return null;
       
-      console.log('+++ ', index, annotation === this.props.selectedAnnotation);
-
-      
       //If Show Previous Marks is disabled, show nothing EXCEPT for the selected annotation.
       if (!this.props.showMarks && annotation !== this.props.selectedAnnotation) return;
 
