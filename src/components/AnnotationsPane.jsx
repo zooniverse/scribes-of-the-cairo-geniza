@@ -31,12 +31,17 @@ class AnnotationsPane extends React.Component {
 
   renderAnnotations() {
     if (!this.props.annotations.length) return null;
-    if (!this.props.showMarks) return null;
 
     const annotationPrefix = 'ANNOTATION_';
 
     return this.props.annotations.map((annotation, index) => {
       if (annotation.frame !== this.props.frame) return null;
+      
+      console.log('+++ ', index, annotation === this.props.selectedAnnotation);
+
+      
+      //If Show Previous Marks is disabled, show nothing EXCEPT for the selected annotation.
+      if (!this.props.showMarks && annotation !== this.props.selectedAnnotation) return;
 
       const onSelectAnnotation = this.props.onSelectAnnotation;
       const svgPointPrefix = `ANNOTATION_${index}_POINT_`;
