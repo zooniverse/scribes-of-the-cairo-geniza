@@ -92,6 +92,7 @@ const fetchWorkflow = (workflowId = config.easyHebrew) => {
     const allWorkflows = getState().workflow.allWorkflows;
 
     if (allWorkflows[workflowId]) {
+      console.log('here');
       const manuscriptLanguage = ARABIC_WORKFLOWS.indexOf(workflowId) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
 
       return Promise.resolve(
@@ -100,10 +101,11 @@ const fetchWorkflow = (workflowId = config.easyHebrew) => {
           data: allWorkflows[workflowId],
           manuscriptLanguage
         }),
-        dispatch(toggleLanguage(manuscriptLanguage));
+        dispatch(toggleLanguage(manuscriptLanguage)),
         dispatch(prepareForNewWorkflow())
       );
     } else {
+      console.log('there');
       return apiClient.type('workflows').get(workflowId)
         .then((workflow) => {
           const manuscriptLanguage = ARABIC_WORKFLOWS.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
