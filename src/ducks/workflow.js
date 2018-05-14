@@ -22,6 +22,8 @@ const WORKFLOW_STATUS = {
   ERROR: 'workflow_status_error'
 };
 
+const ARABIC_WORKFLOWS = [config.easyArabic, config.challengingArabic];
+
 // Reducer
 const initialState = {
   allWorkflows: {},
@@ -90,18 +92,21 @@ const fetchWorkflow = (workflowId = config.easyHebrew) => {
     const allWorkflows = getState().workflow.allWorkflows;
 
     if (allWorkflows[workflowId]) {
+      const manuscriptLanguage = ARABIC_WORKFLOWS.indexOf(workflowId) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
+
       return Promise.resolve(
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,
-          data: allWorkflows[workflowId]
+          data: allWorkflows[workflowId],
+          manuscriptLanguage
         }),
+        dispatch(toggleLanguage(manuscriptLanguage));
         dispatch(prepareForNewWorkflow())
       );
     } else {
       return apiClient.type('workflows').get(workflowId)
         .then((workflow) => {
-          const arabicWorkflows = [config.easyArabic, config.challengingArabic];
-          const manuscriptLanguage = arabicWorkflows.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
+          const manuscriptLanguage = ARABIC_WORKFLOWS.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
 
           dispatch({
             type: FETCH_WORKFLOW_SUCCESS,
@@ -115,7 +120,6 @@ const fetchWorkflow = (workflowId = config.easyHebrew) => {
           dispatch({ type: FETCH_WORKFLOW_ERROR });
         });
     }
->>>>>>> Adjust Data
   };
 };
 
