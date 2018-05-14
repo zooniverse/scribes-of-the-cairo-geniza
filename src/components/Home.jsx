@@ -17,6 +17,7 @@ import ImgPrinceton from '../images/partners/princeton.png';
 
 import Library from '../images/schechter-geniza.png';
 import Scroll from '../images/hebrew-fragment.png';
+import FlippedScroll from '../images/hebrew-fragment-flipped.png';
 import Arabic from '../images/arabic-big.png';
 import HomeStatistics from './HomeStatistics';
 import FlippedImg from './styled/FlippedImg';
@@ -40,11 +41,12 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
 
   const c = config;
   const classifyPath = `${c.host}projects/${c.projectSlug}/classify?workflow=`;
+  const ScrollOrientation = rtl ? FlippedScroll : Scroll;
 
   return (
     <section className="home-page">
       <div className="home-page__introduction">
-        <FlippedImg alt="Hebrew Scroll" rtl={rtl} src={Scroll} />
+        <FlippedImg alt="Hebrew Scroll" rtl={rtl} src={ScrollOrientation} />
         <img alt="Arabic Text" src={Arabic} />
         <div>
           <ZooniverseLogotype width="100px" />
