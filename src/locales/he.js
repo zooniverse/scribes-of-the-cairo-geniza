@@ -56,7 +56,6 @@ export default {
   },
   transcribeBox: {
     title: 'תעתוק',
-    hebrew: 'עברית',
     instructions: 'הקלד את הטקסט שלפניך.',
     instructions2: 'ניתן להיעזר בדוגמאות סוגי כתב לשם זיהוי האותיות.',
     textArea: 'הקלד טקסט כאן',
