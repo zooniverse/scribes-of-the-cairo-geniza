@@ -343,7 +343,7 @@ const MODERN_ARABIC = {
     }
   },
   alefLam: {
-    character: '\u0644',
+    character: '\u0644\u0627',
     characterID: 31,
     name: 'alefLam',
     row: 2,

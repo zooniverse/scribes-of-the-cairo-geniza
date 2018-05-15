@@ -126,7 +126,9 @@ class SelectedAnnotation extends React.Component {
 
     this.inputText.value = startText + character + endText;
     this.inputText.focus();
-    this.inputText.setSelectionRange(startIndex + 1, startIndex + 1);
+
+    const advance = letter.name === 'alefLam' ? 2 : 1;
+    this.inputText.setSelectionRange(startIndex + advance, startIndex + advance);
 
     const disableSubmit = !this.inputText.value.length;
     this.setState({ disableSubmit });
