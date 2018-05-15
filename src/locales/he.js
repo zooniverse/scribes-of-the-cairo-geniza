@@ -38,24 +38,25 @@ export default {
     header: 'Resume Work In Progress?',
     message: 'We detected that you have some work in progress saved. You can continue your saved work, or start with a new page.',
     startNewWork: 'New Page',
-    resumeWorkInProgress: 'Resume Work',
+    resumeWorkInProgress: 'Resume Work'
   },
   general: {
-    hebrew: 'Hebrew',
-    arabic: 'Arabic',
-    comingSoon: 'Coming Soon!',
+    hebrew: 'עברית',
+    arabic: 'ערבית',
+    comingSoon: 'Coming Soon!'
   },
   workflowSelection: {
     phaseOne: 'Phase One: Classify Fragments',
     phaseTwo: 'Phase Two: Full Text Transcription',
     keywordSearch: 'Keyword Search',
-    continue: 'Continue work in progress',
+    continue: 'Continue work in progress'
   },
   tutorial: {
     title: 'הדרכה'
   },
   transcribeBox: {
     title: 'תעתוק',
+    hebrew: 'עברית',
     instructions: 'הקלד את הטקסט שלפניך.',
     instructions2: 'ניתן להיעזר בדוגמאות סוגי כתב לשם זיהוי האותיות.',
     textArea: 'הקלד טקסט כאן',

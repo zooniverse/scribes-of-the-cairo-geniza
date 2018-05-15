@@ -342,7 +342,12 @@ class SelectedAnnotation extends React.Component {
           <button className="close-button" onClick={this.closePrompt}>X</button>
         </div>
         <div className="selected-annotation__instructions">
-          <span>{translate('transcribeBox.instructions')}</span>
+          <span>
+            {this.props.currentLanguage === 'en' && (
+              `The ${this.props.manuscriptLanguage} `
+            )}
+            {translate('transcribeBox.instructions')}
+          </span>
           <span>{translate('transcribeBox.instructions2')}</span>
         </div>
         <input
@@ -472,6 +477,7 @@ SelectedAnnotation.propTypes = {
     name: PropTypes.string,
     type: PropTypes.string
   }),
+  currentLanguage: PropTypes.string.isRequired,
   dispatch: PropTypes.func,
   keyboardIndex: PropTypes.number,
   rtl: PropTypes.bool,
