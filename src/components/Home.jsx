@@ -9,7 +9,6 @@ import classnames from 'classnames';
 import ImgBodleian from '../images/partners/bodleian.png';
 import ImgCambridge from '../images/partners/cambridge.png';
 import ImgElijah from '../images/partners/Elijah.png';
-import ImgGenizah from '../images/partners/genizah.png';
 import ImgJTS from '../images/partners/jts.png';
 import ImgManchester from '../images/partners/manchester.png';
 import ImgPenn from '../images/partners/penn.png';
@@ -160,7 +159,6 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
           <img alt="Penn" src={ImgPenn} />
           <img alt="The Jewish Theological Seminary" src={ImgJTS} />
           <img alt="Princeton Geniza Project" src={ImgPrinceton} />
-          <img alt="Genizah Research Unit Cambridge University Library" src={ImgGenizah} />
 
           <img alt="Cambridge" src={ImgCambridge} />
           <img alt="Manchester" src={ImgManchester} />

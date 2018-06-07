@@ -169,7 +169,7 @@ const fetchSubject = (subjectId = null) => {
 const resetSubject = () => {
   return (dispatch) => {
     dispatch({ type: RESET_SUBJECT });
-  }
+  };
 };
 
 /*  Resets all the dependencies that rely on the Subject.

@@ -2,13 +2,9 @@ import React from 'react';
 
 import ImgBodleian from '../../images/partners/bodleian.png';
 import ImgCambridge from '../../images/partners/cambridge.png';
-import ImgElijah from '../../images/partners/Elijah.png';
-import ImgGenizah from '../../images/partners/genizah.png';
 import ImgJTS from '../../images/partners/jts.png';
 import ImgManchester from '../../images/partners/manchester.png';
 import ImgPenn from '../../images/partners/penn.png';
-import ImgPrinceton from '../../images/partners/princeton.png';
-import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
 
 function Content() {
   return (
@@ -20,7 +16,7 @@ function Content() {
         <h3>المصدر: جامعة بنسلفانيا (Penn)</h3>
         <p className="text">
           تعود مجموعة مكتبات جامعة بنسلفانيا المتكونة من أكثر من 600 قطعة مخطوطة قروسطية لجنيزا القاهرة إلى مصدرين. يتأتى الجزء الأكبر منها من مكتية جامعة دروبسي (Dropsie College) وهي أول مؤسسة معتمدة في العالم لإسناد شهائد الدكتوراه في العلوم اليهودية. وفقا للسجلات الداخلية للجامعة والقائمة الوصفية لقطع الجنيزا في فيلادلفيا (1924)، تتأتى حيازات دروبسي (Dropsie) من هدايا مقدمة من سايرس أدلر (Cyrus Adler) ودافيد و. أمرام (David W. Amram) وهربرت فريدنفالد (Herbert Friedenwald) وإفرايم لدرر (Ephraim Lederer) وماير سلزبرغر (Mayer Sulzberger) ومن شراء من طرف أرملة كامدن م. كوبرن (Camden M. Cobern) الذي توفي في سنة 1920. صنف هالبر (Halper) القطع ضمن سبعة مجالات  موضوعية هي الكتاب المقدس والمدراش والتلمود والليتورجيا والشعر العلماني والوثائق والرسائل والفلسفة والكابالا ومواد أخرى متنوعة. في سنة 1986 حول دروبسي إلى معهد لبحوث ما بعد الدكتوراه سمي معهد أننبرغ للبحوث (Annenberg Research Institute / ARI) وتم دمجه فيما بعد في جامعة بنسلفانيا سنة 1993. في سبتمبر من سنة 1986 وبعد فترة وجيزة من  إنشاء المعهد تم التبرع بمجموعة صغيرة إضافية لمعهد أننبرغ للبحوث من طرف جاك لونزر (Jack Lunzer) بالنيابة عن مجلس صندوق فالمادونا (Valmadonna). في سنة 1994 وضعت جنيزا دروبسي تحت إدارة مكتبات بنسلفانيا لتنضاف إلى المجموعة الموجودة من جنيزا القاهرة والمحفوظة في مكتبة الكتب النادرة والمخطوطات لمكتبات جامعة بنسلفانيا المعروفة اليوم باسم مركز كسلاك (Kislak) للمجموعات الخاصة والكتب النادرة والمخطوطات.
-          <a href="http://openn.library.upenn.edu/html/genizah_contents.html" target="_blank">http://openn.library.upenn.edu/html/genizah_contents.html</a></p>
+          <a href="http://openn.library.upenn.edu/html/genizah_contents.html" rel="noopener noreferrer" target="_blank">http://openn.library.upenn.edu/html/genizah_contents.html</a></p>
       </div>
 
       <div className="item">
@@ -47,7 +43,7 @@ function Content() {
         <p className="text">
           في الوقت الراهن يوجد على شبكة الإنترنت أكثر من 18,000 مخطوطة بين مجموعات تايلر-ششتر وCUL Or. وجاك موسري علاوة على عدد مهم من وثائق أعمال أدبية وقانونية ونصوص دينية تمثل ثمرة مشروع مشترك مع جامعة بن غريون. سيقع إضافة مخطوطات أخرى بشكل منتظم حتى يتم تحميل كامل مجموعة جينيزا جامعة كامبردج على شبكة الإنترنت.
         </p>
-        <p className="text"><a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a></p>
+        <p className="text"><a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" rel="noopener noreferrer" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a></p>
       </div>
 
       <div className="item">
@@ -57,10 +53,10 @@ function Content() {
         <h3>Manchester</h3>
         <p className="text">
           تحتفظ مكتبة جامعة مانشستر بمجموعة تتكون من حوالي 15،000 قطعة، معظمها مكتوبة باللغتين العبرية والعربية اليهودية من جنيزا كنيس ابن عزرا في القاهرة القديمة وتم شراؤها من ممتلكات  الدكتور موسى غاستر(Moses Gaster) في عام 1954. حوالي %90 من القطع مدونة على ورق، والباقي على رقوق . الغالبية العظمى هي قطع صغيرة جدا تعود إلى الفترة الممتدة بين القرن العاشر والقرن التاسع عشر ميلادي وتشتمل على نصوص دينية وأدبية ومصادر وثائقية ورسائل ومواد متعلقة بالنحو والفلسفة والطب والتنجيم وعلم الفلك. لمزيد من المعلومات يرجى زيارة الموقع التالي حول مجموعة جينيزا جامعة مانشست
-          <a href="http://www.rylandsgenizah.org" target="_blank">http://www.rylandsgenizah.org</a>
+          <a href="http://www.rylandsgenizah.org" rel="noopener noreferrer" target="_blank">http://www.rylandsgenizah.org</a>
         </p>
       </div>
-      
+
       <div className="item">
         <div className="right-column">
           <img alt="The Bodleian Libraries, University of Oxford" src={ImgBodleian} />
@@ -70,6 +66,6 @@ function Content() {
       </div>
     </div>
   );
-};
+}
 
 export default Content;

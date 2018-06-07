@@ -2,13 +2,9 @@ import React from 'react';
 
 import ImgBodleian from '../../images/partners/bodleian.png';
 import ImgCambridge from '../../images/partners/cambridge.png';
-import ImgElijah from '../../images/partners/Elijah.png';
-import ImgGenizah from '../../images/partners/genizah.png';
 import ImgJTS from '../../images/partners/jts.png';
 import ImgManchester from '../../images/partners/manchester.png';
 import ImgPenn from '../../images/partners/penn.png';
-import ImgPrinceton from '../../images/partners/princeton.png';
-import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
 
 function Content() {
   return (
@@ -21,7 +17,7 @@ function Content() {
         <p className="text">
           אוסף ספריות אוניברסיטת פנסילבניה (Penn), המונה יותר מ-600 קטעי גניזה, מבוסס על שני מקורות. רובו מגיע מספריית דרופסי קולג', המוסד האקדמי הראשון בעולם שהוסמך להעניק תואר דוקטור במדעי היהדות. על פי רישומי הספרייה וכן על פי תיאורי קטלוג קטעי הגניזה של פילדלפיה שהוכן בידי בן-ציון הלפר בשנת 1924, נבנה האוסף מתרומותיהם של סיירוס (פנחס) אדלר, דוד וו. עמרם, הרברט פרידנולד, אפרים לדרר ומאיר זולצברגר, וכן מפריטים שנרכשו מאלמנתו של קמדן מ' קוברן, שנפטר בשנת 1920.
 הלפר סיווג את קטעי הגניזה לשבעה תחומים: מקרא, מדרש ותלמוד, ליטורגיה, שירת חול, מסמכים ומכתבים, פילוסופיה וקבלה, ושונות. בשנת 1986 שינה דרופסי קולג' את יעודו והפך למוסד מחקר ללימודים מתקדמים הקרוי מכון אננברג (ARI), ובשנת 1993 התמזג עם אוניברסיטת פנסליבניה. מייד לאחר ייסודו של מכון אננברג, בספטמבר 1986, נתרמה למכון כמות קטנה של קטעי גניזה נוספים על ידי ג'ק לונצר, בשמו של הוועד המנהל של אוסף וולמדונה. בשנת 1994 עבר אוסף דרופסי לאחריות ספריות פנסילבניה והצטרף לאוסף קטעי הגניזה הקטן שברשותה, השמור בספריית הספרים הנדירים וכתבי היד- ידועה כיום כמרכז קיסלק לאוספים מיוחדים, ספרים נדירים וכתבי יד.
-          <a href="http://openn.library.upenn.edu/html/genizah_contents.html" target="_blank">http://openn.library.upenn.edu/html/genizah_contents.html</a></p>
+          <a href="http://openn.library.upenn.edu/html/genizah_contents.html" rel="noopener noreferrer" target="_blank">http://openn.library.upenn.edu/html/genizah_contents.html</a></p>
       </div>
 
       <div className="item">
@@ -48,7 +44,7 @@ function Content() {
         <p className="text">
 כיום, זמינים ברשת יותר מ-18,000 קטעי גניזה מאוספי טיילור-שכטר, CUL Or. ומוצרי, ביניהם מסמכים רבים (מכתבים ומסמכים משפטיים) וקטעי ליטורגיה (פרי שיתוף הפעולה עם מפעל התפילה באוניברסיטת בן-גוריון). קטעים נוספים יועלו לרשת באופן סדיר, עד שיהיה כולו זמין לציבור.
         </p>
-        <p className="text"><a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a></p>
+        <p className="text"><a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" rel="noopener noreferrer" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a></p>
       </div>
 
       <div className="item">
@@ -58,10 +54,10 @@ function Content() {
         <h3>ספריית מקור: מנצ'סטר</h3>
         <p className="text">
           ברשות הספרייה באוניברסיטת מנצ'סטר אוסף של כ-15,000 קטעי גניזה מגניזת בית הכנסת בן-עזרא שבקהיר העתיקה, שנרכשו מידי ד"ר משה גסטר בשנת 1954. רובם של קטעי הגניזה בעברית ובערבית-יהודית, כ90% מהם כתובים על נייר והשאר על קלף, ורוב האוסף מורכב מקרעים קטנים. קטעי הגניזה מתוארכים למאות 10-19 לספירה וכוללים כתבים דתיים וספרותיים, מסמכים, מכתבים, ענייני לשון, פילוסופיה, רפואה, אסטרולוגיה  ואסטרונומיה. למידע נוסף על אוסף הגניזה של אוניברסיטת מנצ'סטר בקרו באתר
-          <a href="http://www.rylandsgenizah.org" target="_blank">http://www.rylandsgenizah.org</a>
+          <a href="http://www.rylandsgenizah.org" rel="noopener noreferrer" target="_blank">http://www.rylandsgenizah.org</a>
         </p>
       </div>
-      
+
       <div className="item">
         <div className="right-column">
           <img alt="The Bodleian Libraries, University of Oxford" src={ImgBodleian} />
@@ -71,6 +67,6 @@ function Content() {
       </div>
     </div>
   );
-};
+}
 
 export default Content;

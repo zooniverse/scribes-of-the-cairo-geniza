@@ -1,11 +1,6 @@
 import React from 'react';
 
-import ImgBodleian from '../../images/partners/bodleian.png';
-import ImgCambridge from '../../images/partners/cambridge.png';
 import ImgElijah from '../../images/partners/Elijah.png';
-import ImgGenizah from '../../images/partners/genizah.png';
-import ImgJTS from '../../images/partners/jts.png';
-import ImgManchester from '../../images/partners/manchester.png';
 import ImgPenn from '../../images/partners/penn.png';
 import ImgPrinceton from '../../images/partners/princeton.png';
 import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
@@ -18,12 +13,12 @@ function Content() {
           <img alt="Penn" src={ImgPenn} />
         </div>
         <h3>جامعة بنسلفانيا</h3>
-        <p className="text">تخدم مكتبات جامعة بنسلفانيا أعضاء هيئات التدريس ذوي المكانة العالمية والطلاب في كلياتها الاثنتي عشرة. تتضمن مجموعاتها أكثر من 7 ملايين مجلد وأكثر من 100,000 مجلة وحوالي مليوني صورة رقمية بالإضافة إلى مواد جد نادرة وفريدة توثق الخبرة الفكرية والثقافية للحضارات القديمة والحديثة. من خلال علاقاتنا التعاونية ندعم المجموعات المحلية الرائعة للجامعة بالنفاذ المادي إلى مركز 
+        <p className="text">تخدم مكتبات جامعة بنسلفانيا أعضاء هيئات التدريس ذوي المكانة العالمية والطلاب في كلياتها الاثنتي عشرة. تتضمن مجموعاتها أكثر من 7 ملايين مجلد وأكثر من 100,000 مجلة وحوالي مليوني صورة رقمية بالإضافة إلى مواد جد نادرة وفريدة توثق الخبرة الفكرية والثقافية للحضارات القديمة والحديثة. من خلال علاقاتنا التعاونية ندعم المجموعات المحلية الرائعة للجامعة بالنفاذ المادي إلى مركز
 المكتبات البحثية (حوالي 5 ملايين عنصر) والحيازات المشتركة لمؤسسات إيفي (أكثر من 70 مليون
 
  بالإضافة إلى (HathiTrust)النفاذ الإلكتروني الحصري إلى حوالي مليونين من العناوين في المجال العام ل
 اليوم تلعب المكتبات دوراً أساسياً في تطوير التكنولوجيات الحديثة لكشف المعلومة ونشرها وهي معروفة بعملها الرائد في التصميم الرقمي. لمعرفة المزيد عن مكتبات جامعة بنسلفانيا، قم بزيارة:
- <a href="http://www.library.upenn.edu" target="_blank">http://www.library.upenn.edu.</a></p>
+        <a href="http://www.library.upenn.edu" rel="noopener noreferrer" target="_blank">http://www.library.upenn.edu.</a></p>
       </div>
 
       <div className="item">
@@ -33,8 +28,7 @@ function Content() {
         <h3>Princeton</h3>
         <p className="text">
           إن مختبر برينستون للجنيزا هو مساحة تعاونية مكرسة لجعل النصوص الوثائقية لجنيزا القاهرة من رسائل ووثائق قانونية وقوائم وحسابات وغيرها متاحة للعلماء والجمهورالعريض. نجمع فرقا من طلاب المرحلة الأولى ومرحلة الدراسات العليا وما بعد الدكتوراه وأعضاء هيئات التدريس والباحثين الدوليين لوصف ونسخ وترجمة الوثائق ولإدارة ورشات العمل والمؤتمرات والاجتماعات قصد مناقشة التاريخ الوثائقي في جميع أنحاء أوراسيا (Eurasia) والعلوم الإنسانية الرقمية والتعلم في إطار مختبري في مجال العلوم الإنسانية والتاريخ الوسيط للشرق الأوسط. قاعدة بياناتنا الرئيسية على الانترنت تحمل اسم مشروع برينستون للجنيزا
-          
-          <a href="http://geniza.princeton.edu/newpgp/princetongenizaproject" target="_blank">http://geniza.princeton.edu/newpgp/princetongenizaproject</a>
+          <a href="http://geniza.princeton.edu/newpgp/princetongenizaproject" rel="noopener noreferrer" target="_blank">http://geniza.princeton.edu/newpgp/princetongenizaproject</a>
         </p>
       </div>
 
@@ -49,7 +43,7 @@ e-Lijah (التعلم الإلكتروني في مجال الدراسات الي
         </p>
         <p className="text">
           أسس المختبر كتوسعة لمركز حيفا لبحوث الجنيزا وخصص للبحوث متعددة الإختصاصات في مجال الجنيزا ولتطبيق لبحوث الجنيزا على نطاق أوسع بمعنى الوصول إلى دوائر جديدة من مستخدمي الجنيزا كالباحثين في المجلات ذات الصلة وفروع التعليم المختلفة والجمهور العريض ككل. زوروا موقعنا الألكتروني:
-          <a href="http://genizah.haifa.ac.il/index.php?lang=en" target="_blank">http://genizah.haifa.ac.il/index.php?lang=en</a>
+          <a href="http://genizah.haifa.ac.il/index.php?lang=en" rel="noopener noreferrer" target="_blank">http://genizah.haifa.ac.il/index.php?lang=en</a>
         </p>
       </div>
 
@@ -62,6 +56,6 @@ e-Lijah (التعلم الإلكتروني في مجال الدراسات الي
       </div>
     </div>
   );
-};
+}
 
 export default Content;
