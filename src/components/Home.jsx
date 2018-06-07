@@ -58,10 +58,26 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
         <hr className="plum-line" />
         <div>
           <span>
-            The University of Pennsylvania Libraries, in partnership with the
-            Princeton Geniza Project, the Library of the Jewish Theological Seminary,
-            and the Genizah Research Unit at Cambridge University Library share
-            Cairo Geniza fragments with the Zooniverse community for the first time!
+            Welcome to Scribes of the Cairo Geniza, your chance to work with
+            others to unlock the secrets of one of the greatest archives of the
+            middle ages. Hidden for centuries in an attic in Cairo, over 300,000
+            fragments of pre-modern and medieval Jewish texts—from everyday
+            receipts to biblical works—have yet to be fully deciphered.
+          </span>
+          <span>
+            The first step of the project, is to <b>sort</b> the fragments by script
+            type and level of difficulty.
+          </span>
+          <span>
+            Next, we analyze the sorted piles by <b>transcribing</b> the relatively easy
+            fragments, and by finding <b>keywords</b> that will eventually be used to
+            help decipher the more difficult ones.
+          </span>
+          <span>
+            This is a collaborative project between many institutions of higher
+            learning (listed below), several great manuscript repositories, and
+            you, the citizens of the world.  Thank you in advance for your
+            contribution.
           </span>
         </div>
       </div>

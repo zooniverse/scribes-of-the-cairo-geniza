@@ -274,17 +274,17 @@ export default {
   },
   specialThanks: {
     main: `
-      In addition, special thanks and credit to Dr. Jean Bauer, Hal Blackburn, Jessica
-      Dummer, Timothy Dungate, Scott Enderle, Dr. Jessica Goldberg, Rebecca Hill,
-      Amey Hutchins, Dr. David Kraemer, Dr. Nita Krevans, Kate Lynch, Gayatri B. Oruganti,
-      Dr. Ben Outhwaite, Dr. Craig Perry, Besan Radwan, Jasmine Shinohara, Dr. Smadar Shtuhl,
+      Special thanks and credit to Elizabeth Bates, Dr. Jean Bauer, Hal Blackburn,
+      Taieb Cherif, Jessica Dummer, Timothy Dungate, Scott Enderle, Dr. Jessica Goldberg,
+      Yonatan Gutenmacher, Rebecca Hill, Amey Hutchins, Dr. David Kraemer, Dr. Nita Krevans,
+      Kate Lynch, Gayatri B. Oruganti, Dr. Ben Outhwaite, Dr. Craig Perry, Besan Radwan,
+      Dr. Sinai Rusinek, Dr. Judith Olszowy-Schlanger, Jasmine Shinohara, Dr. Smadar Shtuhl,
       Emma Stanford, and Dr. Oded Zinger for their contributions.
     `,
     additional: `
-      Additionally, thank you to the following institutions for providing
-      supplementary images for this project: The Berlin State Library, The
-      Bodleian Libraries at the University of Oxford, The British Library, and The
-      National Library of Israel.
+      Additionally, thank you to the following institutions for providing supplementary
+      images for this project: The Berlin State Library, The Bodleian Libraries at
+      the University of Oxford, The British Library, and The National Library of Israel.
     `
   },
   textModifiers: {
