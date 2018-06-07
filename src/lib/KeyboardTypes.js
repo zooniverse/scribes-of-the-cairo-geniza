@@ -27,159 +27,12 @@ const KEYBOARD_TYPES = {
 
 const KeyboardOptions = [
   {
-    name: 'Ashkenazi',
-    class: 'ashkenaziCursive',
-    type: KEYBOARD_TYPES.CURSIVE,
-    img: imgAshkenaziCursive,
-    letters: [
-      'alef', 'bet', 'betTwo', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
-      'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
-      'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
-      'quf', 'resh', 'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Ashkenazi',
-    class: 'ashkenaziMiniscule',
-    type: KEYBOARD_TYPES.MINISCULE,
-    img: imgAshkenaziMiniscule,
-    letters: [
-      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav',
-      'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit',
-      'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
-      'quf', 'resh', 'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Ashkenazi',
-    class: 'ashkenaziSquare',
+    name: 'Oriental SW',
+    class: 'orientalSwSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: imgAshkenaziSquare,
+    img: imgOrientalSWSquare,
     letters: [
-      'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey',
-      'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed',
-      'mem', 'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin',
-      'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh',
-      'shin', 'tav', 'elongatedTav'
-    ]
-  },
-  {
-    name: 'Byzantine',
-    class: 'byzantineCursive',
-    type: KEYBOARD_TYPES.CURSIVE,
-    img: imgByzantineCursive,
-    letters: [
-      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav', 'zaylin',
-      'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit',
-      'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit',
-      'tsadi', 'tsadiSofit', 'quf', 'resh', 'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Byzantine',
-    class: 'byzantineMiniscule',
-    type: KEYBOARD_TYPES.MINISCULE,
-    img: imgByzantineMiniscule,
-    letters: [
-      'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey',
-      'elongatedHey', 'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit',
-      'lamed', 'mem', 'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh',
-      'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh',
-      'shin', 'tav', 'elongatedTav'
-    ]
-  },
-  {
-    name: 'Byzantine',
-    class: 'byzantineSquare',
-    type: KEYBOARD_TYPES.SQUARE,
-    img: imgByzantineSquare,
-    letters: [
-      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
-      'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'elongatedMemSofit',
-      'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
-      'quf', 'resh', 'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Italian',
-    class: 'italianCursive',
-    type: KEYBOARD_TYPES.CURSIVE,
-    img: imgItalianCursive,
-    letters: [
-      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
-      'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
-      'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh',
-      'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Italian',
-    class: 'italianMiniscule',
-    type: KEYBOARD_TYPES.MINISCULE,
-    img: imgItalianMiniscule,
-    letters: [
-      'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
-      'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
-      'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
-      'quf', 'resh', 'shin', 'tav', 'elongatedTav'
-    ]
-  },
-  {
-    name: 'Italian',
-    class: 'italianSquare',
-    type: KEYBOARD_TYPES.SQUARE,
-    img: imgItalianSquare,
-    letters: [
-      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
-      'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
-      'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh',
-      'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Maghrebi',
-    class: 'maghrebiCursive',
-    type: KEYBOARD_TYPES.CURSIVE,
-    img: imgMaghrebiCursive,
-    letters: [
-      'alef', 'alefTwo', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'heyTwo', 'vav',
-      'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'khafSofitTwo', 'lamed',
-      'mem', 'memSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit',
-      'tsadi', 'tsadiSofit', 'quf', 'resh', 'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Maghrebi',
-    class: 'maghrebiSquare',
-    type: KEYBOARD_TYPES.SQUARE,
-    img: imgMaghrebiSquare,
-    letters: [
-      'alef', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey', 'elongatedHey',
-      'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem',
-      'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin',
-      'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh',
-      'shin', 'tav', 'elongatedTav'
-    ]
-  },
-  {
-    name: 'Oriental NE',
-    class: 'orientalNeMiniscule',
-    type: KEYBOARD_TYPES.MINISCULE,
-    img: imgOrientalNEMiniscule,
-    letters: [
-      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
-      'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'elongatedMemSofit',
-      'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
-      'quf', 'resh', 'shin', 'tav'
-    ]
-  },
-  {
-    name: 'Oriental NE',
-    class: 'orientalNeSquare',
-    type: KEYBOARD_TYPES.SQUARE,
-    img: imgOrientalNESquare,
-    letters: [
-      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
+      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
       'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
       'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf',
       'resh', 'shin', 'tav'
@@ -198,27 +51,39 @@ const KeyboardOptions = [
     ]
   },
   {
-    name: 'Oriental SW',
-    class: 'orientalSwSquare',
+    name: 'Oriental NE',
+    class: 'orientalNeSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: imgOrientalSWSquare,
+    img: imgOrientalNESquare,
     letters: [
-      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
+      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
       'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
       'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf',
       'resh', 'shin', 'tav'
     ]
   },
   {
-    name: 'Sephardi',
-    class: 'sephardiCursive',
-    type: KEYBOARD_TYPES.CURSIVE,
-    img: imgSephardiCursive,
+    name: 'Oriental NE',
+    class: 'orientalNeMiniscule',
+    type: KEYBOARD_TYPES.MINISCULE,
+    img: imgOrientalNEMiniscule,
     letters: [
-      'alef', 'alefTwo', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'heyTwo', 'vav',
-      'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memTwo',
-      'memSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi',
-      'tsadiSofit', 'quf', 'qufTwo', 'resh', 'shin', 'shinTwo', 'tav'
+      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
+      'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'elongatedMemSofit',
+      'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
+      'quf', 'resh', 'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Sephardi',
+    class: 'sephardiSquare',
+    type: KEYBOARD_TYPES.SQUARE,
+    img: imgSephardiSquare,
+    letters: [
+      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav',
+      'zaylin', 'het', 'tet', 'yud', 'khaf', 'elongatedKhaf', 'khafSofit', 'lamed',
+      'mem', 'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin',
+      'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'shin', 'tav', 'elongatedTav'
     ]
   },
   {
@@ -235,14 +100,52 @@ const KeyboardOptions = [
   },
   {
     name: 'Sephardi',
-    class: 'sephardiSquare',
-    type: KEYBOARD_TYPES.SQUARE,
-    img: imgSephardiSquare,
+    class: 'sephardiCursive',
+    type: KEYBOARD_TYPES.CURSIVE,
+    img: imgSephardiCursive,
     letters: [
-      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav',
-      'zaylin', 'het', 'tet', 'yud', 'khaf', 'elongatedKhaf', 'khafSofit', 'lamed',
-      'mem', 'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin',
-      'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'shin', 'tav', 'elongatedTav'
+      'alef', 'alefTwo', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'heyTwo', 'vav',
+      'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memTwo',
+      'memSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi',
+      'tsadiSofit', 'quf', 'qufTwo', 'resh', 'shin', 'shinTwo', 'tav'
+    ]
+  },
+  {
+    name: 'Maghrebi',
+    class: 'maghrebiSquare',
+    type: KEYBOARD_TYPES.SQUARE,
+    img: imgMaghrebiSquare,
+    letters: [
+      'alef', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey', 'elongatedHey',
+      'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem',
+      'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin',
+      'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh',
+      'shin', 'tav', 'elongatedTav'
+    ]
+  },
+  {
+    name: 'Maghrebi',
+    class: 'maghrebiCursive',
+    type: KEYBOARD_TYPES.CURSIVE,
+    img: imgMaghrebiCursive,
+    letters: [
+      'alef', 'alefTwo', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'heyTwo', 'vav',
+      'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'khafSofitTwo', 'lamed',
+      'mem', 'memSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit',
+      'tsadi', 'tsadiSofit', 'quf', 'resh', 'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Yemenite',
+    class: 'yemeniteSquare',
+    type: KEYBOARD_TYPES.SQUARE,
+    img: imgYemeniteSquare,
+    letters: [
+      'alef', 'alefLamed', 'elongatedAlef', 'bet', 'gimmel', 'dalet',
+      'elongatedDalet', 'hey', 'elongatedHey', 'vav', 'zaylin', 'het', 'tet',
+      'yud', 'khaf', 'elongatedKhaf', 'khafSofit', 'lamed', 'elongatedLamed',
+      'mem', 'memSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit',
+      'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh', 'shin', 'tav'
     ]
   },
   {
@@ -259,16 +162,113 @@ const KeyboardOptions = [
     ]
   },
   {
-    name: 'Yemenite',
-    class: 'yemeniteSquare',
+    name: 'Byzantine',
+    class: 'byzantineSquare',
     type: KEYBOARD_TYPES.SQUARE,
-    img: imgYemeniteSquare,
+    img: imgByzantineSquare,
     letters: [
-      'alef', 'alefLamed', 'elongatedAlef', 'bet', 'gimmel', 'dalet',
-      'elongatedDalet', 'hey', 'elongatedHey', 'vav', 'zaylin', 'het', 'tet',
-      'yud', 'khaf', 'elongatedKhaf', 'khafSofit', 'lamed', 'elongatedLamed',
-      'mem', 'memSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit',
-      'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh', 'shin', 'tav'
+      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
+      'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'elongatedMemSofit',
+      'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
+      'quf', 'resh', 'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Byzantine',
+    class: 'byzantineMiniscule',
+    type: KEYBOARD_TYPES.MINISCULE,
+    img: imgByzantineMiniscule,
+    letters: [
+      'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'elongatedDalet', 'hey',
+      'elongatedHey', 'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit',
+      'lamed', 'mem', 'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh',
+      'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh',
+      'shin', 'tav', 'elongatedTav'
+    ]
+  },
+  {
+    name: 'Byzantine',
+    class: 'byzantineCursive',
+    type: KEYBOARD_TYPES.CURSIVE,
+    img: imgByzantineCursive,
+    letters: [
+      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav', 'zaylin',
+      'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit',
+      'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit',
+      'tsadi', 'tsadiSofit', 'quf', 'resh', 'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Italian',
+    class: 'italianSquare',
+    type: KEYBOARD_TYPES.SQUARE,
+    img: imgItalianSquare,
+    letters: [
+      'alef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het', 'tet',
+      'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
+      'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh',
+      'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Italian',
+    class: 'italianMiniscule',
+    type: KEYBOARD_TYPES.MINISCULE,
+    img: imgItalianMiniscule,
+    letters: [
+      'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin',
+      'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
+      'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
+      'quf', 'resh', 'shin', 'tav', 'elongatedTav'
+    ]
+  },
+  {
+    name: 'Italian',
+    class: 'italianCursive',
+    type: KEYBOARD_TYPES.CURSIVE,
+    img: imgItalianCursive,
+    letters: [
+      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
+      'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun', 'nunSofit',
+      'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh',
+      'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Ashkenazi',
+    class: 'ashkenaziSquare',
+    type: KEYBOARD_TYPES.SQUARE,
+    img: imgAshkenaziSquare,
+    letters: [
+      'alef', 'elongatedAlef', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey',
+      'vav', 'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed',
+      'mem', 'memSofit', 'elongatedMemSofit', 'nun', 'nunSofit', 'samekh', 'ayin',
+      'peh', 'pehSofit', 'tsadi', 'tsadiSofit', 'quf', 'resh', 'elongatedResh',
+      'shin', 'tav', 'elongatedTav'
+    ]
+  },
+  {
+    name: 'Ashkenazi',
+    class: 'ashkenaziMiniscule',
+    type: KEYBOARD_TYPES.MINISCULE,
+    img: imgAshkenaziMiniscule,
+    letters: [
+      'alef', 'alefLamed', 'bet', 'gimmel', 'dalet', 'hey', 'elongatedHey', 'vav',
+      'zaylin', 'het', 'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit',
+      'nun', 'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
+      'quf', 'resh', 'shin', 'tav'
+    ]
+  },
+  {
+    name: 'Ashkenazi',
+    class: 'ashkenaziCursive',
+    type: KEYBOARD_TYPES.CURSIVE,
+    img: imgAshkenaziCursive,
+    letters: [
+      'alef', 'bet', 'betTwo', 'gimmel', 'dalet', 'hey', 'vav', 'zaylin', 'het',
+      'tet', 'yud', 'khaf', 'khafSofit', 'lamed', 'mem', 'memSofit', 'nun',
+      'nunSofit', 'samekh', 'ayin', 'peh', 'pehSofit', 'tsadi', 'tsadiSofit',
+      'quf', 'resh', 'shin', 'tav'
     ]
   }
 ];

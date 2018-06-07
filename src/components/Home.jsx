@@ -194,7 +194,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
           volunteers&#8212;hundreds of thousands of people around the world who
           come together to assist professional researchers. Our goal is to enable
           reearch that would not be possible, or practical, otherwise. Zooniverse
-          research results in new discoeries, datasets useful to the wider research
+          research results in new discoveries, datasets useful to the wider research
           community,and many publications.
         </span>
         <a className="button" href="https://www.zooniverse.org" rel="noopener noreferrer" target="_blank">Zooniverse.org</a>
