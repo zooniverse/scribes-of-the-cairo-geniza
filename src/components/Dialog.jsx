@@ -35,7 +35,7 @@ class Dialog extends React.Component {
   }
 
   render() {
-    const zInd = this.props.component === this.props.focusedDialog ? '100' : '0';
+    const zInd = this.props.component === this.props.focusedDialog ? '100' : '5';
     const height = this.props.size.height;
     const width = this.props.size.width;
     const x = (window.innerWidth / 2) - (width / 2);

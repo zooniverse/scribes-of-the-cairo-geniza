@@ -393,13 +393,13 @@ class SelectedAnnotation extends React.Component {
               </label>
             </div>
             <div>
-              <button className="text-link" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
+              <button className="small-btn" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
 
               {/* These buttons will be visible in Hebrew workflows as some manuscripts have both Arabic and Hebrew */}
               {this.props.manuscriptLanguage === LANGUAGES.HEBREW && (
                 <div>
                   <button
-                    className={classnames('lang-btn', {
+                    className={classnames('small-btn', {
                       'active-btn': this.props.keyboardLocale === 'ar'
                     })}
                     onClick={this.changeLanguage.bind(this, 'Arabic')}
@@ -407,7 +407,7 @@ class SelectedAnnotation extends React.Component {
                     Arabic
                   </button>
                   <button
-                    className={classnames('lang-btn', {
+                    className={classnames('small-btn', {
                       'active-btn': this.props.keyboardLocale === 'he'
                     })}
                     onClick={this.changeLanguage.bind(this, 'Hebrew')}
