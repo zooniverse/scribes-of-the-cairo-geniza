@@ -126,7 +126,7 @@ const fetchAggregations = (subjectId, workflowId) => {
         dispatch({ type: FETCH_AGGREGATIONS_SUCCESS, aggregationData: newData });
       });
 
-    const fetchKeywordWorkflow = apiClient.type('workflows').get({ id: config.keywordWorkflow })
+    const fetchKeywordWorkflow = apiClient.type('workflows').get({ id: workflowId })
       .then(([keywordWorkflow]) => {
         dispatch({ type: FETCH_KEYWORD_WORKFLOW_SUCCESS, keywordWorkflow });
       });
