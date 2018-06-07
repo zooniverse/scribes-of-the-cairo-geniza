@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ImgElijah from '../../images/partners/Elijah.png';
+import ImgElijah from '../../images/partners/elijah.png';
+import GenizahCentre from '../../images/partners/genizah-centre.png';
 import ImgPenn from '../../images/partners/penn.png';
 import ImgPrinceton from '../../images/partners/princeton.png';
 import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
@@ -32,7 +33,8 @@ Princeton Geniza Project) <a href="http://geniza.princeton.edu/newpgp/princetong
 
       <div className="item">
         <div className="right-column">
-          <img alt="e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={ImgElijah} />
+          <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
+          <img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} />
         </div>
         <h3>מעבדת אליהו והמרכז לחקר הגניזה שבאוניברסיטת חיפה</h3>
         <p className="text">

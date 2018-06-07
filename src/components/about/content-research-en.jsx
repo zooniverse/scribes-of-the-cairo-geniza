@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ImgElijah from '../../images/partners/Elijah.png';
+import ImgElijah from '../../images/partners/elijah.png';
+import GenizahCentre from '../../images/partners/genizah-centre.png';
 import ImgPenn from '../../images/partners/penn.png';
 import ImgPrinceton from '../../images/partners/princeton.png';
 import ImgZooniverse from '../../images/partners/zooniverse-word-black.png';
@@ -26,7 +27,8 @@ function Content() {
 
       <div className="item">
         <div className="right-column">
-          <img alt="e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={ImgElijah} />
+          <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
+          <img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} />
         </div>
         <h3>e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa</h3>
         <p className="text">e-Lijah (eLearning in Jewish studies at Haifa) is a Digital Humanities lab aimed at developing and implementing citizen science and crowdsourcing projects in the Humanities. The lab covers along chronological span from Antiquity to the modern era and a variety of medias and disciplines including historical, spatial, textual, literary and visual sources.</p>

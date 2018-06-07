@@ -8,7 +8,8 @@ import classnames from 'classnames';
 
 import ImgBodleian from '../images/partners/bodleian.png';
 import ImgCambridge from '../images/partners/cambridge.png';
-import ImgElijah from '../images/partners/Elijah.png';
+import ImgElijah from '../images/partners/elijah.png';
+import GenizahCentre from '../images/partners/genizah-centre.png';
 import ImgJTS from '../images/partners/jts.png';
 import ImgManchester from '../images/partners/manchester.png';
 import ImgPenn from '../images/partners/penn.png';
@@ -163,7 +164,8 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
           <img alt="Cambridge" src={ImgCambridge} />
           <img alt="Manchester" src={ImgManchester} />
           <img alt="Bodleian" src={ImgBodleian} />
-          <img alt="e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={ImgElijah} />
+          <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
+          <img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} />
         </div>
       </div>
       <div className="offset-image">
