@@ -74,12 +74,16 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <span>{translate('transcribeHebrew.content')}</span>
             <span className="home-page__exercises">{translate('transcribeHebrew.exercises')}</span>
             <div className="home-page__buttons">
-              <button
-                className="button"
-                onClick={selectWorkflow.bind(null, config.easyHebrew)}
-              >
-                {translate('transcribeHebrew.easy')}
-              </button>
+              <div>
+                <button
+                  className="button button__dark-disabled"
+                  disabled
+                  onClick={selectWorkflow.bind(null, config.easyHebrew)}
+                >
+                  {translate('transcribeHebrew.easy')}
+                </button>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
+              </div>
               <div>
                 <button
                   className="button button__dark-disabled"
@@ -94,13 +98,16 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <span className="home-page__exercises">{translate('keywordsHebrew.title')}</span>
             <span>{translate('keywordsHebrew.content')}</span>
             <div className="home-page__buttons">
-              <a
-                className="button"
-                href={`${classifyPath}${c.hebrewKeyword}`}
-                target="_blank"
-              >
-                {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
-              </a>
+              <div>
+                <a
+                  className="button button__dark-disabled"
+                  // href={`${classifyPath}${c.hebrewKeyword}`}
+                  target="_blank"
+                >
+                  {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
+                </a>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
+              </div>
             </div>
             <span className="home-page__exercises">{translate('classifyFragments.title')}</span>
             <div className="home-page__buttons">
@@ -121,12 +128,16 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <span>{translate('transcribeArabic.content')}</span>
             <span className="home-page__exercises">{translate('transcribeArabic.exercises')}</span>
             <div className="home-page__buttons">
-              <button
-                className="button"
-                onClick={selectWorkflow.bind(null, config.easyArabic)}
-              >
-                {translate('transcribeArabic.easy')}
-              </button>
+              <div>
+                <button
+                  className="button button__dark-disabled"
+                  disabled
+                  onClick={selectWorkflow.bind(null, config.easyArabic)}
+                >
+                  {translate('transcribeArabic.easy')}
+                </button>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
+              </div>
               <div>
                 <button
                   className="button button__dark-disabled"
@@ -141,13 +152,16 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <span className="home-page__exercises">{translate('keywordsArabic.title')}</span>
             <span>{translate('keywordsArabic.content')}</span>
             <div className="home-page__buttons">
-              <a
-                className="button"
-                href={`${classifyPath}${c.arabicKeyword}`}
-                target="_blank"
-              >
-                {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
-              </a>
+              <div>
+                <a
+                  className="button button__dark-disabled"
+                  // href={`${classifyPath}${c.arabicKeyword}`}
+                  target="_blank"
+                >
+                  {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
+                </a>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
+              </div>
             </div>
           </div>
         </div>
