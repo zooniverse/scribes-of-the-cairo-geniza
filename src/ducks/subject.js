@@ -169,7 +169,7 @@ const fetchSubject = (subjectId = null) => {
 const resetSubject = () => {
   return (dispatch) => {
     dispatch({ type: RESET_SUBJECT });
-  }
+  };
 };
 
 /*  Resets all the dependencies that rely on the Subject.
@@ -182,7 +182,9 @@ const prepareForNewSubject = (subject) => {
     dispatch(createClassification(subject));
     dispatch(changeFrame(0));
     if (aggregationWorkflows.indexOf(activeWorkflowID) >= 0) {
-      subject && dispatch(fetchAggregations(subject.id, activeWorkflowID));
+      const aggWorkflowId = activeWorkflowID === config.challengingHebrew ?
+        config.hebrewKeyword : config.arabicKeyword;
+      subject && dispatch(fetchAggregations(subject.id, aggWorkflowId));
     } else {
       dispatch(clearAggregations());
     }

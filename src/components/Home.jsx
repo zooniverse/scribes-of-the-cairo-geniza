@@ -8,8 +8,8 @@ import classnames from 'classnames';
 
 import ImgBodleian from '../images/partners/bodleian.png';
 import ImgCambridge from '../images/partners/cambridge.png';
-import ImgElijah from '../images/partners/Elijah.png';
-import ImgGenizah from '../images/partners/genizah.png';
+import ImgElijah from '../images/partners/elijah.png';
+import GenizahCentre from '../images/partners/genizah-centre.png';
 import ImgJTS from '../images/partners/jts.png';
 import ImgManchester from '../images/partners/manchester.png';
 import ImgPenn from '../images/partners/penn.png';
@@ -58,10 +58,26 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
         <hr className="plum-line" />
         <div>
           <span>
-            The University of Pennsylvania Libraries, in partnership with the
-            Princeton Geniza Project, the Library of the Jewish Theological Seminary,
-            and the Genizah Research Unit at Cambridge University Library share
-            Cairo Geniza fragments with the Zooniverse community for the first time!
+            Welcome to Scribes of the Cairo Geniza, your chance to work with
+            others to unlock the secrets of one of the greatest archives of the
+            middle ages. Hidden for centuries in an attic in Cairo, over 300,000
+            fragments of pre-modern and medieval Jewish texts—from everyday
+            receipts to biblical works—have yet to be fully deciphered.
+          </span>
+          <span>
+            The first step of the project, is to <b>sort</b> the fragments by script
+            type and level of difficulty.
+          </span>
+          <span>
+            Next, we analyze the sorted piles by <b>transcribing</b> the relatively easy
+            fragments, and by finding <b>keywords</b> that will eventually be used to
+            help decipher the more difficult ones.
+          </span>
+          <span>
+            This is a collaborative project between many institutions of higher
+            learning (listed below), several great manuscript repositories, and
+            you, the citizens of the world.  Thank you in advance for your
+            contribution.
           </span>
         </div>
       </div>
@@ -174,12 +190,12 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
           <img alt="Penn" src={ImgPenn} />
           <img alt="The Jewish Theological Seminary" src={ImgJTS} />
           <img alt="Princeton Geniza Project" src={ImgPrinceton} />
-          <img alt="Genizah Research Unit Cambridge University Library" src={ImgGenizah} />
 
           <img alt="Cambridge" src={ImgCambridge} />
           <img alt="Manchester" src={ImgManchester} />
           <img alt="Bodleian" src={ImgBodleian} />
-          <img alt="e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={ImgElijah} />
+          <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
+          <img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} />
         </div>
       </div>
       <div className="offset-image">
@@ -208,7 +224,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
           volunteers&#8212;hundreds of thousands of people around the world who
           come together to assist professional researchers. Our goal is to enable
           reearch that would not be possible, or practical, otherwise. Zooniverse
-          research results in new discoeries, datasets useful to the wider research
+          research results in new discoveries, datasets useful to the wider research
           community,and many publications.
         </span>
         <a className="button" href="https://www.zooniverse.org" rel="noopener noreferrer" target="_blank">Zooniverse.org</a>
