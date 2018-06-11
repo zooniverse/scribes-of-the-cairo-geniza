@@ -38,6 +38,8 @@ class App extends React.Component {
           </Switch>
         </section>
 
+        {this.props.popup}
+
         <div className="grommet">
           <ZooFooter />
         </div>
@@ -51,16 +53,19 @@ App.propTypes = {
   initializerReady: PropTypes.bool,
   location: PropTypes.shape({
     pathname: PropTypes.string
-  })
+  }),
+  popup: PropTypes.node
 };
 
 App.defaultProps = {
   initializerReady: false,
-  location: {}
+  location: {},
+  popup: null
 };
 
 const mapStateToProps = state => ({
-  initializerReady: state.initialize.ready
+  initializerReady: state.initialize.ready,
+  popup: state.dialog.popup
 });
 
 export default connect(mapStateToProps)(App);

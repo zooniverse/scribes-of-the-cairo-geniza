@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkflowDropdown from './WorkflowDropdown';
+import WorkflowSelection from './WorkflowSelection';
 
 const WorkflowPrompt = () => {
   return (
@@ -9,7 +9,7 @@ const WorkflowPrompt = () => {
           <span>Choose a Workflow</span>
           <hr className="plum-line" />
         </div>
-        <WorkflowDropdown className="workflow-prompt-popup" />
+        <WorkflowSelection className="workflow-prompt-popup" />
       </div>
     </div>
   );

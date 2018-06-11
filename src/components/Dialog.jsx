@@ -13,6 +13,10 @@ class Dialog extends React.Component {
     this.moveToFront = this.moveToFront.bind(this);
   }
 
+  componentDidMount() {
+    this.moveToFront();
+  }
+
   onClose() {
     if (this.props.isAnnotation) {
       this.props.dispatch(toggleAnnotation(null));

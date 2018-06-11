@@ -12,6 +12,7 @@ const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
 const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
 const FETCH_WORKFLOW_ERROR = 'FETCH_WORKFLOW_ERROR';
 const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
+const CLEAR_WORKFLOW = 'CLEAR_WORKFLOW';
 
 const WORKFLOW_STATUS = {
   IDLE: 'workflow_status_idle',
@@ -53,6 +54,9 @@ const workflowReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         showSelection: action.show
       });
+
+    case CLEAR_WORKFLOW:
+      return initialState;
 
     default:
       return state;
@@ -107,9 +111,16 @@ const toggleSelection = (show) => {
   };
 };
 
+const clearWorkflow = () => {
+  return (dispatch) => {
+    dispatch({ type: CLEAR_WORKFLOW });
+  };
+};
+
 export default workflowReducer;
 
 export {
+  clearWorkflow,
   fetchWorkflow,
   toggleSelection,
   WORKFLOW_STATUS

@@ -62,6 +62,9 @@ class SelectedAnnotation extends React.Component {
     let text = '';
     if (this.props.selectedAnnotation.details) {
       text = this.props.selectedAnnotation.details[0].value;
+      if (text.length) {
+        this.setState({ disableSubmit: false });
+      }
     }
     this.inputText.value = text;
     this.inputText.focus();
