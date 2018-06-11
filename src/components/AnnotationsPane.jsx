@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Utility } from '../lib/Utility';
 
 class AnnotationsPane extends React.Component {
@@ -18,7 +17,7 @@ class AnnotationsPane extends React.Component {
           cx={point.x}
           cy={point.y}
           r={10}
-          fill="#20FECB"
+          fill="#17aa56"
         />,
       );
     }
@@ -33,16 +32,16 @@ class AnnotationsPane extends React.Component {
     if (!this.props.annotations.length) return null;
 
     const annotationPrefix = 'ANNOTATION_';
-
     return this.props.annotations.map((annotation, index) => {
       if (annotation.frame !== this.props.frame) return null;
-      
+
       //If Show Previous Marks is disabled, show nothing EXCEPT for the selected annotation.
       if (!this.props.showMarks && annotation !== this.props.selectedAnnotation) return;
 
       const onSelectAnnotation = this.props.onSelectAnnotation;
       const svgPointPrefix = `ANNOTATION_${index}_POINT_`;
       const svgPoints = [];
+      const fill = annotation === this.props.selectedAnnotation ? '#17AA56' : '#00CED1';
 
       for (let i = 0; i < 2; i += 1) {
         const point = annotation.points[i];
@@ -53,7 +52,7 @@ class AnnotationsPane extends React.Component {
             cx={point.x}
             cy={point.y}
             r={10}
-            fill="#20FECB"
+            fill={fill}
           />,
         );
       }
@@ -118,7 +117,7 @@ AnnotationsPane.defaultProps = {
   frame: 0,
   onSelectAnnotation: () => {},
   selectedAnnotation: null,
-  showMarks: true,
+  showMarks: true
 };
 
 export default AnnotationsPane;

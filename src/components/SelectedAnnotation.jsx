@@ -351,7 +351,9 @@ class SelectedAnnotation extends React.Component {
             )}
             {translate('transcribeBox.instructions')}
           </span>
-          <span>{translate('transcribeBox.instructions2')}</span>
+          {this.props.manuscriptLanguage === LANGUAGES.HEBREW && (
+            <span>{translate('transcribeBox.instructions2')}</span>
+          )}
         </div>
         <input
           type="text"
