@@ -82,6 +82,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
+                disabled
                 onClick={selectWorkflow.bind(null, c.easyHebrew)}
               >
                 {translate('transcribeHebrew.easy')}
@@ -104,8 +105,9 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
               <div className="disabled-workflow">
                 <a
                   className="tertiary-label"
-                  href={`${classifyPath}${c.hebrewKeyword}`}
-                  target="_blank"
+                  data-disabled-href={`${classifyPath}${c.hebrewKeyword}`}
+                  data-disabled-target="_blank"
+                  href="#"                  
                 >
                   {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
                 </a>
@@ -119,11 +121,12 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
+                disabled
                 onClick={selectWorkflow.bind(null, c.easyArabic)}
               >
                 {translate('transcribeArabic.easy')}
-                <span>{translate('general.comingSoon')}</span>
               </button>
+              <span>{translate('general.comingSoon')}</span>
             </div>
             <div className="disabled-workflow">
               <button
@@ -141,8 +144,9 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
               <div className="disabled-workflow">
                 <a
                   className="tertiary-label"
-                  href={`${classifyPath}${c.arabicKeyword}`}
-                  target="_blank"
+                  data-disabled-href={`${classifyPath}${c.arabicKeyword}`}
+                  data-disabled-target="_blank"
+                  href="#"
                 >
                   {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
                 </a>
