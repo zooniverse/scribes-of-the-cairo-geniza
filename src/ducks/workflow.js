@@ -13,6 +13,7 @@ const FETCH_WORKFLOW_SUCCESS = 'FETCH_WORKFLOW_SUCCESS';
 const FETCH_WORKFLOW_ERROR = 'FETCH_WORKFLOW_ERROR';
 const TOGGLE_SELECTION = 'TOGGLE_SELECTION';
 const CLEAR_WORKFLOW = 'CLEAR_WORKFLOW';
+const FETCH_ALL_WORKFLOWS = 'FETCH_ALL_WORKFLOWS';
 
 const WORKFLOW_STATUS = {
   IDLE: 'workflow_status_idle',
@@ -21,8 +22,11 @@ const WORKFLOW_STATUS = {
   ERROR: 'workflow_status_error'
 };
 
+const ARABIC_WORKFLOWS = [config.easyArabic, config.challengingArabic];
+
 // Reducer
 const initialState = {
+  allWorkflows: {},
   data: null,
   id: null,
   manuscriptLanguage: LANGUAGES.HEBREW,
@@ -58,6 +62,11 @@ const workflowReducer = (state = initialState, action) => {
     case CLEAR_WORKFLOW:
       return initialState;
 
+    case FETCH_ALL_WORKFLOWS:
+      return Object.assign({}, state, {
+        allWorkflows: action.allWorkflows
+      });
+
     default:
       return state;
   }
@@ -69,36 +78,48 @@ const prepareForNewWorkflow = () => {
   return (dispatch) => {
     dispatch(resetSubject());
     dispatch(resetAnnotations());
-    // dispatch(fetchSubject());  //Don't fetch Subject immediately. use dispatch(prepareForNewWorkflow()).then(()=>{ return dispatch(fetchSubject()) })
     dispatch(fetchTutorial());
   };
 };
 
 const fetchWorkflow = (workflowId = config.easyHebrew) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: FETCH_WORKFLOW,
       id: workflowId
     });
 
-    return apiClient.type('workflows').get(workflowId)
-      .then((workflow) => {
-        const arabicWorkflows = [config.easyArabic, config.challengingArabic];
-        const manuscriptLanguage = arabicWorkflows.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
+    const allWorkflows = getState().workflow.allWorkflows;
 
+    if (allWorkflows[workflowId]) {
+      const manuscriptLanguage = ARABIC_WORKFLOWS.indexOf(workflowId) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
+
+      return Promise.resolve(
         dispatch({
           type: FETCH_WORKFLOW_SUCCESS,
-          data: workflow,
+          data: allWorkflows[workflowId],
           manuscriptLanguage
-        });
+        }),
+        dispatch(toggleLanguage(manuscriptLanguage)),
+        dispatch(prepareForNewWorkflow())
+      );
+    } else {
+      return apiClient.type('workflows').get(workflowId)
+        .then((workflow) => {
+          const manuscriptLanguage = ARABIC_WORKFLOWS.indexOf(workflow.id) >= 0 ? LANGUAGES.ARABIC : LANGUAGES.HEBREW;
 
-        // onSuccess(), prepare for a new workflow.
-        dispatch(toggleLanguage(manuscriptLanguage));
-        dispatch(prepareForNewWorkflow());
-      })
-      .catch(() => {
-        dispatch({ type: FETCH_WORKFLOW_ERROR });
-      });
+          dispatch({
+            type: FETCH_WORKFLOW_SUCCESS,
+            data: workflow,
+            manuscriptLanguage
+          });
+          dispatch(toggleLanguage(manuscriptLanguage));
+          dispatch(prepareForNewWorkflow());
+        })
+        .catch(() => {
+          dispatch({ type: FETCH_WORKFLOW_ERROR });
+        });
+    }
   };
 };
 
@@ -111,9 +132,39 @@ const toggleSelection = (show) => {
   };
 };
 
+
 const clearWorkflow = () => {
   return (dispatch) => {
     dispatch({ type: CLEAR_WORKFLOW });
+  };
+};
+
+const fetchPhaseTwoWorkflows = () => {
+  return (dispatch) => {
+    const allWorkflows = {
+      [config.easyHebrew]: null,
+      [config.challengingHebrew]: null,
+      [config.easyArabic]: null,
+      [config.challengingArabic]: null
+    };
+    const calls = [];
+
+    Object.keys(allWorkflows).forEach(id =>
+      calls.push(
+        apiClient.type('workflows').get(id)
+          .then((workflow) => {
+            if (workflow) {
+              allWorkflows[id] = workflow;
+            }
+          }))
+    );
+
+    Promise.all(calls).then(() => {
+      dispatch({
+        type: FETCH_ALL_WORKFLOWS,
+        allWorkflows
+      });
+    });
   };
 };
 
@@ -121,6 +172,7 @@ export default workflowReducer;
 
 export {
   clearWorkflow,
+  fetchPhaseTwoWorkflows,
   fetchWorkflow,
   toggleSelection,
   WORKFLOW_STATUS
