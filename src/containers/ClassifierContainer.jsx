@@ -13,7 +13,7 @@ import SubjectViewer from './SubjectViewer';
 import Dialog from '../components/Dialog';
 
 class ClassifierContainer extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.workflowStatus === WORKFLOW_STATUS.IDLE && !WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkflowPrompt />));
     }
@@ -21,6 +21,12 @@ class ClassifierContainer extends React.Component {
 
   componentWillReceiveProps(next) {
     if (this.props.workflowStatus !== next.workflowStatus) {
+      this.props.dispatch(togglePopup(null));
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.popup) {
       this.props.dispatch(togglePopup(null));
     }
   }
@@ -57,6 +63,7 @@ ClassifierContainer.propTypes = {
   component: PropTypes.string,
   dialog: PropTypes.node,
   dispatch: PropTypes.func.isRequired,
+  popup: PropTypes.node,
   size: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number
@@ -72,6 +79,7 @@ ClassifierContainer.defaultProps = {
   annotationPaneSize: { height: 200, width: 200 },
   component: '',
   dialog: null,
+  popup: null,
   size: { height: 200, width: 200 },
   user: null
 };
@@ -81,6 +89,7 @@ const mapStateToProps = state => ({
   annotationPaneSize: state.dialog.annotationPaneSize,
   component: state.dialog.component,
   dialog: state.dialog.data,
+  popup: state.dialog.popup,
   size: state.dialog.size,
   subjectStatus: state.subject.status,
   user: state.login.user,
