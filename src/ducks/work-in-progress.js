@@ -154,8 +154,6 @@ const check = (user) => {
   const workflowId = localStorage.getItem(`${userId}.${WORKFLOW_ID_KEY}`);
   const subjectId = localStorage.getItem(`${userId}.${SUBJECT_ID_KEY}`);
   const annotations = localStorage.getItem(`${userId}.${ANNOTATIONS_KEY}`);
-  console.log(!!workflowId && !!subjectId && !!annotations);
-  console.log(workflowId, subjectId, annotations);
   return !!workflowId && !!subjectId && !!annotations;
 };
 
