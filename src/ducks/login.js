@@ -4,9 +4,11 @@ import { fetchPreferences } from './project';
 // Action Types
 const SET_LOGIN_USER = 'project/user/SET_LOGIN_USER';
 const SET_ADMIN_FLAG = 'SET_ADMIN_FLAG';
+const TOGGLE_ADMIN_MODE = 'TOGGLE_ADMIN_MODE';
 
 // Reducer
 const initialState = {
+  adminMode: false,
   initialised: false,
   isAdmin: false,
   user: null
@@ -25,6 +27,11 @@ const loginReducer = (state = initialState, action) => {
         isAdmin: action.isAdmin
       });
 
+    case TOGGLE_ADMIN_MODE:
+      return Object.assign({}, state, {
+        adminMode: action.adminMode
+      });
+
     default:
       return state;
   }
@@ -35,19 +42,17 @@ const isProjectAdmin = (user) => {
   return (dispatch, getState) => {
     const ACCEPTED_ROLES = ['owner', 'collaborator', 'expert', 'researcher', 'translator'];
     const project = getState().project.data;
-    let isAdmin = false;
     if (project && user) {
       project.get('project_roles', { user_id: user.id })
         .then(([projectRoles]) => {
           if (projectRoles.roles) {
-            isAdmin = projectRoles.roles.some(role => ACCEPTED_ROLES.indexOf(role) >= 0);
+            const isAdmin = projectRoles.roles.some(role => ACCEPTED_ROLES.indexOf(role) >= 0);
+            dispatch({ type: SET_ADMIN_FLAG, isAdmin });
           }
         });
+    } else {
+      dispatch({ type: SET_ADMIN_FLAG, isAdmin: false });
     }
-    dispatch({
-      type: SET_ADMIN_FLAG,
-      isAdmin
-    });
   };
 };
 
@@ -86,6 +91,16 @@ const logoutFromPanoptes = () => {
   };
 };
 
+const toggleAdminMode = () => {
+  return (dispatch, getState) => {
+    const adminMode = !getState().login.adminMode;
+    dispatch({
+      type: TOGGLE_ADMIN_MODE,
+      adminMode
+    });
+  };
+};
+
 // Helper functions
 const computeRedirectURL = (window) => {
   const { location } = window;
@@ -99,5 +114,6 @@ export {
   checkLoginUser,
   loginToPanoptes,
   logoutFromPanoptes,
-  setLoginUser
+  setLoginUser,
+  toggleAdminMode
 };

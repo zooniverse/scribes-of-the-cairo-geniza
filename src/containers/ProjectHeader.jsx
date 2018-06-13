@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { config } from '../config.js';
-import WorkflowSelection from './WorkflowSelection';
+import AdminToggle from '../components/AdminToggle';
+import WorkflowSelection from '../components/WorkflowSelection';
 
 import { setLanguage, LANGUAGES } from '../ducks/languages';
+import { toggleAdminMode } from '../ducks/login';
 import { toggleSelection } from '../ducks/workflow';
 
 class ProjectHeader extends React.Component {
@@ -16,6 +18,7 @@ class ProjectHeader extends React.Component {
     super();
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.toggleAdminMode = this.toggleAdminMode.bind(this);
   }
 
   componentWillReceiveProps(next) {
@@ -30,6 +33,10 @@ class ProjectHeader extends React.Component {
 
   toggleDropdown(e, nextState = !this.props.showWorkflows) {
     this.props.dispatch(toggleSelection(nextState));
+  }
+
+  toggleAdminMode() {
+    this.props.dispatch(toggleAdminMode());
   }
 
   render() {
@@ -113,6 +120,12 @@ class ProjectHeader extends React.Component {
                 ע
               </button>
             </div>
+            {this.props.isAdmin && (
+              <AdminToggle
+                adminMode={this.props.adminMode}
+                toggleAdminMode={this.toggleAdminMode}
+              />
+            )}
           </nav>
         </div>
       </section>
@@ -121,7 +134,9 @@ class ProjectHeader extends React.Component {
 }
 
 ProjectHeader.propTypes = {
+  adminMode: PropTypes.bool,
   dispatch: PropTypes.func,
+  isAdmin: PropTypes.bool,
   language: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string
@@ -132,7 +147,9 @@ ProjectHeader.propTypes = {
 };
 
 ProjectHeader.defaultProps = {
+  adminMode: false,
   dispatch: () => {},
+  isAdmin: false,
   language: LANGUAGES.ENGLISH,
   location: {},
   rtl: false,
@@ -141,7 +158,9 @@ ProjectHeader.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+  adminMode: state.login.adminMode,
   currentLanguage: getActiveLanguage(state.locale).code,
+  isAdmin: state.login.isAdmin,
   language: state.languages.language,
   rtl: state.languages.rtl,
   showWorkflows: state.workflow.showSelection,
