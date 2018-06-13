@@ -3,20 +3,27 @@ import { fetchPreferences } from './project';
 
 // Action Types
 const SET_LOGIN_USER = 'project/user/SET_LOGIN_USER';
+const SET_ADMIN_FLAG = 'SET_ADMIN_FLAG';
 
 // Reducer
 const initialState = {
-  user: null,
-  initialised: false
+  initialised: false,
+  isAdmin: false,
+  user: null
 };
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_USER:
-      return {
+      return Object.assign({}, state, {
         user: action.user,
         initialised: true
-      };
+      });
+
+    case SET_ADMIN_FLAG:
+      return Object.assign({}, state, {
+        isAdmin: action.isAdmin
+      });
 
     default:
       return state;
@@ -24,6 +31,26 @@ const loginReducer = (state = initialState, action) => {
 };
 
 // Action Creators
+const isProjectAdmin = (user) => {
+  return (dispatch, getState) => {
+    const ACCEPTED_ROLES = ['owner', 'collaborator', 'expert', 'researcher', 'translator'];
+    const project = getState().project.data;
+    let isAdmin = false;
+    if (project && user) {
+      project.get('project_roles', { user_id: user.id })
+        .then(([projectRoles]) => {
+          if (projectRoles.roles) {
+            isAdmin = projectRoles.roles.some(role => ACCEPTED_ROLES.indexOf(role) >= 0);
+          }
+        });
+    }
+    dispatch({
+      type: SET_ADMIN_FLAG,
+      isAdmin
+    });
+  };
+};
+
 const setLoginUser = (user) => {
   return (dispatch) => {
     dispatch({
@@ -31,6 +58,7 @@ const setLoginUser = (user) => {
       user
     });
     dispatch(fetchPreferences(user));
+    dispatch(isProjectAdmin(user));
   };
 };
 
