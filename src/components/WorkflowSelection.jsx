@@ -74,6 +74,7 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
               href={`${classifyPath}${c.phaseOne}`}
               rel="noopener noreferrer"
               target="_blank"
+              rel="noopener noreferrer"
             >
               {translate('workflowSelection.phaseOne')} <i className="fa fa-external-link-alt" />
             </a>

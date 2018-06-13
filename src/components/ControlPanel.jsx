@@ -192,7 +192,7 @@ class ControlPanel extends React.Component {
             )}
             {url && (
               <div className="library-catalog">
-                <a className="text-link" href={url} target="_blank">{this.props.translate('infoBox.libraryCatalog')}</a>
+                <a className="text-link" href={url} target="_blank" rel="noopener noreferrer">{this.props.translate('infoBox.libraryCatalog')}</a>
                 <i className="fa fa-external-link-alt" />
               </div>
             )}

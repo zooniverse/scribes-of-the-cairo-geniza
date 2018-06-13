@@ -73,6 +73,7 @@ class HomeStatistics extends React.Component {
               className="text-links"
               href={`${config.host}projects/${config.projectSlug}/stats`}
               target="_blank"
+              rel="noopener noreferrer"
             >
               More statistics
             </a>

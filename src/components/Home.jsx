@@ -127,6 +127,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
                   href={`${classifyPath}${c.hebrewKeyword}`}
                   rel="noopener noreferrer"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
                 </a>
@@ -140,6 +141,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
                 href={`${classifyPath}${c.phaseOne}`}
                 rel="noopener noreferrer"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {translate('classifyFragments.button')} <i className="fa fa-external-link-alt" />
               </a>
@@ -189,6 +191,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
                   href={`${classifyPath}${c.arabicKeyword}`}
                   rel="noopener noreferrer"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
                 </a>
