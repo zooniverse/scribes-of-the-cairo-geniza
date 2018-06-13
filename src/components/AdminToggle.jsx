@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AdminToggle = ({ adminMode, toggleAdminMode }) => {
+const AdminToggle = ({ adminMode, toggleAdminMode, translate }) => {
   return (
     <div className="admin-toggle">
       <input
@@ -11,7 +11,7 @@ const AdminToggle = ({ adminMode, toggleAdminMode }) => {
         type="checkbox"
       />
       <label htmlFor="admin">
-        <span>Admin</span>
+        <span>{translate('general.admin')}</span>
       </label>
     </div>
   );

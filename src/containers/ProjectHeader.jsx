@@ -124,6 +124,7 @@ class ProjectHeader extends React.Component {
               <AdminToggle
                 adminMode={this.props.adminMode}
                 toggleAdminMode={this.toggleAdminMode}
+                translate={this.props.translate}
               />
             )}
           </nav>
