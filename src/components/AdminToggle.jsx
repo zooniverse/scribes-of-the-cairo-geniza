@@ -19,7 +19,8 @@ const AdminToggle = ({ adminMode, toggleAdminMode, translate }) => {
 
 AdminToggle.propTypes = {
   adminMode: PropTypes.bool.isRequired,
-  toggleAdminMode: PropTypes.func.isRequired
+  toggleAdminMode: PropTypes.func.isRequired,
+  translate: PropTypes.func.isRequired
 };
 
 export default AdminToggle;
