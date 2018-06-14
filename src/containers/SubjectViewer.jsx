@@ -188,6 +188,34 @@ class SubjectViewer extends React.Component {
 
     return { x: inputX, y: inputY };
   }
+  
+  /*  This does the oppositve of getPointerXYOnImage: given an xy-coord
+      relative to the image (i.e. the position of an annotation's start or end
+      point), return the xy-coordinate of that point relative to the whole
+      window (or, more accurately, relative to the coordinates of THIS
+      component).
+   */
+  figureOutActualXYOfAPointInTheImage(point) {
+    let actualX = point.x;
+    let actualY = point.y;
+    
+    actualX = actualX - (this.props.imageSize.width / 2);
+    actualY = actualY - (this.props.imageSize.height / 2);
+    
+    const rotation = (this.props.rotation / 180) * Math.PI;  //REVERSE THE ROTATION
+    const tmpX = actualX;
+    const tmpY = actualY;
+    actualX = tmpX * Math.cos(rotation) - tmpY * Math.sin(rotation);
+    actualY = tmpX * Math.sin(rotation) + tmpY * Math.cos(rotation);
+    
+    actualX = (actualX + this.props.translationX) * this.props.scaling;
+    actualY = (actualY + this.props.translationY) * this.props.scaling;
+    
+    actualX = actualX + (this.props.viewerSize.width / 2);
+    actualY = actualY + (this.props.viewerSize.height / 2);
+    
+    return { x: actualX, y: actualY };
+  }
 
   onMouseDown(e) {
     if (this.props.viewerState === SUBJECTVIEWER_STATE.NAVIGATING) {
@@ -223,11 +251,12 @@ class SubjectViewer extends React.Component {
       this.props.dispatch(addAnnotationPoint(pointerXYOnImage.x, pointerXYOnImage.y, this.props.frame));
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
+        //Figure out position of Selected Annotation component.
+        //--------
         const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-        const offset = {
-          y: 0
-        };
-        console.log('+++ offset A: ', offset);
+        const offset = { y: 0 };
+        //--------
+        console.log('+++ offset A: ', offset, this.props.annotationInProgress, boundingBox);
         this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
         this.props.dispatch(completeAnnotation());
       }
@@ -275,12 +304,19 @@ class SubjectViewer extends React.Component {
 
   onSelectAnnotation(indexOfAnnotation) {
     this.props.dispatch(selectAnnotation(indexOfAnnotation));
+    //Figure out position of Selected Annotation component.
+    //--------
     const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-    const offset = {
-      y: 0
-    };
-    console.log('+++ offset B: ', offset);
-    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
+    let offset = { y: 0 };
+    const selectedAnnotation = (this.props.annotations) ? this.props.annotations[indexOfAnnotation] : null;
+    if (selectedAnnotation) {
+      const actualXYOfPointA = this.figureOutActualXYOfAPointInTheImage(selectedAnnotation.points[0]);
+      const actualXYOfPointB = this.figureOutActualXYOfAPointInTheImage(selectedAnnotation.points[1]);
+      console.log('+++ actualXYOfPointA: ', actualXYOfPointA);
+    }
+    //--------
+    console.log('+++ offset B: ', selectedAnnotation);
+    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, selAnno));
   }
 
   render() {
