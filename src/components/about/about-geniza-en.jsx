@@ -27,7 +27,7 @@ function Content() {
       </span>
       <span>
         In this project we are asking volunteers to transcribe fragments from The
-        Cairo Geniza. In a <a href={`${classifyPath}${c.phaseOne}`} target="_blank">first phase of this project</a>, these fragments are sorted
+        Cairo Geniza. In a <a href={`${classifyPath}${c.phaseOne}`} target="_blank" rel="noopener noreferrer">first phase of this project</a>, these fragments are sorted
         for the purpose of easing the process of transcription. Transcription of
         these fragments is vitally important for research and more broadly, because
         they have the potential to rewrite the history of the premodern Middle East,

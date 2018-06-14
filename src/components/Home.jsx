@@ -10,6 +10,7 @@ import ImgBodleian from '../images/partners/bodleian.png';
 import ImgCambridge from '../images/partners/cambridge.png';
 import ImgElijah from '../images/partners/elijah.png';
 import GenizahCentre from '../images/partners/genizah-centre.png';
+import ImgIMLS from '../images/partners/imls.png';
 import ImgJTS from '../images/partners/jts.png';
 import ImgManchester from '../images/partners/manchester.png';
 import ImgPenn from '../images/partners/penn.png';
@@ -126,6 +127,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
                   href={`${classifyPath}${c.hebrewKeyword}`}
                   rel="noopener noreferrer"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
                 </a>
@@ -139,6 +141,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
                 href={`${classifyPath}${c.phaseOne}`}
                 rel="noopener noreferrer"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {translate('classifyFragments.button')} <i className="fa fa-external-link-alt" />
               </a>
@@ -188,6 +191,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
                   href={`${classifyPath}${c.arabicKeyword}`}
                   rel="noopener noreferrer"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
                 </a>
@@ -200,17 +204,19 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
       <div className="home-page__partners">
         <h2>{translate('home.institutions')}</h2>
         <div>
-          <ZooniverseLogotype />
+          <a href="https://www.zooniverse.org/" target="_blank" rel="noopener noreferrer"><ZooniverseLogotype /></a>
 
-          <img alt="Penn" src={ImgPenn} />
-          <img alt="The Jewish Theological Seminary" src={ImgJTS} />
-          <img alt="Princeton Geniza Project" src={ImgPrinceton} />
+          <a href="http://www.library.upenn.edu/" target="_blank" rel="noopener noreferrer"><img alt="Penn" src={ImgPenn} /></a>
+          <a href="http://www.jtsa.edu/" target="_blank" rel="noopener noreferrer"><img alt="The Jewish Theological Seminary" src={ImgJTS} /></a>
+          <a href="https://www.princeton.edu/~geniza/" target="_blank" rel="noopener noreferrer"><img alt="Princeton Geniza Project" src={ImgPrinceton} /></a>
 
-          <img alt="Cambridge" src={ImgCambridge} />
-          <img alt="Manchester" src={ImgManchester} />
-          <img alt="Bodleian" src={ImgBodleian} />
+          <a href="http://www.lib.cam.ac.uk/collections/departments/taylor-schechter-genizah-research-unit" target="_blank" rel="noopener noreferrer"><img alt="Cambridge" src={ImgCambridge} /></a>
+          <a href="http://www.library.manchester.ac.uk/rylands/" target="_blank" rel="noopener noreferrer"><img alt="Manchester" src={ImgManchester} /></a>
+          <a href="https://www.bodleian.ox.ac.uk/" target="_blank" rel="noopener noreferrer"><img alt="Bodleian" src={ImgBodleian} /></a>
           <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
-          <img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} />
+          <a href="http://gniza.haifa.ac.il" target="_blank" rel="noopener noreferrer"><img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} /></a>
+          
+          <a href="https://www.imls.gov/" target="_blank" rel="noopener noreferrer"><img alt="IMLS" src={ImgIMLS} /></a>
         </div>
       </div>
       <div className="offset-image">
