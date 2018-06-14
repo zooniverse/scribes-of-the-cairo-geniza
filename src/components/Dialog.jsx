@@ -45,7 +45,12 @@ class Dialog extends React.Component {
     const x = (window.innerWidth / 2) - (width / 2);
     const y = ((window.innerHeight / 2) - (height / 2)) + window.pageYOffset;
 
-    const defaultPosition = { x, y, height, width };
+    const defaultPosition = Object.assign({},
+      { x, y, height, width },
+      this.props.default  //Optionally, override the center-of-screen default position with whatever we want.
+    );
+    
+    console.log('+++ defaultPosition: ', defaultPosition, this.props.default);
     const children = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, { updateSize: this.updateSize });
     });
@@ -86,6 +91,7 @@ class Dialog extends React.Component {
 
 Dialog.defaultProps = {
   component: '',
+  default: undefined,
   dispatch: () => {},
   focusedDialog: '',
   isAnnotation: true,
@@ -96,6 +102,7 @@ Dialog.defaultProps = {
 Dialog.propTypes = {
   children: PropTypes.node,
   component: PropTypes.string,
+  default: PropTypes.object,
   dispatch: PropTypes.func,
   focusedDialog: PropTypes.string,
   isAnnotation: PropTypes.bool,

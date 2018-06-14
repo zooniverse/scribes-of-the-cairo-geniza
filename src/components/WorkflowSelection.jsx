@@ -198,7 +198,7 @@ WorkflowSelection.defaultProps = {
 const mapStateToProps = state => {
   const user = state.login.user;
   const userHasWorkInProgress = user && WorkInProgress.check(user);
-
+  
   return {
     //Does the user currently have a page being actively annotated, (e.g. user
     //navigated away from the Classifier page and wants to return), or have
@@ -206,7 +206,9 @@ const mapStateToProps = state => {
     //We need to know if the user has any work that can be retrieved (either
     //from the Redux store of local storage) so we can prompt them to continue.
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
-    adminMode: state.login.adminMode,
+    adminMode: (!/^http:\/\/localhost:3000\//i.test(window.location.href))  //TEMP
+      ? state.login.adminMode
+      : true,
     currentLanguage: getActiveLanguage(state.locale).code,
     translate: getTranslate(state.locale),
     user: state.login.user,  //Needed, otherwise component won't update when it detects a user login.

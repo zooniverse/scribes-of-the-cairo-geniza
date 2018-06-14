@@ -224,7 +224,11 @@ class SubjectViewer extends React.Component {
       if (this.props.annotationInProgress && this.props.annotationInProgress.points &&
           this.props.annotationInProgress.points.length > 1) {
         const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-        this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions));
+        const offset = {
+          y: 0
+        };
+        console.log('+++ offset A: ', offset);
+        this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
         this.props.dispatch(completeAnnotation());
       }
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.CROPPING) {
@@ -272,7 +276,11 @@ class SubjectViewer extends React.Component {
   onSelectAnnotation(indexOfAnnotation) {
     this.props.dispatch(selectAnnotation(indexOfAnnotation));
     const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions));
+    const offset = {
+      y: 0
+    };
+    console.log('+++ offset B: ', offset);
+    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
   }
 
   render() {
