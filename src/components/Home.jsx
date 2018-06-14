@@ -213,7 +213,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
           <a href="http://www.lib.cam.ac.uk/collections/departments/taylor-schechter-genizah-research-unit" target="_blank" rel="noopener noreferrer"><img alt="Cambridge" src={ImgCambridge} /></a>
           <a href="http://www.library.manchester.ac.uk/rylands/" target="_blank" rel="noopener noreferrer"><img alt="Manchester" src={ImgManchester} /></a>
           <a href="https://www.bodleian.ox.ac.uk/" target="_blank" rel="noopener noreferrer"><img alt="Bodleian" src={ImgBodleian} /></a>
-          <a href="#" target="_blank" rel="noopener noreferrer"><img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} /></a>
+          <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
           <a href="http://gniza.haifa.ac.il" target="_blank" rel="noopener noreferrer"><img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} /></a>
           
           <a href="https://www.imls.gov/" target="_blank" rel="noopener noreferrer"><img alt="IMLS" src={ImgIMLS} /></a>
