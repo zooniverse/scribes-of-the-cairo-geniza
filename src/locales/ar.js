@@ -80,6 +80,7 @@ export default {
     resumeWorkInProgress: 'Resume Work'
   },
   general: {
+    admin: 'Admin',
     hebrew: 'عبري',
     arabic: 'عربي',
     comingSoon: 'Coming Soon!'

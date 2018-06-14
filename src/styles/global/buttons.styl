@@ -29,9 +29,10 @@
 .disabled-workflow
   margin-top: 0 !important
 
-  button, a
-    cursor: default !important
+  button:disabled, a:not(.disabled-workflow--enable)
+    cursor: default
     opacity: 0.5
+    pointer-events: none
 
     &:hover, &:focus
       background: none !important

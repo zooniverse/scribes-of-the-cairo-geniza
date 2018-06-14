@@ -41,6 +41,7 @@ export default {
     resumeWorkInProgress: 'Resume Work'
   },
   general: {
+    admin: 'Admin',
     hebrew: 'עברית',
     arabic: 'ערבית',
     comingSoon: 'Coming Soon!'

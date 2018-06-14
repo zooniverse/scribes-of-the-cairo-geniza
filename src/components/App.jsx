@@ -10,7 +10,7 @@ import AboutLayout from './about';
 import AuthContainer from '../containers/AuthContainer';
 import ClassifierContainer from '../containers/ClassifierContainer';
 import Home from './Home';
-import ProjectHeader from './ProjectHeader';
+import ProjectHeader from '../containers/ProjectHeader';
 
 class App extends React.Component {
   componentWillMount() {

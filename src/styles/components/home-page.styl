@@ -116,8 +116,13 @@
         padding: 0
 
       a
-        color: white
+        color: $plum
         display: block
+
+        &.button__dark-disabled
+          color: white
+          cursor: default
+          pointer-events: none
 
     .body-font
       color: $warning

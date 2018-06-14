@@ -30,7 +30,7 @@ import AboutGenizaAr from './about/about-geniza-ar';
 import AboutGenizaEn from './about/about-geniza-en';
 import AboutGenizaHe from './about/about-geniza-he';
 
-const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) => {
+const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, translate }) => {
   const selectWorkflow = (workflow) => {
     dispatch(fetchWorkflow(workflow)).then(()=>{
       return dispatch(fetchSubject());
@@ -92,8 +92,10 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <div className="home-page__buttons">
               <div>
                 <button
-                  className="button button__dark-disabled"
-                  disabled
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  disabled={!adminMode}
                   onClick={selectWorkflow.bind(null, config.easyHebrew)}
                 >
                   {translate('transcribeHebrew.easy')}
@@ -102,8 +104,10 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
               </div>
               <div>
                 <button
-                  className="button button__dark-disabled"
-                  disabled
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  disabled={!adminMode}
                   onClick={selectWorkflow.bind(null, config.challengingHebrew)}
                 >
                   {translate('transcribeHebrew.challenging')}
@@ -116,8 +120,11 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <div className="home-page__buttons">
               <div>
                 <a
-                  className="button button__dark-disabled"
-                  // href={`${classifyPath}${c.hebrewKeyword}`}
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  href={`${classifyPath}${c.hebrewKeyword}`}
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
@@ -130,6 +137,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
               <a
                 className="button"
                 href={`${classifyPath}${c.phaseOne}`}
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 {translate('classifyFragments.button')} <i className="fa fa-external-link-alt" />
@@ -146,8 +154,10 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <div className="home-page__buttons">
               <div>
                 <button
-                  className="button button__dark-disabled"
-                  disabled
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  disabled={!adminMode}
                   onClick={selectWorkflow.bind(null, config.easyArabic)}
                 >
                   {translate('transcribeArabic.easy')}
@@ -156,8 +166,10 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
               </div>
               <div>
                 <button
-                  className="button button__dark-disabled"
-                  disabled
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  disabled={!adminMode}
                   onClick={selectWorkflow.bind(null, config.challengingArabic)}
                 >
                   {translate('transcribeArabic.challenging')}
@@ -170,8 +182,11 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
             <div className="home-page__buttons">
               <div>
                 <a
-                  className="button button__dark-disabled"
-                  // href={`${classifyPath}${c.arabicKeyword}`}
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  href={`${classifyPath}${c.arabicKeyword}`}
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
@@ -234,6 +249,7 @@ const Home = ({ currentLanguage, dispatch, history, language, rtl, translate }) 
 };
 
 Home.propTypes = {
+  adminMode: PropTypes.bool,
   currentLanguage: PropTypes.string.isRequired,
   dispatch: PropTypes.func,
   history: PropTypes.shape({
@@ -245,6 +261,7 @@ Home.propTypes = {
 };
 
 Home.defaultProps = {
+  adminMode: false,
   dispatch: () => {},
   history: null,
   rtl: false,
@@ -252,6 +269,7 @@ Home.defaultProps = {
 };
 
 const mapStateToProps = state => ({
+  adminMode: state.login.adminMode,
   currentLanguage: getActiveLanguage(state.locale).code,
   language: state.languages.language,
   rtl: state.languages.rtl,

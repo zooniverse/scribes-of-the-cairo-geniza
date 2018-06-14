@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import classnames from 'classnames';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { fetchWorkflow, toggleSelection } from '../ducks/workflow';
 import { fetchSubject } from '../ducks/subject';
@@ -10,7 +11,7 @@ import { togglePopup } from '../ducks/dialog';
 import { config } from '../config';
 import StartNewWorkConfirmation from './StartNewWorkConfirmation';
 
-const WorkflowSelection = ({ className, dispatch, location, history, translate, showAllWorkflows, activeAnnotationExists }) => {
+const WorkflowSelection = ({ adminMode, className, dispatch, location, history, translate, showAllWorkflows, activeAnnotationExists }) => {
   const proceedToClassifier = () => {
     dispatch(toggleSelection(false));
     dispatch(togglePopup(null));
@@ -71,6 +72,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <a
               className="tertiary-label"
               href={`${classifyPath}${c.phaseOne}`}
+              rel="noopener noreferrer"
               target="_blank"
             >
               {translate('workflowSelection.phaseOne')} <i className="fa fa-external-link-alt" />
@@ -82,7 +84,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled
+                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.easyHebrew)}
               >
                 {translate('transcribeHebrew.easy')}
@@ -92,7 +94,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label disabled-workflow"
-                disabled
+                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.challengingHebrew)}
               >
                 {translate('transcribeHebrew.challenging')}
@@ -104,10 +106,12 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
               <span className="primary-label">{translate('workflowSelection.keywordSearch')}</span>
               <div className="disabled-workflow">
                 <a
-                  className="tertiary-label"
-                  data-disabled-href={`${classifyPath}${c.hebrewKeyword}`}
-                  data-disabled-target="_blank"
-                  href="#"                  
+                  className={classnames('tertiary-label', {
+                    'disabled-workflow--enable': adminMode
+                  })}
+                  href={`${classifyPath}${c.hebrewKeyword}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   {translate('keywordsHebrew.button')} <i className="fa fa-external-link-alt" />
                 </a>
@@ -121,7 +125,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled
+                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.easyArabic)}
               >
                 {translate('transcribeArabic.easy')}
@@ -131,7 +135,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled
+                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.challengingArabic)}
               >
                 {translate('transcribeArabic.challenging')}
@@ -143,10 +147,12 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
               <span className="primary-label">{translate('workflowSelection.keywordSearch')}</span>
               <div className="disabled-workflow">
                 <a
-                  className="tertiary-label"
-                  data-disabled-href={`${classifyPath}${c.arabicKeyword}`}
-                  data-disabled-target="_blank"
-                  href="#"
+                  className={classnames('tertiary-label', {
+                    'disabled-workflow--enable': adminMode
+                  })}
+                  href={`${classifyPath}${c.arabicKeyword}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   {translate('keywordsArabic.button')} <i className="fa fa-external-link-alt" />
                 </a>
@@ -162,6 +168,7 @@ const WorkflowSelection = ({ className, dispatch, location, history, translate, 
 
 WorkflowSelection.propTypes = {
   activeAnnotationExists: PropTypes.bool,
+  adminMode: PropTypes.bool,
   className: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
@@ -176,6 +183,7 @@ WorkflowSelection.propTypes = {
 
 WorkflowSelection.defaultProps = {
   activeAnnotationExists: false,
+  adminMode: false,
   className: '',
   dispatch: () => {},
   history: {
@@ -198,6 +206,7 @@ const mapStateToProps = state => {
     //We need to know if the user has any work that can be retrieved (either
     //from the Redux store of local storage) so we can prompt them to continue.
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
+    adminMode: state.login.adminMode,
     currentLanguage: getActiveLanguage(state.locale).code,
     translate: getTranslate(state.locale),
     user: state.login.user,  //Needed, otherwise component won't update when it detects a user login.
