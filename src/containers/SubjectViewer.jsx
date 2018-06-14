@@ -316,7 +316,7 @@ class SubjectViewer extends React.Component {
     }
     //--------
     console.log('+++ offset B: ', selectedAnnotation);
-    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, selAnno));
+    this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
   }
 
   render() {
