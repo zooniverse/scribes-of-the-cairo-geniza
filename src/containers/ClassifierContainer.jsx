@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { togglePopup } from '../ducks/dialog';
-import { toggleReminder } from '../ducks/reminder';
-import { shownStartReminder } from '../ducks/subject-viewer';
+import { shownStartReminder, toggleReminder } from '../ducks/reminder';
 import { WORKFLOW_STATUS } from '../ducks/workflow';
 import { WorkInProgress } from '../ducks/work-in-progress';
 
@@ -37,7 +36,7 @@ class ClassifierContainer extends React.Component {
   }
 
   toggleHelp() {
-    if (!this.props.shownReminder) {
+    if (!this.props.shownBeginReminder) {
       const message = 'Get Started by clicking "Add Transcription"';
       this.props.dispatch(shownStartReminder());
       this.props.dispatch(toggleReminder(
@@ -83,7 +82,7 @@ ClassifierContainer.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number
   }),
-  shownReminder: PropTypes.bool,
+  shownBeginReminder: PropTypes.bool,
   user: PropTypes.shape({
     id: PropTypes.string
   }),
@@ -97,7 +96,7 @@ ClassifierContainer.defaultProps = {
   dialog: null,
   popup: null,
   size: { height: 200, width: 200 },
-  shownReminder: false,
+  shownBeginReminder: false,
   user: null
 };
 
@@ -108,7 +107,7 @@ const mapStateToProps = state => ({
   dialog: state.dialog.data,
   popup: state.dialog.popup,
   size: state.dialog.size,
-  shownReminder: state.subjectViewer.shownReminder,
+  shownBeginReminder: state.reminder.shownBeginReminder,
   subjectStatus: state.subject.status,
   user: state.login.user,
   workflowStatus: state.workflow.status

@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
-import CollectionsContainer from '../containers/CollectionsContainer';
 import { toggleHints } from '../ducks/aggregations';
 import { toggleDialog } from '../ducks/dialog';
-import { toggleReminder } from '../ducks/reminder';
+import { shownStartReminder, toggleReminder } from '../ducks/reminder';
 import { toggleFavorite } from '../ducks/subject';
-import { shownStartReminder, toggleMarks } from '../ducks/subject-viewer';
+import { toggleMarks } from '../ducks/subject-viewer';
+
+import CollectionsContainer from '../containers/CollectionsContainer';
 import FavoritesButton from './FavoritesButton';
+import HelperMessage from './HelperMessage';
 
 import { setScaling, resetView,
   setRotation, toggleContrast,
@@ -67,11 +69,14 @@ class Toolbar extends React.Component {
   }
 
   useAnnotationTool() {
-    if (!this.props.shownReminder) {
+    if (!this.props.shownBeginReminder) {
       this.props.dispatch(shownStartReminder());
     }
     if (this.props.reminder) {
       this.props.dispatch(toggleReminder(null));
+    }
+    if (!this.props.shownMarkReminder) {
+      setTimeout(() => { this.toggleHelp(); }, 5000);
     }
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   }
@@ -120,6 +125,15 @@ class Toolbar extends React.Component {
 
   closeDialog() {
     this.props.dispatch(toggleDialog(null));
+  }
+
+  toggleHelp() {
+    if (!this.props.shownMarkReminder) {
+      const message = 'Click at the start and end of a line of text to add a transcription (remember to start on the right side!)';
+      this.props.dispatch(toggleReminder(
+        <HelperMessage message={message} width={565} />
+      ));
+    }
   }
 
   render() {
@@ -222,7 +236,8 @@ Toolbar.propTypes = {
   scaling: PropTypes.number,
   showHints: PropTypes.bool,
   showMarks: PropTypes.bool,
-  shownReminder: PropTypes.bool,
+  shownBeginReminder: PropTypes.bool,
+  shownMarkReminder: PropTypes.bool,
   translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -240,7 +255,8 @@ Toolbar.defaultProps = {
   scaling: 0,
   showHints: true,
   showMarks: true,
-  shownReminder: false,
+  shownBeginReminder: false,
+  shownMarkReminder: false,
   translate: () => {},
   user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
@@ -259,7 +275,8 @@ const mapStateToProps = (state) => {
     scaling: sv.scaling,
     showHints: state.aggregations.showHints,
     showMarks: sv.showMarks,
-    shownReminder: sv.shownReminder,
+    shownBeginReminder: state.reminder.shownBeginReminder,
+    shownMarkReminder: state.reminder.shownMarkReminder,
     translate: getTranslate(state.locale),
     user: state.login.user,
     viewerState: sv.viewerState

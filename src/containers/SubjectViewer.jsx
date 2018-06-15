@@ -16,6 +16,7 @@ import {
 
 import { addAnnotationPoint, completeAnnotation, selectAnnotation } from '../ducks/annotations';
 import { toggleAnnotation } from '../ducks/dialog';
+import { shownMarkReminder, toggleReminder } from '../ducks/reminder';
 
 import AnnotationsPane from '../components/AnnotationsPane';
 import AggregationsPane from '../components/AggregationsPane';
@@ -215,6 +216,10 @@ class SubjectViewer extends React.Component {
       this.pointer.now = { x: pointerXY.x, y: pointerXY.y };
       this.tmpTransform = false;
     } else if (this.props.viewerState === SUBJECTVIEWER_STATE.ANNOTATING) {
+      if (!this.props.shownMarkReminder) {
+        this.props.dispatch(shownMarkReminder());
+        this.props.dispatch(toggleReminder(null));
+      }
       if (this.props.selectedAnnotation) { return; }
       if (e.target.parentNode.className.baseVal.indexOf('block-transcription') >= 0) {
         return;
@@ -399,6 +404,7 @@ SubjectViewer.propTypes = {
     details: PropTypes.array
   }),
   showKeyboard: PropTypes.bool,
+  shownMarkReminder: PropTypes.bool,
   showMarks: PropTypes.bool,
   subjectStatus: PropTypes.string,
   viewerSize: PropTypes.shape({
@@ -421,6 +427,7 @@ SubjectViewer.defaultProps = {
   scaling: 1,
   selectedAnnotation: null,
   showKeyboard: true,
+  shownMarkReminder: false,
   showMarks: true,
   subjectStatus: '',
   translationX: 0,
@@ -446,6 +453,7 @@ const mapStateToProps = (state) => {
     scaling: sv.scaling,
     selectedAnnotation: state.annotations.selectedAnnotation,
     showKeyboard: state.keyboard.showKeyboard,
+    shownMarkReminder: state.reminder.shownMarkReminder,
     showMarks: state.subjectViewer.showMarks,
     subjectStatus: state.subject.status,
     translationX: sv.translationX,

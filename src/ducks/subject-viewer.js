@@ -15,7 +15,6 @@ const initialState = {
   rotation: 0,
   scaling: 1,
   showMarks: true,
-  shownReminder: false,
   translationX: 0,
   translationY: 0,
   viewerSize: { width: 0, height: 0 },
@@ -28,7 +27,6 @@ const SET_ROTATION = 'SET_ROTATION';
 const SET_SCALING = 'SET_SCALING';
 const SET_TRANSLATION = 'SET_TRANSLATION';
 const SET_VIEWER_STATE = 'SET_VIEWER_STATE';
-const TOGGLE_START_REMINDER = 'TOGGLE_START_REMINDER';
 const TOGGLE_CONTRAST = 'TOGGLE_CONTRAST';
 const TOGGLE_MARKS = 'TOGGLE_MARKS';
 const UPDATE_IMAGE_SIZE = 'UPDATE_IMAGE_SIZE';
@@ -133,11 +131,6 @@ const subjectViewerReducer = (state = initialState, action) => {
         frame: action.frame
       });
 
-    case TOGGLE_START_REMINDER:
-      return Object.assign({}, state, {
-        shownReminder: true
-      });
-
     default: {
       return state;
     }
@@ -231,12 +224,6 @@ const toggleMarks = () => {
   };
 };
 
-const shownStartReminder = () => {
-  return (dispatch) => {
-    dispatch({ type: TOGGLE_START_REMINDER });
-  };
-};
-
 export default subjectViewerReducer;
 
 export {
@@ -246,7 +233,6 @@ export {
   setScaling,
   setTranslation,
   setViewerState,
-  shownStartReminder,
   toggleContrast,
   toggleMarks,
   updateImageSize,
