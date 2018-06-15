@@ -50,7 +50,6 @@ class Dialog extends React.Component {
       this.props.default  //Optionally, override the center-of-screen default position with whatever we want.
     );
     
-    console.log('+++ defaultPosition: ', defaultPosition, this.props.default);
     const children = React.Children.map(this.props.children, (child) => {
       return React.cloneElement(child, { updateSize: this.updateSize });
     });

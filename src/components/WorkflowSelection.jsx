@@ -206,9 +206,7 @@ const mapStateToProps = state => {
     //We need to know if the user has any work that can be retrieved (either
     //from the Redux store of local storage) so we can prompt them to continue.
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
-    adminMode: (!/^http:\/\/localhost:3000\//i.test(window.location.href))  //TEMP
-      ? state.login.adminMode
-      : true,
+    adminMode: false,
     currentLanguage: getActiveLanguage(state.locale).code,
     translate: getTranslate(state.locale),
     user: state.login.user,  //Needed, otherwise component won't update when it detects a user login.

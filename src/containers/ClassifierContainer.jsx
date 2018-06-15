@@ -36,8 +36,6 @@ class ClassifierContainer extends React.Component {
       ? this.props.annotationPaneOffset
       : undefined;
     
-    console.log('+++ render ClassifierContainer: ', annotationPaneDefault);
-    
     return (
       <main className="classifier">
         <ControlPanel />

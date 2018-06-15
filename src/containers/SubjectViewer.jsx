@@ -30,6 +30,7 @@ const INPUT_STATE = {
 
 const ANNOTATION_BOX_DIMENSIONS = { height: 600, width: 760 };
 const ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS = { height: 275, width: 760 };
+const ANNOTATION_BOX_OFFSET_MODIFIER = { Y: 32, Y_MARGINS: 128 };
 
 class SubjectViewer extends React.Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class SubjectViewer extends React.Component {
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.getPointerXY = this.getPointerXY.bind(this);
     this.getPointerXYOnImage = this.getPointerXYOnImage.bind(this);
+    this.getActualXYOfPointInImage = this.getActualXYOfPointInImage.bind(this);
     this.onSelectAnnotation = this.onSelectAnnotation.bind(this);
     this.escapeCrop = this.escapeCrop.bind(this);
 
@@ -195,7 +197,7 @@ class SubjectViewer extends React.Component {
       window (or, more accurately, relative to the coordinates of THIS
       component).
    */
-  figureOutActualXYOfAPointInTheImage(point) {
+  getActualXYOfPointInImage(point) {
     let actualX = point.x;
     let actualY = point.y;
     
@@ -215,6 +217,35 @@ class SubjectViewer extends React.Component {
     actualY = actualY + (this.props.viewerSize.height / 2);
     
     return { x: actualX, y: actualY };
+  }
+  
+  /*  Guess the best position to place the annotation popup. The "best position"
+      as it turns out, is just a little below the position of the selected
+      annotation on the SVG.
+      We only want the y-offset, not the x-offset, because we assume most
+      users are OK with the annotation popup appearing at the centre of the
+      window (default behaviour).
+   */
+  guesstimateBestOffsetForAnnotationBox(selectedAnnotation) {
+    if (!selectedAnnotation || !selectedAnnotation.points[0] || !selectedAnnotation.points[1]) {
+      return { y: 0 };
+    }
+    const xyA = this.getActualXYOfPointInImage(selectedAnnotation.points[0]);
+    const xyB = this.getActualXYOfPointInImage(selectedAnnotation.points[1]);
+    let desiredY = (xyA.y + xyB.y) / 2;  //Get the centre point of the annotation.
+    desiredY += ANNOTATION_BOX_OFFSET_MODIFIER.Y;  //Get a position a little lower than the centre of the annotation.
+    
+    //EDIT: do NOT try to constrain the position of the annotation popup to
+    //within the window viewport. This leads to strange interactions, and
+    //in any case there's a self-correcting mechanism (at least in Chrome,
+    //when adding an annotation to the lower part of an SVG image) where the
+    //newly added height (of the annotation popup, to the page document) causes
+    //the window/viewport to scroll down the necessary amount to make the
+    //annotation popup visible to the user. TL;DR: maybe don't worry about it.
+    //  desiredY = Math.min(desiredY, window.innerHeight + window.pageYOffset - ANNOTATION_BOX_OFFSET_MODIFIER.Y_MARGINS);  //Sanity check: Don't let the popup appear below the window viewport.
+    //  desiredY = Math.max(desiredY, 0 + window.pageYOffset + ANNOTATION_BOX_OFFSET_MODIFIER.Y_MARGINS);  //Sanity check: don't let the popup appear above the window viewport.
+    
+    return { y:  desiredY };
   }
 
   onMouseDown(e) {
@@ -254,9 +285,8 @@ class SubjectViewer extends React.Component {
         //Figure out position of Selected Annotation component.
         //--------
         const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-        const offset = { y: 0 };
+        const offset = this.guesstimateBestOffsetForAnnotationBox(this.props.annotationInProgress);
         //--------
-        console.log('+++ offset A: ', offset, this.props.annotationInProgress, boundingBox);
         this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
         this.props.dispatch(completeAnnotation());
       }
@@ -307,15 +337,9 @@ class SubjectViewer extends React.Component {
     //Figure out position of Selected Annotation component.
     //--------
     const dimensions = this.props.showKeyboard ? ANNOTATION_BOX_DIMENSIONS : ANNOTATION_BOX_NO_KEYBOARD_DIMENSIONS;
-    let offset = { y: 0 };
     const selectedAnnotation = (this.props.annotations) ? this.props.annotations[indexOfAnnotation] : null;
-    if (selectedAnnotation) {
-      const actualXYOfPointA = this.figureOutActualXYOfAPointInTheImage(selectedAnnotation.points[0]);
-      const actualXYOfPointB = this.figureOutActualXYOfAPointInTheImage(selectedAnnotation.points[1]);
-      console.log('+++ actualXYOfPointA: ', actualXYOfPointA);
-    }
+    const offset = this.guesstimateBestOffsetForAnnotationBox(selectedAnnotation);
     //--------
-    console.log('+++ offset B: ', selectedAnnotation);
     this.props.dispatch(toggleAnnotation(<SelectedAnnotation />, dimensions, offset));
   }
 
