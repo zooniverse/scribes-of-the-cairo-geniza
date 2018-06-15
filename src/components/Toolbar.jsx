@@ -5,10 +5,11 @@ import classnames from 'classnames';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import CollectionsContainer from '../containers/CollectionsContainer';
-import { toggleDialog } from '../ducks/dialog';
-import { toggleFavorite } from '../ducks/subject';
 import { toggleHints } from '../ducks/aggregations';
-import { toggleMarks } from '../ducks/subject-viewer';
+import { toggleDialog } from '../ducks/dialog';
+import { toggleReminder } from '../ducks/reminder';
+import { toggleFavorite } from '../ducks/subject';
+import { shownStartReminder, toggleMarks } from '../ducks/subject-viewer';
 import FavoritesButton from './FavoritesButton';
 
 import { setScaling, resetView,
@@ -66,6 +67,12 @@ class Toolbar extends React.Component {
   }
 
   useAnnotationTool() {
+    if (!this.props.shownReminder) {
+      this.props.dispatch(shownStartReminder());
+    }
+    if (this.props.reminder) {
+      this.props.dispatch(toggleReminder(null));
+    }
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   }
 
@@ -84,7 +91,7 @@ class Toolbar extends React.Component {
   toggleShowHints() {
     this.props.dispatch(toggleHints());
   }
-  
+
   toggleShowMarks() {
     this.props.dispatch(toggleMarks());
   }
@@ -124,7 +131,7 @@ class Toolbar extends React.Component {
     const marksIcon = this.props.showMarks ? 'fas fa-comment-dots' : 'fas fa-comment-slash';
     const marksText = this.props.showMarks ? this.props.translate('toolbar.showingMarks')
       : this.props.translate('toolbar.hidingMarks');
-    
+
 
     return (
       <section className={toolbarClass}>
@@ -165,12 +172,12 @@ class Toolbar extends React.Component {
           <i className="fa fa-adjust" />
           {expanded && (<span>{this.props.translate('toolbar.invertColors')}</span>)}
         </button>
-        
+
         <button onClick={this.toggleShowMarks}>
           <i className={marksIcon} />
           {expanded && (<span>{marksText}</span>)}
         </button>
-        
+
         {this.props.aggregations && Object.keys(this.props.aggregations).length ? (
           <button onClick={this.toggleShowHints}>
             <i className={hintsIcon} />
@@ -209,11 +216,13 @@ Toolbar.propTypes = {
   aggregations: PropTypes.object,
   dispatch: PropTypes.func,
   favoriteSubject: PropTypes.bool,
+  reminder: PropTypes.node,
   rotation: PropTypes.number,
   rtl: PropTypes.bool,
   scaling: PropTypes.number,
   showHints: PropTypes.bool,
   showMarks: PropTypes.bool,
+  shownReminder: PropTypes.bool,
   translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
@@ -225,11 +234,13 @@ Toolbar.defaultProps = {
   aggregations: null,
   dispatch: () => {},
   favoriteSubject: false,
+  reminder: null,
   rotation: 0,
   rtl: false,
   scaling: 0,
   showHints: true,
   showMarks: true,
+  shownReminder: false,
   translate: () => {},
   user: null,
   viewerState: SUBJECTVIEWER_STATE.NAVIGATING
@@ -242,11 +253,13 @@ const mapStateToProps = (state) => {
     aggStatus: state.aggregations.status,
     currentLanguage: getActiveLanguage(state.locale).code,
     favoriteSubject: state.subject.favorite,
+    reminder: state.reminder.node,
     rotation: sv.rotation,
     rtl: state.languages.rtl,
     scaling: sv.scaling,
     showHints: state.aggregations.showHints,
     showMarks: sv.showMarks,
+    shownReminder: sv.shownReminder,
     translate: getTranslate(state.locale),
     user: state.login.user,
     viewerState: sv.viewerState

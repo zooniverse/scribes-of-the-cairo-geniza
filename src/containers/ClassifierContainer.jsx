@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { togglePopup } from '../ducks/dialog';
+import { toggleReminder } from '../ducks/reminder';
+import { shownStartReminder } from '../ducks/subject-viewer';
 import { WORKFLOW_STATUS } from '../ducks/workflow';
 import { WorkInProgress } from '../ducks/work-in-progress';
 
 import ControlPanel from '../components/ControlPanel';
 import WorkflowPrompt from '../components/WorkflowPrompt';
 import Toolbar from '../components/Toolbar';
-import SubjectViewer from './SubjectViewer';
 import Dialog from '../components/Dialog';
+import HelperMessage from '../components/HelperMessage';
+
+import SubjectViewer from './SubjectViewer';
 
 class ClassifierContainer extends React.Component {
   componentDidMount() {
@@ -22,12 +26,23 @@ class ClassifierContainer extends React.Component {
   componentWillReceiveProps(next) {
     if (this.props.workflowStatus !== next.workflowStatus) {
       this.props.dispatch(togglePopup(null));
+      setTimeout(() => { this.toggleHelp(); }, 4000);
     }
   }
 
   componentWillUnmount() {
     if (this.props.popup) {
       this.props.dispatch(togglePopup(null));
+    }
+  }
+
+  toggleHelp() {
+    if (!this.props.shownReminder) {
+      const message = 'Get Started by clicking "Add Transcription"';
+      this.props.dispatch(shownStartReminder());
+      this.props.dispatch(toggleReminder(
+        <HelperMessage message={message} width={400} />
+      ));
     }
   }
 
@@ -68,6 +83,7 @@ ClassifierContainer.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number
   }),
+  shownReminder: PropTypes.bool,
   user: PropTypes.shape({
     id: PropTypes.string
   }),
@@ -81,6 +97,7 @@ ClassifierContainer.defaultProps = {
   dialog: null,
   popup: null,
   size: { height: 200, width: 200 },
+  shownReminder: false,
   user: null
 };
 
@@ -91,6 +108,7 @@ const mapStateToProps = state => ({
   dialog: state.dialog.data,
   popup: state.dialog.popup,
   size: state.dialog.size,
+  shownReminder: state.subjectViewer.shownReminder,
   subjectStatus: state.subject.status,
   user: state.login.user,
   workflowStatus: state.workflow.status

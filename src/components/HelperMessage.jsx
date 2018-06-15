@@ -20,7 +20,7 @@ class HelperMessage extends React.Component {
     const y = this.props.viewerSize.height * QUARTER_OF_PAGE;
 
     return (
-      <g className="block-transcription" style={{ direction: 'ltr' }}>
+      <g className="helper-message" style={{ direction: 'ltr' }}>
         <rect
           x={-(this.props.width / 2)}
           y={y}
@@ -45,15 +45,14 @@ class HelperMessage extends React.Component {
         <text
           x={(this.props.width / 2) - 18}
           y={y + 20}
-          className="close-reminder"
-          fontFamily="FontAwesome"
+          className="helper-message__close-button"
           fill="#472B36"
           fontSize="10px"
           fontWeight="700"
           textAnchor="end"
           onClick={this.onClose}
         >
-          &#xf00d;
+          x
         </text>
       </g>
     );
