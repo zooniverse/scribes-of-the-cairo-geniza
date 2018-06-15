@@ -26,7 +26,7 @@ class ClassifierContainer extends React.Component {
   componentWillReceiveProps(next) {
     if (this.props.workflowStatus !== next.workflowStatus) {
       this.props.dispatch(togglePopup(null));
-      setTimeout(() => { this.toggleHelp(); }, 4000);
+      setTimeout(() => { this.toggleHelp(); }, 5000);
     }
   }
 
@@ -41,7 +41,7 @@ class ClassifierContainer extends React.Component {
       const message = 'Get Started by clicking "Add Transcription"';
       this.props.dispatch(shownStartReminder());
       this.props.dispatch(toggleReminder(
-        <HelperMessage message={message} width={400} />
+        <HelperMessage message={message} width={275} />
       ));
     }
   }
