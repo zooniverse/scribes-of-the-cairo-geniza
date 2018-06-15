@@ -215,7 +215,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
           <a href="https://www.bodleian.ox.ac.uk/" target="_blank" rel="noopener noreferrer"><img alt="Bodleian" src={ImgBodleian} /></a>
           <img alt="The e-Lijah Lab at the University of Haifa" src={ImgElijah} />
           <a href="http://gniza.haifa.ac.il" target="_blank" rel="noopener noreferrer"><img alt="The Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa" src={GenizahCentre} /></a>
-          
+
           <a href="https://www.imls.gov/" target="_blank" rel="noopener noreferrer"><img alt="IMLS" src={ImgIMLS} /></a>
         </div>
       </div>
