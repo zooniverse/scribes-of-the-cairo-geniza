@@ -382,12 +382,12 @@ export default {
     deny: 'No, continue transcribing'
   },
   helpModals: {
-    closeKeyboard: 'Click here to hide/show the keyboard.',
-    scriptOptions: `
+    keyboardHelp: 'Click here to hide/show the keyboard.',
+    scriptHelp: `
       Scroll to choose a different script type for the keyboard. Visit the Script
       References section in the Crib Sheet for more information.
     `,
-    textModifiers: `
+    modifierHelp: `
       Use these text modifiers to indicate special occurrences. Highlight the
       text and click the applicable modifier. Find examples of each in the
       Field Guide.
