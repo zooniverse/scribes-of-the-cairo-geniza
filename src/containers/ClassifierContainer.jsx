@@ -46,6 +46,10 @@ class ClassifierContainer extends React.Component {
   }
 
   render() {
+    const annotationPaneDefault = (this.props.annotationPaneOffset)
+      ? this.props.annotationPaneOffset
+      : undefined;
+    
     return (
       <main className="classifier">
         <ControlPanel />
@@ -53,7 +57,7 @@ class ClassifierContainer extends React.Component {
         <Toolbar />
 
         {(this.props.annotationPane === null) ? null :
-          <Dialog component={this.props.component} size={this.props.annotationPaneSize}>
+          <Dialog component={this.props.component} size={this.props.annotationPaneSize} default={annotationPaneDefault}>
             {this.props.annotationPane}
           </Dialog>
         }
@@ -103,6 +107,7 @@ ClassifierContainer.defaultProps = {
 const mapStateToProps = state => ({
   annotationPane: state.dialog.annotationPane,
   annotationPaneSize: state.dialog.annotationPaneSize,
+  annotationPaneOffset: state.dialog.annotationPaneOffset,
   component: state.dialog.component,
   dialog: state.dialog.data,
   popup: state.dialog.popup,

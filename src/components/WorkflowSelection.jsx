@@ -199,7 +199,7 @@ WorkflowSelection.defaultProps = {
 const mapStateToProps = state => {
   const user = state.login.user;
   const userHasWorkInProgress = user && WorkInProgress.check(user);
-
+  
   return {
     //Does the user currently have a page being actively annotated, (e.g. user
     //navigated away from the Classifier page and wants to return), or have
