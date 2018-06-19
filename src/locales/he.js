@@ -333,5 +333,17 @@ export default {
     question: '?בטוחים שאתם רוצים לסגור בלי לשמור',
     confirm: 'כן, סגור בלי לשמור',
     deny: 'לא, המשך לתעתק'
+  },
+  helpModals: {
+    closeKeyboard: 'Click here to hide/show the keyboard.',
+    scriptOptions: `
+      Scroll to choose a different script type for the keyboard. Visit the Script
+      References section in the Crib Sheet for more information.
+    `,
+    textModifiers: `
+      Use these text modifiers to indicate special occurrences. Highlight the
+      text and click the applicable modifier. Find examples of each in the
+      Field Guide.
+    `
   }
 };

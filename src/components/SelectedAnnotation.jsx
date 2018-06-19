@@ -19,7 +19,7 @@ import { toggleMarks } from '../ducks/subject-viewer';
 import AnnotationKeyboard from './AnnotationKeyboard';
 import FlippedBtn from './styled/FlippedBtn';
 import QuestionPrompt from './QuestionPrompt';
-import TextModifierHelp from './TextModifierHelp';
+import HelpModal from './HelpModal';
 import { KeyboardOptions } from '../lib/KeyboardTypes';
 import cleanText from '../lib/clean-text';
 import { Utility, KEY_VALUES } from '../lib/Utility';
@@ -50,11 +50,15 @@ class SelectedAnnotation extends React.Component {
     this.toggleMarks = this.toggleMarks.bind(this);
     this.toggleScriptOptions = this.toggleScriptOptions.bind(this);
     this.toggleWhatsThis = this.toggleWhatsThis.bind(this);
+    this.toggleCloseKeyboardHelp = this.toggleCloseKeyboardHelp.bind(this);
+    this.toggleScriptOptionsHelp = this.toggleScriptOptionsHelp.bind(this);
 
     this.state = {
       disableSubmit: true,
-      showHelp: false,
-      showScriptOptions: false
+      showCloseKeyboardHelp: false,
+      showModifierHelp: false,
+      showScriptOptions: false,
+      showScriptOptionsHelp: false
     };
   }
 
@@ -181,12 +185,13 @@ class SelectedAnnotation extends React.Component {
     if ((this.dropdown && this.dropdown.contains(e.target)) || (this.scriptToggle && this.scriptToggle.contains(e.target))) {
       return;
     }
-    if ((this.helpBox && this.helpBox.contains(e.target)) || (this.questionMark && this.questionMark.contains(e.target))) {
+    if ((this.helpBox && this.helpBox.contains(e.target)) || (this.modifierHelpMark && this.modifierHelpMark.contains(e.target))) {
       return;
     }
-    if (this.state.showHelp || this.state.showScriptOptions) {
-      this.setState({ showHelp: false });
-      this.setState({ showScriptOptions: false });
+    if (this.state.showModifierHelp || this.state.showScriptOptions || this.state.showCloseKeyboardHelp || this.state.showScriptOptionsHelp) {
+      this.setState({ showModifierHelp: false });
+      this.setState({ showCloseKeyboardHelp: false });
+      this.setState({ showScriptOptionsHelp: false });
     }
   }
 
@@ -302,7 +307,15 @@ class SelectedAnnotation extends React.Component {
   }
 
   toggleWhatsThis() {
-    this.setState({ showHelp: !this.state.showHelp });
+    this.setState({ showModifierHelp: !this.state.showModifierHelp });
+  }
+
+  toggleCloseKeyboardHelp() {
+    this.setState({ showCloseKeyboardHelp: !this.state.showCloseKeyboardHelp });
+  }
+
+  toggleScriptOptionsHelp() {
+    this.setState({ showScriptOptionsHelp: !this.state.showScriptOptionsHelp });
   }
 
   scriptOption(script, i) {
@@ -366,11 +379,12 @@ class SelectedAnnotation extends React.Component {
           placeholder={translate('transcribeBox.textArea')}
         />
         <div className="selected-annotation__text-modifiers">
-          <button onClick={this.toggleWhatsThis} ref={(c) => { this.questionMark = c; }}><i className="far fa-question-circle" /></button>
-          {this.state.showHelp && (
-            <TextModifierHelp
+          <button onClick={this.toggleWhatsThis} ref={(c) => { this.modifierHelpMark = c; }}><i className="far fa-question-circle" /></button>
+          {this.state.showModifierHelp && (
+            <HelpModal
               helpBox={(c) => { this.helpBox = c; }}
-              questionMark={this.questionMark}
+              questionMark={this.modifierHelpMark}
+              text={translate('helpModals.textModifiers')}
               togglePopup={this.toggleWhatsThis}
             />
           )}
@@ -399,6 +413,16 @@ class SelectedAnnotation extends React.Component {
             </div>
             <div>
               <button className="small-btn" onClick={this.toggleKeyboardView}>{keyboardToggleText}</button>
+
+              <button className="help-button" onClick={this.toggleCloseKeyboardHelp} ref={(c) => { this.keyboardCloseHelpMark = c; }}><i className="far fa-question-circle" /></button>
+              {this.state.showCloseKeyboardHelp && (
+                <HelpModal
+                  helpBox={(c) => { this.helpBox = c; }}
+                  questionMark={this.keyboardCloseHelpMark}
+                  text={translate('helpModals.closeKeyboard')}
+                  togglePopup={this.toggleCloseKeyboardHelp}
+                />
+              )}
 
               {/* These buttons will be visible in Hebrew workflows as some manuscripts have both Arabic and Hebrew */}
               {this.props.manuscriptLanguage === LANGUAGES.HEBREW && (
@@ -450,6 +474,15 @@ class SelectedAnnotation extends React.Component {
                       </div>
                     )}
                     <FlippedBtn rtl={this.props.rtl} onClick={this.nextScript}>&#9658;</FlippedBtn>
+                    <button className="help-button" onClick={this.toggleScriptOptionsHelp} ref={(c) => { this.scriptOptionsHelpMark = c; }}><i className="far fa-question-circle" /></button>
+                    {this.state.showScriptOptionsHelp && (
+                      <HelpModal
+                        helpBox={(c) => { this.helpBox = c; }}
+                        questionMark={this.scriptOptionsHelpMark}
+                        text={translate('helpModals.scriptOptions')}
+                        togglePopup={this.toggleScriptOptionsHelp}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="round-toggle">
