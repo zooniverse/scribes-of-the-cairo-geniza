@@ -13,13 +13,35 @@ function Content() {
           <li><a href="#team">About the Team</a></li>
         </ul>
       </nav>
-      <p className="big text">Scribes of the Cairo Geniza is a project with the ultimate goal of transcribing Cairo Geniza fragments. With an in-kind grant from the Zooniverse, the largest crowdsourcing platform in the world, along with institutional and image partners from The University of Pennsylvania Libraries, The Princeton Geniza Lab, The e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah at the University of Haifa, the Library of the Jewish Theological Seminary, the Genizah Research Unit at Cambridge University Library, and The University of Manchester Library we are harnessing the power of technology to decipher some of the most difficult to read fragments in the world.</p>
-      <p className="text">Before we could ask our volunteers to transcribe, we needed more information about the fragments themselves. We created Phase I to gather this information. In the first phase of the project we asked our community of volunteer humanists and historians to sort Cairo Geniza fragments into groups based on whether they were in Hebrew, Arabic, or both types of scripts. We also asked whether the scripts were written in an informal or formal style and about a few other visual characteristics that hinted at whether the fragment was religious or non-religious in genre.</p>
+      <p className="big text">
+        Scribes of the Cairo Geniza is a project with the ultimate goal of transcribing
+        Cairo Geniza fragments. With an in-kind grant from the Zooniverse, the largest
+        crowdsourcing platform in the world, along with institutional and image partners
+        from The University of Pennsylvania Libraries, The Princeton Geniza Lab, The
+        e-Lijah Lab and the Centre for Interdisciplinary Research of the Cairo Genizah
+        at the University of Haifa, the Library of the Jewish Theological Seminary,
+        the Genizah Research Unit at Cambridge University Library, The University of
+        Manchester Library, and The Bodleian Libraries at University of Oxford, we
+        are harnessing the power of technology to decipher some of the most difficult
+        to read fragments in the world.
+      </p>
+      <p className="text">
+        Before we could ask our volunteers to transcribe, we needed more information
+        about the fragments themselves. We asked our community of volunteer humanists
+        and historians to sort Cairo Geniza fragments into groups based on whether
+        they were in Hebrew, Arabic, or both types of scripts. We also asked whether
+        the scripts were written in an informal or formal style and about a few other
+        visual characteristics that hinted at whether the fragment was religious or
+        non-religious in genre.
+      </p>
       <div className="diagram">
-        <img src={imgPhase1Workflow} />
+        <img alt="Phase One Workflow Diagram" src={imgPhase1Workflow} />
         <span className="caption">Phase One Workflow</span>
       </div>
-      <p className="text">Now we are at the point of the transcription phase, or Phase II. The goal of phase II is to:</p>
+      <p className="text">
+        Now we are at the point of sorting, but also phrase finding, and transcription.
+        The goals of phrase finding and transcription are to:
+      </p>
       <ol className="text">
         <li>Provide our community of volunteer humanists and historians opportunities to view and decipher Cairo Geniza fragments;</li>
         <li>Contribute to the classification of fragments by script-type and content;</li>

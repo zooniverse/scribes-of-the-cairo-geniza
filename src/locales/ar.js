@@ -86,9 +86,9 @@ export default {
     comingSoon: 'Coming Soon!'
   },
   workflowSelection: {
-    phaseOne: 'Phase One: Classify Fragments',
-    phaseTwo: 'Phase Two: Full Text Transcription',
-    keywordSearch: 'Keyword Search',
+    phaseOne: 'Phase One: Sort Fragments',
+    phaseTwo: 'Phase Two: Transcription',
+    keywordSearch: 'Phrase Finding',
     continue: 'Continue work in progress'
   },
   tutorial: {
@@ -356,7 +356,7 @@ export default {
       عن محاولة نسخ كامل الوثيقة ابدأ بالبحث عن
       !كلمات محددة لتساهم في بدء العملية. جاهز، استعد، ابحث
     `,
-    button: 'Hebrew Keywords'
+    button: 'Hebrew Phrases'
   },
   keywordsArabic: {
     title: 'ابحث عن كلمات مفاتيح في قطع بالخط العربي',
@@ -366,11 +366,11 @@ export default {
       عن محاولة نسخ كامل الوثيقة ابدأ بالبحث عن
       !كلمات محددة لتساهم في بدء العملية. جاهز، استعد، ابحث
     `,
-    button: 'Arabic Keywords'
+    button: 'Arabic Phrases'
   },
   classifyFragments: {
-    title: 'Classify Fragments',
-    button: 'Classify Fragments'
+    title: 'Sort Fragments',
+    button: 'Sort Fragments'
   },
   home: {
     institutions: 'المؤسسات الشريكة'

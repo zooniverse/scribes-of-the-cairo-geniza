@@ -47,9 +47,9 @@ export default {
     comingSoon: 'Coming Soon!'
   },
   workflowSelection: {
-    phaseOne: 'Phase One: Classify Fragments',
-    phaseTwo: 'Phase Two: Full Text Transcription',
-    keywordSearch: 'Keyword Search',
+    phaseOne: 'Phase One: Sort Fragments',
+    phaseTwo: 'Phase Two: Transcription',
+    keywordSearch: 'Phrase Finding',
     continue: 'Continue work in progress'
   },
   tutorial: {
@@ -322,28 +322,28 @@ export default {
     challenging: 'Challenging Arabic'
   },
   keywordsHebrew: {
-    title: 'Search for Hebrew Keywords',
+    title: 'Search for Hebrew Phrases',
     content: `
       Help us search for specific keywords in Hebrew Script. Your work will begin
       the process of transcription for fragments that are likely to be especially
       difficult. Instead of trying to transcribe the whole document, start by
       looking for specific words to help get the process started. Ready, set, search!
     `,
-    button: 'Hebrew Keywords'
+    button: 'Hebrew Phrases'
   },
   keywordsArabic: {
-    title: 'Search for Arabic Keywords',
+    title: 'Search for Arabic Phrases',
     content: `
       Help us search for specific keywords in Arabic Script. Your work will begin
       the process of transcription for fragments that are likely to be especially
       difficult. Instead of trying to transcribe the whole document, start by looking
       for specific words to help get the process started. Ready, set, search!
     `,
-    button: 'Arabic Keywords'
+    button: 'Arabic Phrases'
   },
   classifyFragments: {
-    title: 'Classify Fragments',
-    button: 'Classify Fragments'
+    title: 'Sort Fragments',
+    button: 'Sort Fragments'
   },
   home: {
     institutions: 'Institutional Partners'
