@@ -6,7 +6,7 @@ const initialState = {
   activeScript: KeyboardOptions[0],
   activeFilters: [
     KEYBOARD_TYPES.CURSIVE,
-    KEYBOARD_TYPES.MINISCULE,
+    KEYBOARD_TYPES.MINUSCULE,
     KEYBOARD_TYPES.SQUARE
   ],
   referenceMode: true,

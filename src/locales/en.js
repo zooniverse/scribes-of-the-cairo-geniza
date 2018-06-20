@@ -97,7 +97,7 @@ export default {
       Ashkenazi: 'Ashkenazi',
       Italian: 'Italian',
       Square: 'Square',
-      Miniscule: 'Miniscule',
+      Minuscule: 'Minuscule',
       Cursive: 'Cursive'
     },
     sendScript: 'Send Script to Keyboard',
@@ -110,7 +110,7 @@ export default {
     `,
     filterBy: 'Filter Scripts By',
     cursive: 'Cursive',
-    miniscule: 'Miniscule',
+    minuscule: 'Minuscule',
     square: 'Square'
   },
   cribSheet: {

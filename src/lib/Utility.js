@@ -210,15 +210,15 @@ export const HEBREW_KEY_CODES = {
   68: 'gimmel',
   69: 'quf',
   70: 'khaf',
-  73: 'nunSofit',
+  73: 'finalNun',
   71: 'ayin',
   72: 'yud',
   74: 'het',
   75: 'lamed',
-  76: 'khafSofit',
+  76: 'finalKhaf',
   77: 'tsadi',
   78: 'mem',
-  79: 'memSofit',
+  79: 'finalMem',
   80: 'peh',
   82: 'resh',
   83: 'dalet',
@@ -227,10 +227,10 @@ export const HEBREW_KEY_CODES = {
   86: 'hey',
   88: 'samekh',
   89: 'tet',
-  90: 'zaylin',
-  186: 'phehSofit',
+  90: 'zayiin',
+  186: 'finalPheh',
   188: 'tav',
-  190: 'tsadiSofit'
+  190: 'finalTsadi'
 };
 
 export const ARABIC_KEY_CODES = {
