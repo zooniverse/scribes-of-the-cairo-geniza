@@ -97,7 +97,7 @@ export default {
       Ashkenazi: 'אשכנזי',
       Italian: 'איטלקי',
       Square: 'מרובע',
-      Miniscule: 'בינוני',
+      Minuscule: 'בינוני',
       Cursive: 'רהוט'
     },
     sendScript: 'הצג כתב זה במקלדת',
@@ -109,7 +109,7 @@ export default {
     `,
     filterBy: 'סנן סוגי כתב',
     cursive: 'רהוט',
-    miniscule: 'בינוני',
+    minuscule: 'בינוני',
     square: 'מרובע'
   },
   cribSheet: {

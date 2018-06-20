@@ -138,7 +138,7 @@ export default {
       Ashkenazi: 'أشكنازي',
       Italian: 'إيطالي',
       Square: 'مربع',
-      Miniscule: 'ضئيل',
+      Minuscule: 'ضئيل',
       Cursive: 'بالحروف المتصلة'
     },
     sendScript: 'إرسال الخط إلى لوحة المفاتيح',
@@ -150,7 +150,7 @@ export default {
     `,
     filterBy: 'فرز الخطوط حسب',
     cursive: 'بحروف متصلة',
-    miniscule: 'ضئيلة',
+    minuscule: 'ضئيلة',
     square: 'مربعة'
   },
   cribSheet: {

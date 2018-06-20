@@ -34,17 +34,17 @@ const MODERN_HEBREW = {
     row: 0,
     unicode: { character: '\u05D5' }
   },
-  nunSofit: {
+  finalNun: {
     character: '\u05DF',
     characterID: 6,
-    name: 'nunSofit',
+    name: 'finalNun',
     row: 0,
     unicode: { character: '\u05DF' }
   },
-  memSofit: {
+  finalMem: {
     character: '\u05DD',
     characterID: 7,
-    name: 'memSofit',
+    name: 'finalMem',
     row: 0,
     unicode: { character: '\u05DD' }
   },
@@ -111,24 +111,24 @@ const MODERN_HEBREW = {
     row: 1,
     unicode: { character: '\u05DC' }
   },
-  khafSofit: {
+  finalKhaf: {
     character: '\u05DA',
     characterID: 17,
-    name: 'khafSofit',
+    name: 'finalKhaf',
     row: 1,
     unicode: { character: '\u05DA' }
   },
-  phehSofit: {
+  finalPheh: {
     character: '\u05E3',
     characterID: 18,
-    name: 'phehSofit',
+    name: 'finalPheh',
     row: 1,
     unicode: { character: '\u05E3' }
   },
-  zaylin: {
+  zayiin: {
     character: '\u05D6',
     characterID: 19,
-    name: 'zaylin',
+    name: 'zayiin',
     row: 2,
     unicode: { character: '\u05D6' }
   },
@@ -181,10 +181,10 @@ const MODERN_HEBREW = {
     row: 2,
     unicode: { character: '\u05EA' }
   },
-  tsadiSofit: {
+  finalTsadi: {
     character: '\u05E5',
     characterID: 27,
-    name: 'tsadiSofit',
+    name: 'finalTsadi',
     row: 2,
     unicode: { character: '\u05E5' }
   }
