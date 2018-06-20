@@ -185,6 +185,7 @@ const submitClassification = () => {
     const manuscriptLanguage = getState().workflow.manuscriptLanguage;
     const keyboardScript = getState().keyboard.activeScript.class;
     const keyboardOpen = getState().keyboard.showKeyboard;
+    const isModern = getState().keyboard.modern;
 
     if (!classification) {
       console.error('ducks/classifications.js submitClassification() error: no classification', '');
@@ -224,7 +225,7 @@ const submitClassification = () => {
     changes['metadata.subject_dimensions'] = subject_dimensions || [];
 
     if (manuscriptLanguage === LANGUAGES.HEBREW) {
-      changes['metadata.keyboard_script'] = keyboardScript;
+      changes['metadata.keyboard_script'] = isModern ? 'ModernKeyboard' : keyboardScript;
       changes['metadata.keyboard_open'] = keyboardOpen;
     }
 
