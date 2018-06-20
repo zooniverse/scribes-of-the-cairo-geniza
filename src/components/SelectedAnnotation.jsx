@@ -346,6 +346,7 @@ class SelectedAnnotation extends React.Component {
             questionMark={this[this.state.helpPopup]}
             text={translate(`helpModals.${this.state.helpPopup}`)}
             togglePopup={this.toggleWhatsThis}
+            type={this.state.helpPopup}
           />
         )}
 

@@ -2,7 +2,8 @@
   @extend .div-shadow
   background-color: $bisque
   border-top: 8px solid $sand
-  height: 10rem
+  max-height: 20rem
+  overflow-y: auto
   position: absolute
   z-index: 1
 
@@ -18,7 +19,7 @@
   hr
     margin: 0
 
-  div
+  &__content
     color: $plum
     margin: 0.75rem 1.25rem
 
@@ -30,3 +31,16 @@
   > div:first-child
     display: flex
     justify-content: space-between
+
+  &__additional-text
+    margin: 0.5rem 0
+
+    span
+      @extend .body-font
+      margin-right: 0.25rem
+
+    span:first-child
+      font-weight: 700
+
+    span:nth-child(3)
+      font-style: italic

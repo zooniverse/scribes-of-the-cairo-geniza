@@ -361,9 +361,39 @@ export default {
       References section in the Crib Sheet for more information.
     `,
     modifierHelp: `
-      Use these text modifiers to indicate special occurrences. Highlight the
-      text and click the applicable modifier. Find examples of each in the
-      Field Guide.
-    `
+      Use these markers to indicate special occurrences within the text:
+    `,
+    modifiers: {
+      insertion: {
+        title: 'Insertion',
+        content: 'For text that has been added in.',
+        example: '[תוספת]Inserted Text Here[/תוספת]'
+      },
+      deletion: {
+        title: 'Deletion',
+        content: 'For text that has been crossed out',
+        example: '[מחיקה]Deleted Text Here[/מחיקה]'
+      },
+      damaged: {
+        title: 'Damaged',
+        content: 'For text that is obscured or destroyed due to physical damage or wear & tear.',
+        example: 'Transcribe Until The Damage [פגום] Then Continue After'
+      },
+      drawing: {
+        title: 'Drawing',
+        content: 'To mark drawings that interrupt lines of text.',
+        example: 'Transcribe Until Drawing [ציור] Then Continue'
+      },
+      grid: {
+        title: 'Grid',
+        content: 'To indicate tabular text.',
+        example: '[טבלה/שרטוט]Tabular Text Here[/טבלה/שרטוט]'
+      },
+      divineName: {
+        title: 'Divine Name',
+        content: 'To use in place of the Divine Name.',
+        example: 'Transcribe Until Name [ה’] Then Continue'
+      }
+    }
   }
 };
