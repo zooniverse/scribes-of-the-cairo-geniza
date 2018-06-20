@@ -71,7 +71,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
           </span>
           <span>
             Next, we analyze the sorted piles by <b>transcribing</b> the relatively easy
-            fragments, and by finding <b>keywords</b> that will eventually be used to
+            fragments, and by finding key <b>phrases</b> that will eventually be used to
             help decipher the more difficult ones.
           </span>
           <span>

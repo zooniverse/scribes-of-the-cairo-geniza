@@ -324,7 +324,7 @@ export default {
   keywordsHebrew: {
     title: 'Search for Hebrew Phrases',
     content: `
-      Help us search for specific keywords in Hebrew Script. Your work will begin
+      Help us search for specific phrases in Hebrew Script. Your work will begin
       the process of transcription for fragments that are likely to be especially
       difficult. Instead of trying to transcribe the whole document, start by
       looking for specific words to help get the process started. Ready, set, search!
@@ -334,7 +334,7 @@ export default {
   keywordsArabic: {
     title: 'Search for Arabic Phrases',
     content: `
-      Help us search for specific keywords in Arabic Script. Your work will begin
+      Help us search for specific phrases in Arabic Script. Your work will begin
       the process of transcription for fragments that are likely to be especially
       difficult. Instead of trying to transcribe the whole document, start by looking
       for specific words to help get the process started. Ready, set, search!

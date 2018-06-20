@@ -51,7 +51,7 @@ class HomeStatistics extends React.Component {
             <hr className="plum-line" />
           </div>
           <div className="statistics__statistics">
-            <h2>Statistics from phase two of Scribes of the Cairo Geniza</h2>
+            <h2>Statistics from transcription of Scribes of the Cairo Geniza</h2>
             <div className="statistics__stat">
               <div>
                 <span>{project.classifiers_count.toLocaleString() || 0}</span>
