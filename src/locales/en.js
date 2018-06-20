@@ -353,5 +353,17 @@ export default {
     question: 'Are you sure you want to close without saving?',
     confirm: 'Yes, close without saving',
     deny: 'No, continue transcribing'
+  },
+  helpModals: {
+    keyboardHelp: 'Click here to hide/show the keyboard.',
+    scriptHelp: `
+      Scroll to choose a different script type for the keyboard. Visit the Script
+      References section in the Crib Sheet for more information.
+    `,
+    modifierHelp: `
+      Use these text modifiers to indicate special occurrences. Highlight the
+      text and click the applicable modifier. Find examples of each in the
+      Field Guide.
+    `
   }
 };

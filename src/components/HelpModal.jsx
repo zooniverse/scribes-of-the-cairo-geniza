@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const WIDTH = 450;
-const BUFFER = 8;
+const SIDE_BUFFER = 8;
+const TOP_BUFFER = 40;
 
-const TextModifierHelp = ({ helpBox, questionMark, togglePopup }) => {
+const HelpModal = ({ helpBox, questionMark, text, togglePopup }) => {
   const style = {
-    left: (questionMark.offsetLeft - (WIDTH / 2)) + BUFFER,
+    left: (questionMark.offsetLeft - (WIDTH / 2)) + SIDE_BUFFER,
+    top: questionMark.offsetTop + TOP_BUFFER,
     width: WIDTH
   };
 
@@ -23,21 +25,20 @@ const TextModifierHelp = ({ helpBox, questionMark, togglePopup }) => {
       <hr className="plum-line" />
       <div>
         <span className="body-font">
-          Use these text modifiers to indicate special occurrences. Highlight the
-          text and click the applicable modifier. Find examples of each in the
-          Field Guide.
+          {text}
         </span>
       </div>
     </div>
   );
 };
 
-TextModifierHelp.propTypes = {
+HelpModal.propTypes = {
   //helpBox: PropTypes.object.isRequired,  //WARNING: helpBox is a reference to a component, but it's not actually an object. We'll remove this until we can figure out what's wrong here.
   questionMark: PropTypes.shape({
     innerHeight: PropTypes.number
   }).isRequired,
+  text: PropTypes.string.isRequired,
   togglePopup: PropTypes.func.isRequired
 };
 
-export default TextModifierHelp;
+export default HelpModal;
