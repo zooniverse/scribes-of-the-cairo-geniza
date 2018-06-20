@@ -48,6 +48,9 @@ class AnnotationKeyboard extends React.Component {
     const showScript = !this.props.showModern ? `char-button ${letter.name}` : '';
     const characterRep = letter.unicode ? letter.unicode : letter.character;
     const styles = {};
+    const letterInScript = this.props.activeScript.letters.indexOf(letter.name) >= 0;
+    if (!letterInScript && !this.props.showModern) return null;
+
     if (!this.props.showModern) {
       styles.backgroundImage = `url('${this.props.activeScript.img}')`;
     }
@@ -106,6 +109,7 @@ AnnotationKeyboard.propTypes = {
   activeKey: PropTypes.string,
   activeScript: PropTypes.shape({
     img: PropTypes.string,
+    letters: PropTypes.array,
     name: PropTypes.string
   }),
   keyboardLanguage: PropTypes.string,

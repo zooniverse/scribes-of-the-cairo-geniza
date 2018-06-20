@@ -187,6 +187,13 @@ const MODERN_HEBREW = {
     name: 'finalTsadi',
     row: 2,
     unicode: { character: '\u05E5' }
+  },
+  alefLamed: {
+    character: '\uFB4F',
+    characterID: 28,
+    name: 'alefLamed',
+    row: 2,
+    unicode: { character: '\uFB4F' }
   }
 };
 
