@@ -47,6 +47,14 @@ class Toolbar extends React.Component {
       showPanel: true
     };
   }
+  
+  componentDidMount() { 
+    this.isMounted = true;
+  }
+
+  componentWillUnmount() {
+     this.isMounted = false;
+  }
 
   useZoomIn() {
     this.props.dispatch(setScaling(this.props.scaling + ZOOM_STEP));
@@ -76,7 +84,11 @@ class Toolbar extends React.Component {
       this.props.dispatch(toggleReminder(null));
     }
     if (!this.props.shownMarkReminder) {
-      setTimeout(() => { this.toggleHelp(); }, 5000);
+      setTimeout(() => {
+        if (this.isMounted) {
+          this.toggleHelp();
+        }
+      }, 5000);
     }
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   }

@@ -26,6 +26,14 @@ class ScriptReferences extends React.Component {
       keyboardSent: false
     };
   }
+  
+  componentDidMount() { 
+    this.isMounted = true;
+  }
+
+  componentWillUnmount() {
+     this.isMounted = false;
+  }
 
   sendToKeyboard() {
     const script = this.props.activeScript;
@@ -35,7 +43,9 @@ class ScriptReferences extends React.Component {
     this.props.dispatch(toggleKeyboard(true));
     this.setState({ keyboardSent: true });
     setTimeout(() => {
-      this.setState({ keyboardSent: false });
+      if (this.isMounted) {
+        this.setState({ keyboardSent: false });
+      }
     }, 4000);
   }
 

@@ -17,6 +17,8 @@ import SubjectViewer from './SubjectViewer';
 
 class ClassifierContainer extends React.Component {
   componentDidMount() {
+    this.isMounted = true;
+    
     if (this.props.workflowStatus === WORKFLOW_STATUS.IDLE && !WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkflowPrompt />));
     }
@@ -25,11 +27,17 @@ class ClassifierContainer extends React.Component {
   componentWillReceiveProps(next) {
     if (this.props.workflowStatus !== next.workflowStatus) {
       this.props.dispatch(togglePopup(null));
-      setTimeout(() => { this.toggleHelp(); }, 5000);
+      setTimeout(() => {
+        if (this.isMounted) {
+          this.toggleHelp();
+        }
+      }, 5000);
     }
   }
 
   componentWillUnmount() {
+    this.isMounted = false;
+    
     if (this.props.popup) {
       this.props.dispatch(togglePopup(null));
     }
