@@ -5,6 +5,7 @@ import { fetchSubject } from './subject';
 import { WorkInProgress } from './work-in-progress';
 import { resetView } from './subject-viewer';
 import { getSessionID } from '../lib/get-session-id';
+import { LANGUAGES } from './languages';
 
 const CLASSIFICATIONS_QUEUE_NAME = 'classificationsQueue';
 
@@ -181,6 +182,11 @@ const submitClassification = () => {
     const updatedAnnotations = [];
     const user = getState().login.user;
 
+    const manuscriptLanguage = getState().workflow.manuscriptLanguage;
+    const keyboardScript = getState().keyboard.activeScript.class;
+    const keyboardOpen = getState().keyboard.showKeyboard;
+    const isModern = getState().keyboard.modern;
+
     if (!classification) {
       console.error('ducks/classifications.js submitClassification() error: no classification', '');
       alert('ERROR: Could not submit Classification.');
@@ -209,17 +215,22 @@ const submitClassification = () => {
     });
 
     dispatch({ type: SUBMIT_CLASSIFICATION });
-    classification.update({
-      annotations: updatedAnnotations,
-      completed: true,
-      'metadata.session': getSessionID(),
-      'metadata.finished_at': (new Date()).toISOString(),
-      'metadata.viewport': {
-        width: innerWidth,
-        height: innerHeight
-      },
-      'metadata.subject_dimensions': subject_dimensions || [],
-    });
+
+    const changes = {};
+    changes.annotations = updatedAnnotations;
+    changes.completed = true;
+    changes['metadata.session'] = getSessionID();
+    changes['metadata.finished_at'] = (new Date()).toISOString();
+    changes['metadata.viewport'] = { width: innerWidth, height: innerHeight };
+    changes['metadata.subject_dimensions'] = subject_dimensions || [];
+
+    if (manuscriptLanguage === LANGUAGES.HEBREW) {
+      changes['metadata.keyboard_script'] = isModern ? 'ModernKeyboard' : keyboardScript;
+      changes['metadata.keyboard_open'] = keyboardOpen;
+    }
+
+    classification.update(changes);
+
     queueClassification(classification, user);
     saveAllQueuedClassifications(dispatch, user);
   };
