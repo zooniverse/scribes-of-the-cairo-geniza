@@ -230,7 +230,8 @@ export const HEBREW_KEY_CODES = {
   90: 'zayiin',
   186: 'finalPheh',
   188: 'tav',
-  190: 'finalTsadi'
+  190: 'finalTsadi',
+  191: 'alefLamed'
 };
 
 export const ARABIC_KEY_CODES = {
