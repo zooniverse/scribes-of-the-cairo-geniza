@@ -28,11 +28,11 @@ class ScriptReferences extends React.Component {
   }
   
   componentDidMount() { 
-    this.isMounted = true;
+    this._isMounted = true;
   }
 
   componentWillUnmount() {
-     this.isMounted = false;
+     this._isMounted = false;
   }
 
   sendToKeyboard() {
@@ -43,7 +43,7 @@ class ScriptReferences extends React.Component {
     this.props.dispatch(toggleKeyboard(true));
     this.setState({ keyboardSent: true });
     setTimeout(() => {
-      if (this.isMounted) {
+      if (this._isMounted) {
         this.setState({ keyboardSent: false });
       }
     }, 4000);

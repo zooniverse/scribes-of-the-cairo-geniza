@@ -49,11 +49,11 @@ class Toolbar extends React.Component {
   }
   
   componentDidMount() { 
-    this.isMounted = true;
+    this._isMounted = true;
   }
 
   componentWillUnmount() {
-     this.isMounted = false;
+     this._isMounted = false;
   }
 
   useZoomIn() {
@@ -85,7 +85,7 @@ class Toolbar extends React.Component {
     }
     if (!this.props.shownMarkReminder) {
       setTimeout(() => {
-        if (this.isMounted) {
+        if (this._isMounted) {
           this.toggleHelp();
         }
       }, 5000);
