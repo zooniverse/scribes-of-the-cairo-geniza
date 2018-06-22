@@ -16,6 +16,12 @@ import HelperMessage from '../components/HelperMessage';
 import SubjectViewer from './SubjectViewer';
 
 class ClassifierContainer extends React.Component {
+  constructor() {
+    super();
+    
+    this.timer = undefined;
+  }
+  
   componentDidMount() {
     if (this.props.workflowStatus === WORKFLOW_STATUS.IDLE && !WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkflowPrompt />));
@@ -25,11 +31,14 @@ class ClassifierContainer extends React.Component {
   componentWillReceiveProps(next) {
     if (this.props.workflowStatus !== next.workflowStatus) {
       this.props.dispatch(togglePopup(null));
-      setTimeout(() => { this.toggleHelp(); }, 5000);
+      clearInterval(this.timer);
+      this.timer = setTimeout(() => { this.toggleHelp(); }, 5000);
     }
   }
 
   componentWillUnmount() {
+    clearInterval(this.timer);
+
     if (this.props.popup) {
       this.props.dispatch(togglePopup(null));
     }
