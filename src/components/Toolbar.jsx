@@ -46,6 +46,12 @@ class Toolbar extends React.Component {
     this.state = {
       showPanel: true
     };
+    
+    this.timer = undefined;
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   useZoomIn() {
@@ -76,7 +82,8 @@ class Toolbar extends React.Component {
       this.props.dispatch(toggleReminder(null));
     }
     if (!this.props.shownMarkReminder) {
-      setTimeout(() => { this.toggleHelp(); }, 5000);
+      clearInterval(this.timer);
+      this.timer = setTimeout(() => { this.toggleHelp(); }, 5000);
     }
     this.props.dispatch(setViewerState(SUBJECTVIEWER_STATE.ANNOTATING));
   }

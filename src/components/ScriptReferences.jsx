@@ -25,6 +25,12 @@ class ScriptReferences extends React.Component {
     this.state = {
       keyboardSent: false
     };
+    
+    this.timer = undefined;
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   sendToKeyboard() {
@@ -34,7 +40,9 @@ class ScriptReferences extends React.Component {
     this.props.dispatch(toggleModern(true));
     this.props.dispatch(toggleKeyboard(true));
     this.setState({ keyboardSent: true });
-    setTimeout(() => {
+    
+    clearInterval(this.timer);
+    this.timer = setTimeout(() => {
       this.setState({ keyboardSent: false });
     }, 4000);
   }
