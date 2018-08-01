@@ -314,10 +314,7 @@ export default {
   keywordsArabic: {
     title: 'חיפוש ביטוי',
     content: `
-      Help us search for specific phrases in Arabic Script. Your work will begin
-      the process of transcription for fragments that are likely to be especially
-      difficult. Instead of trying to transcribe the whole document, start by
-      looking for specific words to help get the process started. Ready, set, search!
+      תעזור לנו לאתר מילות מפתח בקטעים הכתובים בערבית. זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת קטעים מאתגרים יותר לקריאה. במקום לנסות לתעתק את המסמך כולו, תאתר בו ביטויים ומלים שיעזרו לנו להתחיל את התהליך. הכון, החל, חפש!
     `,
     button: 'Arabic Phrases'
   },
