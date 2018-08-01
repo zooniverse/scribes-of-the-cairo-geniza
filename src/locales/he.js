@@ -9,8 +9,8 @@ export default {
     invertColors: 'נגטיב',
     showHints: 'הצג מילות מפתח',
     hideHints: 'הסתר מילות מפתח',
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'הצג מילות מפתח',
+    hidingMarks: 'הסתר מילות מפתח',
     resetImage: 'אפס תמונה',
     addFavorites: 'הוסף למועדפים',
     addCollection: 'הוסף לאוסף'
@@ -49,7 +49,7 @@ export default {
   workflowSelection: {
     phaseOne: 'Phase One: Sort Fragments',
     phaseTwo: 'Phase Two: Transcription',
-    keywordSearch: 'Phrase Finding',
+    keywordSearch: 'חיפוש ביטוי',
     continue: 'Continue work in progress'
   },
   tutorial: {
@@ -312,7 +312,7 @@ export default {
     button: 'Hebrew Phrases'
   },
   keywordsArabic: {
-    title: 'Phrase Finding',
+    title: 'חיפוש ביטוי',
     content: `
       Help us search for specific phrases in Arabic Script. Your work will begin
       the process of transcription for fragments that are likely to be especially

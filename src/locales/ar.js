@@ -30,14 +30,8 @@ export default {
       صفحة فهرس
       المكتبة
     `,
-    collapseName: `
-      اخفاء الاسم
-      والمصدر
-    `,
-    expandName: `
-      إظهار الاسم
-      والمصدر
-    `,
+    collapseName: `اخفاء الاسم والمصدر`,
+    expandName: `إظهار الاسم والمصدر`,
     showCrib: `
       إظهار الورقة
       المرجعية
@@ -103,7 +97,7 @@ export default {
     closeKeyboard: 'إخفاء لوحة المفاتيح',
     cancel: 'إلغاء',
     done: 'تم',
-    showModern: 'Show Modern Characters'
+    showModern: 'إظهار الحروف الحديثة'
   },
   collection: {
     title: 'إضافة إلى مجموعة',
