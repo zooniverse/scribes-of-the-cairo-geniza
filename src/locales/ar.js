@@ -8,12 +8,10 @@ export default {
     rotate: 'تدوير',
     invertColors: 'عكس الألوان',
     showHints: `
-      إظهار مساعدة للكلمة
-      الرئيسية
+      إظهار مساعدة للكلمة الرئيسية
     `,
     hideHints: `
-      إخفاء مساعدة للكلمة
-      الرئيسية
+      إخفاء مساعدة للكلمة الرئيسية
     `,
     showingMarks: 'Showing Previous Marks',
     hidingMarks: 'Hiding Previous Marks',
