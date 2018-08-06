@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { fetchPhaseTwoWorkflows } from '../ducks/workflow';
 import { config } from '../config';
 import Connect from './Connect';
@@ -51,21 +52,21 @@ class HomeStatistics extends React.Component {
             <hr className="plum-line" />
           </div>
           <div className="statistics__statistics">
-            <h2>Statistics from transcription of Scribes of the Cairo Geniza</h2>
+            <h2>{this.props.translate('statistics.statisticsFrom')}</h2>
             <div className="statistics__stat">
               <div>
                 <span>{project.classifiers_count.toLocaleString() || 0}</span>
-                <span>Volunteers</span>
+                <span>{this.props.translate('statistics.volunteers')}</span>
                 <hr className="plum-line" />
               </div>
               <div>
                 <span>{classificationsCount.toLocaleString() || 0}</span>
-                <span>Classifications</span>
+                <span>{this.props.translate('statistics.classifications')}</span>
                 <hr className="plum-line" />
               </div>
               <div>
                 <span>{retiredSubjects.toLocaleString() || 0}</span>
-                <span>Completed Subjects</span>
+                <span>{this.props.translate('statistics.completed')}</span>
                 <hr className="plum-line" />
               </div>
             </div>
@@ -75,11 +76,11 @@ class HomeStatistics extends React.Component {
               target="_blank"
               rel="noopener noreferrer"
             >
-              More statistics
+              {this.props.translate('statistics.moreStatistics')}
             </a>
           </div>
         </div>
-        <Connect />
+        <Connect title={this.props.translate('home.connect')} />
       </div>
     );
   }
@@ -90,17 +91,21 @@ HomeStatistics.propTypes = {
   dispatch: PropTypes.func.isRequired,
   project: PropTypes.shape({
     id: PropTypes.string
-  })
+  }),
+  translate: PropTypes.func
 };
 
 HomeStatistics.defaultProps = {
   allWorkflows: {},
-  project: null
+  project: null,
+  translate: () => {}
 };
 
 const mapStateToProps = state => ({
   allWorkflows: state.workflow.allWorkflows,
-  project: state.project.data
+  currentLanguage: getActiveLanguage(state.locale).code,
+  project: state.project.data,
+  translate: getTranslate(state.locale)
 });
 
 export default connect(mapStateToProps)(HomeStatistics);

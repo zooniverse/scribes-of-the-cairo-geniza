@@ -289,7 +289,7 @@ class SelectedAnnotation extends React.Component {
         notes={notes}
         onConfirm={this.deleteAnnotation}
         onDeny={this.closePopup}
-        question="Are you sure you want to delete this transcription?"
+        question={translate('closeAnnotation.areYouSure')}
         title={translate('closeAnnotation.title')}
       />));
   }
@@ -401,7 +401,7 @@ class SelectedAnnotation extends React.Component {
                 onChange={this.toggleMarks}
               />
               <label className="primary-label" htmlFor="showMarks">
-                <span>Show Previous Marks</span>
+                <span>{translate('transcribeBox.showPrevious')}</span>
               </label>
             </div>
             <div>
@@ -418,7 +418,7 @@ class SelectedAnnotation extends React.Component {
                     })}
                     onClick={this.changeLanguage.bind(this, 'Arabic')}
                   >
-                    Arabic
+                    {translate('general.arabic')}
                   </button>
                   <button
                     className={classnames('small-btn', {
@@ -426,7 +426,7 @@ class SelectedAnnotation extends React.Component {
                     })}
                     onClick={this.changeLanguage.bind(this, 'Hebrew')}
                   >
-                    Hebrew
+                    {translate('general.hebrew')}
                   </button>
                 </div>
               )}

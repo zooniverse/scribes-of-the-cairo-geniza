@@ -25,10 +25,10 @@ class ScriptReferences extends React.Component {
     this.state = {
       keyboardSent: false
     };
-    
+
     this.timer = undefined;
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.timer);
   }
@@ -40,7 +40,7 @@ class ScriptReferences extends React.Component {
     this.props.dispatch(toggleModern(true));
     this.props.dispatch(toggleKeyboard(true));
     this.setState({ keyboardSent: true });
-    
+
     clearInterval(this.timer);
     this.timer = setTimeout(() => {
       this.setState({ keyboardSent: false });
@@ -135,7 +135,7 @@ class ScriptReferences extends React.Component {
           </button>
           {this.state.keyboardSent && (
             <span>
-              {this.scriptTranslate()} is now active in your transcription keyboard
+              {this.scriptTranslate()} {this.props.translate('scriptReferences.isActive')}
             </span>
           )}
         </div>

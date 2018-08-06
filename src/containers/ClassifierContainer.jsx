@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 
 import { togglePopup } from '../ducks/dialog';
 import { shownStartReminder, toggleReminder } from '../ducks/reminder';
@@ -18,10 +19,10 @@ import SubjectViewer from './SubjectViewer';
 class ClassifierContainer extends React.Component {
   constructor() {
     super();
-    
+
     this.timer = undefined;
   }
-  
+
   componentDidMount() {
     if (this.props.workflowStatus === WORKFLOW_STATUS.IDLE && !WorkInProgress.check(this.props.user)) {
       this.props.dispatch(togglePopup(<WorkflowPrompt />));
@@ -46,7 +47,7 @@ class ClassifierContainer extends React.Component {
 
   toggleHelp() {
     if (!this.props.shownBeginReminder) {
-      const message = 'Get Started by clicking "Add Transcription"';
+      const message = this.props.translate('helpers.getStarted');
       this.props.dispatch(shownStartReminder());
       this.props.dispatch(toggleReminder(
         <HelperMessage message={message} width={275} />
@@ -58,7 +59,7 @@ class ClassifierContainer extends React.Component {
     const annotationPaneDefault = (this.props.annotationPaneOffset)
       ? this.props.annotationPaneOffset
       : undefined;
-    
+
     return (
       <main className="classifier">
         <ControlPanel />
@@ -96,6 +97,7 @@ ClassifierContainer.propTypes = {
     width: PropTypes.number
   }),
   shownBeginReminder: PropTypes.bool,
+  translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
   }),
@@ -110,6 +112,7 @@ ClassifierContainer.defaultProps = {
   popup: null,
   size: { height: 200, width: 200 },
   shownBeginReminder: false,
+  translate: () => {},
   user: null
 };
 
@@ -118,11 +121,13 @@ const mapStateToProps = state => ({
   annotationPaneSize: state.dialog.annotationPaneSize,
   annotationPaneOffset: state.dialog.annotationPaneOffset,
   component: state.dialog.component,
+  currentLanguage: getActiveLanguage(state.locale).code,
   dialog: state.dialog.data,
   popup: state.dialog.popup,
   size: state.dialog.size,
   shownBeginReminder: state.reminder.shownBeginReminder,
   subjectStatus: state.subject.status,
+  translate: getTranslate(state.locale),
   user: state.login.user,
   workflowStatus: state.workflow.status
 });

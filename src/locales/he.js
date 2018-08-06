@@ -64,7 +64,12 @@ export default {
     closeKeyboard: 'סגור מקלדת',
     cancel: 'ביטול',
     done: 'סיום',
-    showModern: 'הצג מקלדת רגילה'
+    showModern: 'הצג מקלדת רגילה',
+    showPrevious: 'תראה סימנים קודמים'
+  },
+  keyboard: {
+    enter: 'מעבר שורה',
+    space: 'רווח'
   },
   collection: {
     title: 'הוסף לאוסף',
@@ -110,7 +115,9 @@ export default {
     filterBy: 'סנן סוגי כתב',
     cursive: 'רהוט',
     minuscule: 'בינוני',
-    square: 'מרובע'
+    square: 'מרובע',
+    isActive: 'פעיל עתה במקלדת התעתוק שלך',
+    sent: 'נשלח למקלדת'
   },
   cribSheet: {
     title: 'סוגי כתב',
@@ -125,7 +132,7 @@ export default {
     deletePrompt2: '.פעולה זו אינה ניתנת לשחזור',
     cancel: 'בטל מחיקה',
     confirm: 'כן, מחק',
-    deny: 'No, continue transcribing'
+    deny: 'לא, המשך בהעתקה'
   },
   helpers: {
     getStarted: '"כדי להתחיל, לחץ על "הוסף תעתוק',
@@ -309,27 +316,46 @@ export default {
       במקום לנסות לתעתק את המסמך כולו, אתרו בו ביטויים ומלים שיעזרו
       !לנו להתחיל את התהליך. הכון, החל, חפש
     `,
-    button: 'Hebrew Phrases'
+    button: 'מילות מפתח הכתובות בעברית'
   },
   keywordsArabic: {
     title: 'חיפוש ביטוי',
     content: `
       תעזור לנו לאתר מילות מפתח בקטעים הכתובים בערבית. זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת קטעים מאתגרים יותר לקריאה. במקום לנסות לתעתק את המסמך כולו, תאתר בו ביטויים ומלים שיעזרו לנו להתחיל את התהליך. הכון, החל, חפש!
     `,
-    button: 'Arabic Phrases'
+    button: 'מילות מפתח הכתובות בערבית'
   },
   classifyFragments: {
-    title: 'Sort Fragments',
-    button: 'Sort Fragments'
+    title: 'תסווג קטעים',
+    button: 'תסווג קטעים'
   },
   home: {
-    institutions: 'שותפים למחקר'
+    institutions: 'שותפים למחקר',
+    aboutScribes: 'על סופרי הגניזה הקהירית',
+    whatIsZooniverse: 'מה זה זוניברס?',
+    connect: 'תתחבר עם קבוצת הגניזה לקבלת מידע נוסף'
+  },
+  statistics: {
+    statisticsFrom: 'סטטיסטיקה מתעתקי של סופרי הגניזה הקהירית',
+    volunteers: 'מתנדבים',
+    classifications: 'סיווגים',
+    completed: 'סובייקטים מושלמים',
+    moreStatistics: 'עוד סטטיסטיקה'
+  },
+  aboutPage: {
+    aboutGeniza: 'על הגניזה',
+    aboutPartners: 'על שיתופי המחקר',
+    imagePartners: 'שיתופי תמונה',
+    provenance: 'מוֹצא',
+    theTeam: 'הצות',
+    specialThanks: 'תודה מיוחדת'
   },
   closeAnnotation: {
     title: 'סגור תעתוק',
     question: '?בטוחים שאתם רוצים לסגור בלי לשמור',
     confirm: 'כן, סגור בלי לשמור',
-    deny: 'לא, המשך לתעתק'
+    deny: 'לא, המשך לתעתק',
+    areYouSure: 'האם אתה בטוח שאתה רוצה למחוק את התעתיק?'
   },
   helpModals: {
     keyboardHelp: 'Click here to hide/show the keyboard.',

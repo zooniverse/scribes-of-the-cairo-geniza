@@ -7,17 +7,17 @@ function Content() {
     <div className="content">
       <nav>
         <ul>
-          <li><a href="#geniza">About the Geniza</a></li>
-          <li><a href="#partners">About the Research Partners</a></li>
-          <li><a href="#provenance">Provenance</a></li>
-          <li><a href="#team">About the Team</a></li>
+          <li><a href="#geniza">על הגניזה</a></li>
+          <li><a href="#partners">על שיתופי המחקר</a></li>
+          <li><a href="#provenance">מוֹצא</a></li>
+          <li><a href="#team">על הצות</a></li>
         </ul>
       </nav>
       <p className="big text">פרויקט Scribes of the Cairo Geniza שואף ליצירת תעתיקים של קטעי גניזת קהיר, לשם יצירת זמינות מלאה של הטקסטים הללו. זהו פרי שיתוף הפעולה של זוניברס (Zooniverse), פלטפורמת שיתוף ההמונים הגדולה בעולם, יחד עם ספריות אוניברסיטת פנסילבניה, מעבדת הגניזה של פרינסטון, מעבדת אליהו והמרכז לחקר הגניזה באוניברסיטת חיפה, וכן ספריית בית המדרש לרבנים בניו יורק, יחידת חקר הגניזה שבספריית אוניברסיטת קיימברידג' וספריית אוניברסיטת מנצ'סטר. יחד אנו רותמים את הטכנולוגיה לשם פענוחם של כתבי יד מהמאתגרים ביותר לקריאה.</p>
       <p className="text">בשלב הראשון של הפרויקט, ביקשנו את עזרת הציבור בסיווגם הראשוני של קטעי הגניזה. התבקשתם לציין האם הקטע כתוב בכתב עברי, ערבי, או שניהם יחד. כמו כן התבקשתם לציין האם סגנון הכתיבה פורמלי או לא פורמלי, ולאתר מספר מאפיינים המרמזים על הסוגה הספרותית אליה השתייכו הקטעים, קודש או חול.</p>
       <div className="diagram">
         <img src={imgPhase1Workflow} />
-        <span className="caption">Phase One Workflow</span>
+        <span className="caption">מהלך עבודה של הסיווג</span>
       </div>
       <p className="text">עתה הגענו לשלב השני של הפרויקט, שלב ההעתקות. מטרות השלב השני הן:</p>
       <ol className="text">

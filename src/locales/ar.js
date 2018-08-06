@@ -13,8 +13,8 @@ export default {
     hideHints: `
       إخفاء مساعدة للكلمة الرئيسية
     `,
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'عرض العلامات السابقة',
+    hidingMarks: 'Hide Previous Marks',
     resetImage: 'إعادة تعيين الصورة',
     addFavorites: 'إضافة إلى المفضلة',
     addCollection: 'إضافة إلى مجموعة'
@@ -97,7 +97,12 @@ export default {
     closeKeyboard: 'إخفاء لوحة المفاتيح',
     cancel: 'إلغاء',
     done: 'تم',
-    showModern: 'إظهار الحروف الحديثة'
+    showModern: 'إظهار الحروف الحديثة',
+    showPrevious: 'عرض العلامات السابقة'
+  },
+  keyboard: {
+    enter: 'مفتاح الإدخال',
+    space: 'مفتاح المسافة'
   },
   collection: {
     title: 'إضافة إلى مجموعة',
@@ -143,7 +148,9 @@ export default {
     filterBy: 'فرز الخطوط حسب',
     cursive: 'بحروف متصلة',
     minuscule: 'ضئيلة',
-    square: 'مربعة'
+    square: 'مربعة',
+    isActive: 'هو الآن مفعل في لوحة مفاتيح النسخ الخاصة بك',
+    sent: 'إرسال'
   },
   cribSheet: {
     title: 'ورقة مرجعية',
@@ -162,7 +169,7 @@ export default {
     deletePrompt2: '.لا يمكن التراجع عن هذا الإجراء',
     cancel: 'لا، إلغاء ذلك',
     confirm: 'نعم، حذف',
-    deny: 'No, continue transcribing'
+    deny: 'لا، مواصلة النسخ'
   },
   helpers: {
     getStarted: 'تبدأ بالنقر على "إضافة النسخ"',
@@ -348,7 +355,7 @@ export default {
       عن محاولة نسخ كامل الوثيقة ابدأ بالبحث عن
       !كلمات محددة لتساهم في بدء العملية. جاهز، استعد، ابحث
     `,
-    button: 'Hebrew Phrases'
+    button: 'عبارات العبرية'
   },
   keywordsArabic: {
     title: 'ابحث عن كلمات مفاتيح في قطع بالخط العربي',
@@ -358,20 +365,39 @@ export default {
       عن محاولة نسخ كامل الوثيقة ابدأ بالبحث عن
       !كلمات محددة لتساهم في بدء العملية. جاهز، استعد، ابحث
     `,
-    button: 'Arabic Phrases'
+    button: 'عبارات العربية'
   },
   classifyFragments: {
-    title: 'Sort Fragments',
-    button: 'Sort Fragments'
+    title: 'تصنيف القطعات',
+    button: 'تصنيف القطعات'
   },
   home: {
-    institutions: 'المؤسسات الشريكة'
+    institutions: 'المؤسسات الشريكة',
+    aboutScribes: 'نبذة كتبة جنيزة القاهرة',
+    whatIsZooniverse: 'ما هو Zooniverse?',
+    connect: 'تواصل مع فريق جنيزا لمزيد من المحتوى'
+  },
+  statistics: {
+    statisticsFrom: 'إحصائات من النسخ من الكتبة من جنيزة القاهرة',
+    volunteers: 'المتطوعين',
+    classifications: 'التصنيفات',
+    completed: 'الموضوعات المكتملة',
+    moreStatistics: 'مزيد من الإحصائيات'
+  },
+  aboutPage: {
+    aboutGeniza: 'حول جنيزا',
+    aboutPartners: 'حول شركاء الأبحاث',
+    imagePartners: 'شركاء الصورة',
+    provenance: 'مصدر',
+    theTeam: 'الفريق',
+    specialThanks: 'شكر خاص'
   },
   closeAnnotation: {
-    title: 'Close Annotation',
+    title: 'إغلاق الشرح',
     question: 'Are you sure you want to close without saving?',
     confirm: 'Yes, close without saving',
-    deny: 'No, continue transcribing'
+    deny: 'لا، مواصلة النسخ',
+    areYouSure: 'هل أنت متأكد من حذف هذا النسخ؟'
   },
   helpModals: {
     keyboardHelp: 'Click here to hide/show the keyboard.',

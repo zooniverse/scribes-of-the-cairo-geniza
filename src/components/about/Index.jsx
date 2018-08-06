@@ -71,7 +71,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__geniza subsection">
           <a id="geniza" />
-          <h2>About the Geniza</h2>
+          <h2>{translate('aboutPage.aboutGeniza')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentGenizaHe />);
@@ -89,7 +89,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__research-partners subsection">
           <a id="partners" />
-          <h2>About the research partners</h2>
+          <h2>{translate('aboutPage.aboutPartners')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentResearchHe />);
@@ -106,7 +106,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         --------------------------------
         */}
         <div className="about-page__image-partners subsection">
-          <h2>Image Partners</h2>
+          <h2>{translate('aboutPage.imagePartners')}</h2>
           <hr className="small plum-line" />
           <div className="content">
             <div className="item">
@@ -136,7 +136,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__provenance subsection">
           <a id="provenance" />
-          <h2>Provenance</h2>
+          <h2>{translate('aboutPage.provenance')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentProvenanceHe />);
@@ -154,7 +154,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__team subsection">
           <a id="team" />
-          <h2>The team</h2>
+          <h2>{translate('aboutPage.theTeam')}</h2>
           <div className="about-page__members">
             {Object.keys(members).map((key, i) => {
               return (
@@ -173,7 +173,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
           </div>
           <hr className="big plum-line" />
           <div className="about-page__thanks">
-            <h3>Special thanks</h3>
+            <h3>{translate('aboutPage.specialThanks')}</h3>
             <span>{translate('specialThanks.main')}</span>
             <span>{translate('specialThanks.additional')}</span>
           </div>
@@ -181,7 +181,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         {/*
         --------------------------------
         */}
-        <Connect />
+        <Connect title={translate('home.connect')} />
       </section>
     </div>
   );

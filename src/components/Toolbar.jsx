@@ -46,10 +46,10 @@ class Toolbar extends React.Component {
     this.state = {
       showPanel: true
     };
-    
+
     this.timer = undefined;
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.timer);
   }
@@ -136,7 +136,7 @@ class Toolbar extends React.Component {
 
   toggleHelp() {
     if (!this.props.shownMarkReminder) {
-      const message = 'Click at the start and end of a line of text to add a transcription (remember to start on the right side!)';
+      const message = this.props.translate('helpers.click');
       this.props.dispatch(toggleReminder(
         <HelperMessage message={message} width={565} />
       ));

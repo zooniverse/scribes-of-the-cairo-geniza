@@ -9,8 +9,8 @@ export default {
     invertColors: 'Invert Colors',
     showHints: 'Show Keyword Hints',
     hideHints: 'Hide Keyword Hints',
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'Show Previous Marks',
+    hidingMarks: 'Hide Previous Marks',
     resetImage: 'Reset Image',
     addFavorites: 'Add to Favorites',
     addCollection: 'Add to Collection'
@@ -64,7 +64,12 @@ export default {
     closeKeyboard: 'Close Keyboard',
     cancel: 'Cancel',
     done: 'Done',
-    showModern: 'Show Modern Characters'
+    showModern: 'Show Modern Characters',
+    showPrevious: 'Show Previous Marks'
+  },
+  keyboard: {
+    enter: 'Enter',
+    space: 'Space'
   },
   collection: {
     title: 'Add to Collection',
@@ -111,7 +116,9 @@ export default {
     filterBy: 'Filter Scripts By',
     cursive: 'Cursive',
     minuscule: 'Minuscule',
-    square: 'Square'
+    square: 'Square',
+    isActive: 'is now active in your transcription keyboard',
+    sent: 'Sent'
   },
   cribSheet: {
     title: 'Crib Sheet',
@@ -133,7 +140,7 @@ export default {
   },
   helpers: {
     getStarted: 'Get started by clicking "Add Transcription"',
-    click: 'Click at the start and end of a line of text to add a transcription',
+    click: 'Click at the start and end of a line of text to add a transcription (remember to start on the right side!)',
     draw: 'Draw a box around the part of the iamge you\'d like to save'
   },
   fieldGuide: {
@@ -346,13 +353,32 @@ export default {
     button: 'Sort Fragments'
   },
   home: {
-    institutions: 'Institutional Partners'
+    institutions: 'Institutional Partners',
+    aboutScribes: 'About Scribes of the Cairo Geniza',
+    whatIsZooniverse: 'What is the Zooniverse?',
+    connect: 'Connect with the Geniza team for more content'
+  },
+  statistics: {
+    statisticsFrom: 'Statistics from transcription of Scribes of the Cairo Geniza',
+    volunteers: 'Volunteers',
+    classifications: 'Classifications',
+    completed: 'Completed Subjects',
+    moreStatistics: 'More Statistics'
+  },
+  aboutPage: {
+    aboutGeniza: 'About the Geniza',
+    aboutPartners: 'About the research partners',
+    imagePartners: 'Image Partners',
+    provenance: 'Provenance',
+    theTeam: 'The Team',
+    specialThanks: 'Special thanks'
   },
   closeAnnotation: {
     title: 'Close Annotation',
     question: 'Are you sure you want to close without saving?',
     confirm: 'Yes, close without saving',
-    deny: 'No, continue transcribing'
+    deny: 'No, continue transcribing',
+    areYouSure: 'Are you sure you want to delete this transcription?'
   },
   helpModals: {
     keyboardHelp: 'Click here to hide/show the keyboard.',
