@@ -175,7 +175,8 @@ export default {
   helpers: {
     getStarted: 'تبدأ بالنقر على "إضافة النسخ"',
     click: 'انقر في بداية ونهاية سطر من النص لإضافة النسخ',
-    draw: 'ارسم مربع حول جزء الصورة التي تريد حفظها'
+    draw: 'ارسم مربع حول جزء الصورة التي تريد حفظها',
+    copied: 'Text copied to your clipboard! Paste into your text transcription box.'
   },
   fieldGuide: {
     title: 'المعلومات الإضافية'
@@ -421,5 +422,14 @@ export default {
         example: 'نسخ حتى اسم [  الالهيه  ] ثم تابع'
       }
     }
+  },
+  statistics: {
+    title: 'إحصائات من النسخ من الكتبة من جنيزة القاهرة',
+    completedSubjects: 'الموضوعات المكتملة',
+    classifications: 'التصنيفات',
+    volunteers: 'المتطوعين',
+    sortingStats: 'المتطوعين',
+    moreStatistics: 'مزيد من الإحصائيات',
+    completed: 'المكتملة'
   }
 };

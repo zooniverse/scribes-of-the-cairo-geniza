@@ -134,7 +134,8 @@ export default {
   helpers: {
     getStarted: 'Get started by clicking "Add Transcription"',
     click: 'Click at the start and end of a line of text to add a transcription',
-    draw: 'Draw a box around the part of the iamge you\'d like to save'
+    draw: 'Draw a box around the part of the iamge you\'d like to save',
+    copied: 'Text copied to your clipboard! Paste into your text transcription box.'
   },
   fieldGuide: {
     title: 'Field Guide'
@@ -395,5 +396,14 @@ export default {
         example: 'Transcribe Until Name [ה’] Then Continue'
       }
     }
+  },
+  statistics: {
+    title: 'Statistics from transcription of Scribes of the Cairo Geniza',
+    completedSubjects: 'Completed Subjects',
+    classifications: 'Classifications',
+    volunteers: 'Volunteers',
+    sortingStats: 'Sorting Statistics',
+    moreStatistics: 'More Statistics',
+    completed: 'Completed'
   }
 };

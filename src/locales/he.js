@@ -19,7 +19,7 @@ export default {
     subjectInfo: 'תיאור הפריט ',
     name: 'קטע הגניזה',
     attribution: 'ספריית מקור',
-    libraryCatalog: 'הפריט בקטלוג הספריה',
+    libraryCatalog: 'לאתר הספריה',
     collapseName: 'סגור פרטי קטע הגניזה',
     expandName: 'הצג פרטי קטע הגניזה',
     showCrib: 'הצג סוגי כתב',
@@ -88,12 +88,12 @@ export default {
     scriptTypes: 'סוגי כתב עברי',
     yourSheet: 'מאגר סוגי הכתב שלך',
     types: {
-      OrientalNE: '(מזרחי (צפון-מזרח המזרח התיכון',
-      OrientalSW: '(מזרחי (מערב-דרום המזרח התיכון',
+      OrientalNE: '(מזרחי (צפון-מזרח ',
+      OrientalSW: '(מזרחי (מערב-דרום המזרח ',
       Maghrebi: 'מגרבי',
       Sephardi: 'ספרדי',
       Yemenite: 'תימני',
-      Byzantine: 'ביזאנטי',
+      Byzantine: 'ביזנטי',
       Ashkenazi: 'אשכנזי',
       Italian: 'איטלקי',
       Square: 'מרובע',
@@ -130,7 +130,8 @@ export default {
   helpers: {
     getStarted: '"כדי להתחיל, לחץ על "הוסף תעתוק',
     click: 'כדי לתעתק, סמן את תחילת השורה וסוף השורה בעזרת העכבר',
-    draw: 'סמן את גבולות התמונה שברצונך לגזור ולשמור'
+    draw: 'סמן את גבולות התמונה שברצונך לגזור ולשמור',
+    copied: 'העתקת טקסט למקלדת. הדבק אותו בתיבת התעתוק'
   },
   fieldGuide: {
     title: 'מידע נוסף'
@@ -301,29 +302,28 @@ export default {
     challenging: 'ערבית – דרגת קושי גבוהה'
   },
   keywordsHebrew: {
-    title: 'חיפוש מילות מפתח בקטעי גניזה הכתובים בעברית',
+    title: 'חיפוש מילות מפתח בכתב עברי',
     content: `
-      .עזרו לנו לאתר מילות מפתח בקטעים הכתובים עברית
+      .עזור לנו לאתר מילות מפתח בקטעים הכתובים עברית
       זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת קטעים
       .העשויים להיות מאתגרים יותר לקריאה
       במקום לנסות לתעתק את המסמך כולו, אתרו בו ביטויים ומלים שיעזרו
       !לנו להתחיל את התהליך. הכון, החל, חפש
     `,
-    button: 'Hebrew Phrases'
+    button: 'מילות מפתח בכתב עברי'
   },
   keywordsArabic: {
-    title: 'Phrase Finding',
+    title: 'חיפוש מילות מפתח בכתב ערבי',
     content: `
-      Help us search for specific phrases in Arabic Script. Your work will begin
-      the process of transcription for fragments that are likely to be especially
-      difficult. Instead of trying to transcribe the whole document, start by
-      looking for specific words to help get the process started. Ready, set, search!
+      עזור לנו לאתר מילות מפתח בקטעים הכתובים בערבית. זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת
+      קטעים מאתגרים יותר לקריאה. במקום לנסות לתעתק את המסמך כולו, תאתר בו ביטויים ומילים שיעזרו
+      !לנו להתחיל את התהליך. הכון, החל, חפש
     `,
-    button: 'Arabic Phrases'
+    button: 'מילות מפתח בכתב ערבי'
   },
   classifyFragments: {
-    title: 'Sort Fragments',
-    button: 'Sort Fragments'
+    title: 'סיווג קטעים',
+    button: 'סיווג קטעים'
   },
   home: {
     institutions: 'שותפים למחקר'
@@ -375,5 +375,14 @@ export default {
         example: 'Transcribe Until Name [ה’] Then Continue'
       }
     }
+  },
+  statistics: {
+    title: 'שלב II - סטטיסטיקות',
+    completedSubjects: 'קטעים גמורים',
+    classifications: 'סיווגים',
+    volunteers: 'מתנדבים',
+    sortingStats: ' נתוני הסיווג',
+    moreStatistics: 'נתונים נוספים',
+    completed: 'גמורים'
   }
 };
