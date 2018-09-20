@@ -15,8 +15,8 @@ export default {
       إخفاء مساعدة للكلمة
       الرئيسية
     `,
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'إظهار العلامات السابقة',
+    hidingMarks: 'توسيع المعلومات',
     resetImage: 'إعادة تعيين الصورة',
     addFavorites: 'إضافة إلى المفضلة',
     addCollection: 'إضافة إلى مجموعة'
@@ -71,25 +71,25 @@ export default {
     `,
     saveProgress: 'حفظ التقدم',
     finished: 'تم الانتهاء',
-    lastSave: 'Last save'
+    lastSave: 'الحفظ الأخير'
   },
   workInProgress: {
-    header: 'Resume Work In Progress?',
-    message: 'We detected that you have some work in progress saved. You can continue your saved work, or start with a new page.',
-    startNewWork: 'New Page',
-    resumeWorkInProgress: 'Resume Work'
+    header: 'بدء العمل الجديد',
+    message: '.هل أنت متأكد من أنك تريد بدء سير عمل جديد؟ سيؤدي هذا إلى حذف أي أعمال محفوظة قد تكون لديك',
+    startNewWork: 'نعم ، ابدأ صفحة جديدة',
+    resumeWorkInProgress: 'لا ، أستمر في العمل المحفوظ'
   },
   general: {
-    admin: 'Admin',
+    admin: 'مزود المحتوى',
     hebrew: 'عبري',
     arabic: 'عربي',
-    comingSoon: 'Coming Soon!'
+    comingSoon: 'قريبا'
   },
   workflowSelection: {
-    phaseOne: 'Phase One: Sort Fragments',
-    phaseTwo: 'Phase Two: Transcription',
-    keywordSearch: 'Phrase Finding',
-    continue: 'Continue work in progress'
+    phaseOne: 'المرحلة الأولى: فرز القطع',
+    phaseTwo: 'المرحلة الثانية: النسخ',
+    keywordSearch: 'العثور على العبارة',
+    continue: 'مواصلة العمل في التقدم'
   },
   tutorial: {
     title: 'الدرس التعليمي'
@@ -105,7 +105,7 @@ export default {
     closeKeyboard: 'إخفاء لوحة المفاتيح',
     cancel: 'إلغاء',
     done: 'تم',
-    showModern: 'Show Modern Characters'
+    showModern: 'إظهار الحروف الحديثة'
   },
   collection: {
     title: 'إضافة إلى مجموعة',
@@ -170,7 +170,7 @@ export default {
     deletePrompt2: '.لا يمكن التراجع عن هذا الإجراء',
     cancel: 'لا، إلغاء ذلك',
     confirm: 'نعم، حذف',
-    deny: 'No, continue transcribing'
+    deny: 'لا، مواصلة النسخ'
   },
   helpers: {
     getStarted: 'تبدأ بالنقر على "إضافة النسخ"',
@@ -322,7 +322,7 @@ export default {
     damaged: 'عطل',
     drawing: '‏رسمة',
     grid: 'شبكة',
-    divineName: 'Divine Name'
+    divineName: 'الاسم الالهي'
   },
   transcribeHebrew: {
     title: 'انسخ قطع بالخط العبري',
@@ -356,7 +356,7 @@ export default {
       عن محاولة نسخ كامل الوثيقة ابدأ بالبحث عن
       !كلمات محددة لتساهم في بدء العملية. جاهز، استعد، ابحث
     `,
-    button: 'Hebrew Phrases'
+    button: 'عبارات العبرية'
   },
   keywordsArabic: {
     title: 'ابحث عن كلمات مفاتيح في قطع بالخط العربي',
@@ -366,60 +366,59 @@ export default {
       عن محاولة نسخ كامل الوثيقة ابدأ بالبحث عن
       !كلمات محددة لتساهم في بدء العملية. جاهز، استعد، ابحث
     `,
-    button: 'Arabic Phrases'
+    button: 'عبارات العربية'
   },
   classifyFragments: {
-    title: 'Sort Fragments',
-    button: 'Sort Fragments'
+    title: 'فرز القطع',
+    button: 'فرز القطع'
   },
   home: {
     institutions: 'المؤسسات الشريكة'
   },
   closeAnnotation: {
-    title: 'Close Annotation',
-    question: 'Are you sure you want to close without saving?',
-    confirm: 'Yes, close without saving',
-    deny: 'No, continue transcribing'
+    title: 'إغلاق الشرح',
+    question: '.هل أنت متأكد من حذف هذا النسخ؟ لا يمكنك أن تحفظ نسخا فارغا',
+    confirm: 'نعم، حذف',
+    deny: 'لا، مواصلة النسخ'
   },
   helpModals: {
-    keyboardHelp: 'Click here to hide/show the keyboard.',
+    keyboardHelp: '.انقر هنا لإخفاء / إظهار لوحة المفاتيح',
     scriptHelp: `
-      Scroll to choose a different script type for the keyboard. Visit the Script
-      References section in the Crib Sheet for more information.
+      .التمرير لاختيار نوع كتابي مختلف عن لوحة المفاتيح. قم بزيارة قسم خط المراجع في ورقة المرجعية لمزيد من المعلومات
     `,
     modifierHelp: `
-      Use these markers to indicate special occurrences within the text:
+      :استخدم هذه العلامات للإشارة الحوادث الخاصة داخل الكتابة
     `,
     modifiers: {
       insertion: {
-        title: 'Insertion',
-        content: 'For text that has been added in.',
-        example: '[תוספת]Inserted Text Here[/תוספת]'
+        title: 'إدراج',
+        content: '.إدراج للكتابة التي تمت إضافتها',
+        example: '[إدراج]الكتابة المدرجة هنا [إدراج]'
       },
       deletion: {
-        title: 'Deletion',
-        content: 'For text that has been crossed out',
-        example: '[מחיקה]Deleted Text Here[/מחיקה]'
+        title: 'الحذف',
+        content: 'الحذف للنص الذي تمت إزالته ',
+        example: '[الحذف ] حذف الكتابة هنا[ الحذف]'
       },
       damaged: {
-        title: 'Damaged',
-        content: 'For text that is obscured or destroyed due to physical damage or wear & tear.',
-        example: 'Transcribe Until The Damage [פגום] Then Continue After'
+        title: 'التالفة',
+        content: '.التالفة النص المخفي أو دمرت بسبب الأضرار المادية أو ما وتمزيق',
+        example: 'نسخ حتى جزء التالف [التالفة ] ثم تابع بعد'
       },
       drawing: {
-        title: 'Drawing',
-        content: 'To mark drawings that interrupt lines of text.',
-        example: 'Transcribe Until Drawing [ציור] Then Continue'
+        title: 'رسم',
+        content: '.رسم لتمييز الصور التي تقطع خطوط النص',
+        example: 'نسخ حتى الرسم [رسم ] ثم تابع'
       },
       grid: {
-        title: 'Grid',
-        content: 'To indicate tabular text.',
-        example: '[טבלה/שרטוט]Tabular Text Here[/טבלה/שרטוט]'
+        title: 'شبكة',
+        content: '.الشبكة للإشارة إلى النص المجدول',
+        example: '[شبكة]النص الجدولي هنا [شبكة]'
       },
       divineName: {
-        title: 'Divine Name',
-        content: 'To use in place of the Divine Name.',
-        example: 'Transcribe Until Name [ה’] Then Continue'
+        title: 'الالهيه',
+        content: '.الاسم الالهي لاستخدام بدلا من اسم الالهيه',
+        example: 'نسخ حتى اسم [  الالهيه  ] ثم تابع'
       }
     }
   }
