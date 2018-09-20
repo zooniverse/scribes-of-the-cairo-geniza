@@ -44,7 +44,9 @@ const HelpModal = ({ helpBox, type, questionMark, text, togglePopup, translate, 
       style={style}
     >
       <div className="text-modifier-help__content">
-        <span className="primary-label">What&apos;s This?</span>
+        <span className="primary-label">
+          {translate('helpModals.whatsThis')}
+        </span>
         <button className="primary-label" onClick={togglePopup}>X</button>
       </div>
       <hr className="plum-line" />

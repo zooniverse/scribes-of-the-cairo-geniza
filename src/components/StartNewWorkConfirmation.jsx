@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import QuestionPrompt from './QuestionPrompt';
 import WorkflowPrompt from './WorkflowPrompt';
 import { toggleSelection } from '../ducks/workflow';
@@ -57,12 +58,14 @@ StartNewWorkConfirmation.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired,
+  translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
   })
 };
 
 StartNewWorkConfirmation.defaultProps = {
+  translate: () => {},
   user: null
 };
 
@@ -72,6 +75,8 @@ const mapStateToProps = state => {
 
   return {
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
+    currentLanguage: getActiveLanguage(state.locale).code,
+    translate: getTranslate(state.locale),
     user: state.login.user
   };
 };

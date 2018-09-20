@@ -289,7 +289,7 @@ class SelectedAnnotation extends React.Component {
         notes={notes}
         onConfirm={this.deleteAnnotation}
         onDeny={this.closePopup}
-        question="Are you sure you want to delete this transcription?"
+        question={translate('closeAnnotation.delete')}
         title={translate('closeAnnotation.title')}
       />));
   }
@@ -401,7 +401,7 @@ class SelectedAnnotation extends React.Component {
                 onChange={this.toggleMarks}
               />
               <label className="primary-label" htmlFor="showMarks">
-                <span>Show Previous Marks</span>
+                <span>{translate('transcribeBox.showMarks')}</span>
               </label>
             </div>
             <div>

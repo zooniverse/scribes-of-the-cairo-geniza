@@ -61,7 +61,7 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             className="tertiary-label"
             onClick={makeSelection.bind(this, false)}
           >
-            Choose a Workflow
+            {translate('workflowSelection.choose')}
           </button>
         </div>
       )}

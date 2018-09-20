@@ -106,7 +106,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         --------------------------------
         */}
         <div className="about-page__image-partners subsection">
-          <h2>Image Partners</h2>
+          <h2>{translate('home.imagePartners')}</h2>
           <hr className="small plum-line" />
           <div className="content">
             <div className="item">
@@ -136,7 +136,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__provenance subsection">
           <a id="provenance" />
-          <h2>Provenance</h2>
+          <h2>{translate('home.provenance')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentProvenanceHe />);
@@ -154,7 +154,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__team subsection">
           <a id="team" />
-          <h2>The team</h2>
+          <h2>{translate('home.team')}</h2>
           <div className="about-page__members">
             {Object.keys(members).map((key, i) => {
               return (
@@ -173,7 +173,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
           </div>
           <hr className="big plum-line" />
           <div className="about-page__thanks">
-            <h3>Special thanks</h3>
+            <h3>{translate('home.specialThanks')}</h3>
             <span>{translate('specialThanks.main')}</span>
             <span>{translate('specialThanks.additional')}</span>
           </div>
@@ -190,19 +190,19 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
 AboutLayout.propTypes = {
   currentLanguage: PropTypes.string,
   translate: PropTypes.func,
-  rtl: PropTypes.bool,
+  rtl: PropTypes.bool
 };
 
 AboutLayout.defaultProps = {
   currentLanguage: '',
   translate: () => {},
-  rtl: false,
+  rtl: false
 };
 
 const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
   translate: getTranslate(state.locale),
-  rtl: state.languages.rtl,
+  rtl: state.languages.rtl
 });
 
 export default connect(mapStateToProps)(AboutLayout);

@@ -32,7 +32,8 @@ export default {
     hideTutorial: 'Hide Tutorial',
     saveProgress: 'Save Progress',
     finished: 'Finished',
-    lastSave: 'Last save'
+    lastSave: 'Last save',
+    expandInfo: 'Expand Info'
   },
   workInProgress: {
     header: 'Resume Work In Progress?',
@@ -50,7 +51,8 @@ export default {
     phaseOne: 'Phase One: Sort Fragments',
     phaseTwo: 'Phase Two: Transcription',
     keywordSearch: 'Phrase Finding',
-    continue: 'Continue work in progress'
+    continue: 'Continue work in progress',
+    choose: 'Choose a workflow'
   },
   tutorial: {
     title: 'Tutorial'
@@ -64,7 +66,8 @@ export default {
     closeKeyboard: 'Close Keyboard',
     cancel: 'Cancel',
     done: 'Done',
-    showModern: 'Show Modern Characters'
+    showModern: 'Show Modern Characters',
+    showMarks: 'Show Previous Marks'
   },
   collection: {
     title: 'Add to Collection',
@@ -81,7 +84,8 @@ export default {
     about: 'About',
     transcribe: 'Transcribe',
     talk: 'Talk',
-    collect: 'Collect'
+    collect: 'Collect',
+    feedback: 'Feedback'
   },
   scriptReferences: {
     title: 'Script References',
@@ -347,15 +351,21 @@ export default {
     button: 'Sort Fragments'
   },
   home: {
-    institutions: 'Institutional Partners'
+    institutions: 'Institutional Partners',
+    imagePartners: 'Image Partners',
+    provenance: 'Provenance',
+    specialThanks: 'Special Thanks',
+    team: 'The team'
   },
   closeAnnotation: {
     title: 'Close Annotation',
     question: 'Are you sure you want to close without saving?',
     confirm: 'Yes, close without saving',
-    deny: 'No, continue transcribing'
+    deny: 'No, continue transcribing',
+    delete: 'Are you sure you want to delete this transcription?'
   },
   helpModals: {
+    whatsThis: 'What\'s this?',
     keyboardHelp: 'Click here to hide/show the keyboard.',
     scriptHelp: `
       Scroll to choose a different script type for the keyboard. Visit the Script
@@ -405,5 +415,20 @@ export default {
     sortingStats: 'Sorting Statistics',
     moreStatistics: 'More Statistics',
     completed: 'Completed'
+  },
+  whatIs: {
+    title: 'What is the Zooniverse?',
+    content: `
+      The Zooniverse is the world's largest and most popular platform for
+      people-powered research. This research is made possible by
+      volunteers-;hundreds of thousands of people around the world who
+      come together to assist professional researchers. Our goal is to enable
+      reearch that would not be possible, or practical, otherwise. Zooniverse
+      research results in new discoveries, datasets useful to the wider research
+      community, and many publications.
+    `
+  },
+  connect: {
+    title: 'Connect with the Geniza team for more content'
   }
 };

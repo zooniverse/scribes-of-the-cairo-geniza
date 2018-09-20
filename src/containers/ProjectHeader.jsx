@@ -99,7 +99,7 @@ class ProjectHeader extends React.Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Feedback
+                {this.props.translate('topNav.feedback')}
               </a>
             </div>
             <div className="project-header__buttons">

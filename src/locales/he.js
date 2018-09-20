@@ -9,8 +9,8 @@ export default {
     invertColors: 'נגטיב',
     showHints: 'הצג מילות מפתח',
     hideHints: 'הסתר מילות מפתח',
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'הראה סימוני שורות שנעשו בעבר',
+    hidingMarks: 'הסתר סימוני שורות שנעשו בעבר',
     resetImage: 'אפס תמונה',
     addFavorites: 'הוסף למועדפים',
     addCollection: 'הוסף לאוסף'
@@ -32,7 +32,8 @@ export default {
     hideTutorial: 'סגור הדרכה',
     saveProgress: 'שמור התקדמות',
     finished: 'סיום',
-    lastSave: 'Last save'
+    lastSave: 'Last save',
+    expandInfo: 'Expand Info'
   },
   workInProgress: {
     header: 'Resume Work In Progress?',
@@ -49,8 +50,9 @@ export default {
   workflowSelection: {
     phaseOne: 'Phase One: Sort Fragments',
     phaseTwo: 'Phase Two: Transcription',
-    keywordSearch: 'Phrase Finding',
-    continue: 'Continue work in progress'
+    keywordSearch: 'איתור מילות מפתח',
+    continue: 'Continue work in progress',
+    choose: 'Choose a workflow'
   },
   tutorial: {
     title: 'הדרכה'
@@ -64,7 +66,8 @@ export default {
     closeKeyboard: 'סגור מקלדת',
     cancel: 'ביטול',
     done: 'סיום',
-    showModern: 'הצג מקלדת רגילה'
+    showModern: 'הצג מקלדת רגילה',
+    showMarks: 'הראה סימוני שורות שנעשו בעבר'
   },
   collection: {
     title: 'הוסף לאוסף',
@@ -81,7 +84,8 @@ export default {
     about: 'אודות',
     transcribe: 'תעתוק',
     talk: 'פורום',
-    collect: 'יצירת אוסף'
+    collect: 'יצירת אוסף',
+    feedback: 'Feedback'
   },
   scriptReferences: {
     title: 'מאגר סוגי כתב',
@@ -125,7 +129,7 @@ export default {
     deletePrompt2: '.פעולה זו אינה ניתנת לשחזור',
     cancel: 'בטל מחיקה',
     confirm: 'כן, מחק',
-    deny: 'No, continue transcribing'
+    deny: 'לא, המשך בהעתקה'
   },
   helpers: {
     getStarted: '"כדי להתחיל, לחץ על "הוסף תעתוק',
@@ -326,15 +330,21 @@ export default {
     button: 'סיווג קטעים'
   },
   home: {
-    institutions: 'שותפים למחקר'
+    institutions: 'שותפים למחקר',
+    imagePartners: 'ספריות השותפות לפרויקט',
+    provenance: 'ספריות המקור',
+    specialThanks: 'תודות',
+    team: 'הצוות'
   },
   closeAnnotation: {
     title: 'סגור תעתוק',
     question: '?בטוחים שאתם רוצים לסגור בלי לשמור',
     confirm: 'כן, סגור בלי לשמור',
-    deny: 'לא, המשך לתעתק'
+    deny: 'לא, המשך בהעתקה',
+    delete: 'האם אתה בטוח שברצונך למחוק את התעתיק?'
   },
   helpModals: {
+    whatsThis: 'What\'s this?',
     keyboardHelp: 'Click here to hide/show the keyboard.',
     scriptHelp: `
       Scroll to choose a different script type for the keyboard. Visit the Script
@@ -384,5 +394,18 @@ export default {
     sortingStats: ' נתוני הסיווג',
     moreStatistics: 'נתונים נוספים',
     completed: 'גמורים'
+  },
+  whatIs: {
+    title: ' מהו זוניברס?',
+    content: `
+      זוניברס (Zooniverse) הוא פלטפורמת מחקר ההמונים הגדולה והפופולרית ביותר בעולם. המחקר
+      מבוצע בידי מתנדבים - מאות אלפי אנשים מרחבי העולם המושיטים ידם לעזרה לחוקרים המקצועיים.
+      מטרתנו היא לאפשר את קיומם של פרוייקטים מחקריים שלא היו יכולים להתקיים ללא עזרת הציבור
+      הרחב. המחקר של זוניברס מייצר תגליות חדשות, מערכי נתונים לשימושה של קהילת המחקר,
+      ופרסומים רבים.
+    `
+  },
+  connect: {
+    title: 'בקרו אותנו גם דרך'
   }
 };

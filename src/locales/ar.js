@@ -71,7 +71,8 @@ export default {
     `,
     saveProgress: 'حفظ التقدم',
     finished: 'تم الانتهاء',
-    lastSave: 'الحفظ الأخير'
+    lastSave: 'الحفظ الأخير',
+    expandInfo: 'توسيع المعلومات'
   },
   workInProgress: {
     header: 'بدء العمل الجديد',
@@ -89,7 +90,8 @@ export default {
     phaseOne: 'المرحلة الأولى: فرز القطع',
     phaseTwo: 'المرحلة الثانية: النسخ',
     keywordSearch: 'العثور على العبارة',
-    continue: 'مواصلة العمل في التقدم'
+    continue: 'مواصلة العمل في التقدم',
+    choose: 'اختر سير عمل'
   },
   tutorial: {
     title: 'الدرس التعليمي'
@@ -105,7 +107,8 @@ export default {
     closeKeyboard: 'إخفاء لوحة المفاتيح',
     cancel: 'إلغاء',
     done: 'تم',
-    showModern: 'إظهار الحروف الحديثة'
+    showModern: 'إظهار الحروف الحديثة',
+    showMarks: 'عرض العلامات السابقة'
   },
   collection: {
     title: 'إضافة إلى مجموعة',
@@ -122,7 +125,8 @@ export default {
     about: 'نبذة عن المشروع',
     transcribe: 'نسخ',
     talk: 'مناقشة',
-    collect: 'تجميع'
+    collect: 'تجميع',
+    feedback: 'نتائج'
   },
   scriptReferences: {
     title: 'ورقة مرجعية للخطوط',
@@ -374,15 +378,21 @@ export default {
     button: 'فرز القطع'
   },
   home: {
-    institutions: 'المؤسسات الشريكة'
+    institutions: 'المؤسسات الشريكة',
+    imagePartners: 'شركاء الصورة',
+    provenance: 'مصدر',
+    specialThanks: 'شكر خاص',
+    team: 'الفريق'
   },
   closeAnnotation: {
     title: 'إغلاق الشرح',
     question: '.هل أنت متأكد من حذف هذا النسخ؟ لا يمكنك أن تحفظ نسخا فارغا',
     confirm: 'نعم، حذف',
-    deny: 'لا، مواصلة النسخ'
+    deny: 'لا، مواصلة النسخ',
+    delete: 'هل أنت متأكد من حذف هذا النسخ؟'
   },
   helpModals: {
+    whatsThis: 'ما هذا؟',
     keyboardHelp: '.انقر هنا لإخفاء / إظهار لوحة المفاتيح',
     scriptHelp: `
       .التمرير لاختيار نوع كتابي مختلف عن لوحة المفاتيح. قم بزيارة قسم خط المراجع في ورقة المرجعية لمزيد من المعلومات
@@ -431,5 +441,16 @@ export default {
     sortingStats: 'المتطوعين',
     moreStatistics: 'مزيد من الإحصائيات',
     completed: 'المكتملة'
+  },
+  whatIs: {
+    title: 'ما هو Zooniverse؟',
+    content: `
+      Zooniverse هو الأكبر والأكثر عام برنامج في العالم للبحث مدعوم من قبل الناس. لقد جعل هذا البحث ممكنا من قبل المتطوعين - مئات الآلاف
+      من الناس حول العالم الذين يلتقون لمساعدة الباحثين المحترفين. هدفنا هو تمكين البحوث التي لن يكون ممكنا، أو عملي، وإلا. بحوث Zooniverse
+      .النتائج في الاكتشافات الجديدة ، مجموعات بيانات مفيدة لمجتمع البحث الأوسع ، والعديد من المنشورات
+    `
+  },
+  connect: {
+    title: 'تواصل مع فريق جنيزا لمزيد من المحتوى'
   }
 };

@@ -282,7 +282,7 @@ class ControlPanel extends React.Component {
         tabIndex="0"
       >
         {this.toggleIcon()}
-        <h2>EXPAND INFO</h2>
+        <h2>{this.props.translate('infoBox.expandInfo')}</h2>
         {panel}
       </FlippedControlPanel>
     );
