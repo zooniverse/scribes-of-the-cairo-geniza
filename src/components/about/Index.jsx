@@ -71,7 +71,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__geniza subsection">
           <a id="geniza" />
-          <h2>About the Geniza</h2>
+          <h2>{translate('home.aboutGeniza')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentGenizaHe />);
@@ -89,7 +89,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__research-partners subsection">
           <a id="partners" />
-          <h2>About the research partners</h2>
+          <h2>{translate('home.aboutGeniza')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentResearchHe />);

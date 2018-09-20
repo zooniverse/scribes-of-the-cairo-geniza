@@ -334,7 +334,11 @@ export default {
     imagePartners: 'ספריות השותפות לפרויקט',
     provenance: 'ספריות המקור',
     specialThanks: 'תודות',
-    team: 'הצוות'
+    team: 'הצוות',
+    aboutGeniza: 'על הגניזה',
+    aboutResearch: 'המוסדות המשתתפים במחקר',
+    aboutScribes: 'על סופרי הגניזה הקהירית',
+    getStarted: 'Get Started'
   },
   closeAnnotation: {
     title: 'סגור תעתוק',
@@ -413,5 +417,10 @@ export default {
     deny: 'No, continue saved work',
     question: 'Are you sure you want to start a new workflow? This will delete any saved work you may have.',
     title: 'Start new Work?'
+  },
+  noSubject: {
+    title: 'קטע הגניזה לא נמצא',
+    back: 'חזרה לדף הבית',
+    reload: 'טען מחדש את הדף'
   }
 };

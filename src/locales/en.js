@@ -355,7 +355,11 @@ export default {
     imagePartners: 'Image Partners',
     provenance: 'Provenance',
     specialThanks: 'Special Thanks',
-    team: 'The team'
+    team: 'The team',
+    aboutGeniza: 'About the Geniza',
+    aboutResearch: 'About the Research Partners',
+    aboutScribes: 'About Scribes of the Cairo Geniza',
+    getStarted: 'Get Started'
   },
   closeAnnotation: {
     title: 'Close Annotation',
@@ -436,5 +440,10 @@ export default {
     deny: 'No, continue saved work',
     question: 'Are you sure you want to start a new workflow? This will delete any saved work you may have.',
     title: 'Start new Work?'
+  },
+  noSubject: {
+    title: 'Subject not available',
+    back: 'Back to project home',
+    reload: 'Reload page'
   }
 };

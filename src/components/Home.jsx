@@ -83,7 +83,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
         </div>
       </div>
       <div className="home-page__get-started">
-        <h2>Get Started</h2>
+        <h2>{translate('home.getStarted')}</h2>
         <div>
           <hr className="plum-line" />
           <div>
@@ -227,7 +227,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
       </div>
       <div className="home-page__about">
         <hr className="plum-line" />
-        <h2 className="h2-font">About Scribes of the Cairo Geniza</h2>
+        <h2 className="h2-font">{translate('home.aboutScribes')}</h2>
         {(() => {
           switch (currentLanguage) {
             case 'he': return (<AboutGenizaHe />);

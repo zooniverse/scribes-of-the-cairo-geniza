@@ -6,7 +6,7 @@ import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 const ConnectWithUs = ({ translate }) => {
   return (
     <div className="statistics__connect">
-      <h2>Connect with the Geniza team for more content</h2>
+      <h2>{translate('connect.title')}</h2>
       <div className="statistics__buttons">
         <a href="https://twitter.com/judaicadh" className="button" rel="noopener noreferrer" target="_blank"><i className="fab fa-twitter" />Twitter</a>
         <a href="https://facebook.com/judaicadh" className="button" rel="noopener noreferrer" target="_blank"><i className="fab fa-facebook-f" />Facebook</a>

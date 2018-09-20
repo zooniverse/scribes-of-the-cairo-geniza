@@ -382,7 +382,11 @@ export default {
     imagePartners: 'شركاء الصورة',
     provenance: 'مصدر',
     specialThanks: 'شكر خاص',
-    team: 'الفريق'
+    team: 'الفريق',
+    aboutGeniza: 'حول جنيزا',
+    aboutResearch: 'حول شركاء الأبحاث',
+    aboutScribes: 'نبذة كتبة جنيزة القاهرة',
+    getStarted: 'البدء'
   },
   closeAnnotation: {
     title: 'إغلاق الشرح',
@@ -458,5 +462,10 @@ export default {
     deny: 'لا ، أستمر في العمل المحفوظ',
     question: 'هل أنت متأكد من أنك تريد بدء سير عمل جديد؟ سيؤدي هذا إلى حذف أي أعمال محفوظة قد تكون لديك.',
     title: 'بدء العمل الجديد'
+  },
+  noSubject: {
+    title: 'موضوع غير متوفر',
+    back: 'العودة إلى الصفحة الرئيسية للمشروع',
+    reload: 'تحديث الصفحة'
   }
 };
