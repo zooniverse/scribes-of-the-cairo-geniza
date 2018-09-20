@@ -407,5 +407,11 @@ export default {
   },
   connect: {
     title: 'בקרו אותנו גם דרך'
+  },
+  questionPrompt: {
+    confirm: 'Yes, start a new page',
+    deny: 'No, continue saved work',
+    question: 'Are you sure you want to start a new workflow? This will delete any saved work you may have.',
+    title: 'Start new Work?'
   }
 };

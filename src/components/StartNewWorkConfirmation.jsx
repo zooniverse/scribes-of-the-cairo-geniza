@@ -42,12 +42,12 @@ class StartNewWorkConfirmation extends React.Component {
   render() {
     return (
       <QuestionPrompt
-        confirm="Yes, start a new page"
-        deny="No, continue saved work"
+        confirm={this.props.translate('questionPrompt.confirm')}
+        deny={this.props.translate('questionPrompt.deny')}
         onConfirm={this.startNewWork}
         onDeny={this.continueWork}
-        question="Are you sure you want to start a new workflow? This will delete any saved work you may have."
-        title="Start new Work?"
+        question={this.props.translate('cribSheet.confirm')}
+        title={this.props.translate('questionPrompt.title')}
       />
     );
   }
