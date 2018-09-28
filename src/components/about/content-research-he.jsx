@@ -52,7 +52,19 @@ Princeton Geniza Project) <a href="http://geniza.princeton.edu/newpgp/princetong
           <img alt="The Zooniverse" src={ImgZooniverse} />
         </div>
         <h3>The Zooniverse</h3>
-        <p className="text">The Zooniverse is the world’s largest and most popular platform for people-powered research. In 2016, the Zooniverse received a National Leadership Grant to fund the “Transforming Libraries and Archives through Crowdsourcing” project, a partnership between Zooniverse team members based at the Adler Planetarium in Chicago and at the University of Oxford. This effort will greatly expand the capacity for libraries and archives across the country to use crowdsourcing techniques to engage with audiences and improve access to digital collections through the Zooniverse. For more information about the research project, please click <a href="http://www.dlib.org/dlib/may17/vanhyning/05vanhyning.html" target="_blank" rel="noopener noreferrer">here.</a> For more information about the Zooniverse, please click <a href="https://www.zooniverse.org/about" rel="noopener noreferrer" target="_blank">here.</a></p>
+        <p className="text">
+          זוניברס
+          זוניברס  (Zooniverse) הוא פלטפורמת מחקר ההמונים הגדולה והפופולרית ביותר בעולם. בשנת
+          2016 זכה זוניברס במענק מנהיגות לאומי למימון פרויקט קידום ספריות וארכיונים בעזרת שיתוף
+          המונים, שיתוף פעולה בין צוות זוניברס בפלנטריום אדלר שבשיקגו ובין הצוות שבאוניברסיטת
+          אוקספורד. פרויקט זה יעמיד לרשות ספריות וארכיונים ברחבי המדינה כלים מבוססי שיתוף המונים
+          שיאפשרו להם להרחיב את קהל היעד ולשפר גישה למאגרים דיגיטליים דרך זוניברס. למידע נוסף על
+          הפרויקט לחץ
+          <a href="http://www.dlib.org/dlib/may17/vanhyning/05vanhyning.html" target="_blank" rel="noopener noreferrer">כאן.</a>
+           למידע נוסף
+           על זוניברס לחץ
+          <a href="https://www.zooniverse.org/about" rel="noopener noreferrer" target="_blank">כאן.</a>
+        </p>
       </div>
     </div>
   );

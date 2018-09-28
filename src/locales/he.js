@@ -9,8 +9,8 @@ export default {
     invertColors: 'נגטיב',
     showHints: 'הצג מילות מפתח',
     hideHints: 'הסתר מילות מפתח',
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'הראה סימוני שורות שנעשו בעבר',
+    hidingMarks: 'הסתר סימוני שורות שנעשו בעבר',
     resetImage: 'אפס תמונה',
     addFavorites: 'הוסף למועדפים',
     addCollection: 'הוסף לאוסף'
@@ -19,7 +19,7 @@ export default {
     subjectInfo: 'תיאור הפריט ',
     name: 'קטע הגניזה',
     attribution: 'ספריית מקור',
-    libraryCatalog: 'הפריט בקטלוג הספריה',
+    libraryCatalog: 'לאתר הספריה',
     collapseName: 'סגור פרטי קטע הגניזה',
     expandName: 'הצג פרטי קטע הגניזה',
     showCrib: 'הצג סוגי כתב',
@@ -32,7 +32,8 @@ export default {
     hideTutorial: 'סגור הדרכה',
     saveProgress: 'שמור התקדמות',
     finished: 'סיום',
-    lastSave: 'Last save'
+    lastSave: 'Last save',
+    expandInfo: 'Expand Info'
   },
   workInProgress: {
     header: 'Resume Work In Progress?',
@@ -49,8 +50,9 @@ export default {
   workflowSelection: {
     phaseOne: 'Phase One: Sort Fragments',
     phaseTwo: 'Phase Two: Transcription',
-    keywordSearch: 'Phrase Finding',
-    continue: 'Continue work in progress'
+    keywordSearch: 'איתור מילות מפתח',
+    continue: 'Continue work in progress',
+    choose: 'Choose a workflow'
   },
   tutorial: {
     title: 'הדרכה'
@@ -64,7 +66,8 @@ export default {
     closeKeyboard: 'סגור מקלדת',
     cancel: 'ביטול',
     done: 'סיום',
-    showModern: 'הצג מקלדת רגילה'
+    showModern: 'הצג מקלדת רגילה',
+    showMarks: 'הראה סימוני שורות שנעשו בעבר'
   },
   collection: {
     title: 'הוסף לאוסף',
@@ -81,19 +84,20 @@ export default {
     about: 'אודות',
     transcribe: 'תעתוק',
     talk: 'פורום',
-    collect: 'יצירת אוסף'
+    collect: 'יצירת אוסף',
+    feedback: 'Feedback'
   },
   scriptReferences: {
     title: 'מאגר סוגי כתב',
     scriptTypes: 'סוגי כתב עברי',
     yourSheet: 'מאגר סוגי הכתב שלך',
     types: {
-      OrientalNE: '(מזרחי (צפון-מזרח המזרח התיכון',
-      OrientalSW: '(מזרחי (מערב-דרום המזרח התיכון',
+      OrientalNE: '(מזרחי (צפון-מזרח ',
+      OrientalSW: '(מזרחי (מערב-דרום המזרח ',
       Maghrebi: 'מגרבי',
       Sephardi: 'ספרדי',
       Yemenite: 'תימני',
-      Byzantine: 'ביזאנטי',
+      Byzantine: 'ביזנטי',
       Ashkenazi: 'אשכנזי',
       Italian: 'איטלקי',
       Square: 'מרובע',
@@ -125,12 +129,13 @@ export default {
     deletePrompt2: '.פעולה זו אינה ניתנת לשחזור',
     cancel: 'בטל מחיקה',
     confirm: 'כן, מחק',
-    deny: 'No, continue transcribing'
+    deny: 'לא, המשך בהעתקה'
   },
   helpers: {
     getStarted: '"כדי להתחיל, לחץ על "הוסף תעתוק',
     click: 'כדי לתעתק, סמן את תחילת השורה וסוף השורה בעזרת העכבר',
-    draw: 'סמן את גבולות התמונה שברצונך לגזור ולשמור'
+    draw: 'סמן את גבולות התמונה שברצונך לגזור ולשמור',
+    copied: 'העתקת טקסט למקלדת. הדבק אותו בתיבת התעתוק'
   },
   fieldGuide: {
     title: 'מידע נוסף'
@@ -301,40 +306,49 @@ export default {
     challenging: 'ערבית – דרגת קושי גבוהה'
   },
   keywordsHebrew: {
-    title: 'חיפוש מילות מפתח בקטעי גניזה הכתובים בעברית',
+    title: 'חיפוש מילות מפתח בכתב עברי',
     content: `
-      .עזרו לנו לאתר מילות מפתח בקטעים הכתובים עברית
+      .עזור לנו לאתר מילות מפתח בקטעים הכתובים עברית
       זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת קטעים
       .העשויים להיות מאתגרים יותר לקריאה
       במקום לנסות לתעתק את המסמך כולו, אתרו בו ביטויים ומלים שיעזרו
       !לנו להתחיל את התהליך. הכון, החל, חפש
     `,
-    button: 'Hebrew Phrases'
+    button: 'מילות מפתח בכתב עברי'
   },
   keywordsArabic: {
-    title: 'Phrase Finding',
+    title: 'חיפוש מילות מפתח בכתב ערבי',
     content: `
-      Help us search for specific phrases in Arabic Script. Your work will begin
-      the process of transcription for fragments that are likely to be especially
-      difficult. Instead of trying to transcribe the whole document, start by
-      looking for specific words to help get the process started. Ready, set, search!
+      עזור לנו לאתר מילות מפתח בקטעים הכתובים בערבית. זיהוי מילות המפתח הוא אמצעי לזיהוי והעתקת
+      קטעים מאתגרים יותר לקריאה. במקום לנסות לתעתק את המסמך כולו, תאתר בו ביטויים ומילים שיעזרו
+      !לנו להתחיל את התהליך. הכון, החל, חפש
     `,
-    button: 'Arabic Phrases'
+    button: 'מילות מפתח בכתב ערבי'
   },
   classifyFragments: {
-    title: 'Sort Fragments',
-    button: 'Sort Fragments'
+    title: 'סיווג קטעים',
+    button: 'סיווג קטעים'
   },
   home: {
-    institutions: 'שותפים למחקר'
+    institutions: 'שותפים למחקר',
+    imagePartners: 'ספריות השותפות לפרויקט',
+    provenance: 'ספריות המקור',
+    specialThanks: 'תודות',
+    team: 'הצוות',
+    aboutGeniza: 'על הגניזה',
+    aboutResearch: 'המוסדות המשתתפים במחקר',
+    aboutScribes: 'על סופרי הגניזה הקהירית',
+    getStarted: 'Get Started'
   },
   closeAnnotation: {
     title: 'סגור תעתוק',
     question: '?בטוחים שאתם רוצים לסגור בלי לשמור',
     confirm: 'כן, סגור בלי לשמור',
-    deny: 'לא, המשך לתעתק'
+    deny: 'לא, המשך בהעתקה',
+    delete: 'האם אתה בטוח שברצונך למחוק את התעתיק?'
   },
   helpModals: {
+    whatsThis: 'What\'s this?',
     keyboardHelp: 'Click here to hide/show the keyboard.',
     scriptHelp: `
       Scroll to choose a different script type for the keyboard. Visit the Script
@@ -375,5 +389,38 @@ export default {
         example: 'Transcribe Until Name [ה’] Then Continue'
       }
     }
+  },
+  statistics: {
+    title: 'שלב II - סטטיסטיקות',
+    completedSubjects: 'קטעים גמורים',
+    classifications: 'סיווגים',
+    volunteers: 'מתנדבים',
+    sortingStats: ' נתוני הסיווג',
+    moreStatistics: 'נתונים נוספים',
+    completed: 'גמורים'
+  },
+  whatIs: {
+    title: ' מהו זוניברס?',
+    content: `
+      זוניברס (Zooniverse) הוא פלטפורמת מחקר ההמונים הגדולה והפופולרית ביותר בעולם. המחקר
+      מבוצע בידי מתנדבים - מאות אלפי אנשים מרחבי העולם המושיטים ידם לעזרה לחוקרים המקצועיים.
+      מטרתנו היא לאפשר את קיומם של פרוייקטים מחקריים שלא היו יכולים להתקיים ללא עזרת הציבור
+      הרחב. המחקר של זוניברס מייצר תגליות חדשות, מערכי נתונים לשימושה של קהילת המחקר,
+      ופרסומים רבים.
+    `
+  },
+  connect: {
+    title: 'בקרו אותנו גם דרך'
+  },
+  questionPrompt: {
+    confirm: 'Yes, start a new page',
+    deny: 'No, continue saved work',
+    question: 'Are you sure you want to start a new workflow? This will delete any saved work you may have.',
+    title: 'Start new Work?'
+  },
+  noSubject: {
+    title: 'קטע הגניזה לא נמצא',
+    back: 'חזרה לדף הבית',
+    reload: 'טען מחדש את הדף'
   }
 };

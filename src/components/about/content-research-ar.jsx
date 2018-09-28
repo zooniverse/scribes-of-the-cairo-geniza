@@ -54,7 +54,16 @@ e-Lijah (التعلم الإلكتروني في مجال الدراسات الي
           <img alt="The Zooniverse" src={ImgZooniverse} />
         </div>
         <h3>The Zooniverse</h3>
-        <p className="text">The Zooniverse is the world’s largest and most popular platform for people-powered research. In 2016, the Zooniverse received a National Leadership Grant to fund the “Transforming Libraries and Archives through Crowdsourcing” project, a partnership between Zooniverse team members based at the Adler Planetarium in Chicago and at the University of Oxford. This effort will greatly expand the capacity for libraries and archives across the country to use crowdsourcing techniques to engage with audiences and improve access to digital collections through the Zooniverse. For more information about the research project, please click <a href="http://www.dlib.org/dlib/may17/vanhyning/05vanhyning.html" target="_blank" rel="noopener noreferrer">here.</a> For more information about the Zooniverse, please click <a href="https://www.zooniverse.org/about" target="_blank" rel="noopener noreferrer">here.</a></p>
+        <p className="text">
+          Zooniverse هو الأكبر والأكثر عام برنامج في العالم للبحث مدعوم من قبل الناس. في عام 2016 ، تلقى Zooniverse منحة القيادة الوطنية
+          لتمويل نقل المكتبة والمحفوظات من خلال مشروع جمع المعلومات من قبل الناس ، وهي شراكة بين أعضاء فريق Zooniverse مقرها في Adler
+          Planetarium في شيكاغو وجامعة أكسفورد.سيوسع هذا الجهد بشكل كبير من قدرة المكتبات والمحفوظات في جميع أنحاء الوطن على استخدام
+          تقنيات جمع المعلومات من قبل الناس للتعامل مع الجماهير وتحسين الوصول إلى المجموعات الرقمية من خلال Zooniverse. لمزيد من المعلومات
+          حول مشروع البحث ، يرجى النقر
+          <a href="http://www.dlib.org/dlib/may17/vanhyning/05vanhyning.html" target="_blank" rel="noopener noreferrer">هنا. </a>
+           لمزيد من المعلومات حول Zooniverse ، يرجى النقر
+          <a href="https://www.zooniverse.org/about" target="_blank" rel="noopener noreferrer">هنا.</a>
+        </p>
       </div>
     </div>
   );

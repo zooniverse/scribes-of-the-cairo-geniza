@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import QuestionPrompt from './QuestionPrompt';
 import WorkflowPrompt from './WorkflowPrompt';
 import { toggleSelection } from '../ducks/workflow';
@@ -41,12 +42,12 @@ class StartNewWorkConfirmation extends React.Component {
   render() {
     return (
       <QuestionPrompt
-        confirm="Yes, start a new page"
-        deny="No, continue saved work"
+        confirm={this.props.translate('questionPrompt.confirm')}
+        deny={this.props.translate('questionPrompt.deny')}
         onConfirm={this.startNewWork}
         onDeny={this.continueWork}
-        question="Are you sure you want to start a new workflow? This will delete any saved work you may have."
-        title="Start new Work?"
+        question={this.props.translate('cribSheet.confirm')}
+        title={this.props.translate('questionPrompt.title')}
       />
     );
   }
@@ -57,12 +58,14 @@ StartNewWorkConfirmation.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired,
+  translate: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.string
   })
 };
 
 StartNewWorkConfirmation.defaultProps = {
+  translate: () => {},
   user: null
 };
 
@@ -72,6 +75,8 @@ const mapStateToProps = state => {
 
   return {
     activeAnnotationExists: (!!state.workflow.data && !!state.subject.currentSubject) || userHasWorkInProgress,
+    currentLanguage: getActiveLanguage(state.locale).code,
+    translate: getTranslate(state.locale),
     user: state.login.user
   };
 };

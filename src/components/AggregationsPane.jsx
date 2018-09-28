@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { AGGREGATIONS_STATUS, AGGREGATIONS_PROP_TYPES, AGGREGATIONS_INITIAL_STATE } from '../ducks/aggregations';
 import { toggleReminder } from '../ducks/reminder';
 import HelperMessage from './HelperMessage';
@@ -37,7 +38,7 @@ class AggregationsPane extends React.Component {
     document.execCommand('copy');
     selection.removeAllRanges();
 
-    const message = 'Text copied to your clipboard! Paste into your text transcription box.';
+    const message = this.props.translate('helpers.copied');
 
     this.props.dispatch(toggleReminder(
       <HelperMessage message={message} width={400} />
@@ -150,20 +151,24 @@ AggregationsPane.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number
   }),
+  translate: PropTypes.func,
   ...AGGREGATIONS_PROP_TYPES
 };
 
 AggregationsPane.defaultProps = {
   dispatch: () => {},
   imageSize: {},
+  translate: () => {},
   ...AGGREGATIONS_INITIAL_STATE
 };
 
 const mapStateToProps = state => ({
   status: state.aggregations.status,
+  currentLanguage: getActiveLanguage(state.locale).code,
   data: state.aggregations.data,
   keywordWorkflow: state.aggregations.keywordWorkflow,
-  showHints: state.aggregations.showHints
+  showHints: state.aggregations.showHints,
+  translate: getTranslate(state.locale)
 });
 
 export default connect(mapStateToProps)(AggregationsPane);

@@ -83,7 +83,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
         </div>
       </div>
       <div className="home-page__get-started">
-        <h2>Get Started</h2>
+        <h2>{translate('home.getStarted')}</h2>
         <div>
           <hr className="plum-line" />
           <div>
@@ -227,7 +227,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
       </div>
       <div className="home-page__about">
         <hr className="plum-line" />
-        <h2 className="h2-font">About Scribes of the Cairo Geniza</h2>
+        <h2 className="h2-font">{translate('home.aboutScribes')}</h2>
         {(() => {
           switch (currentLanguage) {
             case 'he': return (<AboutGenizaHe />);
@@ -238,15 +238,9 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
       <HomeStatistics />
       <div className="home-page__zooniverse">
         <ZooniverseLogo height="4em" width="4em" />
-        <h2>What is the Zooniverse?</h2>
+        <h2>{translate('whatIs.title')}</h2>
         <span>
-          The Zooniverse is the world&apos;s largest and most popular platform for
-          people&#8208;powered research. This research is made possible by
-          volunteers&#8212;hundreds of thousands of people around the world who
-          come together to assist professional researchers. Our goal is to enable
-          reearch that would not be possible, or practical, otherwise. Zooniverse
-          research results in new discoveries, datasets useful to the wider research
-          community,and many publications.
+          {translate('whatIs.content')}
         </span>
         <a className="button" href="https://www.zooniverse.org" rel="noopener noreferrer" target="_blank">Zooniverse.org</a>
       </div>
