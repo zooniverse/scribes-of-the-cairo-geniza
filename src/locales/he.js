@@ -20,8 +20,8 @@ export default {
     name: 'קטע הגניזה',
     attribution: 'ספריית מקור',
     libraryCatalog: 'לאתר הספריה',
-    collapseName: 'סגור פרטי קטע הגניזה',
-    expandName: 'הצג פרטי קטע הגניזה',
+    collapseName: 'סגור פרטי האוסף',
+    expandName: 'הצג פרטי האוסף',
     showCrib: 'הצג סוגי כתב',
     hideCrib: 'סגור סוגי כתב',
     transcribeReverse: 'עבור לעמוד השני של הדף',
@@ -32,8 +32,8 @@ export default {
     hideTutorial: 'סגור הדרכה',
     saveProgress: 'שמור התקדמות',
     finished: 'סיום',
-    lastSave: 'Last save',
-    expandInfo: 'Expand Info'
+    lastSave: 'שמירה אחרונה',
+    expandInfo: 'הצג תיאור הקטע'
   },
   workInProgress: {
     header: 'Resume Work In Progress?',
@@ -42,17 +42,17 @@ export default {
     resumeWorkInProgress: 'Resume Work'
   },
   general: {
-    admin: 'Admin',
+    admin: 'מנהל',
     hebrew: 'עברית',
     arabic: 'ערבית',
-    comingSoon: 'Coming Soon!'
+    comingSoon: '...בקרוב'
   },
   workflowSelection: {
-    phaseOne: 'Phase One: Sort Fragments',
-    phaseTwo: 'Phase Two: Transcription',
+    phaseOne: 'שלב I: סיווג קטעי הגניזה',
+    phaseTwo: 'שלב II: העתקת קטעי הגניזה',
     keywordSearch: 'איתור מילות מפתח',
-    continue: 'Continue work in progress',
-    choose: 'Choose a workflow'
+    continue: 'המשך בתהליך העבודה',
+    choose: 'בחרו משימה'
   },
   tutorial: {
     title: 'הדרכה'
@@ -85,7 +85,7 @@ export default {
     transcribe: 'תעתוק',
     talk: 'פורום',
     collect: 'יצירת אוסף',
-    feedback: 'Feedback'
+    feedback: 'משוב'
   },
   scriptReferences: {
     title: 'מאגר סוגי כתב',
@@ -338,7 +338,7 @@ export default {
     aboutGeniza: 'על הגניזה',
     aboutResearch: 'המוסדות המשתתפים במחקר',
     aboutScribes: 'על סופרי הגניזה הקהירית',
-    getStarted: 'Get Started'
+    getStarted: 'התחילו כאן'
   },
   closeAnnotation: {
     title: 'סגור תעתוק',
@@ -348,45 +348,44 @@ export default {
     delete: 'האם אתה בטוח שברצונך למחוק את התעתיק?'
   },
   helpModals: {
-    whatsThis: 'What\'s this?',
-    keyboardHelp: 'Click here to hide/show the keyboard.',
+    whatsThis: 'מה זה?',
+    keyboardHelp: 'לחצו כאן כדי להציג את המקלדת או כדי להסתירה',
     scriptHelp: `
-      Scroll to choose a different script type for the keyboard. Visit the Script
-      References section in the Crib Sheet for more information.
+      גללו לבחירת סוג כתב שונה עבור המקלדת שלכם. למידע נוסף ראו מאגר סוגי הכתב.
     `,
     modifierHelp: `
-      Use these markers to indicate special occurrences within the text:
+      השתמשו בסימונים אלה על מנת לציין את התופעות הבאות:
     `,
     modifiers: {
       insertion: {
-        title: 'Insertion',
-        content: 'For text that has been added in.',
-        example: '[תוספת]Inserted Text Here[/תוספת]'
+        title: 'תוספת',
+        content: 'לסימון טקסט מעל השורה או שנוסף על הטקסט המקורי',
+        example: '[תוספת] כאן בא הטטקסט שנוסף [תוספת]'
       },
       deletion: {
-        title: 'Deletion',
-        content: 'For text that has been crossed out',
-        example: '[מחיקה]Deleted Text Here[/מחיקה]'
+        title: 'מחיקה',
+        content: 'לסימון טקסט שנמחק בקו או בנקודות מעליו',
+        example: '[מחיקה] כאן בא הטקסט המחוק [מחיקה]'
       },
       damaged: {
-        title: 'Damaged',
-        content: 'For text that is obscured or destroyed due to physical damage or wear & tear.',
-        example: 'Transcribe Until The Damage [פגום] Then Continue After'
+        title: 'פגום',
+        content: 'לסימון טקסט שניזוק או נקרע ואינו קריא',
+        example: 'העתיקו עד לחלק הניזוק, סמנו [פגום] והמשיכו בהעתקה'
       },
       drawing: {
-        title: 'Drawing',
-        content: 'To mark drawings that interrupt lines of text.',
-        example: 'Transcribe Until Drawing [ציור] Then Continue'
+        title: 'ציור',
+        content: 'לסימון עיטור או ציור המפסיק את שטף העתקת השורה',
+        example: 'העתיקו עד לציור, סמנו [ציור] והמשיכו בהעתקה'
       },
       grid: {
-        title: 'Grid',
-        content: 'To indicate tabular text.',
-        example: '[טבלה/שרטוט]Tabular Text Here[/טבלה/שרטוט]'
+        title: 'טבלה',
+        content: 'לסימון טקסט בתוך טבלה או שרטוט',
+        example: '[טבלה] כאן בא הטקסט שבטבלה [טבלה]'
       },
       divineName: {
-        title: 'Divine Name',
-        content: 'To use in place of the Divine Name.',
-        example: 'Transcribe Until Name [ה’] Then Continue'
+        title: 'שם האל',
+        content: 'לסימון שם האל על כל צורותיו',
+        example: 'העתיקו עד שם האל, סמנו [ה’] והמשיכו כרגיל.'
       }
     }
   },
@@ -413,10 +412,10 @@ export default {
     title: 'בקרו אותנו גם דרך'
   },
   questionPrompt: {
-    confirm: 'Yes, start a new page',
-    deny: 'No, continue saved work',
-    question: 'Are you sure you want to start a new workflow? This will delete any saved work you may have.',
-    title: 'Start new Work?'
+    confirm: 'כן, התחל קטע חדש',
+    deny: 'לא, המשך בהעתקה שנשמרה',
+    question: 'האם אתם בטוחים שברצונכם להתחיל משימה חדשה? פעולה זו תמחק את העתקתכם עד כה',
+    title: 'התחל קטע חדש'
   },
   noSubject: {
     title: 'קטע הגניזה לא נמצא',
