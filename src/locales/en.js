@@ -445,5 +445,29 @@ export default {
     title: 'Subject not available',
     back: 'Back to project home',
     reload: 'Reload page'
+  },
+  landingPage: {
+    paragraphOne: `
+      Welcome to Scribes of the Cairo Geniza, your chance to work with others to
+      unlock the secrets of one of the greatest archives of the middle ages. Hidden
+      for centuries in an attic in Cairo, over 300,000 fragments of pre-modern and
+      medieval Jewish texts—from everyday receipts to biblical works—have yet to be
+      fully deciphered.
+    `,
+    paragraphTwo: {
+      chunkOne: 'The first step of the project, is to',
+      chunkTwo: 'the fragments by script type and level of difficulty.',
+      chunkThree: 'Next, we analyze the sorted piles by',
+      chunkFour: 'the relatively easy fragments, and by finding key',
+      chunkFive: 'that will eventually be used to help decipher the more difficult ones.'
+    },
+    paragraphThree: `
+      This is a collaborative project between many institutions of higher learning
+      (listed below), several great manuscript repositories, and you, the citizens
+      of the world. Thank you in advance for your contribution.
+    `,
+    sort: 'sort',
+    transcribing: 'transcribing',
+    phrases: 'phrases'
   }
 };

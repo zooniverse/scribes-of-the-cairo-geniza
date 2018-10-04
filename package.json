@@ -15,7 +15,7 @@
   },
   "engines": {
     "node": "^8.1.2",
-    "npm": "^5.0.3"
+    "npm": "^6.0.0"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",
