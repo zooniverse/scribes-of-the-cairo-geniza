@@ -36,10 +36,10 @@ export default {
     expandInfo: 'הצג תיאור הקטע'
   },
   workInProgress: {
-    header: 'Resume Work In Progress?',
-    message: 'We detected that you have some work in progress saved. You can continue your saved work, or start with a new page.',
-    startNewWork: 'New Page',
-    resumeWorkInProgress: 'Resume Work'
+    header: 'האם לשחזר העתקה לא גמורה?',
+    message: 'יש העתקה שטרם סיימת השמורה במערכת. האם ברצונך לחזור להעתקה זו או לעבור לדף חדש?',
+    startNewWork: 'דף חדש',
+    resumeWorkInProgress: 'חזור לעבודה שמורה'
   },
   general: {
     admin: 'מנהל',
