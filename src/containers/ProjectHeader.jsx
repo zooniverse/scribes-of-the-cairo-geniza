@@ -93,14 +93,6 @@ class ProjectHeader extends React.Component {
               >
                 {this.props.translate('topNav.collect')}
               </a>
-              <a
-                className="project-header__link"
-                href="https://docs.google.com/forms/d/e/1FAIpQLSem-OCdy2Ppa0QA1-i7lZLEsqMlZ61w5_nbTvJZJ-C9hm4jmA/viewform?usp=sf_link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {this.props.translate('topNav.feedback')}
-              </a>
             </div>
             <div className="project-header__buttons">
               <button
