@@ -85,31 +85,25 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.easyHebrew)}
               >
                 {translate('transcribeHebrew.easy')}
               </button>
-              <span>{translate('general.comingSoon')}</span>
             </div>
             <div className="disabled-workflow">
               <button
                 className="tertiary-label disabled-workflow"
-                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.challengingHebrew)}
               >
                 {translate('transcribeHebrew.challenging')}
               </button>
-              <span>{translate('general.comingSoon')}</span>
             </div>
 
             <div>
               <span className="primary-label">{translate('workflowSelection.keywordSearch')}</span>
               <div className="disabled-workflow">
                 <a
-                  className={classnames('tertiary-label', {
-                    'disabled-workflow--enable': adminMode
-                  })}
+                  className="tertiary-label"
                   href={`${classifyPath}${c.hebrewKeyword}`}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -126,31 +120,25 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.easyArabic)}
               >
                 {translate('transcribeArabic.easy')}
               </button>
-              <span>{translate('general.comingSoon')}</span>
             </div>
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.challengingArabic)}
               >
                 {translate('transcribeArabic.challenging')}
               </button>
-              <span>{translate('general.comingSoon')}</span>
             </div>
 
             <div>
               <span className="primary-label">{translate('workflowSelection.keywordSearch')}</span>
               <div className="disabled-workflow">
                 <a
-                  className={classnames('tertiary-label', {
-                    'disabled-workflow--enable': adminMode
-                  })}
+                  className="tertiary-label"
                   href={`${classifyPath}${c.arabicKeyword}`}
                   rel="noopener noreferrer"
                   target="_blank"
