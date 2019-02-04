@@ -46,7 +46,7 @@ class StartNewWorkConfirmation extends React.Component {
         deny={this.props.translate('questionPrompt.deny')}
         onConfirm={this.startNewWork}
         onDeny={this.continueWork}
-        question={this.props.translate('cribSheet.confirm')}
+        question={this.props.translate('questionPrompt.question')}
         title={this.props.translate('questionPrompt.title')}
       />
     );

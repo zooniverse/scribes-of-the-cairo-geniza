@@ -97,11 +97,15 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
               </div>
               <div>
                 <button
-                  className="button"
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  disabled={!adminMode}
                   onClick={selectWorkflow.bind(null, config.challengingHebrew)}
                 >
                   {translate('transcribeHebrew.challenging')}
                 </button>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
               </div>
             </div>
             <span className="home-page__exercises">{translate('keywordsHebrew.title')}</span>
@@ -145,7 +149,7 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
             <div className="home-page__buttons">
               <div>
                 <button
-                   className="button"
+                  className="button"
                   onClick={selectWorkflow.bind(null, config.easyArabic)}
                 >
                   {translate('transcribeArabic.easy')}
@@ -153,11 +157,15 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
               </div>
               <div>
                 <button
-                  className="button"
+                  className={classnames('button', {
+                    'button__dark-disabled': !adminMode
+                  })}
+                  disabled={!adminMode}
                   onClick={selectWorkflow.bind(null, config.challengingArabic)}
                 >
                   {translate('transcribeArabic.challenging')}
                 </button>
+                <span className="body-font block">{translate('general.comingSoon')}</span>
               </div>
             </div>
             <span className="home-page__exercises">{translate('keywordsArabic.title')}</span>
