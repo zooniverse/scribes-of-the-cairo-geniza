@@ -3,7 +3,7 @@ import { config } from '../config';
 
 import { clearAggregations, fetchAggregations } from './aggregations';
 import { resetAnnotations } from './annotations';
-import { fetchConsensusLines } from './previous-annotations';
+import { fetchConsensusLines } from './consensus-lines';
 import { createClassification } from './classification';
 import { changeFrame } from './subject-viewer';
 

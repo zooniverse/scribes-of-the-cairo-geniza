@@ -16,7 +16,7 @@ const envFromShell = process.env.NODE_ENV;
 const env = envFromBrowser || envFromShell || DEFAULT_ENV;
 
 const CONSENSUS_SCORE_TO_RETIRE = 3;
-const MINIMUM_VIEW_TO_RETIRE = 5;
+const MINIMUM_VIEW_TO_RETIRE = 7;
 
 if (!env.match(/^(production|staging|development)$/)) {
   throw new Error(`Error: Invalid Environment - ${env}`);

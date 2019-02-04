@@ -79,13 +79,59 @@ class AnnotationsPane extends React.Component {
   }
 
   renderConsensusLines() {
-    console.log("GET HERE ==============");
-    console.log(this.props.consensusLines);
     if (!this.props.consensusLines) return null;
 
     return this.props.consensusLines.map((annotation, index) => {
-      console.log("AN ANNOTATION");
       console.log(annotation);
+      const svgPointPrefix = `CONSENSUS_${index}_POINT_`;
+
+      const svgPoints = [];
+      for (let i = 0; i < 2; i += 1) {
+        const point = annotation.points[i];
+
+        svgPoints.push(
+          <circle
+            key={svgPointPrefix + i}
+            cx={point.x}
+            cy={point.y}
+            r={10}
+            fill="#979797"
+          />,
+        );
+      }
+
+      return (
+        <g
+          className="consensus_lines"
+          key={`CONSENSUS_LINE_${index}`}
+          onMouseOver={(e) => {
+            this.tooltip.style.visibility = 'visible';
+            return Utility.stopEvent(e);
+          }}
+          onMouseOut={(e) => {
+            this.tooltip.style.visibility = 'hidden';
+            return Utility.stopEvent(e);
+          }}
+          onMouseMove={(e) => {
+            const cursor = this.props.getPointerXY(e);
+            let rotationOffset;
+            switch (this.props.rotation) {
+              case 90:
+                rotationOffset = 270;
+                break;
+              case 270:
+                rotationOffset = 90;
+                break;
+              default:
+                rotationOffset = this.props.rotation;
+            }
+            this.tooltip.setAttribute('transform', `translate(${cursor.x}, ${cursor.y}) rotate(${rotationOffset})`);
+            return Utility.stopEvent(e);
+          }}
+        >
+          {svgPoints}
+        </g>
+      );
     });
   }
 
@@ -97,6 +143,20 @@ class AnnotationsPane extends React.Component {
         {this.renderAnnotationInProgress()}
         {this.renderAnnotations()}
         {this.renderConsensusLines()}
+
+        <g ref={(el) => { this.tooltip = el; }} className="tooltip">
+          <defs>
+            <filter id="shadow" height="180%">
+              <feDropShadow dy="4" stdDeviation="4" floodColor="#4a4a4a" />
+            </filter>
+          </defs>
+
+          <rect x="25" y="-30" width="375" height="45" fill="#979797" filter="url(#shadow)" />
+          <polygon points="10,-6 25,-12 25,0" fill="#979797" />
+          <text x="43" fill="#fff" fontFamily="Playfair Display" fontSize="26">
+            This line has been completed
+          </text>
+        </g>
       </g>
     );
   }
@@ -117,7 +177,9 @@ AnnotationsPane.propTypes = {
     width: PropTypes.number
   }),
   frame: PropTypes.number,
+  getPointerXY: PropTypes.func,
   onSelectAnnotation: PropTypes.func,
+  rotation: PropTypes.number,
   selectedAnnotation: PropTypes.shape({
     details: PropTypes.array
   }),
@@ -130,7 +192,9 @@ AnnotationsPane.defaultProps = {
   consensusLines: [],
   imageSize: {},
   frame: 0,
+  getPointerXY: () => {},
   onSelectAnnotation: () => {},
+  rotation: 0,
   selectedAnnotation: null,
   showMarks: true
 };

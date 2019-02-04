@@ -85,7 +85,7 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
-                disabled={!adminMode}
+                // disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.easyHebrew)}
               >
                 {translate('transcribeHebrew.easy')}

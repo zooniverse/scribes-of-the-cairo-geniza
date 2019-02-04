@@ -515,7 +515,7 @@ const mapStateToProps = (state) => {
   return {
     annotationInProgress: state.annotations.annotationInProgress,
     annotations: state.annotations.annotations,
-    consensusLines: state.previousAnnotations.marks,
+    consensusLines: state.consensusLines.marks,
     contrast: sv.contrast,
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
