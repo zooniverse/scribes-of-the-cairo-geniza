@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Utility } from '../lib/Utility';
+import { connect } from 'react-redux';
 
 class AnnotationsPane extends React.Component {
   renderAnnotationInProgress() {
@@ -77,6 +78,17 @@ class AnnotationsPane extends React.Component {
     });
   }
 
+  renderConsensusLines() {
+    console.log("GET HERE ==============");
+    console.log(this.props.consensusLines);
+    if (!this.props.consensusLines) return null;
+
+    return this.props.consensusLines.map((annotation, index) => {
+      console.log("AN ANNOTATION");
+      console.log(annotation);
+    });
+  }
+
   render() {
     const imageOffset = `translate(${-this.props.imageSize.width / 2}, ${-this.props.imageSize.height / 2})`;
 
@@ -84,6 +96,7 @@ class AnnotationsPane extends React.Component {
       <g transform={imageOffset}>
         {this.renderAnnotationInProgress()}
         {this.renderAnnotations()}
+        {this.renderConsensusLines()}
       </g>
     );
   }
@@ -98,6 +111,7 @@ AnnotationsPane.propTypes = {
     }))
   }),
   annotations: PropTypes.arrayOf(PropTypes.object),
+  consensusLines: PropTypes.arrayOf(PropTypes.object),
   imageSize: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number
@@ -113,6 +127,7 @@ AnnotationsPane.propTypes = {
 AnnotationsPane.defaultProps = {
   annotationInProgress: null,
   annotations: [],
+  consensusLines: [],
   imageSize: {},
   frame: 0,
   onSelectAnnotation: () => {},

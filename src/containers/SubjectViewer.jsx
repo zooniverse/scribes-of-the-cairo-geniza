@@ -191,7 +191,7 @@ class SubjectViewer extends React.Component {
 
     return { x: inputX, y: inputY };
   }
-  
+
   /*  This does the oppositve of getPointerXYOnImage: given an xy-coord
       relative to the image (i.e. the position of an annotation's start or end
       point), return the xy-coordinate of that point relative to the whole
@@ -201,25 +201,25 @@ class SubjectViewer extends React.Component {
   getActualXYOfPointInImage(point) {
     let actualX = point.x;
     let actualY = point.y;
-    
+
     actualX = actualX - (this.props.imageSize.width / 2);
     actualY = actualY - (this.props.imageSize.height / 2);
-    
+
     const rotation = (this.props.rotation / 180) * Math.PI;  //REVERSE THE ROTATION
     const tmpX = actualX;
     const tmpY = actualY;
     actualX = tmpX * Math.cos(rotation) - tmpY * Math.sin(rotation);
     actualY = tmpX * Math.sin(rotation) + tmpY * Math.cos(rotation);
-    
+
     actualX = (actualX + this.props.translationX) * this.props.scaling;
     actualY = (actualY + this.props.translationY) * this.props.scaling;
-    
+
     actualX = actualX + (this.props.viewerSize.width / 2);
     actualY = actualY + (this.props.viewerSize.height / 2);
-    
+
     return { x: actualX, y: actualY };
   }
-  
+
   /*  Guess the best position to place the annotation popup. The "best position"
       as it turns out, is just a little below the position of the selected
       annotation on the SVG.
@@ -235,7 +235,7 @@ class SubjectViewer extends React.Component {
     const xyB = this.getActualXYOfPointInImage(selectedAnnotation.points[1]);
     let desiredY = (xyA.y + xyB.y) / 2;  //Get the centre point of the annotation.
     desiredY += ANNOTATION_BOX_OFFSET_MODIFIER.Y;  //Get a position a little lower than the centre of the annotation.
-    
+
     //EDIT: do NOT try to constrain the position of the annotation popup to
     //within the window viewport. This leads to strange interactions, and
     //in any case there's a self-correcting mechanism (at least in Chrome,
@@ -245,7 +245,7 @@ class SubjectViewer extends React.Component {
     //annotation popup visible to the user. TL;DR: maybe don't worry about it.
     //  desiredY = Math.min(desiredY, window.innerHeight + window.pageYOffset - ANNOTATION_BOX_OFFSET_MODIFIER.Y_MARGINS);  //Sanity check: Don't let the popup appear below the window viewport.
     //  desiredY = Math.max(desiredY, 0 + window.pageYOffset + ANNOTATION_BOX_OFFSET_MODIFIER.Y_MARGINS);  //Sanity check: don't let the popup appear above the window viewport.
-    
+
     return { y:  desiredY };
   }
 
@@ -391,6 +391,7 @@ class SubjectViewer extends React.Component {
               imageSize={this.props.imageSize}
               annotationInProgress={this.props.annotationInProgress}
               annotations={this.props.annotations}
+              consensusLines={this.props.consensusLines}
               selectedAnnotation={this.props.selectedAnnotation}
               showMarks={this.props.showMarks}
               frame={this.props.frame}
@@ -453,6 +454,7 @@ SubjectViewer.propTypes = {
     }))
   }),
   annotations: PropTypes.arrayOf(PropTypes.object),
+  consensusLines: PropTypes.arrayOf(PropTypes.object),
   contrast: PropTypes.bool,
   currentSubject: PropTypes.shape({
     src: PropTypes.string
@@ -485,6 +487,7 @@ SubjectViewer.propTypes = {
 SubjectViewer.defaultProps = {
   annotationInProgress: null,
   annotations: [],
+  consensusLines: [],
   contrast: false,
   currentSubject: null,
   dispatch: () => {},
@@ -512,6 +515,7 @@ const mapStateToProps = (state) => {
   return {
     annotationInProgress: state.annotations.annotationInProgress,
     annotations: state.annotations.annotations,
+    consensusLines: state.previousAnnotations.marks,
     contrast: sv.contrast,
     currentSubject: state.subject.currentSubject,
     frame: sv.frame,
