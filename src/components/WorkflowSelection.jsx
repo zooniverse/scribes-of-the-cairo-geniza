@@ -93,10 +93,12 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label disabled-workflow"
+                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.challengingHebrew)}
               >
                 {translate('transcribeHebrew.challenging')}
               </button>
+              <span>{translate('general.comingSoon')}</span>
             </div>
 
             <div>
@@ -128,10 +130,12 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             <div className="disabled-workflow">
               <button
                 className="tertiary-label"
+                disabled={!adminMode}
                 onClick={selectWorkflow.bind(null, c.challengingArabic)}
               >
                 {translate('transcribeArabic.challenging')}
               </button>
+              <span>{translate('general.comingSoon')}</span>
             </div>
 
             <div>
