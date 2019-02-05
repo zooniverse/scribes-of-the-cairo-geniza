@@ -6,6 +6,7 @@ import { resetSubject } from './subject';
 import { resetAnnotations } from './annotations';
 import { fetchTutorial } from './tutorial';
 import { toggleLanguage } from './keyboard';
+import { loadTranslations } from './translations';
 
 // Action Types
 const FETCH_WORKFLOW = 'FETCH_WORKFLOW';
@@ -75,7 +76,8 @@ const workflowReducer = (state = initialState, action) => {
 /*  Resets all the dependencies that rely on the Workflow.
  */
 const prepareForNewWorkflow = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    dispatch(loadTranslations('workflow', getState().workflow.id));
     dispatch(resetSubject());
     dispatch(resetAnnotations());
     dispatch(fetchTutorial());
