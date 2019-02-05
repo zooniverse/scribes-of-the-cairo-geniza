@@ -57,10 +57,10 @@ const baseConfig = {
     arabicKeyword: '6600',
     hebrewKeyword: '6529',
     consensusLineReductions: {
-      6652: 'ext-18',
-      6654: 'ext-19',
-      6655: 'ext-20',
-      6653: 'ext-21'
+      6652: 'T0-text-transcription',
+      6654: 'T0-text-transcription',
+      6655: 'T0-text-transcription',
+      6653: 'T0-text-transcription'
     }
   }
 };

@@ -82,6 +82,7 @@ class AnnotationsPane extends React.Component {
     if (!this.props.consensusLines) return null;
 
     return this.props.consensusLines.map((annotation, index) => {
+      if (!annotation.consensusReached) return null;
       const svgPointPrefix = `CONSENSUS_${index}_POINT_`;
 
       const svgPoints = [];
