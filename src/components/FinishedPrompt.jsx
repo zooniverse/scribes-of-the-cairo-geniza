@@ -62,15 +62,22 @@ class FinishedPrompt extends React.Component {
       )
         .filter(task => isAQuestionTask(task, this.props.workflow))
       : [];
+    const language = this.props.currentLanguage;
+    const translations = (this.props.translatedWorkflow && this.props.translatedWorkflow[language])
+      ? this.props.translatedWorkflow[language] : null;
+    const currentTask = tasks && tasks.length && tasks[0].taskId;
+    const instructionsTranslation = translations && translations[`tasks.${currentTask}.help`];
+    const headerTranslation = translations && translations[`tasks.${currentTask}.question`];
+
+    const instructions = instructionsTranslation || translate('finished.instructions') + translate('finished.whenReady');
+    const header = headerTranslation || translate('finished.allTranscribed');
+
     return (
       <div className="finished-prompt handle">
-        <h2 className="h1-font">{translate('finished.allTranscribed')}</h2>
+        <h2 className="h1-font">{header}</h2>
         <div className="finished-prompt__content">
           <span className="body-font">
-            {translate('finished.instructions')}
-          </span>
-          <span className="body-font">
-            {translate('finished.whenReady')}
+            {instructions}
           </span>
         </div>
         {tasks.map((task, taskIndex) => {
@@ -81,7 +88,13 @@ class FinishedPrompt extends React.Component {
             >
               {task.answers.map((answer, answerIndex) => {
                 const checked = this.props.subjectCompletionAnswers &&
-                this.props.subjectCompletionAnswers[task.taskId] === answerIndex;
+                  this.props.subjectCompletionAnswers[task.taskId] === answerIndex;
+                let label = answer.label;
+                const currentLabel = translations[`tasks.${currentTask}.answers.${answerIndex}.label`];
+                if (translations && currentLabel) {
+                  label = currentLabel;
+                }
+
                 return (
                   <div
                     className="round-toggle"
@@ -98,7 +111,7 @@ class FinishedPrompt extends React.Component {
                     <label
                       htmlFor={`prompt_${answerIndex}`}
                     >
-                      <span>{answer.label}</span>
+                      <span>{label}</span>
                     </label>
                   </div>
                 );
@@ -144,6 +157,7 @@ function isAQuestionTask(task, workflow) {
 }
 
 FinishedPrompt.propTypes = {
+  currentLanguage: PropTypes.string,
   currentSubject: PropTypes.shape({
     id: PropTypes.string
   }),
@@ -151,17 +165,20 @@ FinishedPrompt.propTypes = {
   selectedAnnotation: PropTypes.object,
   subjectCompletionAnswers: PropTypes.object,
   translate: PropTypes.func,
+  translatedWorkflow: PropTypes.object,
   workflow: PropTypes.shape({
     tasks: PropTypes.object
   })
 };
 
 FinishedPrompt.defaultProps = {
+  currentLanguage: 'en',
   currentSubject: null,
   dispatch: () => {},
   selectedAnnotation: null,
   subjectCompletionAnswers: null,
   translate: () => {},
+  translatedWorkflow: {},
   workflow: null
 };
 
@@ -171,6 +188,7 @@ const mapStateToProps = state => ({
   selectedAnnotation: state.annotations.selectedAnnotation,
   subjectCompletionAnswers: state.classification.subjectCompletionAnswers,
   translate: getTranslate(state.locale),
+  translatedWorkflow: state.translations.strings.workflow,
   workflow: state.workflow.data
 });
 
