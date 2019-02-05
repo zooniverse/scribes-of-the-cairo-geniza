@@ -89,11 +89,8 @@ class FinishedPrompt extends React.Component {
               {task.answers.map((answer, answerIndex) => {
                 const checked = this.props.subjectCompletionAnswers &&
                   this.props.subjectCompletionAnswers[task.taskId] === answerIndex;
-                let label = answer.label;
-                const currentLabel = translations[`tasks.${currentTask}.answers.${answerIndex}.label`];
-                if (translations && currentLabel) {
-                  label = currentLabel;
-                }
+                const labelTranslation = translations && translations[`tasks.${currentTask}.answers.${answerIndex}.label`];
+                const label = labelTranslation || answer.label;
 
                 return (
                   <div
