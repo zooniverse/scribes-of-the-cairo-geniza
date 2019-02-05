@@ -117,10 +117,12 @@ const fetchAggregations = (subjectId, workflowId) => {
         let newData = {};
         data.workflow.subject_reductions.map((reduction) => {
           let item = {};
-          Object.keys(reduction.data.frame0).map((key) => {
-            const stuff = explodeKey(key, reduction.data.frame0[key]);
-            item = merge(item, stuff);
-          });
+          if (reduction.data.frame0) {
+            Object.keys(reduction.data.frame0).map((key) => {
+              const boxes = explodeKey(key, reduction.data.frame0[key]);
+              item = merge(item, boxes);
+            });
+          }
           newData = merge(item, newData);
         });
         dispatch({ type: FETCH_AGGREGATIONS_SUCCESS, aggregationData: newData });

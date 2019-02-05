@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import apiClient from 'panoptes-client/lib/api-client';
-import merge from 'lodash/merge';
 import { request } from 'graphql-request';
 import { config, CONSENSUS_SCORE_TO_RETIRE, MINIMUM_VIEW_TO_RETIRE } from '../config';
 
@@ -88,7 +86,7 @@ const fetchConsensusLines = (subjectId, workflowId) => {
   return (dispatch, getState) => {
     const query = `{
       workflow(id: ${workflowId}) {
-        subject_reductions(subjectId: ${subjectId}) {
+        subject_reductions(subjectId: ${subjectId}, reducerKey:"${config.consensusLineReductions[workflowId]}") {
           data
         }
       }

@@ -35,7 +35,13 @@ const baseConfig = {
     challengingHebrew: '3205',
     phaseOne: '3157',
     arabicKeyword: '3201',
-    hebrewKeyword: '3156'
+    hebrewKeyword: '3156',
+    consensusLineReductions: {
+      3203: 'ext-18',
+      3202: 'ext-19',
+      3204: 'ext-20',
+      3205: 'ext-21'
+    }
   },
   production: {
     panoptesAppId: '68db6a8181e26483a9f82b66b511ca849ef170b10c0e997bdcc277003d779ac6',
@@ -49,7 +55,13 @@ const baseConfig = {
     challengingHebrew: '6653',
     phaseOne: '4712',
     arabicKeyword: '6600',
-    hebrewKeyword: '6529'
+    hebrewKeyword: '6529',
+    consensusLineReductions: {
+      6652: 'ext-18',
+      6654: 'ext-19',
+      6655: 'ext-20',
+      6653: 'ext-21'
+    }
   }
 };
 

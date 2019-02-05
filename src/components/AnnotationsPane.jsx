@@ -82,7 +82,6 @@ class AnnotationsPane extends React.Component {
     if (!this.props.consensusLines) return null;
 
     return this.props.consensusLines.map((annotation, index) => {
-      console.log(annotation);
       const svgPointPrefix = `CONSENSUS_${index}_POINT_`;
 
       const svgPoints = [];
@@ -102,7 +101,6 @@ class AnnotationsPane extends React.Component {
 
       return (
         <g
-          className="consensus_lines"
           key={`CONSENSUS_LINE_${index}`}
           onMouseOver={(e) => {
             this.tooltip.style.visibility = 'visible';
