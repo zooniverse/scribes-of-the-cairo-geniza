@@ -5,6 +5,7 @@ import { config, CONSENSUS_SCORE_TO_RETIRE, MINIMUM_VIEW_TO_RETIRE } from '../co
 const FETCH_CONSENSUS_LINE_RESOURCES = 'FETCH_CONSENSUS_LINE_RESOURCES';
 const FETCH_CONSENSUS_LINE_RESOURCES_SUCCESS = 'FETCH_CONSENSUS_LINE_RESOURCES_SUCCESS';
 const FETCH_CONSENSUS_LINE_RESOURCES_ERROR = 'FETCH_CONSENSUS_LINE_RESOURCES_ERROR';
+const UPDATE_FRAME = 'UPDATE_FRAME';
 
 const CONSENSUS_LINE_STATUS = {
   IDLE: 'consensus_line_status_idle',
@@ -33,6 +34,7 @@ const aggregationsReducer = (state = CONSENSUS_LINES_INITIAL_STATE, action) => {
 
     case FETCH_CONSENSUS_LINE_RESOURCES_SUCCESS:
       return Object.assign({}, state, {
+        data: action.data,
         marks: action.marks,
         status: CONSENSUS_LINE_STATUS.READY
       });
@@ -40,6 +42,11 @@ const aggregationsReducer = (state = CONSENSUS_LINES_INITIAL_STATE, action) => {
     case FETCH_CONSENSUS_LINE_RESOURCES_ERROR:
       return Object.assign({}, state, {
         status: CONSENSUS_LINE_STATUS.ERROR
+      });
+
+    case UPDATE_FRAME:
+      return Object.assign({}, state, {
+        marks: action.marks
       });
 
     default:
@@ -96,10 +103,12 @@ const fetchConsensusLines = (subjectId, workflowId) => {
     request(config.caesarHost, query)
       .then((data) => {
         const frame = getState().subjectViewer.frame;
-        const marks = constructLines(data.workflow.subject_reductions, frame);
+        const reductions = data.workflow.subject_reductions;
+        const marks = constructLines(reductions, frame);
         dispatch({
           type: FETCH_CONSENSUS_LINE_RESOURCES_SUCCESS,
-          marks
+          marks,
+          data: reductions
         });
       })
       .catch((err) => {
@@ -109,8 +118,20 @@ const fetchConsensusLines = (subjectId, workflowId) => {
   };
 };
 
+const changeFrameData = (index) => {
+  return (dispatch, getState) => {
+    const reductions = getState().consensusLines.data;
+    const marks = constructLines(reductions, index);
+    dispatch({
+      type: UPDATE_FRAME,
+      marks
+    });
+  };
+};
+
 export default aggregationsReducer;
 
 export {
+  changeFrameData,
   fetchConsensusLines
 };
