@@ -77,8 +77,8 @@ class ActiveCard extends React.Component {
         confirm={this.props.translate('cribSheet.confirm')}
         deny={this.props.translate('cribSheet.cancel')}
         notes={this.props.translate('cribSheet.deletePrompt2')}
-        onConfirm={this.onClose}
-        onDeny={this.onDelete}
+        onConfirm={this.onDelete}
+        onDeny={this.onClose}
         question={this.props.translate('cribSheet.deletePrompt')}
         title={this.props.translate('cribSheet.delete')}
       />));
