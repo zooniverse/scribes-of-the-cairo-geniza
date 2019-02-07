@@ -5,6 +5,7 @@ import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { getTranslate } from 'react-localize-redux';
 import { TRANSLATION_STATUS } from '../ducks/translations';
 
 const ITEMS_PER_PAGE = 8;
@@ -117,7 +118,8 @@ class FieldGuide extends React.Component {
     return (
       <div className="active-card">
         <button onClick={this.deactivateCard}>
-          <i className="fa fa-arrow-left" />Back
+          <i className="fa fa-arrow-left" />
+          {this.props.translate('scriptReferences.back')}
         </button>
 
         <div className="active-card__content">
@@ -161,6 +163,7 @@ FieldGuide.defaultProps = {
   guide: {},
   icons: {},
   rtl: false,
+  translate: PropTypes.func,
   translatedGuide: {},
   translationStatus: TRANSLATION_STATUS.IDLE
 };
@@ -173,6 +176,7 @@ FieldGuide.propTypes = {
   }),
   icons: PropTypes.object,
   rtl: PropTypes.bool,
+  translate: () => {},
   translatedGuide: PropTypes.object,
   translationStatus: PropTypes.string
 };
@@ -180,6 +184,7 @@ FieldGuide.propTypes = {
 const mapStateToProps = state => ({
   currentLanguage: getActiveLanguage(state.locale).code,
   rtl: state.languages.rtl,
+  translate: getTranslate(state.locale),
   translatedGuide: state.translations.strings.field_guide,
   translationStatus: state.translations.status
 });
