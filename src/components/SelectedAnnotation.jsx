@@ -423,7 +423,7 @@ class SelectedAnnotation extends React.Component {
                     })}
                     onClick={this.changeLanguage.bind(this, 'Arabic')}
                   >
-                    Arabic
+                    {translate('general.arabic')}
                   </button>
                   <button
                     className={classnames('small-btn', {
@@ -431,7 +431,7 @@ class SelectedAnnotation extends React.Component {
                     })}
                     onClick={this.changeLanguage.bind(this, 'Hebrew')}
                   >
-                    Hebrew
+                    {translate('general.hebrew')}
                   </button>
                 </div>
               )}
