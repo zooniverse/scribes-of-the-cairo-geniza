@@ -45,7 +45,10 @@ export default {
     admin: 'Admin',
     hebrew: 'Hebrew',
     arabic: 'Arabic',
-    comingSoon: 'Coming Soon!'
+    comingSoon: 'Coming Soon!',
+    close: 'Close',
+    next: 'Next',
+    letsGo: 'Let\'s Go'
   },
   workflowSelection: {
     phaseOne: 'Phase One: Sort Fragments',

@@ -45,7 +45,10 @@ export default {
     admin: 'מנהל',
     hebrew: 'עברית',
     arabic: 'ערבית',
-    comingSoon: '...בקרוב'
+    comingSoon: '...בקרוב',
+    close: 'סגור',
+    next: 'הבא',
+    letsGo: 'להתחיל'
   },
   workflowSelection: {
     phaseOne: 'שלב I: סיווג קטעי הגניזה',
