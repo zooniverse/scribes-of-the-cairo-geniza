@@ -146,13 +146,9 @@ class CribSheet extends React.Component {
           this.renderInstructions()
         )}
 
-        {this.props.activeCard && (
+        {this.props.activeCard && !this.props.referenceMode ? (
           <ActiveCard />
-        )}
-
-        {!this.props.activeCard && (
-          cribSheet
-        )}
+        ) : cribSheet}
       </div>
     );
   }
