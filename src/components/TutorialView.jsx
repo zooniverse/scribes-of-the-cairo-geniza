@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
-import { StepThrough, MediaCard } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
 import classnames from 'classnames';
 import { togglePopup } from '../ducks/dialog';
@@ -16,11 +15,8 @@ class TutorialView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.advanceTutorial = this.advanceTutorial.bind(this);
     this.closeTutorial = this.closeTutorial.bind(this);
-    this.handleStep = this.handleStep.bind(this);
     this.isFinalStep = this.isFinalStep.bind(this);
-    this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
 
     this.state = {
       loaded: false,
@@ -63,16 +59,13 @@ class TutorialView extends React.Component {
     if (e) e.preventDefault();
     const nextStep = this.state.stepIndex + 1;
     if (nextStep <= total - 1) {
-      this.handleStep(total, nextStep);
+      this.handleStep(nextStep);
     } else {
       this.closeTutorial();
     }
   }
 
   handleUnmount() {
-    if (this.previousActiveElement && this.previousActiveElement.focus) {
-      this.previousActiveElement.focus();
-    }
     const now = new Date().toISOString();
     completedThisSession[this.props.tutorial.id] = now;
     if (this.props.user) {
@@ -101,7 +94,7 @@ class TutorialView extends React.Component {
     return currentStep >= maxSteps;
   }
 
-  handleStep(total, index) {
+  handleStep(index) {
     this.setState({
       stepIndex: index
     });
@@ -113,12 +106,14 @@ class TutorialView extends React.Component {
     }
     const totalSteps = this.props.tutorial.steps.length || 0;
     const allSteps = Array.from(Array(totalSteps).keys());
-    const language = this.props.currentLanguage;
     const currentStep = this.props.tutorial.steps[this.state.stepIndex];
+
     const source = currentStep && currentStep.media && this.state.media[currentStep.media];
+    const language = this.props.currentLanguage;
     const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
       ? this.props.translatedTutorial[language] : null;
-    const content = translations && translations[`steps.${this.state.stepIndex}.content`] ? translations[`steps.${this.state.stepIndex}.content`] : currentStep.content;
+    const content = translations && translations[`steps.${this.state.stepIndex}.content`]
+      ? translations[`steps.${this.state.stepIndex}.content`] : currentStep.content;
 
     return (
       <div className="tutorial-container">
@@ -135,9 +130,7 @@ class TutorialView extends React.Component {
             {source && (
               <img alt="Tutorial" src={source.src} />
             )}
-            <Markdown>
-              {content}
-            </Markdown>
+            <Markdown>{content}</Markdown>
           </div>
           <span className="step-through-pips">
             {allSteps.map(thisStep =>
@@ -147,8 +140,7 @@ class TutorialView extends React.Component {
                   className="step-through-pip-input"
                   aria-label={`Step ${thisStep + 1} of ${totalSteps}`}
                   checked={thisStep === this.state.stepIndex}
-                  // autoFocus={thisStep === this.state.stepIndex}
-                  onChange={this.handleStep.bind(this, totalSteps, thisStep)}
+                  onChange={this.handleStep.bind(this, thisStep)}
                 />
                 <span>{thisStep + 1}</span>
               </label>
@@ -156,47 +148,15 @@ class TutorialView extends React.Component {
           </span>
           <div>
             <button className="button" onClick={this.closeTutorial}>Close</button>
-            <button className="button button__dark" onClick={this.advanceTutorial.bind(this, totalSteps)}>{this.state.nextStep}</button>
+            <button
+              className="button button__dark"
+              onClick={this.advanceTutorial.bind(this, totalSteps)}
+            >
+              {this.state.nextStep}
+            </button>
           </div>
         </div>
       </div>
-      // <div className="tutorial-container">
-      //   <div
-      //     className={classnames('tutorial', {
-      //       'tutorial-flip': this.props.rtl
-      //     })}
-      //   >
-      //     <div className="tutorial__header">
-      //       <span>{this.props.translate('tutorial.title')}</span>
-      //       <button className="close-button" onClick={this.closeTutorial}>X</button>
-      //     </div>
-      //     <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
-      //       {this.props.tutorial.steps.map((step, i) => {
-      //         const content = translations ? translations[`steps.${i}.content`] : step.content;
-      //         if (!step._key) {
-      //           step._key = Math.random();
-      //         }
-      //         let source;
-      //         if (this.state.media[step.media]) {
-      //           source = this.state.media[step.media].src;
-      //         }
-      //
-      //         return (
-      //           <div key={step._key} className="tutorial-step">
-      //             {source && (
-      //               <img alt="Tutorial" src={source} />
-      //             )}
-      //             <Markdown>{content}</Markdown>
-      //           </div>
-      //         );
-      //       })}
-      //     </StepThrough>
-      //     <div>
-      //       <button className="button" onClick={this.closeTutorial}>Close</button>
-      //       <button className="button button__dark" onClick={this.advanceTutorial}>{this.state.nextStep}</button>
-      //     </div>
-      //   </div>
-      // </div>
     );
   }
 }
@@ -209,7 +169,7 @@ TutorialView.propTypes = {
   }),
   rtl: PropTypes.bool,
   translate: PropTypes.func,
-  translatedTutorial: PropTypes.object,
+  translatedTutorial: PropTypes.shape(),
   tutorial: PropTypes.shape({
     get: PropTypes.func,
     id: PropTypes.string,
