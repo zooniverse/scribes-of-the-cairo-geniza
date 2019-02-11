@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
-import { StepThrough } from 'zooniverse-react-components';
+import { StepThrough, MediaCard } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
 import classnames from 'classnames';
 import { togglePopup } from '../ducks/dialog';
@@ -16,15 +16,17 @@ class TutorialView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
-    this.closeTutorial = this.closeTutorial.bind(this);
     this.advanceTutorial = this.advanceTutorial.bind(this);
+    this.closeTutorial = this.closeTutorial.bind(this);
+    this.handleStep = this.handleStep.bind(this);
     this.isFinalStep = this.isFinalStep.bind(this);
+    this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
 
     this.state = {
       loaded: false,
       media: {},
-      nextStep: props.translate('general.next')
+      nextStep: props.translate('general.next'),
+      stepIndex: 0
     };
   }
 
@@ -57,16 +59,19 @@ class TutorialView extends React.Component {
     this.props.dispatch(togglePopup(null));
   }
 
-  advanceTutorial() {
-    const swiper = this.stepThrough && this.stepThrough.swiper;
-
-    if (swiper) {
-      if (this.isFinalStep()) {
-        this.closeTutorial();
-      } else {
-        this.stepThrough.goNext();
-      }
-    }
+  advanceTutorial(total, e) {
+    // const swiper = this.stepThrough && this.stepThrough.swiper;
+    //
+    // if (swiper) {
+    //   if (this.isFinalStep()) {
+    //     this.closeTutorial();
+    //   } else {
+    //     this.stepThrough.goNext();
+    //   }
+    // }
+    if (e) e.preventDefault();
+    const nextStep = this.state.stepIndex + 1;
+    if (nextStep <= total - 1) this.handleStep(total, nextStep);
   }
 
   handleUnmount() {
@@ -91,10 +96,8 @@ class TutorialView extends React.Component {
   }
 
   isFinalStep() {
-    const currentStep = (this.stepThrough && this.stepThrough.state && this.stepThrough.state.step)
-      ? this.stepThrough.state.step + 1 : 0;
-    const maxSteps = (this.stepThrough && this.stepThrough.props && this.stepThrough.props.children)
-      ? React.Children.count(this.stepThrough.props.children) : 0;
+    const currentStep = this.state.stepIndex;
+    const maxSteps = this.props.tutorial.steps.length - 1 || 0;
     if (currentStep >= maxSteps) {
       this.setState({ nextStep: this.props.translate('general.letsGo') });
     } else if (this.state.nextStep === this.props.translate('general.letsGo')) {
@@ -103,17 +106,56 @@ class TutorialView extends React.Component {
     return currentStep >= maxSteps;
   }
 
+  handleStep(total, index) {
+    this.setState({
+      stepIndex: index
+    });
+  }
+
   render() {
     if (!this.state.loaded) {
       return null;
     }
+    const totalSteps = this.props.tutorial.steps.length || 0;
+    const allSteps = Array.from(Array(totalSteps).keys());
     const language = this.props.currentLanguage;
     const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
       ? this.props.translatedTutorial[language] : null;
 
     return (
-      <div>
-        <span>Hello World</span>
+      <div className="tutorial-container">
+        <div
+          className={classnames('tutorial', {
+            'tutorial-flip': this.props.rtl
+          })}
+        >
+          <div className="tutorial__header">
+            <span>{this.props.translate('tutorial.title')}</span>
+            <button className="close-button" onClick={this.closeTutorial}>X</button>
+          </div>
+          <Markdown className="tutorial-step">
+            {this.props.tutorial.steps[this.state.stepIndex].content}
+          </Markdown>
+          <span className="step-through-pips">
+            {allSteps.map(thisStep =>
+              <label key={thisStep} className="step-through-pip" title={`Step ${thisStep + 1}`}>
+                <input
+                  type="radio"
+                  className="step-through-pip-input"
+                  aria-label={`Step ${thisStep + 1} of ${totalSteps}`}
+                  checked={thisStep === this.state.stepIndex}
+                  // autoFocus={thisStep === this.state.stepIndex}
+                  // onChange={this.goTo.bind(this, totalSteps, thisStep)}
+                />
+                <span>{thisStep + 1}</span>
+              </label>
+            )}
+          </span>
+          <div>
+            <button className="button" onClick={this.closeTutorial}>Close</button>
+            <button className="button button__dark" onClick={this.advanceTutorial.bind(this, totalSteps)}>{this.state.nextStep}</button>
+          </div>
+        </div>
       </div>
       // <div className="tutorial-container">
       //   <div
