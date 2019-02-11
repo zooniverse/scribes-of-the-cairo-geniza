@@ -112,43 +112,46 @@ class TutorialView extends React.Component {
       ? this.props.translatedTutorial[language] : null;
 
     return (
-      <div className="tutorial-container">
-        <div
-          className={classnames('tutorial', {
-            'tutorial-flip': this.props.rtl
-          })}
-        >
-          <div className="tutorial__header">
-            <span>{this.props.translate('tutorial.title')}</span>
-            <button className="close-button" onClick={this.closeTutorial}>X</button>
-          </div>
-          <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
-            {this.props.tutorial.steps.map((step, i) => {
-              const content = translations ? translations[`steps.${i}.content`] : step.content;
-              if (!step._key) {
-                step._key = Math.random();
-              }
-              let source;
-              if (this.state.media[step.media]) {
-                source = this.state.media[step.media].src;
-              }
-
-              return (
-                <div key={step._key} className="tutorial-step">
-                  {source && (
-                    <img alt="Tutorial" src={source} />
-                  )}
-                  <Markdown>{content}</Markdown>
-                </div>
-              );
-            })}
-          </StepThrough>
-          <div>
-            <button className="button" onClick={this.closeTutorial}>{this.props.translate('general.close')}</button>
-            <button className="button button__dark" onClick={this.advanceTutorial}>{this.state.nextStep}</button>
-          </div>
-        </div>
+      <div>
+        <span>Hello World</span>
       </div>
+      // <div className="tutorial-container">
+      //   <div
+      //     className={classnames('tutorial', {
+      //       'tutorial-flip': this.props.rtl
+      //     })}
+      //   >
+      //     <div className="tutorial__header">
+      //       <span>{this.props.translate('tutorial.title')}</span>
+      //       <button className="close-button" onClick={this.closeTutorial}>X</button>
+      //     </div>
+      //     <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
+      //       {this.props.tutorial.steps.map((step, i) => {
+      //         const content = translations ? translations[`steps.${i}.content`] : step.content;
+      //         if (!step._key) {
+      //           step._key = Math.random();
+      //         }
+      //         let source;
+      //         if (this.state.media[step.media]) {
+      //           source = this.state.media[step.media].src;
+      //         }
+      //
+      //         return (
+      //           <div key={step._key} className="tutorial-step">
+      //             {source && (
+      //               <img alt="Tutorial" src={source} />
+      //             )}
+      //             <Markdown>{content}</Markdown>
+      //           </div>
+      //         );
+      //       })}
+      //     </StepThrough>
+      //     <div>
+      //       <button className="button" onClick={this.closeTutorial}>Close</button>
+      //       <button className="button button__dark" onClick={this.advanceTutorial}>{this.state.nextStep}</button>
+      //     </div>
+      //   </div>
+      // </div>
     );
   }
 }
