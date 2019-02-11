@@ -118,6 +118,7 @@ class TutorialView extends React.Component {
     const source = currentStep && currentStep.media && this.state.media[currentStep.media];
     const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
       ? this.props.translatedTutorial[language] : null;
+    const content = translations && translations[`steps.${this.state.stepIndex}.content`] ? translations[`steps.${this.state.stepIndex}.content`] : currentStep.content;
 
     return (
       <div className="tutorial-container">
@@ -132,10 +133,10 @@ class TutorialView extends React.Component {
           </div>
           <div className="tutorial-step">
             {source && (
-              <img alt="Tutorial" src={source.src}/>
+              <img alt="Tutorial" src={source.src} />
             )}
             <Markdown>
-            {this.props.tutorial.steps[this.state.stepIndex].content}
+              {content}
             </Markdown>
           </div>
           <span className="step-through-pips">
