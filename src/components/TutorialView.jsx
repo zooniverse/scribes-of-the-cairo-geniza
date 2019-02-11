@@ -60,18 +60,13 @@ class TutorialView extends React.Component {
   }
 
   advanceTutorial(total, e) {
-    // const swiper = this.stepThrough && this.stepThrough.swiper;
-    //
-    // if (swiper) {
-    //   if (this.isFinalStep()) {
-    //     this.closeTutorial();
-    //   } else {
-    //     this.stepThrough.goNext();
-    //   }
-    // }
     if (e) e.preventDefault();
     const nextStep = this.state.stepIndex + 1;
-    if (nextStep <= total - 1) this.handleStep(total, nextStep);
+    if (nextStep <= total - 1) {
+      this.handleStep(total, nextStep);
+    } else {
+      this.closeTutorial();
+    }
   }
 
   handleUnmount() {
@@ -119,6 +114,8 @@ class TutorialView extends React.Component {
     const totalSteps = this.props.tutorial.steps.length || 0;
     const allSteps = Array.from(Array(totalSteps).keys());
     const language = this.props.currentLanguage;
+    const currentStep = this.props.tutorial.steps[this.state.stepIndex];
+    const source = currentStep && currentStep.media && this.state.media[currentStep.media];
     const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
       ? this.props.translatedTutorial[language] : null;
 
@@ -133,9 +130,14 @@ class TutorialView extends React.Component {
             <span>{this.props.translate('tutorial.title')}</span>
             <button className="close-button" onClick={this.closeTutorial}>X</button>
           </div>
-          <Markdown className="tutorial-step">
+          <div className="tutorial-step">
+            {source && (
+              <img alt="Tutorial" src={source.src}/>
+            )}
+            <Markdown>
             {this.props.tutorial.steps[this.state.stepIndex].content}
-          </Markdown>
+            </Markdown>
+          </div>
           <span className="step-through-pips">
             {allSteps.map(thisStep =>
               <label key={thisStep} className="step-through-pip" title={`Step ${thisStep + 1}`}>
@@ -145,7 +147,7 @@ class TutorialView extends React.Component {
                   aria-label={`Step ${thisStep + 1} of ${totalSteps}`}
                   checked={thisStep === this.state.stepIndex}
                   // autoFocus={thisStep === this.state.stepIndex}
-                  // onChange={this.goTo.bind(this, totalSteps, thisStep)}
+                  onChange={this.handleStep.bind(this, totalSteps, thisStep)}
                 />
                 <span>{thisStep + 1}</span>
               </label>
