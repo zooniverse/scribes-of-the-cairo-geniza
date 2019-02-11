@@ -89,7 +89,7 @@ function AboutLayout({ translate, currentLanguage, rtl }) {
         */}
         <div className="about-page__research-partners subsection">
           <a id="partners" />
-          <h2>{translate('home.aboutGeniza')}</h2>
+          <h2>{translate('home.aboutResearch')}</h2>
           <hr className="small plum-line" />
           {(() => { switch (currentLanguage) {
             case 'he': return (<ContentResearchHe />);

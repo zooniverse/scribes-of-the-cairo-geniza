@@ -80,8 +80,7 @@ class SelectedAnnotation extends React.Component {
       this.props.dispatch(pressedKey(null));
     }
 
-    const disableSubmit = !this.inputText.value.length;
-    this.setState({ disableSubmit });
+    this.checkDisableSubmit();
   }
 
   onKeyDown(e) {
@@ -133,8 +132,7 @@ class SelectedAnnotation extends React.Component {
     const advance = letter.name === 'alefLam' ? 2 : 1;
     this.inputText.setSelectionRange(startIndex + advance, startIndex + advance);
 
-    const disableSubmit = !this.inputText.value.length;
-    this.setState({ disableSubmit });
+    this.checkDisableSubmit();
   }
 
   toggleKeyboardView() {
@@ -253,6 +251,13 @@ class SelectedAnnotation extends React.Component {
       }
     }
     this.inputText.value = cleanText(value, tag, type);
+
+    this.checkDisableSubmit();
+  }
+
+  checkDisableSubmit() {
+    const disableSubmit = !this.inputText.value.length;
+    this.setState({ disableSubmit });
   }
 
   toggleScriptOptions() {
@@ -418,7 +423,7 @@ class SelectedAnnotation extends React.Component {
                     })}
                     onClick={this.changeLanguage.bind(this, 'Arabic')}
                   >
-                    Arabic
+                    {translate('general.arabic')}
                   </button>
                   <button
                     className={classnames('small-btn', {
@@ -426,7 +431,7 @@ class SelectedAnnotation extends React.Component {
                     })}
                     onClick={this.changeLanguage.bind(this, 'Hebrew')}
                   >
-                    Hebrew
+                    {translate('general.hebrew')}
                   </button>
                 </div>
               )}

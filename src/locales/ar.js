@@ -84,7 +84,10 @@ export default {
     admin: 'مزود المحتوى',
     hebrew: 'عبري',
     arabic: 'عربي',
-    comingSoon: 'قريبا'
+    comingSoon: 'قريبا',
+    close: 'غلاق',
+    next: 'التالى',
+    letsGo: 'بداية'
   },
   workflowSelection: {
     phaseOne: 'المرحلة الأولى: فرز القطع',

@@ -12,14 +12,9 @@ if (window.tutorialsCompletedThisSession) {
   window.tutorialsCompletedThisSession = completedThisSession;
 }
 
-const ADVANCE_TEXT = {
-  next: 'Next',
-  go: 'Let\'s Go'
-};
-
 class TutorialView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
     this.closeTutorial = this.closeTutorial.bind(this);
@@ -29,7 +24,7 @@ class TutorialView extends React.Component {
     this.state = {
       loaded: false,
       media: {},
-      nextStep: ADVANCE_TEXT.next
+      nextStep: props.translate('general.next')
     };
   }
 
@@ -101,9 +96,9 @@ class TutorialView extends React.Component {
     const maxSteps = (this.stepThrough && this.stepThrough.props && this.stepThrough.props.children)
       ? React.Children.count(this.stepThrough.props.children) : 0;
     if (currentStep >= maxSteps) {
-      this.setState({ nextStep: ADVANCE_TEXT.go });
-    } else if (this.state.nextStep === ADVANCE_TEXT.go) {
-      this.setState({ nextStep: ADVANCE_TEXT.next });
+      this.setState({ nextStep: this.props.translate('general.letsGo') });
+    } else if (this.state.nextStep === this.props.translate('general.letsGo')) {
+      this.setState({ nextStep: this.props.translate('general.next') });
     }
     return currentStep >= maxSteps;
   }
@@ -149,7 +144,7 @@ class TutorialView extends React.Component {
             })}
           </StepThrough>
           <div>
-            <button className="button" onClick={this.closeTutorial}>Close</button>
+            <button className="button" onClick={this.closeTutorial}>{this.props.translate('general.close')}</button>
             <button className="button button__dark" onClick={this.advanceTutorial}>{this.state.nextStep}</button>
           </div>
         </div>
