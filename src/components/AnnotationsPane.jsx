@@ -96,6 +96,8 @@ class AnnotationsPane extends React.Component {
             cy={point.y}
             r={10}
             fill="#979797"
+            stroke="white"
+            strokeWidth="2"
           />,
         );
       }
