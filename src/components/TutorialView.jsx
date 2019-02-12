@@ -84,14 +84,14 @@ class TutorialView extends React.Component {
   }
 
   isFinalStep() {
-    const currentStep = this.state.stepIndex;
-    const maxSteps = this.props.tutorial.steps.length - 1 || 0;
-    if (currentStep >= maxSteps) {
+    const currentStep = this.state.stepIndex + 1;
+    const totalSteps = (this.props.tutorial.steps && this.props.tutorial.steps.length) || 0;
+    if (currentStep >= totalSteps) {
       this.setState({ nextStep: this.props.translate('general.letsGo') });
     } else if (this.state.nextStep === this.props.translate('general.letsGo')) {
       this.setState({ nextStep: this.props.translate('general.next') });
     }
-    return currentStep >= maxSteps;
+    return currentStep >= totalSteps;
   }
 
   handleStep(index) {
@@ -104,7 +104,7 @@ class TutorialView extends React.Component {
     if (!this.state.loaded) {
       return null;
     }
-    const totalSteps = this.props.tutorial.steps.length || 0;
+    const totalSteps = (this.props.tutorial.steps && this.props.tutorial.steps.length) || 0;
     const allSteps = Array.from(Array(totalSteps).keys());
     const currentStep = this.props.tutorial.steps[this.state.stepIndex];
 
