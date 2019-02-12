@@ -147,7 +147,7 @@ class TutorialView extends React.Component {
             )}
           </span>
           <div>
-            <button className="button" onClick={this.closeTutorial}>Close</button>
+            <button className="button" onClick={this.closeTutorial}>{this.props.translate('general.close')}</button>
             <button
               className="button button__dark"
               onClick={this.advanceTutorial.bind(this, totalSteps)}
