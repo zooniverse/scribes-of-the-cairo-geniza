@@ -69,7 +69,7 @@ baseConfig.staging = baseConfig.development;  //staging === development, as far 
 
 const config = baseConfig[env];
 
-export { env, config };
+export { env, config, CONSENSUS_SCORE_TO_RETIRE, MINIMUM_VIEW_TO_RETIRE };
 
 // Try and match the location.search property against a regex. Basically mimics
 // the CoffeeScript existential operator, in case we're not in a browser.
