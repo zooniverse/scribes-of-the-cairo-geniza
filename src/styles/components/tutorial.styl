@@ -11,6 +11,8 @@
 
 .tutorial
   @extend .div-shadow
+  display: flex
+  flex-direction: column
   background-color: $bisque
   margin: auto
   width: 25rem
@@ -47,25 +49,29 @@
     display: flex
     justify-content: space-around
 
-  .step-through-direction
-    display: none
-
+  .step-through-pips
+    align-self: center
+    display: flex
+    margin: 0.5rem 0
 
   .step-through-pip
+    width: 1.25em
     position: relative
 
     span
       border: 1px solid $plum
+      border-radius: 50%
       color: transparent
-      height: 0.7rem
-      width: 0.7rem
+      position: absolute
+      height: 0.75em
+      width: 0.75em
 
     span:after
       content: ''
       position: absolute
       height: 0.4rem
-      left: 0.52rem
-      top: 0.6rem
+      left: 0.1rem
+      top: 0.1rem
       width: 0.4rem
       border-radius: 50%
 

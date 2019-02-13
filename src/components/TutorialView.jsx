@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTranslate, getActiveLanguage } from 'react-localize-redux';
-import { StepThrough } from 'zooniverse-react-components';
 import { Markdown } from 'markdownz';
 import classnames from 'classnames';
 import { togglePopup } from '../ducks/dialog';
@@ -16,15 +15,14 @@ class TutorialView extends React.Component {
   constructor(props) {
     super(props);
 
-    this.previousActiveElement = document.activeElement;  //WARNING: this doesn't work on Edge.
     this.closeTutorial = this.closeTutorial.bind(this);
-    this.advanceTutorial = this.advanceTutorial.bind(this);
     this.isFinalStep = this.isFinalStep.bind(this);
 
     this.state = {
       loaded: false,
       media: {},
-      nextStep: props.translate('general.next')
+      nextStep: props.translate('general.next'),
+      stepIndex: 0
     };
   }
 
@@ -57,22 +55,17 @@ class TutorialView extends React.Component {
     this.props.dispatch(togglePopup(null));
   }
 
-  advanceTutorial() {
-    const swiper = this.stepThrough && this.stepThrough.swiper;
-
-    if (swiper) {
-      if (this.isFinalStep()) {
-        this.closeTutorial();
-      } else {
-        this.stepThrough.goNext();
-      }
+  advanceTutorial(total, e) {
+    if (e) e.preventDefault();
+    const nextStep = this.state.stepIndex + 1;
+    if (nextStep <= total - 1) {
+      this.handleStep(nextStep);
+    } else {
+      this.closeTutorial();
     }
   }
 
   handleUnmount() {
-    if (this.previousActiveElement && this.previousActiveElement.focus) {
-      this.previousActiveElement.focus();
-    }
     const now = new Date().toISOString();
     completedThisSession[this.props.tutorial.id] = now;
     if (this.props.user) {
@@ -91,25 +84,36 @@ class TutorialView extends React.Component {
   }
 
   isFinalStep() {
-    const currentStep = (this.stepThrough && this.stepThrough.state && this.stepThrough.state.step)
-      ? this.stepThrough.state.step + 1 : 0;
-    const maxSteps = (this.stepThrough && this.stepThrough.props && this.stepThrough.props.children)
-      ? React.Children.count(this.stepThrough.props.children) : 0;
-    if (currentStep >= maxSteps) {
+    const currentStep = this.state.stepIndex + 1;
+    const totalSteps = (this.props.tutorial.steps && this.props.tutorial.steps.length) || 0;
+    if (currentStep >= totalSteps) {
       this.setState({ nextStep: this.props.translate('general.letsGo') });
     } else if (this.state.nextStep === this.props.translate('general.letsGo')) {
       this.setState({ nextStep: this.props.translate('general.next') });
     }
-    return currentStep >= maxSteps;
+    return currentStep >= totalSteps;
+  }
+
+  handleStep(index) {
+    this.setState({
+      stepIndex: index
+    });
   }
 
   render() {
     if (!this.state.loaded) {
       return null;
     }
+    const totalSteps = (this.props.tutorial.steps && this.props.tutorial.steps.length) || 0;
+    const allSteps = Array.from(Array(totalSteps).keys());
+    const currentStep = this.props.tutorial.steps[this.state.stepIndex];
+
+    const source = currentStep && currentStep.media && this.state.media[currentStep.media];
     const language = this.props.currentLanguage;
     const translations = (this.props.translatedTutorial && this.props.translatedTutorial[language])
       ? this.props.translatedTutorial[language] : null;
+    const content = translations && translations[`steps.${this.state.stepIndex}.content`]
+      ? translations[`steps.${this.state.stepIndex}.content`] : currentStep.content;
 
     return (
       <div className="tutorial-container">
@@ -122,30 +126,34 @@ class TutorialView extends React.Component {
             <span>{this.props.translate('tutorial.title')}</span>
             <button className="close-button" onClick={this.closeTutorial}>X</button>
           </div>
-          <StepThrough ref={(el) => { this.stepThrough = el; }} className="tutorial-steps">
-            {this.props.tutorial.steps.map((step, i) => {
-              const content = translations ? translations[`steps.${i}.content`] : step.content;
-              if (!step._key) {
-                step._key = Math.random();
-              }
-              let source;
-              if (this.state.media[step.media]) {
-                source = this.state.media[step.media].src;
-              }
-
-              return (
-                <div key={step._key} className="tutorial-step">
-                  {source && (
-                    <img alt="Tutorial" src={source} />
-                  )}
-                  <Markdown>{content}</Markdown>
-                </div>
-              );
-            })}
-          </StepThrough>
+          <div className="tutorial-step">
+            {source && (
+              <img alt="Tutorial" src={source.src} />
+            )}
+            <Markdown>{content}</Markdown>
+          </div>
+          <span className="step-through-pips">
+            {allSteps.map(thisStep =>
+              <label key={thisStep} className="step-through-pip" title={`Step ${thisStep + 1}`}>
+                <input
+                  type="radio"
+                  className="step-through-pip-input"
+                  aria-label={`Step ${thisStep + 1} of ${totalSteps}`}
+                  checked={thisStep === this.state.stepIndex}
+                  onChange={this.handleStep.bind(this, thisStep)}
+                />
+                <span>{thisStep + 1}</span>
+              </label>
+            )}
+          </span>
           <div>
             <button className="button" onClick={this.closeTutorial}>{this.props.translate('general.close')}</button>
-            <button className="button button__dark" onClick={this.advanceTutorial}>{this.state.nextStep}</button>
+            <button
+              className="button button__dark"
+              onClick={this.advanceTutorial.bind(this, totalSteps)}
+            >
+              {this.state.nextStep}
+            </button>
           </div>
         </div>
       </div>
@@ -161,7 +169,7 @@ TutorialView.propTypes = {
   }),
   rtl: PropTypes.bool,
   translate: PropTypes.func,
-  translatedTutorial: PropTypes.object,
+  translatedTutorial: PropTypes.shape(),
   tutorial: PropTypes.shape({
     get: PropTypes.func,
     id: PropTypes.string,
