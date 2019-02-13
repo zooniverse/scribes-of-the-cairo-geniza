@@ -12,6 +12,7 @@ import initialize from './initialize';
 import keyboard from './keyboard';
 import languages from './languages';
 import login from './login';
+import consensusLines from './consensus-lines';
 import project from './project';
 import reminder from './reminder';
 import subject from './subject';
@@ -34,6 +35,7 @@ export default combineReducers({
   keyboard,
   languages,
   login,
+  consensusLines,
   project,
   reminder,
   subject,
