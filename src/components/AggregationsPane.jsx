@@ -124,11 +124,12 @@ class AggregationsPane extends React.Component {
               </text>
               <text
                 id={`${uniqueKey}_icon`}
+                fontFamily="Font Awesome\ 5 Free"
                 fontSize="2.5em"
                 x={x + BUFFER}
                 y={y - BUFFER}
               >
-                &#x2398;
+                &#xf0c5;
               </text>
             </g>
           );
