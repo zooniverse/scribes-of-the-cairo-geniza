@@ -292,7 +292,7 @@ export default {
     `,
     additional: `
       Additionally, thank you to the following institutions for providing supplementary
-      images for this project: The Berlin State Library, The British Library, and The National Library of Israel.
+      images for this project: The Berlin State Library, The Bodleian Libraries at the University of Oxford, The British Library, and The National Library of Israel.
     `
   },
   textModifiers: {
