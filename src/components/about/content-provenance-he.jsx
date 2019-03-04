@@ -44,9 +44,9 @@ function Content() {
         <p className="text">
 כיום, זמינים ברשת יותר מ-18,000 קטעי גניזה מאוספי טיילור-שכטר, CUL Or.
 ומוצרי, ביניהם מסמכים רבים (מכתבים ומסמכים משפטיים) וקטעי ליטורגיה (פרי שיתוף הפעולה עם מפעל התפילה באוניברסיטת בן-גוריון). קטעים נוספים יועלו לרשת באופן סדיר, עד שיהיה כולו זמין לציבור. למידע נוסף בקרו באתר
-          <p className="text">
-            <a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" rel="noopener noreferrer" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a>
-          </p>
+        </p>
+        <p className="text">
+          <a href="https://cudl.lib.cam.ac.uk/collections/genizah/1" rel="noopener noreferrer" target="_blank">https://cudl.lib.cam.ac.uk/collections/genizah/1</a>
         </p>
       </div>
 
