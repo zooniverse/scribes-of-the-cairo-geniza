@@ -288,12 +288,11 @@ export default {
       Yonatan Gutenmacher, Rebecca Hill, Amey Hutchins, Dr. David Kraemer, Dr. Nita Krevans,
       Kate Lynch, Gayatri B. Oruganti, Dr. Ben Outhwaite, Dr. Craig Perry, Besan Radwan,
       Dr. Sinai Rusinek, Dr. Judith Olszowy-Schlanger, Jasmine Shinohara, Dr. Smadar Shtuhl,
-      Emma Stanford, and Dr. Oded Zinger for their contributions.
+      Emma Stanford, Einat Tamir and Dr. Oded Zinger for their contributions.
     `,
     additional: `
       Additionally, thank you to the following institutions for providing supplementary
-      images for this project: The Berlin State Library, The Bodleian Libraries at
-      the University of Oxford, The British Library, and The National Library of Israel.
+      images for this project: The Berlin State Library, The British Library, and The National Library of Israel.
     `
   },
   textModifiers: {
@@ -360,7 +359,7 @@ export default {
     specialThanks: 'Special Thanks',
     team: 'The team',
     aboutGeniza: 'About the Geniza',
-    aboutResearch: 'About the Research Partners',
+    aboutResearch: 'Research Partners',
     aboutScribes: 'About Scribes of the Cairo Geniza',
     getStarted: 'Get Started'
   },
