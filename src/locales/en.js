@@ -183,8 +183,8 @@ export default {
     Laura: {
       name: 'Laura Newman Eckstein',
       description: `
-        Laura Newman Eckstein is the Judaica Digital Humanities Coordinator at the
-        University of Pennsylvania Libraries.
+        Laura Newman Eckstein was the Judaica Digital Humanities Coordinator at the
+        University of Pennsylvania Libraries (2016-2018).
       `
     },
     Doug: {
@@ -298,7 +298,7 @@ export default {
     `,
     additional: `
       Additionally, thank you to the following institutions for providing supplementary
-      images for this project: The Berlin State Library, The Bodleian Libraries at the University of Oxford, The British Library, and The National Library of Israel.
+      images for this project: The Berlin State Library, The British Library, and The National Library of Israel.
     `
   },
   textModifiers: {
