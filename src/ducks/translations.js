@@ -17,7 +17,8 @@ const initialState = {
   status: TRANSLATION_STATUS.IDLE,
   strings: {
     field_guide: {},
-    tutorial: {}
+    tutorial: {},
+    workflow: {}
   }
 };
 

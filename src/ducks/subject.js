@@ -3,6 +3,7 @@ import { config } from '../config';
 
 import { clearAggregations, fetchAggregations } from './aggregations';
 import { resetAnnotations } from './annotations';
+import { fetchConsensusLines } from './consensus-lines';
 import { createClassification } from './classification';
 import { changeFrame } from './subject-viewer';
 
@@ -180,6 +181,7 @@ const prepareForNewSubject = (subject) => {
     const aggregationWorkflows = [config.challengingArabic, config.challengingHebrew];
     dispatch(resetAnnotations());
     dispatch(createClassification(subject));
+    dispatch(fetchConsensusLines(subject.id, activeWorkflowID));
     dispatch(changeFrame(0));
     if (aggregationWorkflows.indexOf(activeWorkflowID) >= 0) {
       const aggWorkflowId = activeWorkflowID === config.challengingHebrew ?

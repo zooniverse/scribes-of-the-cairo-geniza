@@ -279,6 +279,12 @@ export default {
         the Near East, Professor of Near Eastern Studies and History at Princeton
         University, and a specialist in the documentary Geniza.
       `
+    },
+    Emily: {
+      name: 'Emily Esten',
+      description: `
+        Emily Esten is the Judaica Digital Humanities Coordinator at the University of Pennsylvania Libraries.
+      `
     }
   },
   specialThanks: {
@@ -439,7 +445,7 @@ export default {
   },
   questionPrompt: {
     confirm: 'Yes, start a new page',
-    deny: 'No, continue saved work',
+    deny: 'No, continue current work',
     question: 'Are you sure you want to start a new workflow? This will delete any saved work you may have.',
     title: 'Start new Work?'
   },

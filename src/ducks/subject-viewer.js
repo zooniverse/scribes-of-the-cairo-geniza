@@ -1,3 +1,5 @@
+import { changeFrameData } from './consensus-lines';
+
 const MIN_SCALING = 0.1;
 const MAX_SCALING = 10;
 
@@ -211,6 +213,7 @@ const toggleContrast = () => {
 
 const changeFrame = (frame) => {
   return (dispatch) => {
+    dispatch(changeFrameData(frame));
     dispatch({
       type: CHANGE_FRAME,
       frame

@@ -89,15 +89,11 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
             <div className="home-page__buttons">
               <div>
                 <button
-                  className={classnames('button', {
-                    'button__dark-disabled': !adminMode
-                  })}
-                  disabled={!adminMode}
+                  className="button"
                   onClick={selectWorkflow.bind(null, config.easyHebrew)}
                 >
                   {translate('transcribeHebrew.easy')}
                 </button>
-                <span className="body-font block">{translate('general.comingSoon')}</span>
               </div>
               <div>
                 <button
@@ -153,15 +149,11 @@ const Home = ({ adminMode, currentLanguage, dispatch, history, language, rtl, tr
             <div className="home-page__buttons">
               <div>
                 <button
-                  className={classnames('button', {
-                    'button__dark-disabled': !adminMode
-                  })}
-                  disabled={!adminMode}
+                  className="button"
                   onClick={selectWorkflow.bind(null, config.easyArabic)}
                 >
                   {translate('transcribeArabic.easy')}
                 </button>
-                <span className="body-font block">{translate('general.comingSoon')}</span>
               </div>
               <div>
                 <button

@@ -41,7 +41,8 @@ const members = {
   William: require('../../images/team/WilliamNoel.jpg'),
   Shaun: require('../../images/team/ShaunANoordin.jpg'),
   Becky: require('../../images/team/BeckyRother.jpg'),
-  Marina: require('../../images/team/MarinaRustow.jpg')
+  Marina: require('../../images/team/MarinaRustow.jpg'),
+  Emily: require('../../images/team/EmilyEsten.jpg')
 };
 
 function AboutLayout({ translate, currentLanguage, rtl }) {
