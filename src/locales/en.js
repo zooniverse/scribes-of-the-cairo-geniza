@@ -183,8 +183,8 @@ export default {
     Laura: {
       name: 'Laura Newman Eckstein',
       description: `
-        Laura Newman Eckstein is the Judaica Digital Humanities Coordinator at the
-        University of Pennsylvania Libraries.
+        Laura Newman Eckstein was the Judaica Digital Humanities Coordinator at the
+        University of Pennsylvania Libraries (2016-2018).
       `
     },
     Doug: {
