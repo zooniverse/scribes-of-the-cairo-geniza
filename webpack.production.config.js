@@ -2,10 +2,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 const nib = require('nib');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: [
@@ -17,13 +17,15 @@ module.exports = {
     filename: '[name]-[hash].min.js',
   },
 
+  mode: 'production',
+
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'src/index.tpl.html',
       inject: 'body',
       filename: 'index.html',
-      googleAnalytics: 
+      googleAnalytics:
         '<!-- Global site tag (gtag.js) - Google Analytics -->' + '\n' +
         '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1224199-17"></script>' + '\n' +
         '<script>' + '\n' +
@@ -33,14 +35,8 @@ module.exports = {
         '  gtag("config", "UA-1224199-17");' + '\n' +
         '</script>' + '\n',
     }),
-    new ExtractTextPlugin({
-      filename: '[name]-[hash].min.css',
-      allChunks: true,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-      },
+    new MiniCssExtractPlugin({
+      filename: '[name]-[contenthash].css'
     }),
     new StatsPlugin('webpack.stats.json', {
       source: false,
@@ -63,17 +59,15 @@ module.exports = {
       use: 'babel-loader',
     }, {
       test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: {
-          loader: 'css-loader',
-        },
-      }),
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader'
+      ]
     }, {
       test: /\.styl$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
           loader: 'css-loader',
           options: {
             includePaths: [path.resolve(__dirname, 'node_modules/zoo-grommet/dist'), path.resolve(__dirname, 'node_modules/zooniverse-react-components/lib/zooniverse-react-components.css')]
@@ -81,10 +75,10 @@ module.exports = {
         }, {
           loader: 'stylus-loader',
           options: {
-            use: [nib()],
-          },
-        }],
-      }),
+            use: [nib()]
+          }
+        }
+      ]
     }, {
       test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
       use: [{
