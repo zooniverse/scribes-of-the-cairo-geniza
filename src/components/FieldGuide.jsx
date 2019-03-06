@@ -164,7 +164,7 @@ FieldGuide.defaultProps = {
   icons: {},
   rtl: false,
   translate: PropTypes.func,
-  translatedGuide: {},
+  translatedGuide: null,
 };
 
 FieldGuide.propTypes = {
