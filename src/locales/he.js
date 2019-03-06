@@ -72,6 +72,10 @@ export default {
     showModern: 'הצג מקלדת רגילה',
     showMarks: 'הראה סימוני שורות שנעשו בעבר'
   },
+  keyboard: {
+    enter: 'מעבר שורה',
+    space: 'רווח'
+  },
   collection: {
     title: 'הוסף לאוסף',
     addTo: 'הוסף לאוסף קיים',
@@ -117,7 +121,9 @@ export default {
     filterBy: 'סנן סוגי כתב',
     cursive: 'רהוט',
     minuscule: 'בינוני',
-    square: 'מרובע'
+    square: 'מרובע',
+    isActive: 'פעיל עתה במקלדת התעתוק שלך',
+    sent: 'נשלח למקלדת'
   },
   cribSheet: {
     title: 'סוגי כתב',
