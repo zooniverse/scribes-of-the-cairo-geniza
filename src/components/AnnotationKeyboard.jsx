@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { getTranslate, getActiveLanguage } from 'react-localize-redux';
 import { LANGUAGES } from '../ducks/keyboard';
 import MODERN_HEBREW from '../lib/HebrewKeyboard';
 import MODERN_ARABIC from '../lib/ArabicKeyboard';
@@ -80,7 +81,12 @@ class AnnotationKeyboard extends React.Component {
       <div key={`KEYBOARD_ROW_${i}`} className="annotation-keyboard__row">
         {row.map(letter => this.renderKey(letter))}
         {i === 1 && (
-          <button className="annotation-keyboard__button enter-button" onClick={this.props.onEnter}>Enter</button>
+          <button
+            className="annotation-keyboard__button enter-button"
+            onClick={this.props.onEnter}
+          >
+            {this.props.translate('keyboard.enter')}
+          </button>
         )}
       </div>
     );
@@ -97,7 +103,7 @@ class AnnotationKeyboard extends React.Component {
             })}
             onClick={this.props.onLetterClick}
           >
-            Space
+            {this.props.translate('keyboard.space')}
           </button>
         </div>
       </div>
@@ -115,7 +121,8 @@ AnnotationKeyboard.propTypes = {
   keyboardLanguage: PropTypes.string,
   onLetterClick: PropTypes.func,
   onEnter: PropTypes.func,
-  showModern: PropTypes.bool
+  showModern: PropTypes.bool,
+  translate: PropTypes.func
 };
 
 AnnotationKeyboard.defaultProps = {
@@ -124,14 +131,17 @@ AnnotationKeyboard.defaultProps = {
   keyboardLanguage: LANGUAGES.HEBREW,
   onLetterClick: () => {},
   onEnter: () => {},
-  showModern: true
+  showModern: true,
+  translate: () => {}
 };
 
 const mapStateToProps = state => ({
   activeKey: state.keyboard.activeKey,
   activeScript: state.keyboard.activeScript,
+  currentLanguage: getActiveLanguage(state.locale).code,
   keyboardLanguage: state.keyboard.activeLanguage,
-  showModern: state.keyboard.modern
+  showModern: state.keyboard.modern,
+  translate: getTranslate(state.locale)
 });
 
 export default connect(mapStateToProps)(AnnotationKeyboard);

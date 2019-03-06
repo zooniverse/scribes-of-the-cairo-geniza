@@ -435,7 +435,7 @@ export default {
       people-powered research. This research is made possible by
       volunteers-;hundreds of thousands of people around the world who
       come together to assist professional researchers. Our goal is to enable
-      reearch that would not be possible, or practical, otherwise. Zooniverse
+      research that would not be possible, or practical, otherwise. Zooniverse
       research results in new discoveries, datasets useful to the wider research
       community, and many publications.
     `
