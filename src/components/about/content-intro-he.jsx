@@ -28,7 +28,7 @@ function Content() {
       </p>
       <div className="diagram">
         <img src={imgPhase1Workflow} />
-        <span className="caption">Phase One Workflow</span>
+        <span className="caption">מהלך עבודה של הסיווג</span>
       </div>
       <p className="text">
         עתה אנו מצויים בשלב הסיווג, יחד עם העתקת הקטעים ואיתור מילות מפתח. מטרות יצירת התעתיקים וחיפוש

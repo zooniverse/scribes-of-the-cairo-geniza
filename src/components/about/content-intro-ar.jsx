@@ -21,7 +21,7 @@ function Content() {
       </p>
       <div className="diagram">
         <img src={imgPhase1Workflow} />
-        <span className="caption">المرحلة الأولى عمل</span>
+        <span className="caption">تصنيف سير العمل</span>
       </div>
       <p className="text">الآن نحن في مرحلة النسخ أو المرحلة الثانية والهدف منها هو:</p>
       <ol className="text">

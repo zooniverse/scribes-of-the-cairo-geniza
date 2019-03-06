@@ -135,7 +135,7 @@ class ScriptReferences extends React.Component {
           </button>
           {this.state.keyboardSent && (
             <span>
-              {this.scriptTranslate()} is now active in your transcription keyboard
+              {this.scriptTranslate()} {this.props.translate('scriptReferences.isActive')}
             </span>
           )}
         </div>
