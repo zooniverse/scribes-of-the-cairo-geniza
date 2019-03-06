@@ -66,7 +66,7 @@ class FieldGuide extends React.Component {
   findTranslations(language) {
     const items = this.props.guide.items.slice();
 
-    if (this.props.translationStatus === TRANSLATION_STATUS.READY) {
+    if (this.props.translatedGuide) {
       const translations = (this.props.translatedGuide && this.props.translatedGuide[language])
         ? this.props.translatedGuide[language] : null;
       if (translations) {
@@ -165,7 +165,6 @@ FieldGuide.defaultProps = {
   rtl: false,
   translate: PropTypes.func,
   translatedGuide: {},
-  translationStatus: TRANSLATION_STATUS.IDLE
 };
 
 FieldGuide.propTypes = {
@@ -178,7 +177,6 @@ FieldGuide.propTypes = {
   rtl: PropTypes.bool,
   translate: () => {},
   translatedGuide: PropTypes.object,
-  translationStatus: PropTypes.string
 };
 
 const mapStateToProps = state => ({
@@ -186,7 +184,6 @@ const mapStateToProps = state => ({
   rtl: state.languages.rtl,
   translate: getTranslate(state.locale),
   translatedGuide: state.translations.strings.field_guide,
-  translationStatus: state.translations.status
 });
 
 export default connect(mapStateToProps)(FieldGuide);
