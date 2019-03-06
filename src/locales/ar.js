@@ -8,12 +8,10 @@ export default {
     rotate: 'تدوير',
     invertColors: 'عكس الألوان',
     showHints: `
-      إظهار مساعدة للكلمة
-      الرئيسية
+      إظهار مساعدة للكلمة الرئيسية
     `,
     hideHints: `
-      إخفاء مساعدة للكلمة
-      الرئيسية
+      إخفاء مساعدة للكلمة الرئيسية
     `,
     showingMarks: 'إظهار العلامات السابقة',
     hidingMarks: 'توسيع المعلومات',
@@ -32,14 +30,8 @@ export default {
       صفحة فهرس
       المكتبة
     `,
-    collapseName: `
-      اخفاء الاسم
-      والمصدر
-    `,
-    expandName: `
-      إظهار الاسم
-      والمصدر
-    `,
+    collapseName: `اخفاء الاسم والمصدر`,
+    expandName: `إظهار الاسم والمصدر`,
     showCrib: `
       إظهار الورقة
       المرجعية
@@ -113,6 +105,10 @@ export default {
     showModern: 'إظهار الحروف الحديثة',
     showMarks: 'عرض العلامات السابقة'
   },
+  keyboard: {
+    enter: 'مفتاح الإدخال',
+    space: 'مفتاح المسافة'
+  },
   collection: {
     title: 'إضافة إلى مجموعة',
     addTo: 'إضافة إلى مجموعة موجودة',
@@ -158,7 +154,9 @@ export default {
     filterBy: 'فرز الخطوط حسب',
     cursive: 'بحروف متصلة',
     minuscule: 'ضئيلة',
-    square: 'مربعة'
+    square: 'مربعة',
+    isActive: 'هو الآن مفعل في لوحة مفاتيح النسخ الخاصة بك',
+    sent: 'إرسال'
   },
   cribSheet: {
     title: 'ورقة مرجعية',

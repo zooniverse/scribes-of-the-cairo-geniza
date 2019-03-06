@@ -9,8 +9,8 @@ export default {
     invertColors: 'Invert Colors',
     showHints: 'Show Keyword Hints',
     hideHints: 'Hide Keyword Hints',
-    showingMarks: 'Showing Previous Marks',
-    hidingMarks: 'Hiding Previous Marks',
+    showingMarks: 'Show Previous Marks',
+    hidingMarks: 'Hide Previous Marks',
     resetImage: 'Reset Image',
     addFavorites: 'Add to Favorites',
     addCollection: 'Add to Collection'
@@ -72,6 +72,10 @@ export default {
     showModern: 'Show Modern Characters',
     showMarks: 'Show Previous Marks'
   },
+  keyboard: {
+    enter: 'Enter',
+    space: 'Space'
+  },
   collection: {
     title: 'Add to Collection',
     addTo: 'Add to an existing collection',
@@ -118,7 +122,9 @@ export default {
     filterBy: 'Filter Scripts By',
     cursive: 'Cursive',
     minuscule: 'Minuscule',
-    square: 'Square'
+    square: 'Square',
+    isActive: 'is now active in your transcription keyboard',
+    sent: 'Sent'
   },
   cribSheet: {
     title: 'Crib Sheet',
@@ -140,7 +146,7 @@ export default {
   },
   helpers: {
     getStarted: 'Get started by clicking "Add Transcription"',
-    click: 'Click at the start and end of a line of text to add a transcription',
+    click: 'Click at the start and end of a line of text to add a transcription (remember to start on the right side!)',
     draw: 'Draw a box around the part of the iamge you\'d like to save',
     copied: 'Text copied to your clipboard! Paste into your text transcription box.'
   },
@@ -435,7 +441,7 @@ export default {
       people-powered research. This research is made possible by
       volunteers-;hundreds of thousands of people around the world who
       come together to assist professional researchers. Our goal is to enable
-      reearch that would not be possible, or practical, otherwise. Zooniverse
+      research that would not be possible, or practical, otherwise. Zooniverse
       research results in new discoveries, datasets useful to the wider research
       community, and many publications.
     `
