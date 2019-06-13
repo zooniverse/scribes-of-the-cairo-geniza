@@ -61,18 +61,19 @@ module.exports = {
       test: /\.css$/,
       use: [
         MiniCssExtractPlugin.loader,
-        'css-loader'
-      ]
-    }, {
-      test: /\.styl$/,
-      use: [
-        MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader',
           options: {
             includePaths: [path.resolve(__dirname, 'node_modules/zoo-grommet/dist'), path.resolve(__dirname, 'node_modules/zooniverse-react-components/lib/zooniverse-react-components.css')]
           }
-        }, {
+        }
+      ]
+    }, {
+      test: /\.styl$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        {
           loader: 'stylus-loader',
           options: {
             use: [nib()]
