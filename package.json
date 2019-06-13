@@ -14,8 +14,8 @@
     "deploy-production": "NODE_ENV=production npm run build && publisssh dist zooniverse-static/www.scribesofthecairogeniza.org"
   },
   "engines": {
-    "node": "^8.1.2",
-    "npm": "^6.0.0"
+    "node": "^10.15.3",
+    "npm": "^6.4.1"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",
