@@ -30,7 +30,7 @@
     "history": "~4.6.3",
     "lodash": "~4.17.11",
     "markdownz": "~7.6.4",
-    "panoptes-client": "~2.12.0",
+    "panoptes-client": "~3.0.0-rc.0",
     "prop-types": "~15.5.10",
     "publisssh": "^1.1.0",
     "react": "~15.6.1",
@@ -48,7 +48,7 @@
     "styled-components": "~3.1.6",
     "webpack-cli": "~3.2.3",
     "zoo-grommet": "^0.3.0",
-    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.7.3"
+    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.9.0"
   },
   "devDependencies": {
     "babel-cli": "~6.26.0",
