@@ -31,7 +31,7 @@
     "lodash": "~4.17.19",
     "markdownz": "~7.6.4",
     "panoptes-client": "~3.0.0-rc.0",
-    "prop-types": "~15.5.10",
+    "prop-types": "~15.7.2",
     "publisssh": "^1.1.0",
     "react": "~15.6.1",
     "react-dom": "~15.6.1",
@@ -92,6 +92,6 @@
     "stylus-loader": "~3.0.2",
     "webpack": "~4.29.0",
     "webpack-dashboard": "~3.0.0",
-    "webpack-dev-server": "~3.2.1"
+    "webpack-dev-server": "~3.11.0"
   }
 }
