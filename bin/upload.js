@@ -11,7 +11,6 @@ const remotePath = args[args.length - 1];
 async function uploadBuild() {
   const uploader = new Uploader({
     bucket: 'zooniverse-static',
-    dryRun: true,
     localPath: './dist',
     remotePath,
     concurrency: '200',
