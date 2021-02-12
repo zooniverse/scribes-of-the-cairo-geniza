@@ -36,6 +36,7 @@ const baseConfig = {
     phaseOne: '3157',
     arabicKeyword: '3201',
     hebrewKeyword: '3156',
+    hebrewLanguageReview: '',  // Not available as of Feb 2021
     consensusLineReductions: {
       3203: 'ext-18',
       3202: 'ext-19',
@@ -56,6 +57,7 @@ const baseConfig = {
     phaseOne: '4712',
     arabicKeyword: '6600',
     hebrewKeyword: '6529',
+    hebrewLanguageReview: '13157',  // New category, added Feb 2021 - see https://github.com/zooniverse/scribes-of-the-cairo-geniza/issues/204
     consensusLineReductions: {
       6652: 'T0-text-transcription',
       6654: 'T0-text-transcription',

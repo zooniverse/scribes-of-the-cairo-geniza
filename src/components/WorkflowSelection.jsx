@@ -78,6 +78,15 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
             >
               {translate('workflowSelection.phaseOne')} <i className="fa fa-external-link-alt" />
             </a>
+            <a
+              className="tertiary-label"
+              href={`${classifyPath}${c.hebrewLanguageReview}`}
+              rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {translate('workflowSelection.hebrewLanguageReview')} <i className="fa fa-external-link-alt" />
+            </a>
           </div>
           <div>
             <span className="h1-font">{translate('general.hebrew')}</span>

@@ -85,6 +85,7 @@ export default {
     phaseOne: 'المرحلة الأولى: فرز القطع',
     phaseTwo: 'المرحلة الثانية: النسخ',
     keywordSearch: 'العثور على العبارة',
+    hebrewLanguageReview: 'Hebrew Language Review',
     continue: 'مواصلة العمل في التقدم',
     choose: 'اختر سير عمل'
   },

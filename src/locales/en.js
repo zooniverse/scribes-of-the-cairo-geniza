@@ -54,6 +54,7 @@ export default {
     phaseOne: 'Phase One: Sort Fragments',
     phaseTwo: 'Phase Two: Transcription',
     keywordSearch: 'Phrase Finding',
+    hebrewLanguageReview: 'Hebrew Language Review',  // New category, added Feb 2021 - see https://github.com/zooniverse/scribes-of-the-cairo-geniza/issues/204
     continue: 'Continue work in progress',
     choose: 'Choose a workflow'
   },

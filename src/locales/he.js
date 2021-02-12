@@ -54,6 +54,7 @@ export default {
     phaseOne: 'שלב I: סיווג קטעי הגניזה',
     phaseTwo: 'שלב II: העתקת קטעי הגניזה',
     keywordSearch: 'איתור מילות מפתח',
+    hebrewLanguageReview: 'סיווג שפת הכתיבה',
     continue: 'המשך בתהליך העבודה',
     choose: 'בחרו משימה'
   },
