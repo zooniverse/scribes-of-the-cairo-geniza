@@ -82,9 +82,10 @@ export default {
     letsGo: 'بداية'
   },
   workflowSelection: {
-    phaseOne: 'المرحلة الأولى: فرز القطع',
+    phaseOne: 'المرحلة الأولى',
     phaseTwo: 'المرحلة الثانية: النسخ',
     keywordSearch: 'العثور على العبارة',
+    sortFragments: 'فرز القطع',
     hebrewLanguageReview: 'Hebrew Language Review',
     continue: 'مواصلة العمل في التقدم',
     choose: 'اختر سير عمل'

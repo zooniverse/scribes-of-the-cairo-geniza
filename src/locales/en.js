@@ -51,9 +51,10 @@ export default {
     letsGo: 'Let\'s Go'
   },
   workflowSelection: {
-    phaseOne: 'Phase One: Sort Fragments',
+    phaseOne: 'Phase One',
     phaseTwo: 'Phase Two: Transcription',
     keywordSearch: 'Phrase Finding',
+    sortFragments: 'Sort Fragments',  // Previously "phaseOne"
     hebrewLanguageReview: 'Hebrew Language Review',  // New category, added Feb 2021 - see https://github.com/zooniverse/scribes-of-the-cairo-geniza/issues/204
     continue: 'Continue work in progress',
     choose: 'Choose a workflow'

@@ -69,6 +69,7 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
       {showAllWorkflows && (
         <div>
           <div>
+            <span className="h1-font">{translate('workflowSelection.phaseOne')}</span>
             <a
               className="tertiary-label"
               href={`${classifyPath}${c.phaseOne}`}
@@ -76,7 +77,7 @@ const WorkflowSelection = ({ adminMode, className, dispatch, location, history, 
               target="_blank"
               rel="noopener noreferrer"
             >
-              {translate('workflowSelection.phaseOne')} <i className="fa fa-external-link-alt" />
+              {translate('workflowSelection.sortFragments')} <i className="fa fa-external-link-alt" />
             </a>
             <a
               className="tertiary-label"

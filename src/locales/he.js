@@ -51,9 +51,10 @@ export default {
     letsGo: 'להתחיל'
   },
   workflowSelection: {
-    phaseOne: 'שלב I: סיווג קטעי הגניזה',
+    phaseOne: 'שלב I',
     phaseTwo: 'שלב II: העתקת קטעי הגניזה',
     keywordSearch: 'איתור מילות מפתח',
+    sortFragments: 'סיווג קטעי הגניזה',
     hebrewLanguageReview: 'סיווג שפת הכתיבה',
     continue: 'המשך בתהליך העבודה',
     choose: 'בחרו משימה'
