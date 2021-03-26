@@ -15,7 +15,7 @@
     "deploy-production": "NODE_ENV=production npm run build && npm run _deploy www.scribesofthecairogeniza.org"
   },
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "author": "Zooniverse",
