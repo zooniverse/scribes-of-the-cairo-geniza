@@ -30,8 +30,8 @@
     "graphql-request": "~1.4.1",
     "history": "~4.6.3",
     "lodash": "~4.17.19",
-    "markdownz": "~7.6.4",
-    "panoptes-client": "~3.0.0-rc.0",
+    "markdownz": "~7.7.1",
+    "panoptes-client": "~3.3.0",
     "prop-types": "~15.7.2",
     "react": "~15.6.1",
     "react-dom": "~15.6.1",
@@ -47,7 +47,7 @@
     "redux-thunk": "~2.2.0",
     "styled-components": "~3.1.6",
     "webpack-cli": "~3.2.3",
-    "zoo-grommet": "^0.3.0",
+    "zoo-grommet": "~0.3.0",
     "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.9.1"
   },
   "devDependencies": {
