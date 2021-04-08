@@ -6,7 +6,7 @@ import { ZooHeader, ZooFooter } from 'zooniverse-react-components';
 
 import { fetchResources } from '../ducks/initialize';
 import { generateSessionID } from '../lib/get-session-id';
-import AboutLayout from './about';
+import AboutLayout from './about/AboutLayout';
 import AuthContainer from '../containers/AuthContainer';
 import ClassifierContainer from '../containers/ClassifierContainer';
 import Home from './Home';
