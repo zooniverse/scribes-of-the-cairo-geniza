@@ -14,7 +14,7 @@
   },
   "engines": {
     "node": ">=14",
-    "npm": ">=6"
+    "npm": ">=7"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",
@@ -29,8 +29,8 @@
     "graphql-request": "~3.6.1",
     "history": "~4.6.3",
     "lodash": "~4.17.19",
-    "markdownz": "~7.7.1",
-    "panoptes-client": "~3.3.0",
+    "markdownz": "~7.8.1",
+    "panoptes-client": "~3.3.4",
     "prop-types": "~15.7.2",
     "react": "~16.14.0",
     "react-dom": "~16.14.0",
