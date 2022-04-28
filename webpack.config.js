@@ -7,21 +7,18 @@ const nib = require('nib');
 module.exports = {
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, '/src/'),
-    disableHostCheck: true,  //Enable localhost access on VMs, i.e. for our IE11 testing
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    stats: {
-      colors: true,
-      hash: false,
-      timings: true,
-      chunks: false,
-      chunkModules: false,
-      modules: false
+      allowedHosts: [
+        'local.zooniverse.org'
+      ],
+      historyApiFallback: true,
+      host: process.env.HOST || "localhost",
+      client: {
+        overlay: true,
+        progress: true
+      },
+      server: 'https',
+      port: 3000
     },
-    port: 3000 // Change this for your project
-  },
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
     'react-hot-loader/patch',
