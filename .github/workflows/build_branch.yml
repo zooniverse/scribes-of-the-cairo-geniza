@@ -1,0 +1,15 @@
+name: Scribes of the Cairo Geniza: build PR branch
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build production
+    uses: zooniverse/ci-cd/.github/workflows/npm_build.yaml@main
+    with:
+      commit_id: ${{ github.sha }}
+      node_version: '16.x'
+      output: 'dist'
+      script: 'build'
