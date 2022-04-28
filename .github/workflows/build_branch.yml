@@ -1,4 +1,4 @@
-name: Scribes of the Cairo Geniza: build PR branch
+name: Scribes of the Cairo Geniza - build PR branch
 
 on:
   pull_request:
