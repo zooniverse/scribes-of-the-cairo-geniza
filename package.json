@@ -85,7 +85,7 @@
     "react-test-renderer": "~17.0.2",
     "rimraf": "~2.6.1",
     "sinon": "~2.3.8",
-    "stats-webpack-plugin": "~0.6.2",
+    "stats-webpack-plugin": "~0.7.0",
     "style-loader": "~2.0.0",
     "stylus": "~0.57.0",
     "stylus-loader": "~3.0.2",
