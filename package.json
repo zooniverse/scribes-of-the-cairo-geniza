@@ -10,7 +10,7 @@
     "start": "BABEL_ENV=development check-engines && check-dependencies && webpack-dashboard -p 3001 -- webpack-dev-server --config ./webpack.config.js",
     "test": "NODE_ENV=development BABEL_ENV=test mocha mocha-setup.js $(find src -name *.spec.jsx) --compilers js:@babel/register || true",
     "eslint": "eslint .",
-    "build": "BABEL_ENV=production check-engines && check-dependencies && webpack --config webpack.production.config.js -p"
+    "build": "BABEL_ENV=production check-engines && check-dependencies && webpack --config webpack.production.config.js"
   },
   "engines": {
     "node": ">=16",
@@ -45,7 +45,7 @@
     "redux-logger": "~3.0.6",
     "redux-thunk": "~2.2.0",
     "styled-components": "~5.3.3",
-    "webpack-cli": "~3.3.12",
+    "webpack-cli": "~4.9.2",
     "zoo-grommet": "~0.3.0",
     "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.9.3"
   },
@@ -89,7 +89,7 @@
     "style-loader": "~2.0.0",
     "stylus": "~0.54.5",
     "stylus-loader": "~3.0.2",
-    "webpack": "~4.29.0",
+    "webpack": "~4.46.0",
     "webpack-dashboard": "~3.0.0",
     "webpack-dev-server": "~3.11.0"
   }
