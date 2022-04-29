@@ -82,7 +82,7 @@
     "mocha": "~9.2.2",
     "nib": "~1.1.2",
     "react-hot-loader": "~3.0.0-beta.7",
-    "react-test-renderer": "~17.0.2",
+    "react-test-renderer": "~18.1.0",
     "rimraf": "~3.0.2",
     "sinon": "~13.0.2",
     "stats-webpack-plugin": "~0.7.0",
