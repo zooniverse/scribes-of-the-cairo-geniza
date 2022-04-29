@@ -20,6 +20,11 @@ module.exports = {
   mode: 'production',
 
   plugins: [
+    new webpack.EnvironmentPlugin({
+      HEAD_COMMIT: undefined,
+      DEBUG: false,
+      NODE_ENV: 'production'
+    }),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'src/index.tpl.html',
