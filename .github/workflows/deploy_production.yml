@@ -19,7 +19,7 @@ jobs:
       output: 'dist'
       script: 'build'
   deploy:
-    name: Deploy productiom
+    name: Deploy production
     uses: zooniverse/ci-cd/.github/workflows/deploy_static.yaml@main
     needs: build
     with:
