@@ -88,7 +88,7 @@
     "stats-webpack-plugin": "~0.7.0",
     "style-loader": "~2.0.0",
     "stylus": "~0.57.0",
-    "stylus-loader": "~3.0.2",
+    "stylus-loader": "~4.3.3",
     "webpack": "~4.46.0",
     "webpack-dashboard": "~3.3.7",
     "webpack-dev-server": "~4.8.1"
