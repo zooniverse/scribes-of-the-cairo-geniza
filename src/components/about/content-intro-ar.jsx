@@ -1,6 +1,6 @@
 import React from 'react';
 
-const imgPhase1Workflow = require('../../images/about-phase-1-workflow-ar.png');
+import imgPhase1Workflow from '../../images/about-phase-1-workflow-ar.png';
 
 function Content() {
   return (
