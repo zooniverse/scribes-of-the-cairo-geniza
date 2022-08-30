@@ -27,22 +27,38 @@ import ContentProvenanceEn from './content-provenance-en.jsx';
 import ContentProvenanceHe from './content-provenance-he.jsx';
 import ContentProvenanceAr from './content-provenance-ar.jsx';
 
+import Laurie from '../../images/team/LaurieAllen.jpg';
+import Samantha from '../../images/team/SamanthaBlickhan.jpg';
+import Laura from '../../images/team/LauraNewmanEckstein.jpg';
+import Doug from '../../images/team/DougEmery.jpg';
+import Mitch from '../../images/team/MitchFraas.jpg';
+import WillGranger from '../../images/team/WillGranger.jpg';
+import Arthur from '../../images/team/ArthurKiron.jpg';
+import Moshe from '../../images/team/MosheLavee.png';
+import Vered from '../../images/team/VeredKretzmer.png';
+import Eve from '../../images/team/EveKrakowski.jpg';
+import William from '../../images/team/WilliamNoel.jpg';
+import Shaun from '../../images/team/ShaunANoordin.jpg';
+import Becky from '../../images/team/BeckyRother.jpg';
+import Marina from '../../images/team/MarinaRustow.jpg';
+import Emily from '../../images/team/EmilyEsten.jpg';
+
 const members = {
-  Laurie: require('../../images/team/LaurieAllen.jpg'),
-  Samantha: require('../../images/team/SamanthaBlickhan.jpg'),
-  Laura: require('../../images/team/LauraNewmanEckstein.jpg'),
-  Doug: require('../../images/team/DougEmery.jpg'),
-  Mitch: require('../../images/team/MitchFraas.jpg'),
-  WillGranger: require('../../images/team/WillGranger.jpg'),
-  Arthur: require('../../images/team/ArthurKiron.jpg'),
-  Moshe: require('../../images/team/MosheLavee.png'),
-  Vered: require('../../images/team/VeredKretzmer.png'),
-  Eve: require('../../images/team/EveKrakowski.jpg'),
-  William: require('../../images/team/WilliamNoel.jpg'),
-  Shaun: require('../../images/team/ShaunANoordin.jpg'),
-  Becky: require('../../images/team/BeckyRother.jpg'),
-  Marina: require('../../images/team/MarinaRustow.jpg'),
-  Emily: require('../../images/team/EmilyEsten.jpg')
+  Laurie,
+  Samantha,
+  Laura,
+  Doug,
+  Mitch,
+  WillGranger,
+  Arthur,
+  Moshe,
+  Vered,
+  Eve,
+  William,
+  Shaun,
+  Becky,
+  Marina,
+  Emily
 };
 
 function AboutLayout({ translate, currentLanguage, rtl }) {
