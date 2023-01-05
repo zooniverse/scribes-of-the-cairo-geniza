@@ -34,6 +34,9 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.tpl.html',
       inject: 'body',
@@ -50,7 +53,15 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.jsx', '.styl'],
-    modules: ['.', 'node_modules']
+    modules: ['.', 'node_modules'],
+    fallback: {
+      fs: false,
+      // for markdown-it plugins
+      path: require.resolve("path-browserify"),
+      util: require.resolve("util"),
+      url: require.resolve("url"),
+      process: false,
+    }
   },
 
   module: {
@@ -73,7 +84,9 @@ module.exports = {
       }, {
         loader: 'stylus-loader',
         options: {
-          use: [nib()]
+          stylusOptions: {
+            use: [nib()]
+          }
         }
       }]
     }, {
@@ -93,8 +106,5 @@ module.exports = {
         loader: 'file-loader?name=[name].[ext]',
       }],
     }]
-  },
-  node: {
-    fs: 'empty' // workaround for the webpack shimming not working with certain dependencies
   }
 };
