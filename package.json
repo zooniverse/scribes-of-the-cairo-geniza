@@ -32,7 +32,7 @@
     "markdownz": "~7.8.1",
     "panoptes-client": "~4.2.7",
     "prop-types": "~15.8.1",
-    "react": "~16.14.0",
+    "react": "~18.2.0",
     "react-dom": "~16.14.0",
     "react-localize-redux": "~2.16.0",
     "react-redux": "~8.0.5",
