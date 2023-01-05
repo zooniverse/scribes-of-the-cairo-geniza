@@ -20,6 +20,9 @@ module.exports = {
   mode: 'production',
 
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new webpack.EnvironmentPlugin({
       HEAD_COMMIT: undefined,
       DEBUG: false,
@@ -55,6 +58,14 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.styl', '.css'],
     modules: ['.', 'node_modules'],
+    fallback: {
+      fs: false,
+      // for markdown-it plugins
+      path: require.resolve("path-browserify"),
+      util: require.resolve("util"),
+      url: require.resolve("url"),
+      process: false,
+    }
   },
 
   module: {
@@ -81,7 +92,9 @@ module.exports = {
         {
           loader: 'stylus-loader',
           options: {
-            use: [nib()]
+            stylusOptions: {
+              use: [nib()]
+            }
           }
         }
       ]
@@ -98,8 +111,5 @@ module.exports = {
         loader: 'file-loader?name=[name].[ext]',
       }],
     }],
-  },
-  node: {
-    fs: 'empty' // workaround for the webpack shimming not working with certain dependencies
   }
 };
