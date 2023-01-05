@@ -56,7 +56,7 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/register": "~7.18.9",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "^9.1.2",
     "babel-plugin-react-transform": "~3.0.0",
     "chai": "~4.3.7",
     "check-dependencies": "~1.1.0",
