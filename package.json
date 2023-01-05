@@ -85,7 +85,7 @@
     "rimraf": "~3.0.2",
     "sinon": "~13.0.2",
     "stats-webpack-plugin": "~0.7.0",
-    "style-loader": "~2.0.0",
+    "style-loader": "~3.3.1",
     "stylus": "~0.59.0",
     "stylus-loader": "~3.0.2",
     "webpack": "~4.46.0",
