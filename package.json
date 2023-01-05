@@ -61,7 +61,7 @@
     "babel-plugin-react-transform": "~3.0.0",
     "chai": "~4.3.7",
     "check-dependencies": "~1.1.0",
-    "check-engines": "~1.5.0",
+    "check-engines": "~1.6.0",
     "clean-webpack-plugin": "~4.0.0",
     "css-loader": "~6.7.3",
     "dirty-chai": "~2.0.1",
