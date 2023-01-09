@@ -76,7 +76,7 @@
     "file-loader": "~6.2.0",
     "html-webpack-plugin": "~5.5.0",
     "image-webpack-loader": "~8.1.0",
-    "jsdom": "~20.0.3",
+    "jsdom": "~21.0.0",
     "json-loader": "~0.5.4",
     "mini-css-extract-plugin": "~2.7.2",
     "mocha": "~10.2.0",
