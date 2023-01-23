@@ -74,7 +74,7 @@ module.exports = {
       ]
     }, {
       test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
-      use: 'file-loader'
+      type: 'asset/resource'
     }, {
       test: /\.styl$/,
       use: [{
@@ -102,9 +102,10 @@ module.exports = {
       }]
     }, {
       test: /\.(txt|ico)$/,
-      use: [{
-        loader: 'file-loader?name=[name].[ext]',
-      }],
+      type: 'asset/resource',
+      generator: {
+        filename: '[name][ext]'
+      }
     }]
   }
 };
