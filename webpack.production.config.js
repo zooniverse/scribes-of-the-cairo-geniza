@@ -100,10 +100,7 @@ module.exports = {
       ]
     }, {
       test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
-      type: 'asset/resource',
-      use: {
-        loader: 'image-webpack-loader',
-      },
+      type: 'asset/resource'
     }, {
       test: /\.(txt|ico)$/,
       type: 'asset/resource',
