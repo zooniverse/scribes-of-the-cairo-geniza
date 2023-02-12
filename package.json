@@ -13,8 +13,8 @@
     "build": "BABEL_ENV=production check-engines && check-dependencies && webpack --config webpack.production.config.js"
   },
   "engines": {
-    "node": ">=16",
-    "npm": ">=7"
+    "node": ">=18",
+    "npm": ">=8"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",

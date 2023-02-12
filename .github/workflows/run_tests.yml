@@ -16,7 +16,7 @@ jobs:
     - name: Node.js build
       uses: actions/setup-node@v3
       with:
-        node-version: 'lts/gallium'
+        node-version: 'lts/hydrogen'
         cache: 'npm'
     - run: npm install
     - run: npm test
