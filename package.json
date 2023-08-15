@@ -31,7 +31,7 @@
     "history": "~4.6.3",
     "lodash": "~4.17.19",
     "markdownz": "~8.0.6",
-    "panoptes-client": "~5.5.3",
+    "panoptes-client": "~5.5.4",
     "prop-types": "~15.8.1",
     "react": "~16.14.0",
     "react-dom": "~16.14.0",
