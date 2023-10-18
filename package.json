@@ -84,7 +84,7 @@
     "react-hot-loader": "~3.0.0-beta.7",
     "react-test-renderer": "~17.0.2",
     "rimraf": "~5.0.5",
-    "sinon": "~16.1.0",
+    "sinon": "~16.1.1",
     "stats-webpack-plugin": "~0.7.0",
     "style-loader": "~3.3.3",
     "stylus": "~0.60.0",
