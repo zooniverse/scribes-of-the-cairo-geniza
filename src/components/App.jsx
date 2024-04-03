@@ -11,6 +11,7 @@ import AuthContainer from '../containers/AuthContainer';
 import ClassifierContainer from '../containers/ClassifierContainer';
 import Home from './Home';
 import ProjectHeader from '../containers/ProjectHeader';
+import AppBanner from './AppBanner';
 
 class App extends React.Component {
   componentWillMount() {
@@ -29,6 +30,7 @@ class App extends React.Component {
         <header className="app-header">
           <ZooHeader authContainer={<AuthContainer />} />
         </header>
+        <AppBanner /> {/* Added 3 Apr 2024 */}
         <section className="content-section">
           <ProjectHeader location={this.props.location} />
           <Switch>
